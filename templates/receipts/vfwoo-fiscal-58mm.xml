@@ -1,0 +1,18 @@
+<receipt paper-width="32">
+  <align mode="center"><bold><text>{{store.name}}</text></bold></align>
+  <line />
+  {{#fiscal.extra_fields.vfwoo.available}}
+  <bold><text>FACTURA {{fiscal.extra_fields.vfwoo.invoice_number}}</text></bold>
+  <text>Fecha: {{fiscal.extra_fields.vfwoo.issued_at}}</text>
+  <text>NIF: {{fiscal.extra_fields.vfwoo.taxpayer_id}}</text>
+  <line />
+  {{/fiscal.extra_fields.vfwoo.available}}
+  {{#lines}}<text>{{qty}} x {{name}} {{line_total_excl_display}}</text>{{/lines}}
+  <line />
+  <align mode="right"><bold><text>TOTAL {{totals.total_incl_display}}</text></bold></align>
+  {{#fiscal.extra_fields.vfwoo.available}}
+  <align mode="center"><image src="{{fiscal.extra_fields.vfwoo.qr_src}}" width="160" /></align>
+  <align mode="center"><text>{{fiscal.extra_fields.vfwoo.verification_url}}</text></align>
+  <align mode="center"><text>{{fiscal.extra_fields.vfwoo.legal_legend}}</text></align>
+  {{/fiscal.extra_fields.vfwoo.available}}
+</receipt>

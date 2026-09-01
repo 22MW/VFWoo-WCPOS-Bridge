@@ -1,0 +1,20 @@
+# Secretos y configuración local
+.env
+.env.*
+*.key
+*.pem
+
+# Dependencias
+node_modules/
+vendor/
+
+# Archivos temporales del sistema y herramientas
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+
+# Resultados de pruebas
+coverage/
+.phpunit.result.cache

@@ -1,0 +1,17 @@
+<div style="font-family: Arial, sans-serif; max-width: 760px; margin: 0 auto; color: #111;">
+  <h1>{{store.name}}</h1>
+  {{#fiscal.extra_fields.vfwoo.available}}
+  <h2>Factura {{fiscal.extra_fields.vfwoo.invoice_number}}</h2>
+  <p>Fecha de expedición: {{fiscal.extra_fields.vfwoo.issued_at}}<br>NIF emisor: {{fiscal.extra_fields.vfwoo.taxpayer_id}}</p>
+  {{/fiscal.extra_fields.vfwoo.available}}
+  <table style="width: 100%; border-collapse: collapse;" border="1" cellpadding="8">
+    <thead><tr><th>Producto</th><th>Cantidad</th><th>Importe</th></tr></thead>
+    <tbody>{{#lines}}<tr><td>{{name}}</td><td>{{qty}}</td><td>{{line_total_incl_display}}</td></tr>{{/lines}}</tbody>
+  </table>
+  <p style="text-align: right;"><strong>Total: {{totals.total_incl_display}}</strong></p>
+  {{#fiscal.extra_fields.vfwoo.available}}
+  <div style="text-align: center;"><img src="{{fiscal.extra_fields.vfwoo.qr_src}}" width="180" height="180" alt="Código QR de verificación" /></div>
+  <p style="text-align: center;"><a href="{{fiscal.extra_fields.vfwoo.verification_url}}">{{fiscal.extra_fields.vfwoo.verification_url}}</a></p>
+  <p style="text-align: center;">{{fiscal.extra_fields.vfwoo.legal_legend}}</p>
+  {{/fiscal.extra_fields.vfwoo.available}}
+</div>
