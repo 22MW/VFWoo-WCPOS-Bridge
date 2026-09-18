@@ -520,3 +520,38 @@ La investigación de código confirma que el MVP puede implementarse sin tocar W
 4. Webkul imprime el resultado dentro de su flujo normal.
 
 Pendiente antes de crear el plugin: hacer una prueba mínima en el navegador que demuestre que el objeto `order` enriquecido está disponible en ambos caminos y que el script propio se carga antes de pulsar imprimir.
+
+## 12. Estado de implementación inicial
+
+La estructura base del addon ya está creada y versionada. El primer bloque implementado incluye:
+
+- bootstrap y comprobación de dependencias;
+- proveedor de lectura de VFWoo;
+- enriquecimiento de la venta inicial y del historial/reimpresión;
+- script POS con `wp.hooks`;
+- inserción del bloque fiscal en el ticket;
+- pantalla de estado bajo WooCommerce;
+- pestaña `VFWoo Fiscal` dentro de `POS → Settings`;
+- documentación inicial dentro del `_dev` del plugin.
+
+La pestaña no sustituye la configuración de VFWoo: solo informa del estado de la integración.
+
+### Repositorio y rama
+
+- Remoto: `https://github.com/22MW/VFWoo-WCPOS-Bridge.git`.
+- Rama independiente: `dev-vfwoo-webkul-pos-bridge`.
+- `main` y `posDevMisha` no se han modificado.
+- Commit inicial: `2b81773 feat(vfwoo-webkul-pos-bridge): add initial fiscal bridge`.
+- Push completado en `origin/dev-vfwoo-webkul-pos-bridge`.
+
+### Estado real
+
+- Sintaxis PHP validada con PHP de LocalWP.
+- Sintaxis JavaScript validada con `node --check`.
+- `git diff --check` validado.
+- Plugin todavía no activado en WordPress local.
+- Impresión inicial y reimpresión con QR real pendientes de QA.
+
+### Siguiente bloque
+
+Activar el plugin en local y probar el pedido `39084` en impresión inicial, reimpresión, presencia de `MACROPUS-2026-0027`, carga del QR y ausencia segura de datos cuando VFWoo no tenga factura.
