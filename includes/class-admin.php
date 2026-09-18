@@ -12,13 +12,12 @@ defined( 'ABSPATH' ) || exit;
 final class Admin {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_menu' ), 30 );
-		add_action( 'admin_notices', array( $this, 'missing_notice' ) );
 		add_filter( 'wkwcpos_modify_settings_tabs', array( $this, 'add_pos_settings_tab' ) );
-		add_action( 'pos_vfwoo-webkul-bridge', array( $this, 'render' ) );
+		add_action( 'pos_vfwoo-bridge', array( $this, 'render' ) );
 	}
 
 	public function add_pos_settings_tab( $tabs ): array {
-		$tabs['vfwoo-webkul-bridge'] = '<span class="dashicons dashicons-shield"></span>' . esc_html__( 'VFWoo Fiscal', 'vfwoo-webkul-pos-bridge' );
+		$tabs['vfwoo-bridge'] = '<span class="dashicons dashicons-shield"></span>' . esc_html__( 'VFWoo Bridge', 'vfwoo-webkul-pos-bridge' );
 		return $tabs;
 	}
 
@@ -57,11 +56,4 @@ final class Admin {
 		<?php
 	}
 
-	public function missing_notice(): void {
-		if ( ! current_user_can( 'activate_plugins' ) || Requirements::can_boot() ) {
-			return;
-		}
-
-		echo '<div class="notice notice-warning"><p>' . esc_html__( 'VFWoo Webkul POS Bridge necesita WooCommerce y VFWoo activos.', 'vfwoo-webkul-pos-bridge' ) . '</p></div>';
-	}
 }

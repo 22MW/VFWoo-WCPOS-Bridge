@@ -11,19 +11,14 @@ defined( 'ABSPATH' ) || exit;
 
 final class POS_Script {
 	public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ), 30 );
+		add_action( 'wkwcpos_enqueue_pos_scripts', array( $this, 'enqueue' ) );
 	}
 
 	public function enqueue(): void {
-		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
-		if ( ! in_array( $page, array( 'pos-system', 'point-of-sale' ), true ) ) {
-			return;
-		}
-
 		wp_enqueue_script(
 			'vfwoo-webkul-pos-bridge',
 			VFWOO_WEBKUL_URL . 'assets/js/pos-bridge.js',
-			array( 'wp-hooks' ),
+			array( 'wp-hooks', 'wk-wc-pos-script' ),
 			VFWOO_WEBKUL_VERSION,
 			false
 		);

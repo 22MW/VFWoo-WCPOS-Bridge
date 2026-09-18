@@ -15,7 +15,7 @@ final class Fiscal_Provider {
 			return array( 'available' => false );
 		}
 
-		$data = \VFWoo\Ticket_Fiscal_Data::for_order( $order, true );
+		$data = \VFWoo\Ticket_Fiscal_Data::for_order( $order->get_id(), true );
 		return is_array( $data ) ? $data : array( 'available' => false );
 	}
 }

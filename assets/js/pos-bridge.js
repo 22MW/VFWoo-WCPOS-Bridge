@@ -7,6 +7,13 @@
 
 	function renderFiscalBlock( html, order ) {
 		var fiscal = order && order.vfwoo_webkul_bridge ? order.vfwoo_webkul_bridge.fiscal : null;
+		console.info( '[VFWoo Webkul Bridge] invoice filter', {
+			orderId: order && ( order.order_id || order.id ) ? ( order.order_id || order.id ) : 0,
+			hasBridgeData: !! ( order && order.vfwoo_webkul_bridge ),
+			available: !! ( fiscal && fiscal.available ),
+			hasNumber: !! ( fiscal && fiscal.invoice_number ),
+			hasQr: !! ( fiscal && fiscal.qr_src )
+		} );
 		if ( ! fiscal || ! fiscal.available ) {
 			return html;
 		}

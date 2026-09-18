@@ -10,19 +10,24 @@ namespace VFWoo_Webkul_POS_Bridge;
 defined( 'ABSPATH' ) || exit;
 
 final class Plugin {
-	private static $instance;
+	public static function boot(): void {
+		load_plugin_textdomain( 'vfwoo-webkul-pos-bridge', false, dirname( plugin_basename( VFWOO_WEBKUL_FILE ) ) . '/languages' );
 
-	public static function instance(): self {
-		if ( ! self::$instance ) {
-			self::$instance = new self();
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-requirements.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-admin.php';
+		new Admin();
+
+		if ( ! Requirements::are_met() ) {
+			add_action( 'admin_notices', array( Requirements::class, 'render_admin_notice' ) );
+			return;
 		}
 
-		return self::$instance;
-	}
-
-	private function __construct() {
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-fiscal-provider.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-order-integration.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-catalog-integration.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-script.php';
 		new Order_Integration();
+		new Catalog_Integration();
 		new POS_Script();
-		new Admin();
 	}
 }
