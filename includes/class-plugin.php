@@ -25,9 +25,11 @@ final class Plugin {
 
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-fiscal-provider.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-order-integration.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-customer-integration.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-script.php';
 		new Order_Integration();
 		new Catalog_Integration();
+		new Customer_Integration();
 		new POS_Script();
 	}
 }

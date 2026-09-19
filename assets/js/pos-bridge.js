@@ -139,6 +139,24 @@
 		window.setTimeout( checkServerVersion, 2000 );
 	}
 
+	// Required tax ID field in the POS customer form; Webkul submits every input of the form.
+	function renderNifField( field, customer ) {
+		var element = window.wp && window.wp.element;
+		if ( ! element || ! config ) {
+			return field;
+		}
+		var nif = customer && customer.vfwoo_webkul_nif ? customer.vfwoo_webkul_nif : '';
+		var unverified = nif && customer.vfwoo_webkul_nif_status === 'unverified';
+		return element.createElement(
+			'div',
+			{ className: 'customer-nif' },
+			element.createElement( 'label', { htmlFor: 'pos_customer_nif' }, config.nifLabel, element.createElement( 'i', null, '*' ) ),
+			element.createElement( 'input', { type: 'text', name: 'pos_customer_nif', id: 'pos_customer_nif', defaultValue: nif, autoComplete: 'off' } ),
+			unverified ? element.createElement( 'span', { className: 'error' }, config.nifUnverified ) : null
+		);
+	}
+
+	hooks.addFilter( 'wkwc_add_custom_field_in_form_after_email', 'vfwoo-webkul-pos-bridge', renderNifField );
 	hooks.addFilter( 'wkwcpos_modify_order_success_popup', 'vfwoo-webkul-pos-bridge', checkAfterSale );
 	hooks.addFilter( 'wkwcpos_modify_homepage_products', 'vfwoo-webkul-pos-bridge', checkCatalogVersion );
 	hooks.addFilter( 'wkwcpos_invoice_after_footer_details_block', 'vfwoo-webkul-pos-bridge', renderFiscalBlock );

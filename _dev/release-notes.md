@@ -1,5 +1,12 @@
 # Release notes
 
+## 0.1.0.9 — desarrollo
+
+- Clientes del POS con DNI/NIE/CIF obligatorio, validado (formato y censo AEAT) al guardar; NIF copiado al pedido para emitir F1. Confirmado en local.
+- Omitida la comprobación antispam de WP Armour Extended solo en el alta de clientes del POS.
+- Documentación: `guia-cambios.md`, `plan-cliente-fiscal.md`, `informe-soporte-webkul-default-customer.md`.
+- Pendiente: bloqueo en Pay, ticket F2 sin datos del cliente, aviso post-venta, herramienta de NIF de clientes existentes.
+
 ## 0.1.0.8 — desarrollo
 
 - QR incrustado en base64 en el ticket (venta inicial y reimpresión); corrige el QR roto en la primera impresión. Confirmado en local.

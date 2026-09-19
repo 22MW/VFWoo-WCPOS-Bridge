@@ -30,7 +30,7 @@ final class POS_Script {
 		wp_enqueue_script(
 			'vfwoo-webkul-pos-bridge',
 			VFWOO_WEBKUL_URL . 'assets/js/pos-bridge.js',
-			array( 'wp-hooks', 'wk-wc-pos-script' ),
+			array( 'wp-hooks', 'wp-element', 'wk-wc-pos-script' ),
 			VFWOO_WEBKUL_VERSION,
 			false
 		);
@@ -42,6 +42,8 @@ final class POS_Script {
 					'versionUrl'     => esc_url_raw( rest_url( 'vfwoo-webkul/v1/catalog-version' ) ),
 					'staleNotice'    => __( 'El catálogo del POS está desactualizado. Abre el menú Resync y elige Products.', 'vfwoo-webkul-pos-bridge' ),
 					'close'          => __( 'Cerrar', 'vfwoo-webkul-pos-bridge' ),
+					'nifLabel'       => __( 'DNI / NIE / CIF', 'vfwoo-webkul-pos-bridge' ),
+					'nifUnverified'  => __( 'NIF sin verificar en el censo de la AEAT.', 'vfwoo-webkul-pos-bridge' ),
 				)
 			) . ';',
 			'before'
