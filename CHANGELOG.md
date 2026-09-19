@@ -2,7 +2,7 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
-## [Sin publicar]
+## [Sin publicar] — dev 0.1.0.5
 
 ### Corregido
 
@@ -12,6 +12,10 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 - La pestaña de ajustes se identifica como `VFWoo Bridge`.
 - Se preparan los términos `product_brand` en la respuesta de productos de Webkul.
 
+### Añadido
+
+- Filtro `BRANDS` en el panel nativo de filtros del catálogo POS: se añade una entrada `BRANDS` a `attributes` con los términos de `product_brand`. Confirmado en local.
+
 ### Validado localmente
 
 - Impresión inicial y reimpresión del pedido 39084.
@@ -20,6 +24,7 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 
 ### Pendiente de validación
 
+- Filtro `BRANDS`: productos variables, combinación con categoría y búsqueda, y paginación.
 - Recarga automática o acción controlada para esa caché.
 
 ## [0.1.0] - 2026-09-18

@@ -1,5 +1,10 @@
 # Release notes
 
+## 0.1.0.5 — desarrollo
+
+- Filtro `BRANDS` en el panel nativo de filtros del POS mediante `product.attributes`; confirmado en local.
+- Pendiente: QA de variables, categoría y paginación; taxonomías configurables; borrado de caché desde ajustes.
+
 ## 0.1.0.4 — desarrollo
 
 - Identidad de plugin corregida a Veri*Fac*WOO.
