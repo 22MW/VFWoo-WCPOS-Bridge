@@ -22,5 +22,6 @@ habitual de impresión. El bridge no instala un catálogo paralelo de plantillas
 == Estado de desarrollo ==
 
 La integración está en validación local. Ticket fiscal con QR (venta inicial y
-reimpresión) y filtro de marcas en el catálogo POS confirmados en local. Pendiente
-QA detallada del filtro y taxonomías configurables.
+reimpresión) y filtro de marcas en el catálogo POS confirmados en local. Las
+taxonomías del filtro se eligen en `POS → Settings → VFWoo Bridge`. Pendiente QA
+detallada del filtro.

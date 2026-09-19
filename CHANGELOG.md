@@ -2,7 +2,7 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
-## [Sin publicar] — dev 0.1.0.5
+## [Sin publicar] — dev 0.1.0.6
 
 ### Corregido
 
@@ -15,6 +15,7 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 ### Añadido
 
 - Filtro `BRANDS` en el panel nativo de filtros del catálogo POS: se añade una entrada `BRANDS` a `attributes` con los términos de `product_brand`. Confirmado en local.
+- Taxonomías de filtro configurables en `POS → Settings → VFWoo Bridge`: cualquier taxonomía registrada para `product` (salvo categorías, `pa_*` e internas de WooCommerce). Por defecto `product_brand`. Confirmado en local.
 
 ### Validado localmente
 
@@ -24,7 +25,7 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 
 ### Pendiente de validación
 
-- Filtro `BRANDS`: productos variables, combinación con categoría y búsqueda, y paginación.
+- Filtros: productos variables, combinación con categoría y búsqueda, y paginación.
 - Recarga automática o acción controlada para esa caché.
 
 ## [0.1.0] - 2026-09-18

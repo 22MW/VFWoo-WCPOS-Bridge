@@ -24,7 +24,7 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 ## Fase 4 — Filtro BRANDS
 
 - Paso 1 HECHO y confirmado en local: entrada `BRANDS` en `attributes` para `product_brand`; el filtro aparece y funciona.
-- Paso 2: taxonomías configurables desde la pestaña, sin duplicar categorías ni `pa_*`.
+- Paso 2 HECHO y confirmado en local: taxonomías configurables desde la pestaña, sin duplicar categorías ni `pa_*`.
 - Camino preferente: alimentar el panel nativo mediante `product.attributes` (sin React propio).
 - Alternativa solo si falla: filtro propio con `wkwcpos_modify_homepage_products` y `wkwcpos_modify_product_page_component`.
 - Selección múltiple: OR entre marcas, AND con color, talla, categoría y búsqueda (ya es el comportamiento nativo).
@@ -32,6 +32,7 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 
 ## Fase 5 — Caché y compatibilidad
 
+- Observación del usuario: en el navegador, «Clear site data» (caché, IndexedDB, almacenamiento local, service workers, cookies) desconecta el POS; al volver a conectar carga todo desde cero (impuestos, pedidos, productos). Sin datos locales, la recarga es completa. Además, si se desconecta y reconecta sin borrar, no se recargan impuestos, pedidos ni productos. Idea: forzar esa recarga completa desde el POS (equivalente a limpiar los datos del sitio) cuando cambie la «versión de catálogo».
 - Idea (sin implementar): la caché vive en el navegador de cada caja (IndexedDB), así que un botón en wp-admin no puede borrarla directamente. Diseño posible: el bridge guarda una «versión de catálogo» (opción que sube al pulsar un botón en `VFWoo Bridge` o al cambiar la lógica de marcas); el script POS compara esa versión con la guardada en el navegador y, si difiere, avisa al cajero o lanza la recarga nativa de Webkul (botón `Restablecer`). Pendiente de confirmar qué borra exactamente `Restablecer` antes de reutilizarlo.
 - Detectar respuestas antiguas del catálogo (sin `vfwoo_webkul_brands`) y no ocultar productos en ese caso.
 - Estudiar recarga automática o acción controlada que limpie solo `pos.local`.

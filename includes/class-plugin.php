@@ -14,6 +14,7 @@ final class Plugin {
 		load_plugin_textdomain( 'vfwoo-webkul-pos-bridge', false, dirname( plugin_basename( VFWOO_WEBKUL_FILE ) ) . '/languages' );
 
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-requirements.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-catalog-integration.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-admin.php';
 		new Admin();
 
@@ -24,7 +25,6 @@ final class Plugin {
 
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-fiscal-provider.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-order-integration.php';
-		require_once VFWOO_WEBKUL_PATH . 'includes/class-catalog-integration.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-script.php';
 		new Order_Integration();
 		new Catalog_Integration();

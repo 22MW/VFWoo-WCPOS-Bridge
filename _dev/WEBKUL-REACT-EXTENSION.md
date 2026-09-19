@@ -11,7 +11,7 @@ Definir cómo extender la interfaz React de Webkul POS desde el bridge, sin edit
 | Precheck y contrato Webkul | Parcialmente hecho | Hooks y versión 7.1.1 localizados; las firmas React deben confirmarse antes de cerrar la fase. |
 | Transporte de datos | Hecho | El bridge añade `vfwoo_webkul_brands` usando `product_brand`. |
 | Diagnóstico en Settings | Pendiente | Está definido en roadmap; aún no implementado. |
-| Filtro visual `BRANDS` | Hecho (paso 1) | Sin React propio: entrada `BRANDS` en `product.attributes`; confirmado en local. Pendiente QA detallada y taxonomías configurables. |
+| Filtro visual `BRANDS` | Hecho (paso 1) | Sin React propio: entrada `BRANDS` en `product.attributes`; confirmado en local. Taxonomías configurables desde Settings confirmadas en local. Pendiente QA detallada. |
 | Caché y compatibilidad | Parcialmente investigado | Se confirmó caché local; falta automatizar una recarga segura. |
 | QA y mantenimiento | Parcial | El ticket fiscal y QR están validados; el filtro de marcas aún no. |
 

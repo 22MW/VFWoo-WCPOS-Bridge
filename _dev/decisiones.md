@@ -26,5 +26,5 @@ Si falta el dato de marca (caché antigua) o cambia el contrato, no se oculta ni
 ## D-007 — Informes por marca: sin gancho de cliente conocido
 Servidor: `wkwcpos_modify_report_single_order_data` y `wkwcpos_modify_report_search_result`. No se ha encontrado gancho para añadir opciones a `Filter By`. Decisión aplazada: inyección propia, informe propio del bridge o pedir gancho a Webkul.
 
-## D-008 — Taxonomías configurables (pendiente de implementar)
-Lista elegible en la pestaña `VFWoo Bridge`. Por defecto solo `product_brand`. Excluir `product_cat`, `pa_*` y taxonomías internas de WooCommerce.
+## D-008 — Taxonomías configurables (implementado y confirmado en local)
+Opción `vfwoo_webkul_filter_taxonomies`. Lista de taxonomías registradas para `product` (incluye las de CPT/plugins propios) con `show_ui`. Lista elegible en la pestaña `VFWoo Bridge`. Por defecto solo `product_brand`. Excluir `product_cat`, `pa_*` y taxonomías internas de WooCommerce.
