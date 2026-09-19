@@ -45,5 +45,8 @@ Campo obligatorio DNI/NIE/CIF en el formulario de cliente; se valida al guardar 
 ## D-014 — Antispam en el alta de clientes del POS
 El plugin WP Armour Extended (`wpa_woocommerce_register_validation` en `woocommerce_registration_errors`) marca como spam cualquier alta sin su campo oculto de formulario web, y eso rompía la creación de clientes desde el POS («Spamming or your Javascript is disabled !!»). El bridge quita ese filtro solo durante el guardado de un cliente del POS, que ya exige cajero autenticado en Webkul. En la web sigue activo.
 
+## D-015 — Pantalla «Marcas» en el POS
+Pantalla propia con menú (`wkwcpos_menus_list`) y ruta añadida a la lista de páginas de Webkul (`wkwcpos_pages_list`, que pinta cada página dentro de su layout con el menú; los ganchos `wkwcpos_show_custom_pages_component`/`render_custom_pages_component` no sirven para esto: un `/pos/marcas` sin ruta da su 404), construida con DOM nativo (sin hooks de React) porque el bundle de Webkul trae su propia copia de React. Datos por `POST vfwoo-webkul/v1/brand-report` (solo lectura), autenticado con `WKWCPOS_API_Authentication` y la cabecera `authkey` del POS. Solo pedidos con `_wk_wc_pos_outlet`, estados completed y processing, máximo 1 año. Marca actual del producto (`product_brand`); varias marcas cuentan en cada una. Confirmado en local.
+
 ## D-008 — Taxonomías configurables (implementado y confirmado en local)
 Opción `vfwoo_webkul_filter_taxonomies`. Lista de taxonomías registradas para `product` (incluye las de CPT/plugins propios) con `show_ui`. Lista elegible en la pestaña `VFWoo Bridge`. Por defecto solo `product_brand`. Excluir `product_cat`, `pa_*` y taxonomías internas de WooCommerce.

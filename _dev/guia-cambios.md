@@ -49,6 +49,13 @@ Plugin: VFWoo Webkul POS Bridge. Conecta VFWoo (facturas Veri*Factu) con el POS 
 - El plugin WP Armour Extended bloqueaba el alta de clientes desde el POS («Spamming or your Javascript is disabled»).
 - El bridge lo desactiva **solo durante el guardado de un cliente del POS**. En la web sigue activo.
 
+## 8. Pantalla «Marcas» en el POS
+
+- Entrada **Marcas** en el menú de la izquierda del POS.
+- Botones **Hoy, Ayer, Esta semana, Este mes** y fechas **Desde / Hasta** (máximo 1 año).
+- Por marca: unidades, ventas sin IVA, ventas con IVA, pedidos y devoluciones. Al pulsar una marca se ven **sus productos**. Se puede filtrar por marcas.
+- Solo cuenta ventas del POS. La marca es la actual del producto; si un producto tiene varias marcas, cuenta en cada una.
+
 ## Qué falta
 
 - Bloquear Pay si hay cliente sin NIF por encima del límite, o venta anónima por encima del límite.
@@ -56,7 +63,7 @@ Plugin: VFWoo Webkul POS Bridge. Conecta VFWoo (facturas Veri*Factu) con el POS 
 - Aviso después de la venta si la factura tendrá problemas.
 - Herramienta para revisar y completar el NIF de clientes existentes.
 - Diagnóstico de compatibilidad en Settings.
-- Informes por marca (sin gancho conocido en Webkul).
+- Informes por marca dentro de WooCommerce Analytics (opcional, más esfuerzo).
 - Retirar el debug temporal antes de publicar.
 
 Detalle técnico: `plan-cliente-fiscal.md`, `decisiones.md`, `roadmap.md`.

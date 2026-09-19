@@ -49,6 +49,15 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 - Retirar el debug temporal (PHP `error_log` y `console.info`) antes de cualquier release.
 - Alinear `readme.txt` (Stable tag, estado) y `CHANGELOG.md` con la versión al preparar release.
 
+## Pantalla «Marcas» en el POS (hecha y confirmada en local)
+
+- Entrada «Marcas» en el menú del POS (`wkwcpos_menus_list`) y pantalla propia (ruta añadida con `wkwcpos_pages_list`) con botón Volver.
+- Periodos: Hoy, Ayer, Esta semana (desde lunes), Este mes y rango Desde/Hasta (máximo 1 año). Selector de marcas.
+- Por marca: unidades, ventas sin IVA, ventas con IVA, pedidos y devoluciones; al desplegar, lo mismo por producto.
+- Endpoint REST del bridge `POST vfwoo-webkul/v1/brand-report`, solo lectura, autenticado con `WKWCPOS_API_Authentication` de Webkul (cabecera `authkey` + `logged_in_user_id`). Solo pedidos del POS (meta `_wk_wc_pos_outlet`), estados completed y processing.
+- Limitaciones: la marca es la del producto hoy; un producto con varias marcas cuenta en cada una; variaciones con la marca del padre.
+- Opcional a futuro: página «Marcas» en WooCommerce Analytics (más esfuerzo; `ReportTable` no es público).
+
 ## Fase futura: informes
 
 - Añadir `Brands` al selector acumulable de Informes.

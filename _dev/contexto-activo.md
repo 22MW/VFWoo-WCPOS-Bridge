@@ -2,7 +2,7 @@
 
 ## Plugin objetivo
 
-`vfwoo-webkul-pos-bridge` (v0.1.0.9 dev, rama `dev-vfwoo-webkul-pos-bridge`, Webkul POS 7.1.1)
+`vfwoo-webkul-pos-bridge` (v0.1.0.10 dev, rama `dev-vfwoo-webkul-pos-bridge`, Webkul POS 7.1.1)
 
 ## Confirmado en local
 
@@ -20,6 +20,7 @@
 - Diagnóstico de compatibilidad y recarga segura de caché.
 - Informes por marca: sin gancho de cliente conocido (D-007).
 - Versión de catálogo (D-009) y aviso (D-010): confirmados en local.
+- Pantalla «Marcas» del POS (D-015): funciona en local. Opcional: contrastar cifras con más pedidos y periodos.
 - Cliente y NIF (D-013, `plan-cliente-fiscal.md`): fases 1-3 implementadas y confirmadas en local (alta con DNI, antispam D-014). Faltan bloqueo en Pay, ticket F2 sin datos del cliente, aviso post-venta y herramienta de NIF de clientes existentes.
 - Retirar el debug temporal antes de release.
 - Idea: botón en `POS → Settings → VFWoo Bridge` para borrar la caché local del POS (ver roadmap Fase 5).

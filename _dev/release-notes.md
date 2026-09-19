@@ -1,5 +1,10 @@
 # Release notes
 
+## 0.1.0.10 — desarrollo
+
+- Pantalla «Marcas» en el POS: ventas por marca y por producto con selector de periodo; ruta añadida con `wkwcpos_pages_list`; endpoint REST de solo lectura autenticado con la sesión del POS. Confirmado en local.
+- Pendiente: página «Marcas» en WooCommerce Analytics (opcional, más esfuerzo).
+
 ## 0.1.0.9 — desarrollo
 
 - Clientes del POS con DNI/NIE/CIF obligatorio, validado (formato y censo AEAT) al guardar; NIF copiado al pedido para emitir F1. Confirmado en local.

@@ -24,3 +24,96 @@
 	line-height: 1;
 	cursor: pointer;
 }
+
+.vfwoo-brands-page {
+	width: 100%;
+	max-height: 100vh;
+	overflow: auto;
+	padding: 20px 24px;
+	background: #f5f5f5;
+	color: #1d2327;
+	font-size: 15px;
+	box-sizing: border-box;
+}
+
+.vfwoo-brands-header {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.vfwoo-brands-header h2 {
+	margin: 0;
+	font-size: 22px;
+}
+
+.vfwoo-brands-toolbar,
+.vfwoo-brands-filter {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	margin: 14px 0;
+}
+
+.vfwoo-brands-page button {
+	padding: 8px 14px;
+	border: 1px solid #d0d0d0;
+	border-radius: 6px;
+	background: #fff;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.vfwoo-brands-page button.vfwoo-brands-apply,
+.vfwoo-brands-page button.is-active {
+	border-color: #fc8019;
+	background: #fc8019;
+	color: #fff;
+}
+
+.vfwoo-brands-page input[type="date"] {
+	padding: 6px 8px;
+	border: 1px solid #d0d0d0;
+	border-radius: 6px;
+}
+
+.vfwoo-brands-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #fff;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.vfwoo-brands-table th,
+.vfwoo-brands-table td {
+	padding: 10px 12px;
+	border-bottom: 1px solid #eee;
+	text-align: right;
+}
+
+.vfwoo-brands-table th:first-child,
+.vfwoo-brands-table td:first-child {
+	text-align: left;
+}
+
+.vfwoo-brands-brand {
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.vfwoo-brands-product td:first-child {
+	padding-left: 32px;
+}
+
+.vfwoo-brands-total {
+	font-weight: 700;
+	background: #fafafa;
+}
+
+.vfwoo-brands-note {
+	margin-top: 14px;
+	font-size: 12px;
+	color: #666;
+}
