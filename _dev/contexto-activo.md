@@ -2,13 +2,14 @@
 
 ## Plugin objetivo
 
-`vfwoo-webkul-pos-bridge` (v0.1.0.7 dev, rama `dev-vfwoo-webkul-pos-bridge`, Webkul POS 7.1.1)
+`vfwoo-webkul-pos-bridge` (v0.1.0.8 dev, rama `dev-vfwoo-webkul-pos-bridge`, Webkul POS 7.1.1)
 
 ## Confirmado en local
 
 - Ticket fiscal con QR: venta inicial y reimpresión (pedidos 39085 y 39084).
 - Filtro `BRANDS` en el panel nativo del catálogo POS (D-004): aparece y funciona.
 - Taxonomías configurables desde Settings (D-008): funciona.
+- QR incrustado en base64 y sin URL en el ticket (D-012): funciona a la primera impresión.
 - Versión de catálogo, aviso en POS y consulta automática (D-009, D-010, D-011): funcionan.
 - La caché local de Webkul conserva respuestas antiguas; limpiar los datos de `pos.local` fuerza la carga nueva.
 

@@ -35,5 +35,9 @@ Webkul desregistra en la pantalla POS todo estilo fuera de su lista blanca. Los 
 ## D-011 — Aviso de catálogo sin recargar el POS
 Ruta REST pública `GET /wp-json/vfwoo-webkul/v1/catalog-version` (solo devuelve un entero, `Cache-Control: no-store`). El script POS la consulta: 2 s tras abrir, al terminar una venta (`wkwcpos_modify_order_success_popup`), al cambiar de pantalla (`pushState`/`popstate`/`hashchange`) y cada 5 min; mínimo 60 s entre consultas; fallo silencioso offline. El aviso se quita solo cuando el catálogo en caché alcanza la versión del servidor (tras Resync → Products). Pendiente de QA; posible caché del service worker de Webkul sin confirmar.
 
+## D-012 — QR incrustado en el ticket
+Webkul imprime 500 ms después de montar el ticket; la ruta REST del QR tarda 0,7–1,3 s en local, así que la primera impresión salía con la imagen rota (la reimpresión funcionaba por la caché del navegador). El bridge incrusta el QR como PNG en base64 (`qr_data_uri`) en las respuestas de un solo pedido (venta inicial y reimpresión), usando `VFWoo\QR::png_url` con `qr_payload`. Es una clase interna de VFWoo no documentada como contrato: si falta o falla, se usa `qr_src` (URL). No se calcula en el listado del historial para no engordar la respuesta.
+El ticket ya no muestra la URL de cotejo en texto; sigue en los datos (`verification_url`).
+
 ## D-008 — Taxonomías configurables (implementado y confirmado en local)
 Opción `vfwoo_webkul_filter_taxonomies`. Lista de taxonomías registradas para `product` (incluye las de CPT/plugins propios) con `show_ui`. Lista elegible en la pestaña `VFWoo Bridge`. Por defecto solo `product_brand`. Excluir `product_cat`, `pa_*` y taxonomías internas de WooCommerce.

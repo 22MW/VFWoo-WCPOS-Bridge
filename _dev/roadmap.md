@@ -42,6 +42,7 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 
 ## Fase 6 — QA y mantenimiento
 
+- Tras actualizar VFWoo: comprobar que `VFWoo\QR::png_url` sigue existiendo (QR incrustado, D-012).
 - Productos simples, variables, categorías, búsqueda y paginación.
 - Ticket fiscal y reimpresión tras cada actualización de Webkul.
 - Registrar resultados en `contexto-activo.md` y `CHANGELOG.md`.

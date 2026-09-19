@@ -2,7 +2,7 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
-## [Sin publicar] — dev 0.1.0.7
+## [Sin publicar] — dev 0.1.0.8
 
 ### Corregido
 
@@ -20,6 +20,8 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 - Versión de catálogo (`vfwoo_webkul_catalog_version`): botón `Forzar recarga del catálogo` en `POS → Settings → VFWoo Bridge`; también sube al guardar los filtros. Cada producto lleva la versión con la que se cargó.
 - Aviso en el POS cuando el catálogo en caché es anterior: pide usar Resync → Products. No borra datos. Se quita solo tras el Resync.
 - Consulta automática de la versión sin recargar el POS (ruta REST `vfwoo-webkul/v1/catalog-version`): al abrir, al terminar una venta, al cambiar de pantalla y cada 5 minutos.
+- QR incrustado en el ticket como PNG base64 (`qr_data_uri`) en venta inicial y reimpresión de un pedido: la primera impresión ya no sale con la imagen rota (Webkul imprime 500 ms después de montar el ticket y la ruta REST del QR tarda más). Si falta la clase `VFWoo\QR`, se usa la URL como antes.
+- El ticket ya no muestra la URL de cotejo en texto; se mantiene número de factura, QR y leyenda legal.
 - Estilo del bridge permitido en la lista blanca de estilos del POS (`wkwcpos_add_custom_css`).
 
 ### Validado localmente

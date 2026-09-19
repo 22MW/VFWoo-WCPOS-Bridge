@@ -1,5 +1,11 @@
 # Release notes
 
+## 0.1.0.8 — desarrollo
+
+- QR incrustado en base64 en el ticket (venta inicial y reimpresión); corrige el QR roto en la primera impresión. Confirmado en local.
+- La URL de cotejo ya no se imprime en el ticket.
+- Pendiente: el QR incrustado usa la clase interna `VFWoo\QR`, no documentada como contrato de VFWoo; vigilar en actualizaciones de VFWoo.
+
 ## 0.1.0.7 — desarrollo
 
 - Versión de catálogo con botón en Settings y aviso en el POS (Resync → Products); confirmado en local.

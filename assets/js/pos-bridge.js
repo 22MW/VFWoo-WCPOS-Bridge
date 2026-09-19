@@ -12,7 +12,7 @@
 			hasBridgeData: !! ( order && order.vfwoo_webkul_bridge ),
 			available: !! ( fiscal && fiscal.available ),
 			hasNumber: !! ( fiscal && fiscal.invoice_number ),
-			hasQr: !! ( fiscal && fiscal.qr_src )
+			hasQr: !! ( fiscal && ( fiscal.qr_data_uri || fiscal.qr_src ) )
 		} );
 		if ( ! fiscal || ! fiscal.available ) {
 			return html;
@@ -26,11 +26,9 @@
 			}
 			block += '</p>';
 		}
-		if ( fiscal.qr_src ) {
-			block += '<img src="' + escapeAttribute( fiscal.qr_src ) + '" alt="QR Veri*Factu" width="120" height="120" />';
-		}
-		if ( fiscal.verification_url ) {
-			block += '<p style="font-size:10px;word-break:break-word;">' + escapeHtml( fiscal.verification_url ) + '</p>';
+		var qrSource = fiscal.qr_data_uri || fiscal.qr_src;
+		if ( qrSource ) {
+			block += '<img src="' + escapeAttribute( qrSource ) + '" alt="QR Veri*Factu" width="120" height="120" />';
 		}
 		if ( fiscal.legal_legend ) {
 			block += '<p style="font-size:10px;">' + escapeHtml( fiscal.legal_legend ) + '</p>';

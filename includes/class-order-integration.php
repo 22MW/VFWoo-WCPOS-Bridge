@@ -30,7 +30,7 @@ final class Order_Integration {
 
 	public function enrich_single_order( $response, $order, $user_id ) {
 		unset( $user_id );
-		$result = $this->enrich_order( $response, $order );
+		$result = $this->enrich_order( $response, $order, true );
 		$this->debug( 'single_order', $order, $result );
 		return $result;
 	}
@@ -45,7 +45,7 @@ final class Order_Integration {
 		if ( isset( $responses['order_id'] ) || isset( $responses['id'] ) ) {
 			$order_id = isset( $responses['order_id'] ) ? absint( $responses['order_id'] ) : absint( $responses['id'] );
 			$order    = $order_id ? wc_get_order( $order_id ) : false;
-			$result   = $this->enrich_order( $responses, $order );
+			$result   = $this->enrich_order( $responses, $order, true );
 			$this->debug( 'orders_single', $order, $result );
 			return $result;
 		}
@@ -60,7 +60,7 @@ final class Order_Integration {
 		return $responses;
 	}
 
-	private function enrich_order( $response, $order ): array {
+	private function enrich_order( $response, $order, bool $with_qr_image = false ): array {
 		$response = is_array( $response ) ? $response : array();
 		if ( ! $order instanceof \WC_Order ) {
 			$response['vfwoo_webkul_bridge'] = array( 'fiscal' => array( 'available' => false ) );
@@ -76,6 +76,7 @@ final class Order_Integration {
 				'issued_at'        => (string) ( $data['issued_at'] ?? '' ),
 				'verification_url' => (string) ( $data['verification_url'] ?? '' ),
 				'qr_src'           => (string) ( $data['qr_src'] ?? '' ),
+				'qr_data_uri'      => $with_qr_image ? $this->provider->qr_data_uri( $data ) : '',
 				'legal_legend'     => (string) ( $data['legal_legend'] ?? '' ),
 			),
 		);
