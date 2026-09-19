@@ -15,6 +15,7 @@ final class Admin {
 		add_filter( 'wkwcpos_modify_settings_tabs', array( $this, 'add_pos_settings_tab' ) );
 		add_action( 'pos_vfwoo-bridge', array( $this, 'render' ) );
 		add_action( 'admin_post_vfwoo_webkul_save_filters', array( $this, 'save_filters' ) );
+		add_action( 'admin_post_vfwoo_webkul_bump_catalog', array( $this, 'bump_catalog' ) );
 	}
 
 	public function add_pos_settings_tab( $tabs ): array {
@@ -43,6 +44,19 @@ final class Admin {
 			? array_map( 'sanitize_key', wp_unslash( $_POST['vfwoo_filter_taxonomies'] ) )
 			: array();
 		update_option( Catalog_Integration::OPTION, array_values( array_intersect( $posted, array_keys( Catalog_Integration::available_taxonomies() ) ) ) );
+		Catalog_Integration::bump_catalog_version();
+
+		wp_safe_redirect( add_query_arg( 'vfwoo_saved', '1', wp_get_referer() ? wp_get_referer() : admin_url( 'admin.php?page=vfwoo-webkul-pos-bridge' ) ) );
+		exit;
+	}
+
+	public function bump_catalog(): void {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_die( esc_html__( 'No tienes permisos para hacer esto.', 'vfwoo-webkul-pos-bridge' ), '', array( 'response' => 403 ) );
+		}
+		check_admin_referer( 'vfwoo_webkul_bump_catalog' );
+
+		Catalog_Integration::bump_catalog_version();
 
 		wp_safe_redirect( add_query_arg( 'vfwoo_saved', '1', wp_get_referer() ? wp_get_referer() : admin_url( 'admin.php?page=vfwoo-webkul-pos-bridge' ) ) );
 		exit;
@@ -67,7 +81,7 @@ final class Admin {
 			</table>
 			<h2><?php esc_html_e( 'Filtros del catálogo POS', 'vfwoo-webkul-pos-bridge' ); ?></h2>
 			<?php if ( isset( $_GET['vfwoo_saved'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
-				<div class="notice notice-success inline"><p><?php esc_html_e( 'Filtros guardados. Cada caja debe recargar su catálogo (borrar los datos locales del POS) para verlos.', 'vfwoo-webkul-pos-bridge' ); ?></p></div>
+				<div class="notice notice-success inline"><p><?php esc_html_e( 'Guardado. Cada caja mostrará un aviso para recargar su catálogo (Resync → Products).', 'vfwoo-webkul-pos-bridge' ); ?></p></div>
 			<?php endif; ?>
 			<p><?php esc_html_e( 'Elige qué taxonomías de producto aparecerán en el panel de filtros del POS. Las categorías y los atributos ya los muestra Webkul.', 'vfwoo-webkul-pos-bridge' ); ?></p>
 			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
@@ -81,6 +95,13 @@ final class Admin {
 					</label></p>
 				<?php endforeach; ?>
 				<?php submit_button( __( 'Guardar filtros', 'vfwoo-webkul-pos-bridge' ) ); ?>
+			</form>
+			<h2><?php esc_html_e( 'Recarga del catálogo', 'vfwoo-webkul-pos-bridge' ); ?></h2>
+			<p><?php echo esc_html( sprintf( __( 'Versión actual del catálogo: %d. Al subirla, cada POS avisa al cajero de que debe usar Resync → Products. No se borra nada desde aquí. Guardar los filtros también la sube.', 'vfwoo-webkul-pos-bridge' ), Catalog_Integration::catalog_version() ) ); ?></p>
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<input type="hidden" name="action" value="vfwoo_webkul_bump_catalog" />
+				<?php wp_nonce_field( 'vfwoo_webkul_bump_catalog' ); ?>
+				<?php submit_button( __( 'Forzar recarga del catálogo', 'vfwoo-webkul-pos-bridge' ), 'secondary' ); ?>
 			</form>
 			<?php if ( ! empty( $missing ) ) : ?>
 				<div class="notice notice-warning"><p><?php echo esc_html( sprintf( __( 'Dependencias pendientes: %s', 'vfwoo-webkul-pos-bridge' ), implode( ', ', $missing ) ) ); ?></p></div>

@@ -1,5 +1,12 @@
 # Release notes
 
+## 0.1.0.7 — desarrollo
+
+- Versión de catálogo con botón en Settings y aviso en el POS (Resync → Products); confirmado en local.
+- Consulta automática de la versión (REST `catalog-version`) sin recargar el POS; confirmado en local.
+- Corrección: los estilos del bridge se descartaban en el POS; ahora entran en la lista blanca de Webkul.
+- Pendiente: posible caché del service worker sobre la consulta; diagnóstico en Settings.
+
 ## 0.1.0.6 — desarrollo
 
 - Taxonomías de filtro configurables desde `POS → Settings → VFWoo Bridge` (opción `vfwoo_webkul_filter_taxonomies`); confirmado en local.

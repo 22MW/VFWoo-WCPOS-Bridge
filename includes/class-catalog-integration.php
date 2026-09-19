@@ -10,7 +10,8 @@ namespace VFWoo_Webkul_POS_Bridge;
 defined( 'ABSPATH' ) || exit;
 
 final class Catalog_Integration {
-	public const OPTION = 'vfwoo_webkul_filter_taxonomies';
+	public const OPTION         = 'vfwoo_webkul_filter_taxonomies';
+	public const VERSION_OPTION = 'vfwoo_webkul_catalog_version';
 
 	/**
 	 * Taxonomies Webkul already covers or that are internal to WooCommerce.
@@ -19,6 +20,7 @@ final class Catalog_Integration {
 
 	public function __construct() {
 		add_filter( 'manage_custom_product_type_support', array( $this, 'add_taxonomies' ), 20, 4 );
+		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 	}
 
 	/**
@@ -50,6 +52,33 @@ final class Catalog_Integration {
 		return array_values( array_intersect( array_map( 'sanitize_key', $saved ), array_keys( self::available_taxonomies() ) ) );
 	}
 
+	/**
+	 * Catalog version stamped on every product; raising it flags cached POS catalogs as stale.
+	 */
+	public static function catalog_version(): int {
+		return max( 1, (int) get_option( self::VERSION_OPTION, 1 ) );
+	}
+
+	public static function bump_catalog_version(): void {
+		update_option( self::VERSION_OPTION, self::catalog_version() + 1 );
+	}
+
+	public function register_routes(): void {
+		register_rest_route(
+			'vfwoo-webkul/v1',
+			'/catalog-version',
+			array(
+				'methods'             => 'GET',
+				'permission_callback' => '__return_true', // Only exposes an integer, no sensitive data.
+				'callback'            => static function () {
+					$response = new \WP_REST_Response( array( 'version' => self::catalog_version() ) );
+					$response->header( 'Cache-Control', 'no-store, max-age=0' );
+					return $response;
+				},
+			)
+		);
+	}
+
 	public function add_taxonomies( $product_data, $product, $index, $outlet_id ) {
 		unset( $index, $outlet_id );
 		if ( ! is_array( $product_data ) || ! $product instanceof \WC_Product ) {
@@ -58,6 +87,7 @@ final class Catalog_Integration {
 
 		$available                           = self::available_taxonomies();
 		$product_data['vfwoo_webkul_brands'] = array();
+		$product_data['vfwoo_webkul_catalog_version'] = self::catalog_version();
 
 		foreach ( self::selected_taxonomies() as $slug ) {
 			$terms   = get_the_terms( $product->get_id(), $slug );

@@ -48,5 +48,100 @@
 		return escapeHtml( value );
 	}
 
+	var config = window.vfwooWebkulBridge;
+	var serverVersion = config ? Number( config.catalogVersion ) || 0 : 0;
+	var cachedVersion = null;
+	var dismissedFor = 0;
+	var notice = null;
+	var lastCheck = 0;
+
+	function removeNotice() {
+		if ( notice ) {
+			notice.remove();
+			notice = null;
+		}
+	}
+
+	function showNotice() {
+		if ( notice || dismissedFor === serverVersion ) {
+			return;
+		}
+		notice = document.createElement( 'div' );
+		notice.className = 'vfwoo-webkul-notice';
+		notice.textContent = config.staleNotice;
+		var close = document.createElement( 'button' );
+		close.type = 'button';
+		close.setAttribute( 'aria-label', config.close );
+		close.textContent = '\u00d7';
+		close.addEventListener( 'click', function () {
+			dismissedFor = serverVersion;
+			removeNotice();
+		} );
+		notice.appendChild( close );
+		document.body.appendChild( notice );
+	}
+
+	function evaluate() {
+		if ( cachedVersion === null ) {
+			return;
+		}
+		if ( cachedVersion < serverVersion ) {
+			showNotice();
+		} else {
+			removeNotice();
+		}
+	}
+
+	// Ask the server for the current catalog version; fails silently offline.
+	function checkServerVersion() {
+		var now = Date.now();
+		if ( ! config || ! config.versionUrl || now - lastCheck < 60000 || ! window.fetch ) {
+			return;
+		}
+		lastCheck = now;
+		window.fetch( config.versionUrl, { cache: 'no-store', credentials: 'omit' } )
+			.then( function ( response ) {
+				return response.ok ? response.json() : null;
+			} )
+			.then( function ( data ) {
+				var version = data ? Number( data.version ) || 0 : 0;
+				if ( version > serverVersion ) {
+					serverVersion = version;
+					evaluate();
+				}
+			} )
+			.catch( function () {} );
+	}
+
+	function checkCatalogVersion( products ) {
+		if ( config && Array.isArray( products ) && products.length ) {
+			cachedVersion = Number( products[ 0 ] && products[ 0 ].vfwoo_webkul_catalog_version ) || 0;
+			evaluate();
+		}
+		return products;
+	}
+
+	function checkAfterSale( popup ) {
+		checkServerVersion();
+		return popup;
+	}
+
+	if ( config ) {
+		[ 'pushState', 'replaceState' ].forEach( function ( method ) {
+			var original = window.history[ method ];
+			window.history[ method ] = function () {
+				var result = original.apply( this, arguments );
+				setTimeout( checkServerVersion, 0 );
+				return result;
+			};
+		} );
+		window.addEventListener( 'popstate', checkServerVersion );
+		window.addEventListener( 'hashchange', checkServerVersion );
+		window.setInterval( checkServerVersion, 300000 );
+		window.setTimeout( checkServerVersion, 2000 );
+	}
+
+	hooks.addFilter( 'wkwcpos_modify_order_success_popup', 'vfwoo-webkul-pos-bridge', checkAfterSale );
+	hooks.addFilter( 'wkwcpos_modify_homepage_products', 'vfwoo-webkul-pos-bridge', checkCatalogVersion );
 	hooks.addFilter( 'wkwcpos_invoice_after_footer_details_block', 'vfwoo-webkul-pos-bridge', renderFiscalBlock );
 }( window.wp && window.wp.hooks ? window.wp.hooks : null ) );

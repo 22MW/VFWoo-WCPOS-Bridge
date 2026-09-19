@@ -1,0 +1,26 @@
+.vfwoo-webkul-notice {
+	position: fixed;
+	right: 16px;
+	bottom: 16px;
+	z-index: 99999;
+	max-width: 360px;
+	padding: 12px 40px 12px 14px;
+	background: #fff8e5;
+	border: 1px solid #f0b849;
+	border-radius: 6px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	font-size: 14px;
+	line-height: 1.4;
+	color: #1d2327;
+}
+
+.vfwoo-webkul-notice button {
+	position: absolute;
+	top: 6px;
+	right: 8px;
+	border: 0;
+	background: transparent;
+	font-size: 18px;
+	line-height: 1;
+	cursor: pointer;
+}

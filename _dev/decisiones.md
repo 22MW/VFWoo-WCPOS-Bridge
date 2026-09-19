@@ -26,5 +26,14 @@ Si falta el dato de marca (caché antigua) o cambia el contrato, no se oculta ni
 ## D-007 — Informes por marca: sin gancho de cliente conocido
 Servidor: `wkwcpos_modify_report_single_order_data` y `wkwcpos_modify_report_search_result`. No se ha encontrado gancho para añadir opciones a `Filter By`. Decisión aplazada: inyección propia, informe propio del bridge o pedir gancho a Webkul.
 
+## D-009 — Recarga del catálogo: aviso, no borrado
+Versión de catálogo en servidor, sellada en cada producto; el POS avisa al cajero de usar Resync → Products. No se automatiza `Resync All` (destruye ventas offline, carritos aparcados y cajón). Recarga automática de `pos_products` sin probar.
+
+## D-010 — Estilos en el POS
+Webkul desregistra en la pantalla POS todo estilo fuera de su lista blanca. Los estilos del bridge se permiten con el filtro `wkwcpos_add_custom_css`.
+
+## D-011 — Aviso de catálogo sin recargar el POS
+Ruta REST pública `GET /wp-json/vfwoo-webkul/v1/catalog-version` (solo devuelve un entero, `Cache-Control: no-store`). El script POS la consulta: 2 s tras abrir, al terminar una venta (`wkwcpos_modify_order_success_popup`), al cambiar de pantalla (`pushState`/`popstate`/`hashchange`) y cada 5 min; mínimo 60 s entre consultas; fallo silencioso offline. El aviso se quita solo cuando el catálogo en caché alcanza la versión del servidor (tras Resync → Products). Pendiente de QA; posible caché del service worker de Webkul sin confirmar.
+
 ## D-008 — Taxonomías configurables (implementado y confirmado en local)
 Opción `vfwoo_webkul_filter_taxonomies`. Lista de taxonomías registradas para `product` (incluye las de CPT/plugins propios) con `show_ui`. Lista elegible en la pestaña `VFWoo Bridge`. Por defecto solo `product_brand`. Excluir `product_cat`, `pa_*` y taxonomías internas de WooCommerce.
