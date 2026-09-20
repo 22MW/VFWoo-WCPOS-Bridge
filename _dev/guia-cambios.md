@@ -65,9 +65,18 @@ Plugin: VFWoo Webkul POS Bridge. Conecta VFWoo (facturas Veri*Factu) con el POS 
 - Tras cambiar la plantilla, la caja debe hacer Resync o limpiar sus datos locales para verla.
 - El editor de Webkul enseña estas variables como texto (`${vfwoo_qr}`), igual que las suyas, y las guarda sin cambios.
 
+## 10. La venta se para si hará falta un cliente con NIF
+
+- Si el total de la venta alcanza el límite de la factura simplificada (400 €, o 3.000 € en sectores autorizados) y no hay un cliente con NIF, el POS no deja cobrar: sale un mensaje rojo y no se avanza. Pasa en el botón **Pay** del carrito y en el botón final de la pantalla de pago.
+- Si VFWoo tiene las simplificadas desactivadas, toda venta necesita cliente con NIF.
+- Por debajo del límite, el cliente mostrador o un cliente sin NIF venden como F2 sin error.
+- Si el cliente tiene NIF pero está «sin verificar» (el censo no respondió), solo sale un aviso.
+- Cada caja debe hacer **Resync → Customers** para recibir el NIF de los clientes; sin eso, los clientes guardados antes no se bloquean.
+- El mensaje es el aviso emergente de Webkul, con ×; se cierra solo a los 8 segundos.
+
 ## Qué falta
 
-- Bloquear Pay si hay cliente sin NIF por encima del límite, o venta anónima por encima del límite.
+- Red de seguridad en servidor para lo que se cuele (atajo de teclado, ventas sin conexión).
 - Aviso después de la venta si la factura tendrá problemas.
 - Herramienta para revisar y completar el NIF de clientes existentes.
 - Diagnóstico de compatibilidad en Settings.

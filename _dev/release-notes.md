@@ -1,12 +1,18 @@
 # Release notes
 
+## 0.1.0.12 — desarrollo
+
+- Parada de la venta antes de cobrar (botón Pay del carrito y botón final de pago) si el total alcanza el límite de la factura simplificada o las simplificadas están desactivadas y no hay cliente con NIF. Confirmado en local.
+- El aviso de venta bloqueada es el aviso emergente de Webkul: tiene ×, y se cierra solo a los 8 segundos (se deja así de momento).
+- Pendiente: red de seguridad en servidor / aviso posterior a la venta, herramienta de NIF de clientes existentes.
+
 ## 0.1.0.11 — desarrollo
 
 - Variables `${vfwoo_*}` (tienda, factura, cliente F1/F3) en el editor de plantillas y sustitución en el ticket; F2 sin datos del cliente.
 - Corrección del editor de plantillas de Webkul (se quedaba en blanco con variables desconocidas).
 - Cargado del script del editor por `?page=wc-pos-invoice-templates`, no por el id de pantalla (depende de la traducción del menú).
 - Retirado el debug temporal (PHP y JavaScript).
-- Pendiente de confirmar en el POS: impresión real con una plantilla que use las variables (F1 y F2).
+- Confirmado en local: editor, impresión con QR, F1 con datos del cliente y F2 sin ellos.
 - Pendiente: aviso posterior a la venta, herramienta de NIF de clientes existentes, bloqueo del Pay.
 
 ## 0.1.0.10 — desarrollo

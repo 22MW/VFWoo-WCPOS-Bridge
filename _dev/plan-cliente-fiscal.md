@@ -43,7 +43,7 @@ Estado: decisiones tomadas; **fases 1-3 implementadas y confirmadas en local**. 
 | 1 | Campo NIF (hecho, sin probar) | Campo DNI/NIE en el formulario de cliente del POS; guardado en `billing_nif`. | Bridge |
 | 2 | Verificación (hecho, sin probar) | Al guardar cliente: formato + censo (nombre = nombre y apellidos). Error claro al cajero; marca de verificado. | Bridge |
 | 3 | NIF al pedido (hecho, sin probar) | Copiar `billing_nif` a `_billing_nif` del pedido si el cliente no es el por defecto. VFWoo emite F1. | Bridge |
-| 4 | Bloqueo en Pay | Cliente elegido sin NIF verificado, o importe ≥ límite sin cliente: bloquear Pay. Guarda también en servidor. | Bridge |
+| 4 | Bloqueo en Pay (hecho en cliente, confirmado en local) | Importe ≥ límite sin cliente con NIF: parar la venta en el botón Pay y en el botón final de pago (D-017). Sin guarda de servidor. | Bridge |
 | 5 | Ticket (hecho, sin probar) | Variables `${vfwoo_*}` en el editor de plantillas; F2 sin datos del cliente, F1/F3 con datos (D-016). | Bridge |
 | 6 | Aviso post-venta | `Emission_Check::comprobar` tras crear el pedido; solo aviso, no bloquea. | Bridge |
 | 8 | Herramienta comprobar y añadir NIF | Lista de clientes sin NIF o sin verificar y forma de completarlos. | Bridge |

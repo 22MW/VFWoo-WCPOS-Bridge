@@ -22,7 +22,7 @@ habitual de impresión. El bridge no instala un catálogo paralelo de plantillas
 == Estado de desarrollo ==
 
 La integración está en validación local. Ticket fiscal con QR (venta inicial y
-reimpresión) y filtro de marcas en el catálogo POS confirmados en local. Las plantillas del ticket pueden usar variables `${vfwoo_*}` de VFWoo. Una pantalla «Marcas» en el POS resume las ventas por marca y producto. Los clientes del POS llevan DNI/NIE/CIF obligatorio y validado; con NIF se emite F1. El QR se incrusta en el ticket para que salga a la primera impresión. Un
+reimpresión) y filtro de marcas en el catálogo POS confirmados en local. El POS impide cobrar por encima del límite de la factura simplificada sin un cliente con NIF. Las plantillas del ticket pueden usar variables `${vfwoo_*}` de VFWoo. Una pantalla «Marcas» en el POS resume las ventas por marca y producto. Los clientes del POS llevan DNI/NIE/CIF obligatorio y validado; con NIF se emite F1. El QR se incrusta en el ticket para que salga a la primera impresión. Un
 aviso en el POS indica cuándo recargar el catálogo. Las
 taxonomías del filtro se eligen en `POS → Settings → VFWoo Bridge`. Pendiente QA
 detallada del filtro.

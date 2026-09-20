@@ -2,7 +2,7 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
-## [Sin publicar] — dev 0.1.0.11
+## [Sin publicar] — dev 0.1.0.12
 
 ### Corregido
 
@@ -20,6 +20,8 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 - Versión de catálogo (`vfwoo_webkul_catalog_version`): botón `Forzar recarga del catálogo` en `POS → Settings → VFWoo Bridge`; también sube al guardar los filtros. Cada producto lleva la versión con la que se cargó.
 - Aviso en el POS cuando el catálogo en caché es anterior: pide usar Resync → Products. No borra datos. Se quita solo tras el Resync.
 - Consulta automática de la versión sin recargar el POS (ruta REST `vfwoo-webkul/v1/catalog-version`): al abrir, al terminar una venta, al cambiar de pantalla y cada 5 minutos.
+- Parada de la venta antes de cobrar cuando hará falta un cliente con NIF: con las simplificadas activas, una venta igual o superior al límite (400 €, o 3.000 € en sector autorizado) sin cliente con NIF no avanza desde el botón Pay ni desde el botón final de pago; con las simplificadas desactivadas, toda venta lo exige. Cliente por defecto o sin NIF por debajo del límite se vende como F2; NIF sin verificar solo avisa. Límite y ajuste leídos de VFWoo. Confirmado en local.
+- Los datos de cliente que recibe el POS incluyen ahora `vfwoo_webkul_is_default` junto al NIF y su estado; hace falta Resync de clientes.
 - Variables de VFWoo en el editor de plantillas del ticket (`${vfwoo_*}`): tienda (nombre, NIF, dirección, teléfono, email y logo), factura (número, tipo, fecha, leyenda legal, URL de cotejo y QR) y cliente (nombre, NIF, domicilio, email y teléfono). Los datos del cliente solo salen en F1 y F3; en F2 se vacían también las variables de cliente de Webkul.
 - El editor de plantillas de Webkul evalúa la plantilla como código y se quedaba en blanco con una variable desconocida; ahora las `${vfwoo_*}` se protegen para que se vean como texto y se guarden sin cambios.
 - Todo texto insertado en el ticket se escapa para no romper ni inyectar código en la evaluación de la plantilla.

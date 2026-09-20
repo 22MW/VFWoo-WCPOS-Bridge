@@ -2,7 +2,7 @@
 
 ## Plugin objetivo
 
-`vfwoo-webkul-pos-bridge` (v0.1.0.11 dev, rama `dev-vfwoo-webkul-pos-bridge`, Webkul POS 7.1.1)
+`vfwoo-webkul-pos-bridge` (v0.1.0.12 dev, rama `dev-vfwoo-webkul-pos-bridge`, Webkul POS 7.1.1)
 
 ## Confirmado en local
 
@@ -22,7 +22,8 @@
 - Versión de catálogo (D-009) y aviso (D-010): confirmados en local.
 - Pantalla «Marcas» del POS (D-015): funciona en local. Opcional: contrastar cifras con más pedidos y periodos.
 - Cliente y NIF (D-013, `plan-cliente-fiscal.md`): fases 1-3 implementadas y confirmadas en local (alta con DNI, antispam D-014). Faltan bloqueo en Pay, aviso post-venta y herramienta de NIF de clientes existentes.
-- Ticket con variables `${vfwoo_*}` (tienda, factura, cliente F1/F3) y F2 sin datos del cliente (D-016): implementado; el editor de plantillas se corrigió (evaluaba la plantilla y se quedaba en blanco). Pendiente de confirmar la impresión real en el POS (F1 y F2).
+- Ticket con variables `${vfwoo_*}` (tienda, factura, cliente F1/F3) y F2 sin datos del cliente (D-016): confirmado en local: el editor muestra la plantilla, el ticket imprime con QR, F1 con datos del cliente y F2 sin ellos.
+- Bloqueo de venta ≥ límite sin cliente con NIF (D-017): funciona en local (aviso de Webkul con ×, dura 8 s). Requiere Resync de clientes. Sin guarda de servidor todavía.
 - Idea: botón en `POS → Settings → VFWoo Bridge` para borrar la caché local del POS (ver roadmap Fase 5).
 
 ## Siguiente paso

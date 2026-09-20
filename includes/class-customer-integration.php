@@ -104,6 +104,27 @@ final class Customer_Integration {
 		$this->pending = null;
 	}
 
+	/**
+	 * Limit of the simplified invoice (F2) as VFWoo applies it: from that total on, a customer with a
+	 * tax ID is required. With simplified invoices disabled, every sale needs one.
+	 *
+	 * @return array{simplifiedEnabled:bool,limit:float}
+	 */
+	public static function sale_rules(): array {
+		$enabled = true;
+		$limit   = 400.0;
+		if ( class_exists( 'VFWoo\\NIF\\NIF_Config' ) && class_exists( 'VFWoo\\NIF\\NIF_Rules' ) ) {
+			$settings = \VFWoo\NIF\NIF_Config::settings();
+			$enabled  = \VFWoo\NIF\NIF_Rules::is_simplified_enabled( $settings );
+			$limit    = \VFWoo\NIF\NIF_Rules::simplified_limit( $settings );
+		}
+
+		return array(
+			'simplifiedEnabled' => $enabled,
+			'limit'             => (float) $limit,
+		);
+	}
+
 	public function add_customer_data( $customer_data, $customer ) {
 		if ( ! is_array( $customer_data ) || ! $customer instanceof \WC_Customer ) {
 			return $customer_data;
@@ -139,6 +160,7 @@ final class Customer_Integration {
 	private function with_nif( array $customer_data, int $customer_id ): array {
 		$customer_data['vfwoo_webkul_nif']        = '';
 		$customer_data['vfwoo_webkul_nif_status'] = 'missing';
+		$customer_data['vfwoo_webkul_is_default'] = '1' === (string) get_user_meta( $customer_id, 'deault_customer_pos', true );
 		if ( ! $customer_id ) {
 			return $customer_data;
 		}

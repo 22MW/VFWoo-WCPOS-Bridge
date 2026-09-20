@@ -498,6 +498,82 @@
 	hooks.addFilter( 'wkwcpos_menus_list', 'vfwoo-webkul-pos-bridge', addBrandsMenu );
 	hooks.addFilter( 'wkwcpos_pages_list', 'vfwoo-webkul-pos-bridge', addBrandsRoute );
 
+	// ---- Sale checks: a simplified invoice (F2) is not valid from the limit on, so a customer with a tax ID is needed ----
+	function formatMoney( value ) {
+		return Number( value ).toFixed( 2 ) + ' ' + ( ( config.sale && config.sale.currency ) || '' );
+	}
+
+	// Reads the live cart and customer from Webkul's store. Returns null, a warning or a blocking problem.
+	function saleProblem() {
+		var state = window.posStore && window.posStore.getState ? window.posStore.getState() : null;
+		if ( ! config || ! config.sale || ! state || ! state.cart || ! state.cart.total ) {
+			return null;
+		}
+
+		var total = parseFloat( state.cart.total.cart_total );
+		var list = state.customers && state.customers.default;
+		var current = list && list.length ? list[ 0 ] : null;
+		if ( isNaN( total ) || ! current ) {
+			return null;
+		}
+
+		var sale = config.sale;
+		var nif = current.vfwoo_webkul_nif;
+		var isDefault = current.vfwoo_webkul_is_default === true;
+		var hasNif = ! isDefault && typeof nif === 'string' && nif !== '';
+		var unknown = ! isDefault && nif === undefined; // customer cached before the bridge sent the tax ID
+		var required = ! sale.simplifiedEnabled || total >= sale.limit;
+
+		if ( required && ! hasNif && ! unknown ) {
+			return {
+				block: true,
+				message: ( sale.simplifiedEnabled ? sale.blockedLimit : sale.blockedAlways )
+					.replace( '%total%', formatMoney( total ) )
+					.replace( '%limit%', formatMoney( sale.limit ) )
+			};
+		}
+		if ( hasNif && current.vfwoo_webkul_nif_status === 'unverified' ) {
+			return { block: false, message: sale.unverified };
+		}
+		return null;
+	}
+
+	function notifySale( problem ) {
+		var toast = window.posToast;
+		if ( ! toast ) {
+			window.alert( problem.message );
+		} else if ( problem.block ) {
+			toast.error( problem.message, { id: 'vfwoo-sale-problem', duration: 8000 } );
+		} else {
+			toast( problem.message, { id: 'vfwoo-sale-warning', duration: 6000 } );
+		}
+	}
+
+	var stopMessage = '';
+
+	// Cart "Pay" button: do not go to the payment screen.
+	hooks.addFilter( 'wkwcpos_allow_pay_btn_add_product_in_cart', 'vfwoo-webkul-pos-bridge', function ( allow ) {
+		var problem = allow ? saleProblem() : null;
+		if ( problem ) {
+			notifySale( problem );
+			return ! problem.block;
+		}
+		return allow;
+	} );
+
+	// Payment screen: do not create the order. Also covers reaching /pay directly.
+	hooks.addFilter( 'wkwcpos_stop_execution_payment_order', 'vfwoo-webkul-pos-bridge', function ( stop ) {
+		var problem = stop ? null : saleProblem();
+		if ( problem && problem.block ) {
+			stopMessage = problem.message;
+			return true;
+		}
+		return stop;
+	} );
+	hooks.addAction( 'wkwcpos_stop_order_execution_text', 'vfwoo-webkul-pos-bridge', function () {
+		notifySale( { block: true, message: stopMessage } );
+	} );
+
 	hooks.addFilter( 'wkwc_add_custom_field_in_form_after_email', 'vfwoo-webkul-pos-bridge', renderNifField );
 	hooks.addFilter( 'wkwcpos_modify_order_success_popup', 'vfwoo-webkul-pos-bridge', checkAfterSale );
 	hooks.addFilter( 'wkwcpos_modify_homepage_products', 'vfwoo-webkul-pos-bridge', checkCatalogVersion );

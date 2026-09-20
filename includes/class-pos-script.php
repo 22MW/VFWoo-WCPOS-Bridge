@@ -67,6 +67,12 @@ final class POS_Script {
 						'error'     => __( 'No se han podido cargar los datos.', 'vfwoo-webkul-pos-bridge' ),
 						'note'      => __( 'Solo ventas del POS. La marca es la actual del producto; un producto con varias marcas cuenta en cada una.', 'vfwoo-webkul-pos-bridge' ),
 					),
+					'sale'           => Customer_Integration::sale_rules() + array(
+						'currency'      => html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ),
+						'blockedLimit'  => __( 'La venta (%total%) alcanza el límite de la factura simplificada (%limit%). Elige un cliente con NIF.', 'vfwoo-webkul-pos-bridge' ),
+						'blockedAlways' => __( 'La tienda emite siempre factura completa. Elige un cliente con NIF.', 'vfwoo-webkul-pos-bridge' ),
+						'unverified'    => __( 'El NIF de este cliente no está verificado en el censo de la AEAT.', 'vfwoo-webkul-pos-bridge' ),
+					),
 					'store'          => Invoice_Variables::store(),
 					'qrAlt'          => __( 'QR Veri*Factu', 'vfwoo-webkul-pos-bridge' ),
 					'nifLabel'       => __( 'DNI / NIE / CIF', 'vfwoo-webkul-pos-bridge' ),

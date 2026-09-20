@@ -64,6 +64,13 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 - Futuro: facturas F3 (sustitutiva) y rectificativas; ampliar `CUSTOMER_TYPES` y el cálculo del tipo. Herramienta para convertir a F3 y crear rectificativas.
 - Pendiente de decidir: domicilio del cliente obligatorio en el formulario del POS para las F1.
 
+## Bloqueo de venta ≥ límite sin cliente con NIF (hecho y confirmado en local)
+
+- Parada en el navegador en el botón Pay y en el botón final de pago (D-017); aviso si el NIF del cliente está sin verificar.
+- Requiere Resync de clientes en cada caja para que lleguen `vfwoo_webkul_nif` y `vfwoo_webkul_is_default`.
+- El aviso rojo es el emergente de Webkul (con ×, desaparece a los 8 s). Posible mejora: aviso propio que se quede hasta cerrarlo.
+- Pendiente: red de seguridad en servidor / aviso posterior a la venta (`Emission_Check::comprobar`) para lo que se cuele; herramienta de NIF de clientes existentes.
+
 ## Fase futura: informes
 
 - Añadir `Brands` al selector acumulable de Informes.
