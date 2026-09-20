@@ -114,7 +114,8 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 ## Release 0.1.1 y actualizaciones (publicada)
 
 - Publicada `pos-v0.1.1` (`proceso-release.md`). Pendiente: comprobar en un sitio de staging, instalado desde el ZIP, que la siguiente release aparece en Actualizaciones y se instala.
-- `0.1.2` preparada (Marcas en la barra de categorías y estilos del POS). Después de publicarla, el desarrollo sigue en `0.1.2.1`.
+- Publicadas `pos-v0.1.1` y `pos-v0.1.2` (Marcas en la barra de categorías y estilos del POS). El desarrollo sigue en `0.1.2.1`.
+- Pendiente: comprobar en un sitio de staging, instalado desde el ZIP, que la actualización aparece y se instala (solo verificada con las releases reales en simulación).
 - Recomendación: repositorio propio para este plugin.
 
 ## Fase futura: informes

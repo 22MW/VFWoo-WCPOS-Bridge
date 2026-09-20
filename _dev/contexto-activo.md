@@ -2,7 +2,7 @@
 
 ## Plugin objetivo
 
-`vfwoo-webkul-pos-bridge` (v0.1.2, última release estable 0.1.2, rama `dev-vfwoo-webkul-pos-bridge`, Webkul POS 7.1.1)
+`vfwoo-webkul-pos-bridge` (última release estable 0.1.2, rama `dev-vfwoo-webkul-pos-bridge`, Webkul POS 7.1.1)
 
 ## Confirmado en local
 
@@ -22,7 +22,7 @@
 
 ## Release
 
-- Versión 0.1.1 **publicada** (`pos-v0.1.1`); versión 0.1.2 **preparada para publicar** (`pos-v0.1.2`). Ver `proceso-release.md` y D-019.
+- Versiones **publicadas**: `pos-v0.1.1` y `pos-v0.1.2` (2026-09-20). El desarrollo continúa desde `0.1.2.1`. Ver `proceso-release.md` y D-019.
 - Falta probar la actualización en un sitio de staging instalado desde el ZIP (la copia de desarrollo no se actualiza por diseño).
 - Token de GitHub en `/Users/22mw/Local Sites/pos/.env` (fuera de la raíz web, sin versionar).
 

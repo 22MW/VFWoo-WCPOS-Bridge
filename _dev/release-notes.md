@@ -2,6 +2,8 @@
 
 ## 0.1.2 — release
 
+- **Publicada el 2026-09-20:** https://github.com/22MW/VFWoo-WCPOS-Bridge/releases/tag/pos-v0.1.2 (ZIP `vfwoo-webkul-pos-bridge.zip`, 25 archivos, verificado tras descargarlo y probado el actualizador contra las releases reales).
+
 - «Marcas» como una categoría más en la barra del inicio, con las marcas como subcategorías y sus imágenes (D-022). Confirmado en local: funciona perfectamente.
 - Estilos de la pantalla «Marcas» y de la ventana F3 basados en las variables y clases del POS, en tema claro y oscuro (D-020). Confirmado en local en los dos temas.
 - Consolida la entrada de desarrollo 0.1.1.1. Notas de actualización: hacer Resync → Products en cada caja para que los productos traigan las marcas y sus imágenes.
