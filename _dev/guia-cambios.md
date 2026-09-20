@@ -56,14 +56,21 @@ Plugin: VFWoo Webkul POS Bridge. Conecta VFWoo (facturas Veri*Factu) con el POS 
 - Por marca: unidades, ventas sin IVA, ventas con IVA, pedidos y devoluciones. Al pulsar una marca se ven **sus productos**. Se puede filtrar por marcas.
 - Solo cuenta ventas del POS. La marca es la actual del producto; si un producto tiene varias marcas, cuenta en cada una.
 
+## 9. Variables de VFWoo en el ticket
+
+- En **Point of Sale → Invoice Templates**, la lista «Pre-defined Variables» tiene ahora las variables `${vfwoo_*}`: datos de la tienda tal como están en VFWoo (nombre, NIF, dirección, teléfono, email y logo), datos de la factura (número, tipo, fecha, leyenda legal, URL de cotejo y **QR**) y datos del cliente (nombre, NIF, domicilio, email y teléfono).
+- Los datos del cliente **solo salen en F1 y F3**. En F2 salen vacíos, y también se vacían las variables de cliente de Webkul (nombre, apellidos y teléfono).
+- Si usas alguna de estas variables, tú decides dónde va cada cosa y el bloque automático de factura se desactiva. Si no las usas, el ticket sigue como antes.
+- Cuidado: si una plantilla usa estas variables y desactivas el bridge, el ticket dejará de imprimirse.
+- Tras cambiar la plantilla, la caja debe hacer Resync o limpiar sus datos locales para verla.
+- El editor de Webkul enseña estas variables como texto (`${vfwoo_qr}`), igual que las suyas, y las guarda sin cambios.
+
 ## Qué falta
 
 - Bloquear Pay si hay cliente sin NIF por encima del límite, o venta anónima por encima del límite.
-- Ticket F2 sin datos del cliente.
 - Aviso después de la venta si la factura tendrá problemas.
 - Herramienta para revisar y completar el NIF de clientes existentes.
 - Diagnóstico de compatibilidad en Settings.
 - Informes por marca dentro de WooCommerce Analytics (opcional, más esfuerzo).
-- Retirar el debug temporal antes de publicar.
 
 Detalle técnico: `plan-cliente-fiscal.md`, `decisiones.md`, `roadmap.md`.

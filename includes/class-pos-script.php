@@ -67,6 +67,8 @@ final class POS_Script {
 						'error'     => __( 'No se han podido cargar los datos.', 'vfwoo-webkul-pos-bridge' ),
 						'note'      => __( 'Solo ventas del POS. La marca es la actual del producto; un producto con varias marcas cuenta en cada una.', 'vfwoo-webkul-pos-bridge' ),
 					),
+					'store'          => Invoice_Variables::store(),
+					'qrAlt'          => __( 'QR Veri*Factu', 'vfwoo-webkul-pos-bridge' ),
 					'nifLabel'       => __( 'DNI / NIE / CIF', 'vfwoo-webkul-pos-bridge' ),
 					'nifUnverified'  => __( 'NIF sin verificar en el censo de la AEAT.', 'vfwoo-webkul-pos-bridge' ),
 				)

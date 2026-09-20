@@ -7,13 +7,6 @@
 
 	function renderFiscalBlock( html, order ) {
 		var fiscal = order && order.vfwoo_webkul_bridge ? order.vfwoo_webkul_bridge.fiscal : null;
-		console.info( '[VFWoo Webkul Bridge] invoice filter', {
-			orderId: order && ( order.order_id || order.id ) ? ( order.order_id || order.id ) : 0,
-			hasBridgeData: !! ( order && order.vfwoo_webkul_bridge ),
-			available: !! ( fiscal && fiscal.available ),
-			hasNumber: !! ( fiscal && fiscal.invoice_number ),
-			hasQr: !! ( fiscal && ( fiscal.qr_data_uri || fiscal.qr_src ) )
-		} );
 		if ( ! fiscal || ! fiscal.available ) {
 			return html;
 		}
@@ -33,7 +26,7 @@
 		if ( fiscal.legal_legend ) {
 			block += '<p style="font-size:10px;">' + escapeHtml( fiscal.legal_legend ) + '</p>';
 		}
-		return html + block + '</div>';
+		return html + literalSafe( block + '</div>' );
 	}
 
 	function escapeHtml( value ) {
@@ -44,6 +37,69 @@
 
 	function escapeAttribute( value ) {
 		return escapeHtml( value );
+	}
+
+	// Webkul evaluates the ticket HTML as a template literal: inserted text must not contain \, ` or ${.
+	function literalSafe( value ) {
+		return String( value ).replace( /\\/g, '\\\\' ).replace( /`/g, '\\`' ).replace( /\$\{/g, '\\${' );
+	}
+
+	function invoiceValues( bridge, customer ) {
+		var fiscal = bridge.fiscal || {};
+		var store = ( window.vfwooWebkulBridge && window.vfwooWebkulBridge.store ) || {};
+		var alt = ( window.vfwooWebkulBridge && window.vfwooWebkulBridge.qrAlt ) || 'QR';
+		var text = function ( value ) {
+			return literalSafe( escapeHtml( value || '' ) );
+		};
+		var qr = fiscal.qr_data_uri || fiscal.qr_src;
+		var shown = !! ( customer && customer.visible );
+
+		return {
+			vfwoo_company_name: text( store.company_name ),
+			vfwoo_company_nif: text( store.company_nif ),
+			vfwoo_company_address: text( store.company_address ),
+			vfwoo_company_phone: text( store.company_phone ),
+			vfwoo_company_email: text( store.company_email ),
+			vfwoo_company_logo: store.company_logo ? literalSafe( '<img src="' + escapeAttribute( store.company_logo ) + '" alt="" style="max-width:100%;height:auto;" />' ) : '',
+			vfwoo_invoice_number: text( fiscal.invoice_number ),
+			vfwoo_invoice_type: text( fiscal.invoice_type ),
+			vfwoo_invoice_date: text( fiscal.issued_at ),
+			vfwoo_legal_legend: text( fiscal.legal_legend ),
+			vfwoo_verification_url: text( fiscal.verification_url ),
+			vfwoo_qr: qr ? literalSafe( '<img src="' + escapeAttribute( qr ) + '" alt="' + escapeAttribute( alt ) + '" width="120" height="120" />' ) : '',
+			vfwoo_customer_name: shown ? text( customer.name ) : '',
+			vfwoo_customer_nif: shown ? text( customer.nif ) : '',
+			vfwoo_customer_address: shown ? text( customer.address ) : '',
+			vfwoo_customer_email: shown ? text( customer.email ) : '',
+			vfwoo_customer_phone: shown ? text( customer.phone ) : ''
+		};
+	}
+
+	var CUSTOMER_TAGS = [ '${customer_fname}', '${customer_lname}', '${customer_phone}' ];
+
+	// Runs before Webkul evaluates the template: hides customer data on F2 and fills the VFWoo variables.
+	function fillInvoiceVariables( html, order ) {
+		var bridge = order && order.vfwoo_webkul_bridge;
+		if ( ! bridge || typeof html !== 'string' ) {
+			return html;
+		}
+
+		if ( bridge.customer && ! bridge.customer.visible ) {
+			CUSTOMER_TAGS.forEach( function ( tag ) {
+				html = html.split( tag ).join( '' );
+			} );
+		}
+
+		if ( html.indexOf( '${vfwoo_' ) === -1 ) {
+			return html;
+		}
+
+		// The template places the data by hand: drop the automatic block to avoid repeating it.
+		html = html.replace( /<div class="vfwoo-webkul-fiscal"[\s\S]*?<\/div>/, '' );
+		var values = invoiceValues( bridge, bridge.customer );
+		return html.replace( /\$\{(vfwoo_[a-z_]+)\}/g, function ( match, name ) {
+			return values[ name ] !== undefined ? values[ name ] : '';
+		} );
 	}
 
 	var config = window.vfwooWebkulBridge;
@@ -445,5 +501,6 @@
 	hooks.addFilter( 'wkwc_add_custom_field_in_form_after_email', 'vfwoo-webkul-pos-bridge', renderNifField );
 	hooks.addFilter( 'wkwcpos_modify_order_success_popup', 'vfwoo-webkul-pos-bridge', checkAfterSale );
 	hooks.addFilter( 'wkwcpos_modify_homepage_products', 'vfwoo-webkul-pos-bridge', checkCatalogVersion );
+	hooks.addFilter( 'wkwcpos_summary_modify_invoice_data', 'vfwoo-webkul-pos-bridge', fillInvoiceVariables );
 	hooks.addFilter( 'wkwcpos_invoice_after_footer_details_block', 'vfwoo-webkul-pos-bridge', renderFiscalBlock );
 }( window.wp && window.wp.hooks ? window.wp.hooks : null ) );

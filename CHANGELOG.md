@@ -2,7 +2,7 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
-## [Sin publicar] — dev 0.1.0.10
+## [Sin publicar] — dev 0.1.0.11
 
 ### Corregido
 
@@ -20,6 +20,10 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 - Versión de catálogo (`vfwoo_webkul_catalog_version`): botón `Forzar recarga del catálogo` en `POS → Settings → VFWoo Bridge`; también sube al guardar los filtros. Cada producto lleva la versión con la que se cargó.
 - Aviso en el POS cuando el catálogo en caché es anterior: pide usar Resync → Products. No borra datos. Se quita solo tras el Resync.
 - Consulta automática de la versión sin recargar el POS (ruta REST `vfwoo-webkul/v1/catalog-version`): al abrir, al terminar una venta, al cambiar de pantalla y cada 5 minutos.
+- Variables de VFWoo en el editor de plantillas del ticket (`${vfwoo_*}`): tienda (nombre, NIF, dirección, teléfono, email y logo), factura (número, tipo, fecha, leyenda legal, URL de cotejo y QR) y cliente (nombre, NIF, domicilio, email y teléfono). Los datos del cliente solo salen en F1 y F3; en F2 se vacían también las variables de cliente de Webkul.
+- El editor de plantillas de Webkul evalúa la plantilla como código y se quedaba en blanco con una variable desconocida; ahora las `${vfwoo_*}` se protegen para que se vean como texto y se guarden sin cambios.
+- Todo texto insertado en el ticket se escapa para no romper ni inyectar código en la evaluación de la plantilla.
+- Retirado el debug temporal (`error_log` en PHP y `console.info` en el ticket).
 - Pantalla «Marcas» en el POS (menú de la izquierda): ventas del POS por marca con unidades, ventas sin y con IVA, pedidos y devoluciones, y desglose por producto. Periodos Hoy, Ayer, Esta semana, Este mes y rango Desde/Hasta (máximo 1 año). Endpoint de solo lectura `vfwoo-webkul/v1/brand-report`. Confirmado en local.
 - Clientes del POS: campo obligatorio DNI/NIE/CIF en el formulario. Se valida el formato y, para NIF españoles, el censo de la AEAT al guardar (si el censo no responde, queda «sin verificar»). Se guarda en el usuario (`billing_nif`).
 - El NIF del cliente se copia al pedido (`_billing_nif`) salvo para el cliente por defecto, de modo que VFWoo emite factura completa F1. Sin NIF, F2.

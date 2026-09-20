@@ -1,5 +1,14 @@
 # Release notes
 
+## 0.1.0.11 — desarrollo
+
+- Variables `${vfwoo_*}` (tienda, factura, cliente F1/F3) en el editor de plantillas y sustitución en el ticket; F2 sin datos del cliente.
+- Corrección del editor de plantillas de Webkul (se quedaba en blanco con variables desconocidas).
+- Cargado del script del editor por `?page=wc-pos-invoice-templates`, no por el id de pantalla (depende de la traducción del menú).
+- Retirado el debug temporal (PHP y JavaScript).
+- Pendiente de confirmar en el POS: impresión real con una plantilla que use las variables (F1 y F2).
+- Pendiente: aviso posterior a la venta, herramienta de NIF de clientes existentes, bloqueo del Pay.
+
 ## 0.1.0.10 — desarrollo
 
 - Pantalla «Marcas» en el POS: ventas por marca y por producto con selector de periodo; ruta añadida con `wkwcpos_pages_list`; endpoint REST de solo lectura autenticado con la sesión del POS. Confirmado en local.

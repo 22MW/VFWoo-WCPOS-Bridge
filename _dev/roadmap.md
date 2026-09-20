@@ -46,7 +46,6 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 - Productos simples, variables, categorías, búsqueda y paginación.
 - Ticket fiscal y reimpresión tras cada actualización de Webkul.
 - Registrar resultados en `contexto-activo.md` y `CHANGELOG.md`.
-- Retirar el debug temporal (PHP `error_log` y `console.info`) antes de cualquier release.
 - Alinear `readme.txt` (Stable tag, estado) y `CHANGELOG.md` con la versión al preparar release.
 
 ## Pantalla «Marcas» en el POS (hecha y confirmada en local)
@@ -57,6 +56,13 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 - Endpoint REST del bridge `POST vfwoo-webkul/v1/brand-report`, solo lectura, autenticado con `WKWCPOS_API_Authentication` de Webkul (cabecera `authkey` + `logged_in_user_id`). Solo pedidos del POS (meta `_wk_wc_pos_outlet`), estados completed y processing.
 - Limitaciones: la marca es la del producto hoy; un producto con varias marcas cuenta en cada una; variaciones con la marca del padre.
 - Opcional a futuro: página «Marcas» en WooCommerce Analytics (más esfuerzo; `ReportTable` no es público).
+
+## Ticket: variables de VFWoo (hecho en código, pendiente de QA)
+
+- Variables `${vfwoo_*}` de tienda, factura y cliente en el editor de plantillas; datos del cliente solo en F1/F3; F2 sin datos del cliente (D-016).
+- Pendiente: probar en el POS con una plantilla que las use (F1 y F2), y valorar una plantilla de ejemplo.
+- Futuro: facturas F3 (sustitutiva) y rectificativas; ampliar `CUSTOMER_TYPES` y el cálculo del tipo. Herramienta para convertir a F3 y crear rectificativas.
+- Pendiente de decidir: domicilio del cliente obligatorio en el formulario del POS para las F1.
 
 ## Fase futura: informes
 

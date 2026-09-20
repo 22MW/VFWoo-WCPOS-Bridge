@@ -44,7 +44,7 @@ Estado: decisiones tomadas; **fases 1-3 implementadas y confirmadas en local**. 
 | 2 | Verificación (hecho, sin probar) | Al guardar cliente: formato + censo (nombre = nombre y apellidos). Error claro al cajero; marca de verificado. | Bridge |
 | 3 | NIF al pedido (hecho, sin probar) | Copiar `billing_nif` a `_billing_nif` del pedido si el cliente no es el por defecto. VFWoo emite F1. | Bridge |
 | 4 | Bloqueo en Pay | Cliente elegido sin NIF verificado, o importe ≥ límite sin cliente: bloquear Pay. Guarda también en servidor. | Bridge |
-| 5 | Ticket | F2: sin datos del cliente. F1: con datos. | Bridge (por investigar la plantilla) |
+| 5 | Ticket (hecho, sin probar) | Variables `${vfwoo_*}` en el editor de plantillas; F2 sin datos del cliente, F1/F3 con datos (D-016). | Bridge |
 | 6 | Aviso post-venta | `Emission_Check::comprobar` tras crear el pedido; solo aviso, no bloquea. | Bridge |
 | 8 | Herramienta comprobar y añadir NIF | Lista de clientes sin NIF o sin verificar y forma de completarlos. | Bridge |
 | 7 | Puente en VFWoo (opcional) | Método documentado en `Vitamin_Bridge` para validar NIF+nombre. **Es otro plugin: requiere autorización aparte.** | VFWoo |

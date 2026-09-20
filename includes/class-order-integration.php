@@ -30,9 +30,7 @@ final class Order_Integration {
 
 	public function enrich_single_order( $response, $order, $user_id ) {
 		unset( $user_id );
-		$result = $this->enrich_order( $response, $order, true );
-		$this->debug( 'single_order', $order, $result );
-		return $result;
+		return $this->enrich_order( $response, $order, true );
 	}
 
 	public function enrich_orders( $responses, $pos_user, $outlet_id, $request ) {
@@ -45,16 +43,13 @@ final class Order_Integration {
 		if ( isset( $responses['order_id'] ) || isset( $responses['id'] ) ) {
 			$order_id = isset( $responses['order_id'] ) ? absint( $responses['order_id'] ) : absint( $responses['id'] );
 			$order    = $order_id ? wc_get_order( $order_id ) : false;
-			$result   = $this->enrich_order( $responses, $order, true );
-			$this->debug( 'orders_single', $order, $result );
-			return $result;
+			return $this->enrich_order( $responses, $order, true );
 		}
 
 		foreach ( $responses as $index => $response ) {
 			$order_id = isset( $response['order_id'] ) ? absint( $response['order_id'] ) : ( isset( $response['id'] ) ? absint( $response['id'] ) : 0 );
 			$order    = $order_id ? wc_get_order( $order_id ) : false;
 			$responses[ $index ] = $this->enrich_order( $response, $order );
-			$this->debug( 'orders_history', $order, $responses[ $index ] );
 		}
 
 		return $responses;
@@ -79,30 +74,9 @@ final class Order_Integration {
 				'qr_data_uri'      => $with_qr_image ? $this->provider->qr_data_uri( $data ) : '',
 				'legal_legend'     => (string) ( $data['legal_legend'] ?? '' ),
 			),
+			'customer' => Invoice_Variables::customer_block( $order, $data ),
 		);
 
 		return $response;
-	}
-
-	private function debug( string $source, $order, array $response ): void {
-		if ( ! defined( 'WP_DEBUG' ) || ! WP_DEBUG ) {
-			return;
-		}
-
-		$fiscal = isset( $response['vfwoo_webkul_bridge']['fiscal'] ) && is_array( $response['vfwoo_webkul_bridge']['fiscal'] )
-			? $response['vfwoo_webkul_bridge']['fiscal']
-			: array();
-		error_log(
-			sprintf(
-				'[VFWoo Webkul Bridge] %s order=%d available=%s type=%s has_number=%s has_qr=%s response_keys=%s',
-				$source,
-					$order instanceof \WC_Order ? $order->get_id() : 0,
-				! empty( $fiscal['available'] ) ? 'yes' : 'no',
-				(string) ( $fiscal['invoice_type'] ?? '' ),
-				! empty( $fiscal['invoice_number'] ) ? 'yes' : 'no',
-				! empty( $fiscal['qr_src'] ) ? 'yes' : 'no',
-				implode( ',', array_slice( array_keys( $response ), 0, 12 ) )
-			)
-		);
 	}
 }

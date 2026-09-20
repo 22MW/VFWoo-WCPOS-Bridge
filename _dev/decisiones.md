@@ -48,5 +48,15 @@ El plugin WP Armour Extended (`wpa_woocommerce_register_validation` en `woocomme
 ## D-015 — Pantalla «Marcas» en el POS
 Pantalla propia con menú (`wkwcpos_menus_list`) y ruta añadida a la lista de páginas de Webkul (`wkwcpos_pages_list`, que pinta cada página dentro de su layout con el menú; los ganchos `wkwcpos_show_custom_pages_component`/`render_custom_pages_component` no sirven para esto: un `/pos/marcas` sin ruta da su 404), construida con DOM nativo (sin hooks de React) porque el bundle de Webkul trae su propia copia de React. Datos por `POST vfwoo-webkul/v1/brand-report` (solo lectura), autenticado con `WKWCPOS_API_Authentication` y la cabecera `authkey` del POS. Solo pedidos con `_wk_wc_pos_outlet`, estados completed y processing, máximo 1 año. Marca actual del producto (`product_brand`); varias marcas cuentan en cada una. Confirmado en local.
 
+## D-016 — Variables de VFWoo en el editor de plantillas del ticket
+- El editor (`POS → Invoice Templates`) lista las variables con el filtro `wkwcpos_add_new_invoice_variables`; el bridge añade las `${vfwoo_*}` (tienda, factura, cliente). Script `assets/js/invoice-editor.js`, cargado cuando `?page=wc-pos-invoice-templates` (no por el id de pantalla, que lleva el título traducible del menú de Webkul).
+- Al imprimir, Webkul evalúa la plantilla como *template literal* con sus propias variables. El bridge sustituye las suyas antes, en `wkwcpos_summary_modify_invoice_data`. Todo texto insertado se escapa (`\`, comilla invertida y `${`) para que un dato no rompa ni inyecte código en esa evaluación.
+- Datos de tienda: shortcode público `[verifacwoo_config return="..."]` de VFWoo (nombre, NIF, dirección, teléfono, email, logo).
+- Datos de cliente solo en F1 y F3 (`Invoice_Variables::CUSTOMER_TYPES`, ampliable a rectificativas). Sin factura aún: pedido con NIF se trata como F1. En F2 se vacían también `${customer_fname}`, `${customer_lname}` y `${customer_phone}` de Webkul.
+- Si la plantilla usa alguna `${vfwoo_*}`, se elimina el bloque fiscal automático para no repetir el QR. Sin ellas, todo sigue como antes.
+- El propio editor de plantillas también evalúa la plantilla guardada (`eval` de un template literal) y se quedaba en blanco con una `${vfwoo_*}` desconocida. `invoice-editor.js` la escapa antes de que el editor la evalúe (`DOMContentLoaded`, registrado antes que el del editor) para que se vea como texto, igual que las de Webkul, y se guarde sin cambios.
+- Riesgo: con una variable `${vfwoo_*}` en la plantilla y el bridge desactivado, la impresión falla (Webkul no la conoce).
+- El domicilio del cliente sale de su perfil (`WC_Customer`), no de la dirección del pedido, que Webkul rellena con la del local. Los campos de domicilio del formulario del POS siguen siendo opcionales.
+
 ## D-008 — Taxonomías configurables (implementado y confirmado en local)
 Opción `vfwoo_webkul_filter_taxonomies`. Lista de taxonomías registradas para `product` (incluye las de CPT/plugins propios) con `show_ui`. Lista elegible en la pestaña `VFWoo Bridge`. Por defecto solo `product_brand`. Excluir `product_cat`, `pa_*` y taxonomías internas de WooCommerce.
