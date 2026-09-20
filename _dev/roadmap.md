@@ -85,10 +85,10 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 - Implementado (D-018): botón, ventana buscar/crear cliente, `f3-status` e `issue-f3`, y ticket F3 con el comprador de la F3. Confirmado en local: botón, ventana, emisión de la F3 y ticket con el cliente tras Resync. Pendiente de confirmar: cambiar de pedido e imprimir la F3 sin Resync tras la corrección de v0.1.0.13.
 - Rectificativas: el POS no crea reembolsos (solo los muestra); VFWoo las genera desde los reembolsos de WooCommerce. Primero verificar en sandbox (R5 sobre F2, R1 sobre F1, con F3); un botón «Devolver» en el POS quedaría para más adelante.
 
-## Release 0.1.1 y actualizaciones (preparada)
+## Release 0.1.1 y actualizaciones (publicada)
 
-- Script, actualizador y rama `pos-release` según `proceso-release.md`. Pendiente: publicar la release en GitHub (necesita `GITHUB_TOKEN`) y comprobar en un sitio que aparece la actualización.
-- Tras publicar: subir el desarrollo a `0.1.1.1`.
+- Publicada `pos-v0.1.1` (`proceso-release.md`). Pendiente: comprobar en un sitio de staging, instalado desde el ZIP, que la siguiente release aparece en Actualizaciones y se instala.
+- El desarrollo sigue en `0.1.0.13`; al próximo push a dev toca `0.1.1.1`.
 - Recomendación: repositorio propio para este plugin.
 
 ## Fase futura: informes

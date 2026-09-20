@@ -4,7 +4,9 @@
 
 - Primera versión estable: consolida 0.1.0.1 a 0.1.0.13 (ticket fiscal con QR, filtros de catálogo, aviso de catálogo, clientes con NIF, F1/F2, parada de venta, pantalla «Marcas», variables de ticket, F3).
 - Añade el actualizador desde GitHub y el sistema de release (`proceso-release.md`).
-- Riesgos aceptados al publicar: confirmar que tras emitir una F3 se puede cambiar de pedido sin Resync; rectificativas sin verificar en sandbox; sin red de seguridad en servidor para ventas que se salten el navegador.
+- **Publicada el 2026-09-20:** https://github.com/22MW/VFWoo-WCPOS-Bridge/releases/tag/pos-v0.1.1 (ZIP `vfwoo-webkul-pos-bridge.zip`, 25 archivos, verificado tras descargarlo).
+- Confirmado por el usuario antes de publicar: la F3 funciona bien.
+- Riesgos aceptados al publicar: rectificativas sin verificar en sandbox; sin red de seguridad en servidor para ventas que se salten el navegador; actualización probada solo con simulación (una copia con `.git` no se actualiza por diseño), falta probarla en un sitio de staging.
 
 ## 0.1.0.13 — desarrollo
 

@@ -15,7 +15,9 @@
 
 ## Release
 
-- Versión 0.1.1 preparada (`proceso-release.md`, D-019). Rama `pos-release` y release en GitHub según estado del script.
+- Versión 0.1.1 **publicada** (`pos-v0.1.1`, ver `proceso-release.md` y D-019). El desarrollo continúa desde `0.1.1.1` en el próximo push a dev.
+- Falta probar la actualización en un sitio de staging instalado desde el ZIP (la copia de desarrollo no se actualiza por diseño).
+- Token de GitHub en `/Users/22mw/Local Sites/pos/.env` (fuera de la raíz web, sin versionar).
 
 ## Pendiente
 

@@ -27,6 +27,8 @@ Cómo se publica una versión de VFWoo Webkul POS Bridge y cómo la reciben los 
 ./_dev/deploy-release.sh                 # release completa: rama + tag + release + ZIP (necesita GITHUB_TOKEN)
 ```
 
+**Dónde poner el token: fuera de la raíz web.** El `.env` está en la raíz del workspace (`/Users/22mw/Local Sites/pos/.env`, permisos 600), no en `_dev/`. La raíz web del sitio es `app/public`, y `_dev/` vive dentro de `wp-content/plugins/…`: un archivo en `_dev/` se serviría por URL en cualquier sitio que tenga esa carpeta. Además, un solo token sirve a todos los plugins del workspace. El script también lee `_dev/.env` si prefieres ponerlo ahí (Git lo ignora y el script ya no borra `_dev/`), pero no es lo recomendable.
+
 El token se busca en `_dev/.env`, `.env.local`, el `.env` de la raíz del workspace, el archivo indicado en `GITHUB_ENV_FILE`, o el entorno. Ningún archivo `.env*` se versiona.
 
 ## Pasos de una release
