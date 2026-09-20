@@ -13,6 +13,10 @@ final class Plugin {
 	public static function boot(): void {
 		load_plugin_textdomain( 'vfwoo-webkul-pos-bridge', false, dirname( plugin_basename( VFWOO_WEBKUL_FILE ) ) . '/languages' );
 
+		// Registered before the requirements check so a plugin with a missing dependency can still be updated.
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-github-updater.php';
+		( new Github_Updater() )->register_hooks();
+
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-requirements.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-catalog-integration.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-invoice-variables.php';

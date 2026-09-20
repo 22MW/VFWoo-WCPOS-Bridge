@@ -2,7 +2,15 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
-## [Sin publicar] — dev 0.1.0.13
+## [Sin publicar]
+
+## [0.1.1] - 2026-09-20
+
+Primera versión estable: consolida las entradas de desarrollo 0.1.0.1 a 0.1.0.13.
+
+### Añadido
+
+- Actualizador desde GitHub Releases: el plugin aparece en Escritorio › Actualizaciones y se actualiza con un clic. Solo considera releases con tag `pos-v…` del repositorio compartido y rechaza paquetes de otra procedencia. Se registra antes de comprobar dependencias.
 
 ### Corregido
 

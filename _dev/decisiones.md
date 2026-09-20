@@ -76,5 +76,11 @@ Pantalla propia con menú (`wkwcpos_menus_list`) y ruta añadida a la lista de p
 - Devoluciones: por WooCommerce; VFWoo genera la rectificativa.
 - **Ajustes tras la primera prueba:** (1) el tema oscuro del POS pintaba de blanco el texto de botones y campos de la ventana: los colores se fijan explícitamente. (1c) Tras emitir, el botón se **oculta** con `display:none` en vez de eliminarse: borrar a mano un nodo del árbol de React de Webkul rompía el siguiente render y todos los pedidos mostraban «Algo salió mal» hasta hacer Resync de pedidos. Regla: el bridge nunca elimina nodos que crea vía `wp.element` dentro de la aplicación de Webkul. (1b) El botón del detalle usa las clases del propio POS (`pos-order-invoice` + `primary`, como «Imprimir Invoice»), no estilos propios, para que se vea igual en cualquier tema. (2) Webkul imprime desde el mismo objeto de pedido que pinta el detalle, así que `issue-f3` devuelve el bloque fiscal y de cliente ya actualizado (`Order_Integration::bridge_block`) y la ventana lo asigna al pedido: el ticket sale con la F3 sin recargar. (3) Mientras la factura no está confirmada, la ruta REST del QR se niega a servir la imagen (`Cotejo_Url::for_order` sin `temp`); con la F3 recién enviada, el QR del ticket fallaba. Ahora, si está pendiente, se incrusta la imagen y `qr_src` lleva `temp=1`.
 
+## D-019 — Sistema de release
+- Rama `pos-release` (sin `_dev`) en el remoto compartido, tag y release `pos-v<versión>`, ZIP `vfwoo-webkul-pos-bridge.zip`. Script `_dev/deploy-release.sh` (`--dry-run`, `--branch-only`).
+- Distinto del script de ai-knowledge: no se fusiona en `main` (es de otro plugin), la rama se prepara en un `git worktree` para no borrar `_dev/.env`, y el tag lleva prefijo porque «última release» es de todo el repositorio.
+- Actualizador `Github_Updater`: filtra por prefijo, ignora borradores y prereleases, solo acepta paquetes de `github.com/22MW/VFWoo-WCPOS-Bridge/`, caché de una hora.
+- Detalle en `proceso-release.md`.
+
 ## D-008 — Taxonomías configurables (implementado y confirmado en local)
 Opción `vfwoo_webkul_filter_taxonomies`. Lista de taxonomías registradas para `product` (incluye las de CPT/plugins propios) con `show_ui`. Lista elegible en la pestaña `VFWoo Bridge`. Por defecto solo `product_brand`. Excluir `product_cat`, `pa_*` y taxonomías internas de WooCommerce.

@@ -1,5 +1,11 @@
 # Release notes
 
+## 0.1.1 — release
+
+- Primera versión estable: consolida 0.1.0.1 a 0.1.0.13 (ticket fiscal con QR, filtros de catálogo, aviso de catálogo, clientes con NIF, F1/F2, parada de venta, pantalla «Marcas», variables de ticket, F3).
+- Añade el actualizador desde GitHub y el sistema de release (`proceso-release.md`).
+- Riesgos aceptados al publicar: confirmar que tras emitir una F3 se puede cambiar de pedido sin Resync; rectificativas sin verificar en sandbox; sin red de seguridad en servidor para ventas que se salten el navegador.
+
 ## 0.1.0.13 — desarrollo
 
 - F3 desde el POS: botón junto a «Imprimir factura», ventana para buscar o crear el cliente, comprobación de F2 confirmada y emisión con VFWoo. Confirmado en local: botones, alta de la F3 y ticket con datos del cliente tras Resync de pedidos.

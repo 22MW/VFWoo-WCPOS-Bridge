@@ -13,6 +13,10 @@
 - Versión de catálogo, aviso en POS y consulta automática (D-009, D-010, D-011): funcionan.
 - La caché local de Webkul conserva respuestas antiguas; limpiar los datos de `pos.local` fuerza la carga nueva.
 
+## Release
+
+- Versión 0.1.1 preparada (`proceso-release.md`, D-019). Rama `pos-release` y release en GitHub según estado del script.
+
 ## Pendiente
 
 - QA detallada del filtro: producto variable, marca + categoría + búsqueda, paginación.
