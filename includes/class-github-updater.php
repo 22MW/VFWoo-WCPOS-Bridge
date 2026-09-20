@@ -20,7 +20,23 @@ final class Github_Updater {
 	private const SLUG       = 'vfwoo-webkul-pos-bridge';
 	private const CACHE_KEY  = 'vfwoo_webkul_bridge_github_release';
 
+	/**
+	 * A WordPress update replaces the whole plugin folder. A development checkout (a Git working
+	 * tree with _dev/) would lose its history and notes, so the updater stays off there.
+	 * Define VFWOO_WEBKUL_ALLOW_DEV_UPDATES as true to force it.
+	 */
+	private function is_development_checkout(): bool {
+		if ( defined( 'VFWOO_WEBKUL_ALLOW_DEV_UPDATES' ) && VFWOO_WEBKUL_ALLOW_DEV_UPDATES ) {
+			return false;
+		}
+		return is_dir( VFWOO_WEBKUL_PATH . '.git' );
+	}
+
 	public function register_hooks(): void {
+		if ( $this->is_development_checkout() ) {
+			return;
+		}
+
 		add_filter( 'site_transient_update_plugins', array( $this, 'filter_plugin_updates' ) );
 		add_filter( 'plugins_api', array( $this, 'filter_plugin_info' ), 10, 3 );
 		add_filter( 'upgrader_source_selection', array( $this, 'fix_source_dir' ), 10, 4 );

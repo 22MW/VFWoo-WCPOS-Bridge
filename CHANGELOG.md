@@ -10,7 +10,7 @@ Primera versión estable: consolida las entradas de desarrollo 0.1.0.1 a 0.1.0.1
 
 ### Añadido
 
-- Actualizador desde GitHub Releases: el plugin aparece en Escritorio › Actualizaciones y se actualiza con un clic. Solo considera releases con tag `pos-v…` del repositorio compartido y rechaza paquetes de otra procedencia. Se registra antes de comprobar dependencias.
+- Actualizador desde GitHub Releases: el plugin aparece en Escritorio › Actualizaciones y se actualiza con un clic. Solo considera releases con tag `pos-v…` del repositorio compartido y rechaza paquetes de otra procedencia. Se registra antes de comprobar dependencias y no se activa en una copia de desarrollo (con `.git`), para que una actualización no borre el historial.
 
 ### Corregido
 

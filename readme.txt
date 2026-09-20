@@ -19,10 +19,18 @@ modifica archivos del núcleo de VFWoo o Webkul.
 Webkul conserva su editor de plantillas, la selección por outlet y el flujo
 habitual de impresión. El bridge no instala un catálogo paralelo de plantillas.
 
-== Estado de desarrollo ==
+== Funciones ==
 
-La integración está en validación local. Ticket fiscal con QR (venta inicial y
-reimpresión) y filtro de marcas en el catálogo POS confirmados en local. Desde el detalle de un pedido F2 confirmado se puede emitir la factura completa (F3). El POS impide cobrar por encima del límite de la factura simplificada sin un cliente con NIF. Las plantillas del ticket pueden usar variables `${vfwoo_*}` de VFWoo. Una pantalla «Marcas» en el POS resume las ventas por marca y producto. Los clientes del POS llevan DNI/NIE/CIF obligatorio y validado; con NIF se emite F1. El QR se incrusta en el ticket para que salga a la primera impresión. Un
-aviso en el POS indica cuándo recargar el catálogo. Las
-taxonomías del filtro se eligen en `POS → Settings → VFWoo Bridge`. Pendiente QA
-detallada del filtro.
+* Ticket fiscal con número de factura, QR y leyenda legal, en la venta y en la reimpresión. El QR va incrustado para que salga a la primera impresión.
+* Variables `${vfwoo_*}` de VFWoo (tienda, factura y cliente) para las plantillas del ticket. Los datos del cliente solo salen en F1 y F3; en F2 se ocultan.
+* Filtros del catálogo del POS por marca u otras taxonomías de producto, que se eligen en `POS → Settings → VFWoo Bridge`, y aviso en el POS cuando hay que recargar el catálogo.
+* Clientes del POS con DNI/NIE/CIF obligatorio y validado (formato y censo de la AEAT); con NIF se emite factura completa (F1).
+* El POS impide cobrar por encima del límite de la factura simplificada sin un cliente con NIF.
+* Factura completa (F3) desde el detalle de un pedido F2 confirmado.
+* Pantalla «Marcas» en el POS con las ventas por marca y producto.
+* Actualizaciones desde GitHub en Escritorio › Actualizaciones.
+
+== Notas ==
+
+Las devoluciones se hacen en WooCommerce; VFWoo genera la rectificativa.
+Antes de usarlo en una tienda real, prueba el flujo en staging con el modo Sandbox de VFWoo.

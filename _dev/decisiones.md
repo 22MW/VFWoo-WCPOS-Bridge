@@ -80,6 +80,7 @@ Pantalla propia con menú (`wkwcpos_menus_list`) y ruta añadida a la lista de p
 - Rama `pos-release` (sin `_dev`) en el remoto compartido, tag y release `pos-v<versión>`, ZIP `vfwoo-webkul-pos-bridge.zip`. Script `_dev/deploy-release.sh` (`--dry-run`, `--branch-only`).
 - Distinto del script de ai-knowledge: no se fusiona en `main` (es de otro plugin), la rama se prepara en un `git worktree` para no borrar `_dev/.env`, y el tag lleva prefijo porque «última release» es de todo el repositorio.
 - Actualizador `Github_Updater`: filtra por prefijo, ignora borradores y prereleases, solo acepta paquetes de `github.com/22MW/VFWoo-WCPOS-Bridge/`, caché de una hora.
+- Seguridad: el actualizador **no se activa en una copia con `.git`** (una actualización de WordPress reemplaza la carpeta entera y borraría el historial y `_dev/` de la copia de desarrollo). `VFWOO_WEBKUL_ALLOW_DEV_UPDATES` lo fuerza.
 - Detalle en `proceso-release.md`.
 
 ## D-008 — Taxonomías configurables (implementado y confirmado en local)

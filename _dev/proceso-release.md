@@ -42,6 +42,7 @@ El token se busca en `_dev/.env`, `.env.local`, el `.env` de la raíz del worksp
 - El plugin consulta `https://api.github.com/repos/22MW/VFWoo-WCPOS-Bridge/releases`, se queda con la release estable más nueva cuyo tag empieza por `pos-v` y compara con la versión instalada.
 - Si hay una más nueva, aparece en Actualizaciones con un clic. La consulta se guarda una hora (los fallos, diez minutos); «Buscar de nuevo» en el Escritorio la fuerza.
 - Solo se acepta un paquete alojado en `github.com/22MW/VFWoo-WCPOS-Bridge/`. Un ZIP de otra procedencia se rechaza.
+- **No se activa en una copia de desarrollo** (una carpeta con `.git`): una actualización de WordPress reemplaza la carpeta entera y borraría el historial y `_dev/`. Solo las instalaciones de producción (el ZIP, sin `.git`) reciben actualizaciones. Se puede forzar con la constante `VFWOO_WEBKUL_ALLOW_DEV_UPDATES`.
 - El actualizador se registra antes de comprobar las dependencias: un plugin al que le falta WooCommerce, VFWoo o Webkul se puede actualizar igual.
 - Las versiones de desarrollo (cuatro números) son anteriores a la siguiente estable, así que un sitio en `0.1.0.13` verá `0.1.1` como actualización.
 
