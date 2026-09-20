@@ -30,14 +30,8 @@ final class Brand_Report {
 	}
 
 	public function handle( \WP_REST_Request $request ) {
-		$user_id = absint( $request->get_param( 'logged_in_user_id' ) );
-		if ( ! $user_id || ! class_exists( 'WKWC_POS\\Api\\Includes\\WKWCPOS_API_Authentication' ) ) {
-			return $this->unauthorized();
-		}
-
-		$authentication = new \WKWC_POS\Api\Includes\WKWCPOS_API_Authentication();
-		if ( 'ok' !== $authentication->wkwcpos_authenticate_request( $user_id ) ) {
-			return $this->unauthorized();
+		if ( ! Pos_Auth::is_valid( $request->get_param( 'logged_in_user_id' ) ) ) {
+			return Pos_Auth::unauthorized();
 		}
 
 		$range = $this->range( (string) $request->get_param( 'start_date' ), (string) $request->get_param( 'end_date' ) );
@@ -52,15 +46,6 @@ final class Brand_Report {
 		return array(
 			'success' => true,
 			'data'    => $this->summarize( $range[0], $range[1] ),
-		);
-	}
-
-	private function unauthorized(): array {
-		return array(
-			'success'    => false,
-			'status'     => 401,
-			'session_id' => false,
-			'message'    => __( 'Sesión del POS no válida.', 'vfwoo-webkul-pos-bridge' ),
 		);
 	}
 

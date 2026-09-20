@@ -74,8 +74,19 @@ Plugin: VFWoo Webkul POS Bridge. Conecta VFWoo (facturas Veri*Factu) con el POS 
 - Cada caja debe hacer **Resync → Customers** para recibir el NIF de los clientes; sin eso, los clientes guardados antes no se bloquean.
 - El mensaje es el aviso emergente de Webkul, con ×; se cierra solo a los 8 segundos.
 
+## 11. Factura completa (F3) desde el POS
+
+- Para quien compró sin dar NIF (factura simplificada F2) y pide factura después: en **Pedidos**, abre el pedido y pulsa **Factura completa (F3)**, junto a Imprimir.
+- El botón solo sale en pedidos vendidos como F2. Si la F2 aún no está confirmada, la ventana lo dice y ofrece **Actualizar estado**.
+- Se elige un **cliente registrado** (buscando por nombre, teléfono o email) o se **crea uno nuevo** con nombre, apellidos, teléfono, email y NIF. Solo se puede usar un cliente con NIF; el cliente por defecto no.
+- Al confirmar, VFWoo emite la F3 a nombre de ese cliente. La factura simplificada se conserva, y la F3 pasa a ser la factura del pedido.
+- Al imprimir el pedido, sale ya la F3 con los datos del cliente. Si sale la simplificada, haz **Resync → Orders** en esa caja.
+- Cualquier cajero puede emitirla. Solo una F3 por pedido.
+- Las **devoluciones** se hacen en WooCommerce; VFWoo genera la rectificativa (R5 sobre F2, R1 sobre F1).
+
 ## Qué falta
 
+- Verificar en sandbox las rectificativas (devolución total y parcial de F2, F1 y F3).
 - Red de seguridad en servidor para lo que se cuele (atajo de teclado, ventas sin conexión).
 - Aviso después de la venta si la factura tendrá problemas.
 - Herramienta para revisar y completar el NIF de clientes existentes.

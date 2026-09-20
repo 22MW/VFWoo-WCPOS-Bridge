@@ -98,14 +98,24 @@ final class Invoice_Variables {
 			return array( 'visible' => false );
 		}
 
-		$customer_id = (int) $order->get_customer_id();
+		// A substitute invoice (F3) belongs to the buyer VFWoo stored on the order; the order's own
+		// customer is usually the over-the-counter one. Contact and address come from the customer
+		// chosen when the F3 was issued.
+		$is_f3       = 'F3' === $type;
+		$customer_id = $is_f3 ? (int) $order->get_meta( F3_Emission::ORDER_CUSTOMER_META, true ) : (int) $order->get_customer_id();
 		$customer    = $customer_id ? new \WC_Customer( $customer_id ) : null;
 
-		$first = $customer ? $customer->get_billing_first_name() : '';
-		$last  = $customer ? $customer->get_billing_last_name() : '';
-		if ( '' === trim( $first . $last ) ) {
-			$first = $customer ? $customer->get_first_name() : $order->get_billing_first_name();
-			$last  = $customer ? $customer->get_last_name() : $order->get_billing_last_name();
+		if ( $is_f3 && '' !== trim( $order->get_billing_company() . $order->get_billing_first_name() . $order->get_billing_last_name() ) ) {
+			$company = trim( $order->get_billing_company() );
+			$name    = '' !== $company ? $company : trim( $order->get_billing_first_name() . ' ' . $order->get_billing_last_name() );
+		} else {
+			$first = $customer ? $customer->get_billing_first_name() : '';
+			$last  = $customer ? $customer->get_billing_last_name() : '';
+			if ( '' === trim( $first . $last ) ) {
+				$first = $customer ? $customer->get_first_name() : $order->get_billing_first_name();
+				$last  = $customer ? $customer->get_last_name() : $order->get_billing_last_name();
+			}
+			$name = trim( $first . ' ' . $last );
 		}
 
 		$street = $customer ? array( $customer->get_billing_address_1(), $customer->get_billing_address_2() ) : array();
@@ -118,14 +128,16 @@ final class Invoice_Variables {
 				$customer ? $customer->get_billing_country() : '',
 			)
 		);
+		$email  = $customer && $customer->get_billing_email() ? $customer->get_billing_email() : ( $is_f3 ? '' : $order->get_billing_email() );
+		$phone  = $customer && $customer->get_billing_phone() ? $customer->get_billing_phone() : ( $is_f3 ? '' : $order->get_billing_phone() );
 
 		return array(
 			'visible' => true,
-			'name'    => trim( $first . ' ' . $last ),
+			'name'    => $name,
 			'nif'     => $nif,
 			'address' => implode( ', ', $parts ),
-			'email'   => $customer && $customer->get_billing_email() ? $customer->get_billing_email() : $order->get_billing_email(),
-			'phone'   => $customer && $customer->get_billing_phone() ? $customer->get_billing_phone() : $order->get_billing_phone(),
+			'email'   => $email,
+			'phone'   => $phone,
 		);
 	}
 }

@@ -10,10 +10,7 @@ namespace VFWoo_Webkul_POS_Bridge;
 defined( 'ABSPATH' ) || exit;
 
 final class Order_Integration {
-	private $provider;
-
 	public function __construct() {
-		$this->provider = new Fiscal_Provider();
 		add_filter( 'vfwoo_ticket_estados_validos', array( $this, 'allow_processing_status' ) );
 		add_filter( 'wkwcpos_modify_order_details_response_at_pos', array( $this, 'enrich_single_order' ), 20, 3 );
 		add_filter( 'wkwcpos_modify_get_orders_api_response', array( $this, 'enrich_orders' ), 20, 4 );
@@ -62,21 +59,35 @@ final class Order_Integration {
 			return $response;
 		}
 
-		$data = $this->provider->for_order( $order );
-		$response['vfwoo_webkul_bridge'] = array(
-			'fiscal' => array(
+		$response['vfwoo_webkul_bridge'] = self::bridge_block( $order, $with_qr_image );
+		return $response;
+	}
+
+	/**
+	 * Fiscal and customer data the POS needs to print an order.
+	 *
+	 * While the invoice is not confirmed yet the QR endpoint refuses to serve it, so the image is
+	 * embedded and, as a fallback, the URL is asked for the prepared code (`temp=1`).
+	 */
+	public static function bridge_block( \WC_Order $order, bool $with_qr_image ): array {
+		$provider  = new Fiscal_Provider();
+		$data      = $provider->for_order( $order );
+		$pending   = ! empty( $data['available'] ) && empty( $data['confirmed'] );
+		$qr_source = (string) ( $data['qr_src'] ?? '' );
+
+		return array(
+			'fiscal'   => array(
 				'available'        => ! empty( $data['available'] ),
 				'invoice_number'   => (string) ( $data['invoice_number'] ?? '' ),
 				'invoice_type'     => (string) ( $data['invoice_type'] ?? '' ),
 				'issued_at'        => (string) ( $data['issued_at'] ?? '' ),
 				'verification_url' => (string) ( $data['verification_url'] ?? '' ),
-				'qr_src'           => (string) ( $data['qr_src'] ?? '' ),
-				'qr_data_uri'      => $with_qr_image ? $this->provider->qr_data_uri( $data ) : '',
+				'qr_src'           => ( $pending && '' !== $qr_source ) ? add_query_arg( 'temp', 1, $qr_source ) : $qr_source,
+				'qr_data_uri'      => ( $with_qr_image || $pending ) ? $provider->qr_data_uri( $data ) : '',
 				'legal_legend'     => (string) ( $data['legal_legend'] ?? '' ),
+				'confirmed'        => ! empty( $data['confirmed'] ),
 			),
 			'customer' => Invoice_Variables::customer_block( $order, $data ),
 		);
-
-		return $response;
 	}
 }

@@ -2,7 +2,7 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
-## [Sin publicar] — dev 0.1.0.12
+## [Sin publicar] — dev 0.1.0.13
 
 ### Corregido
 
@@ -20,6 +20,10 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 - Versión de catálogo (`vfwoo_webkul_catalog_version`): botón `Forzar recarga del catálogo` en `POS → Settings → VFWoo Bridge`; también sube al guardar los filtros. Cada producto lleva la versión con la que se cargó.
 - Aviso en el POS cuando el catálogo en caché es anterior: pide usar Resync → Products. No borra datos. Se quita solo tras el Resync.
 - Consulta automática de la versión sin recargar el POS (ruta REST `vfwoo-webkul/v1/catalog-version`): al abrir, al terminar una venta, al cambiar de pantalla y cada 5 minutos.
+- Factura completa (F3) desde el POS: botón «Factura completa (F3)» junto a «Imprimir factura» en pedidos vendidos como F2. Solo con la F2 confirmada; el cliente se busca o se crea con los servicios del POS (solo clientes con NIF, nunca el cliente por defecto) y VFWoo emite la F3 (`Invoice_Helper::emitir_sustitutiva`). Cualquier cajero autenticado puede. Al imprimir sale la F3 con los datos del comprador. Endpoints `vfwoo-webkul/v1/f3-status` e `issue-f3`.
+- El ticket F3 imprime al comprador de la F3 y no al cliente mostrador; guarda el cliente elegido en el pedido (`_vfwoo_webkul_f3_customer`) para su domicilio y contacto.
+- Con la factura aún sin confirmar, el QR del ticket se incrusta y su URL lleva `temp=1`, porque la ruta del QR no sirve facturas pendientes.
+- Autenticación de los endpoints del bridge centralizada en `Pos_Auth`.
 - Parada de la venta antes de cobrar cuando hará falta un cliente con NIF: con las simplificadas activas, una venta igual o superior al límite (400 €, o 3.000 € en sector autorizado) sin cliente con NIF no avanza desde el botón Pay ni desde el botón final de pago; con las simplificadas desactivadas, toda venta lo exige. Cliente por defecto o sin NIF por debajo del límite se vende como F2; NIF sin verificar solo avisa. Límite y ajuste leídos de VFWoo. Confirmado en local.
 - Los datos de cliente que recibe el POS incluyen ahora `vfwoo_webkul_is_default` junto al NIF y su estado; hace falta Resync de clientes.
 - Variables de VFWoo en el editor de plantillas del ticket (`${vfwoo_*}`): tienda (nombre, NIF, dirección, teléfono, email y logo), factura (número, tipo, fecha, leyenda legal, URL de cotejo y QR) y cliente (nombre, NIF, domicilio, email y teléfono). Los datos del cliente solo salen en F1 y F3; en F2 se vacían también las variables de cliente de Webkul.

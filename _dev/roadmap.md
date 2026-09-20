@@ -71,6 +71,20 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 - El aviso rojo es el emergente de Webkul (con ×, desaparece a los 8 s). Posible mejora: aviso propio que se quede hasta cerrarlo.
 - Pendiente: red de seguridad en servidor / aviso posterior a la venta (`Emission_Check::comprobar`) para lo que se cuele; herramienta de NIF de clientes existentes.
 
+## Herramienta de NIF de clientes existentes (planificada, aparcada)
+
+- Plan completo en `plan-cliente-fiscal.md`, Fase 8: lista en `POS → Settings → VFWoo Bridge` (por defecto clientes con compras en el POS), guardar y verificar con la misma validación que el POS, sugerencia de NIF de pedidos anteriores sin guardar solo, aviso de «Resync» y trazabilidad.
+- Datos del sitio local: 619 clientes y solo 1 con NIF; 7 clientes registrados con compras en el POS.
+- Decisiones pendientes: lista por defecto, sugerencia de NIF, formulario por fila o AJAX, columna de domicilio, verificar todos por lotes.
+- Aparcada: primero F3 (sustitutiva) y rectificativas.
+
+## F3 (factura sustitutiva) y rectificativas desde el POS (F3 hecha; confirmada la emisión en local)
+
+- Plan en `plan-f3-rectificativas.md`. VFWoo ya emite la F3 (`Invoice_Helper::emitir_sustitutiva`, solo desde una F2 confirmada, una por F2); el bridge añadiría un botón junto a «Imprimir factura» (`wkwcpos_add_after_print_invoice_button`), comprobación de NIF y nombre antes de enviar, y un endpoint `issue-f3`.
+- Al reimprimir tras la F3 saldría ya F3; hay que corregir `customer_block` para que use el comprador de la F3 y no el cliente mostrador.
+- Implementado (D-018): botón, ventana buscar/crear cliente, `f3-status` e `issue-f3`, y ticket F3 con el comprador de la F3. Confirmado en local: botón, ventana, emisión de la F3 y ticket con el cliente tras Resync. Pendiente de confirmar: cambiar de pedido e imprimir la F3 sin Resync tras la corrección de v0.1.0.13.
+- Rectificativas: el POS no crea reembolsos (solo los muestra); VFWoo las genera desde los reembolsos de WooCommerce. Primero verificar en sandbox (R5 sobre F2, R1 sobre F1, con F3); un botón «Devolver» en el POS quedaría para más adelante.
+
 ## Fase futura: informes
 
 - Añadir `Brands` al selector acumulable de Informes.

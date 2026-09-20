@@ -117,3 +117,134 @@
 	font-size: 12px;
 	color: #666;
 }
+
+/* The order-detail button reuses Webkul's own classes; the dialog sets its colours explicitly because the POS dark theme would make its text invisible. */
+.vfwoo-f3-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 999999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.55);
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-box {
+	width: min(560px, 94vw);
+	max-height: 90vh;
+	overflow: auto;
+	padding: 18px 20px;
+	border-radius: 10px;
+	background: #fff;
+	color: #1d2327;
+	font-size: 15px;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-box * {
+	color: inherit;
+	box-sizing: border-box;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-head h3 {
+	margin: 0;
+	font-size: 18px;
+	color: #1d2327;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-box button {
+	padding: 9px 16px;
+	border: 1px solid #c3c4c7;
+	border-radius: 6px;
+	background: #f6f7f7;
+	color: #1d2327;
+	font-size: 14px;
+	line-height: 1.2;
+	cursor: pointer;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-box button:disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-box button.vfwoo-f3-primary {
+	border-color: #fc8019;
+	background: #fc8019;
+	color: #fff;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-box button.vfwoo-f3-x {
+	padding: 0 6px;
+	border: 0;
+	background: transparent;
+	font-size: 26px;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-box input {
+	width: 100%;
+	padding: 9px 11px;
+	border: 1px solid #c3c4c7;
+	border-radius: 6px;
+	background: #fff;
+	color: #1d2327;
+	font-size: 15px;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-box input::placeholder {
+	color: #787c82;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-message {
+	margin: 12px 0;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-message.is-error {
+	color: #b32d2e;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-bar {
+	display: flex;
+	gap: 8px;
+	margin: 12px 0;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-form label {
+	display: block;
+	margin: 10px 0;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-form label input {
+	margin-top: 4px;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 8px 0;
+	border-bottom: 1px solid #eee;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-info {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-info span {
+	font-size: 13px;
+	color: #50575e;
+}
+
+.vfwoo-f3-overlay .vfwoo-f3-actions {
+	display: flex;
+	gap: 8px;
+	margin-top: 14px;
+}

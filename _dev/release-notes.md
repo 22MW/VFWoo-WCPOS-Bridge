@@ -1,5 +1,14 @@
 # Release notes
 
+## 0.1.0.13 — desarrollo
+
+- F3 desde el POS: botón junto a «Imprimir factura», ventana para buscar o crear el cliente, comprobación de F2 confirmada y emisión con VFWoo. Confirmado en local: botones, alta de la F3 y ticket con datos del cliente tras Resync de pedidos.
+- Ticket F3 con el comprador de la F3; QR incrustado y con `temp=1` mientras la factura está pendiente.
+- Corrección: el botón se oculta, no se elimina, para no romper el render de Webkul (todos los pedidos mostraban «Algo salió mal» tras emitir).
+- Estilos de la ventana y del botón alineados con el tema del POS (modo oscuro).
+- Pendiente de confirmar: que tras emitir se pueda cambiar de pedido e imprimir la F3 sin Resync.
+- Pendiente: verificar en sandbox las rectificativas (devolución total y parcial de F2, F1 y F3); herramienta de NIF de clientes existentes; aviso posterior a la venta.
+
 ## 0.1.0.12 — desarrollo
 
 - Parada de la venta antes de cobrar (botón Pay del carrito y botón final de pago) si el total alcanza el límite de la factura simplificada o las simplificadas están desactivadas y no hay cliente con NIF. Confirmado en local.

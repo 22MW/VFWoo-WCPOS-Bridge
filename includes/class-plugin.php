@@ -28,12 +28,15 @@ final class Plugin {
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-fiscal-provider.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-order-integration.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-customer-integration.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-auth.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-brand-report.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-f3-emission.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-script.php';
 		new Order_Integration();
 		new Catalog_Integration();
 		new Customer_Integration();
 		new Brand_Report();
+		new F3_Emission();
 		new POS_Script();
 	}
 }

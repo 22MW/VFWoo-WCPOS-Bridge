@@ -81,3 +81,36 @@ Notas de diseño: el campo se marca obligatorio en servidor (el formulario de We
 - Usar el modo sandbox de VFWoo. El NIF de pruebas es `B75777847` (según la documentación de VFWoo).
 - Staging y copia de seguridad antes de tocar pedidos y facturación.
 - Casos: venta anónima < límite (F2), venta anónima ≥ límite (bloqueo), cliente con NIF válido (F1), NIF inválido, nombre que no coincide, censo caído, cliente sin NIF, cambio de NIF tras verificar.
+
+## Fase 8 — Herramienta de NIF de clientes existentes (plan, sin implementar)
+
+### Datos reales del sitio local (2026-09-20, solo lectura)
+
+- 619 clientes (rol `customer`); solo 1 tiene `billing_nif` (el de las pruebas, verificado).
+- Pedidos del POS: 18 en total, con solo 7 clientes registrados distintos; 2 pedidos con `_billing_nif`.
+- Clientes con NIF en algún pedido pero sin NIF en su ficha: 1.
+- Conclusión: casi ningún cliente antiguo tiene NIF, pero **casi todos son de la web y no compran en el POS**. Una lista de 619 filas sería ruido; lo útil es empezar por los que compran en el POS.
+
+### Qué ya cubre el POS
+Editar un cliente desde el formulario del POS exige el NIF y lo verifica (fases 1-2). La herramienta no sustituye eso: sirve para **revisar en bloque desde wp-admin** y para completar los que aún no se han tocado.
+
+### Diseño propuesto
+
+1. **Dónde:** bloque nuevo en `POS → Settings → VFWoo Bridge`.
+2. **Lista** con pestañas: *Con compras en el POS* (por defecto), *Sin NIF*, *Sin verificar* y *Todos*; buscador por nombre o email; 25 por página. Columnas: cliente, email, última compra en el POS, estado del NIF (sin NIF / sin verificar / verificado), domicilio (completo o no), campo NIF y botón **Guardar y verificar**, y enlace a su ficha de usuario.
+3. **Guardar y verificar:** misma validación que el POS (formato, censo AEAT para NIF españoles, hash de NIF+nombre). Se extrae un único método compartido en `Customer_Integration` para que el POS y wp-admin no diverjan. Resultado con mensaje claro; si el censo no responde, «sin verificar» con aviso.
+4. **Sugerencia de NIF:** si el cliente tiene un `_billing_nif` en pedidos anteriores (por ejemplo del checkout web de VFWoo), se rellena el campo como propuesta con el número de pedido de origen. **Nunca se guarda solo**: el usuario confirma.
+5. **Seguridad:** `manage_woocommerce`, nonce, saneado, sin acciones por GET. Un formulario por fila con recarga (sin JavaScript nuevo), salvo que se prefiera AJAX en línea.
+6. **Caché del POS:** al guardar un NIF, la caché de clientes de las cajas queda vieja. Subir la versión de catálogo y cambiar el aviso del POS para que hable de «Resync» en general (clientes y productos).
+7. **Trazabilidad:** guardar quién y cuándo cambió el NIF (`_vfwoo_webkul_nif_by`, fecha).
+8. **Fuera de alcance:** fusionar duplicados, borrar clientes, editar domicilios (se enlaza a la ficha de usuario).
+
+### Decisiones pendientes del usuario
+- ¿Lista por defecto solo con clientes con compras en el POS, o todos?
+- ¿Sugerir el NIF de pedidos anteriores?
+- ¿Formulario por fila con recarga, o edición en línea con AJAX?
+- ¿Columna de domicilio, dado que una F1 lo lleva?
+- ¿Botón «Verificar todos los pendientes» por lotes (el censo tarda hasta 5 s por cliente), o más adelante?
+
+### Validación prevista
+`php -l`, `git diff --check`, prueba con clientes de distintos estados (sin NIF, con NIF válido, NIF inválido, nombre que no coincide, censo caído), sin emitir facturas.

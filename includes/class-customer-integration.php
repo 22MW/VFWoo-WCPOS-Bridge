@@ -125,6 +125,31 @@ final class Customer_Integration {
 		);
 	}
 
+	/**
+	 * Tax ID and invoice name of a registered customer, as they were verified.
+	 *
+	 * @return array{nif:string,name:string}
+	 */
+	public static function identity( int $customer_id ): array {
+		$identity = array(
+			'nif'  => '',
+			'name' => '',
+		);
+		if ( ! $customer_id || ! get_userdata( $customer_id ) ) {
+			return $identity;
+		}
+
+		$customer = new \WC_Customer( $customer_id );
+		$name     = trim( $customer->get_billing_first_name() . ' ' . $customer->get_billing_last_name() );
+		if ( '' === $name ) {
+			$name = trim( $customer->get_first_name() . ' ' . $customer->get_last_name() );
+		}
+
+		$identity['nif']  = trim( (string) get_user_meta( $customer_id, self::USER_NIF_META, true ) );
+		$identity['name'] = $name;
+		return $identity;
+	}
+
 	public function add_customer_data( $customer_data, $customer ) {
 		if ( ! is_array( $customer_data ) || ! $customer instanceof \WC_Customer ) {
 			return $customer_data;
@@ -170,12 +195,7 @@ final class Customer_Integration {
 			return $customer_data;
 		}
 
-		$customer = new \WC_Customer( $customer_id );
-		$name     = trim( $customer->get_billing_first_name() . ' ' . $customer->get_billing_last_name() );
-		if ( '' === $name ) {
-			$name = trim( $customer->get_first_name() . ' ' . $customer->get_last_name() );
-		}
-
+		$name  = self::identity( $customer_id )['name'];
 		$check = (string) get_user_meta( $customer_id, self::USER_CHECK_META, true );
 		$customer_data['vfwoo_webkul_nif']        = $nif;
 		$customer_data['vfwoo_webkul_nif_status'] = ( '' !== $check && hash_equals( $check, self::hash( $nif, $name ) ) ) ? 'verified' : 'unverified';
