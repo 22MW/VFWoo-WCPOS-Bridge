@@ -85,10 +85,36 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 - Implementado (D-018): botón, ventana buscar/crear cliente, `f3-status` e `issue-f3`, y ticket F3 con el comprador de la F3. Confirmado en local: botón, ventana, emisión de la F3 y ticket con el cliente tras Resync. Pendiente de confirmar: cambiar de pedido e imprimir la F3 sin Resync tras la corrección de v0.1.0.13.
 - Rectificativas: el POS no crea reembolsos (solo los muestra); VFWoo las genera desde los reembolsos de WooCommerce. Primero verificar en sandbox (R5 sobre F2, R1 sobre F1, con F3); un botón «Devolver» en el POS quedaría para más adelante.
 
+## «Marcas» en la barra de categorías del inicio (hecha y confirmada en local)
+
+- Nodo «Marcas» junto a «Todos» con las marcas como subcategorías, sus productos y sus imágenes (D-022). **Funciona perfectamente en local.** Requiere Resync → Products tras actualizar.
+- Pendiente opcional de probar: la barra antigua, una marca sin imagen y la combinación con el buscador y el panel de filtros.
+- Posible ampliación: otras taxonomías como nodos propios (hoy solo `product_brand`), y una opción para ocultarlo.
+
+## Límite de factura simplificada propio del POS (plan, sin implementar)
+
+**Necesidad:** la web puede tener el límite en 400 € y la tienda física en 3.000 € (venta al por menor). Hoy no se puede.
+
+**Situación real (leída en VFWoo):**
+- Hay **un solo ajuste global**, `authorized_sector` («sector autorizado»): 3.000 € si está activo, 400 € si no (`NIF_Rules::simplified_limit`). Vale para la web y para el POS.
+- Quien decide F1 o F2 en cada pedido es VFWoo (`Invoice_Type_Calculator::decidir_tipo`: `total >= límite` ⇒ F1), con ese ajuste global.
+- El bridge solo **lee** ese límite para parar la venta en el POS (D-017). No lo aplica.
+
+**Riesgo principal:** si el bridge tuviera su propio límite (3.000 €) pero VFWoo siguiera con 400 €, el POS dejaría vender 1.000 € sin cliente y **VFWoo emitiría F1 sin NIF**, que fallaría. El límite propio del POS solo es seguro si **VFWoo también lo aplica** a los pedidos del POS.
+
+**Plan propuesto (3 piezas, en este orden):**
+1. **VFWoo** (otro plugin, requiere autorización aparte): que el límite de un pedido pase por un filtro (por ejemplo `vfwoo_simplified_limit`, con el pedido como argumento) o por un ajuste por canal. Cambio pequeño en `Invoice_Type_Calculator`.
+2. **Bridge:** ajuste en `POS → Settings → VFWoo Bridge`: «Límite de factura simplificada en el POS» (vacío = usar el de VFWoo). Engancha el filtro anterior solo para pedidos del POS (meta `_wk_wc_pos_outlet`).
+3. **Bridge:** la parada de venta (D-017) y el aviso pasan a leer ese límite del POS.
+
+**Decisiones pendientes:** ¿ajuste por canal dentro de VFWoo o filtro que use el bridge? ¿qué límites permite (solo 400 y 3.000, o cualquier importe)? ¿qué hacer con pedidos antiguos ya emitidos?
+
+**Validación prevista:** ventas de prueba en sandbox por debajo y por encima de cada límite, en POS y en web, comprobando el tipo que emite VFWoo. Sin facturas reales.
+
 ## Release 0.1.1 y actualizaciones (publicada)
 
 - Publicada `pos-v0.1.1` (`proceso-release.md`). Pendiente: comprobar en un sitio de staging, instalado desde el ZIP, que la siguiente release aparece en Actualizaciones y se instala.
-- El desarrollo está en `0.1.1.1` (siguiente release: `0.1.2` o `0.2.0` según lo que entre).
+- `0.1.2` preparada (Marcas en la barra de categorías y estilos del POS). Después de publicarla, el desarrollo sigue en `0.1.2.1`.
 - Recomendación: repositorio propio para este plugin.
 
 ## Fase futura: informes

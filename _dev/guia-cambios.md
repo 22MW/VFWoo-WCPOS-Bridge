@@ -90,6 +90,13 @@ Plugin: VFWoo Webkul POS Bridge. Conecta VFWoo (facturas Veri*Factu) con el POS 
 - Solo se actualizan las instalaciones hechas con el ZIP. La **copia de desarrollo** (una carpeta con `.git`) no ofrece la actualización, porque WordPress reemplazaría la carpeta entera y borraría el historial y `_dev/`.
 - La versión estable actual es la **0.1.1**. Cómo se publica una versión: `proceso-release.md`.
 
+## 13. «Marcas» junto a «Todos» en el inicio del POS
+
+- En la barra de categorías del inicio aparece **Marcas**, al principio. Al pulsarla salen las **marcas como subcategorías**, igual que ocurre con las categorías que tienen hijas, y se ven los productos de todas las marcas.
+- Al pulsar una marca, se ven **solo los productos de esa marca**. Se pueden seguir combinando con el buscador y con el panel de filtros.
+- Si la marca tiene imagen en WooCommerce, se usa; si no, el icono normal de categoría.
+- Para verla hay que hacer **Resync → Products** en la caja después de actualizar. Si ningún producto tiene marca, no aparece.
+
 ## Qué falta
 
 - Verificar en sandbox las rectificativas (devolución total y parcial de F2, F1 y F3).

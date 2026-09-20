@@ -96,10 +96,12 @@ final class Catalog_Integration {
 				foreach ( $terms as $term ) {
 					$options[ $term->slug ] = html_entity_decode( $term->name, ENT_QUOTES, 'UTF-8' );
 					if ( 'product_brand' === $slug ) {
+						$thumbnail_id = (int) get_term_meta( $term->term_id, 'thumbnail_id', true );
 						$product_data['vfwoo_webkul_brands'][] = array(
-							'id'   => (int) $term->term_id,
-							'name' => (string) $term->name,
-							'slug' => (string) $term->slug,
+							'id'        => (int) $term->term_id,
+							'name'      => (string) $term->name,
+							'slug'      => (string) $term->slug,
+							'thumbnail' => $thumbnail_id ? (string) wp_get_attachment_thumb_url( $thumbnail_id ) : '',
 						);
 					}
 				}

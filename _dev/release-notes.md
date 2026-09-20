@@ -1,8 +1,10 @@
 # Release notes
 
-## 0.1.1.1 — desarrollo
+## 0.1.2 — release
 
-- Estilos de la pantalla «Marcas» y de la ventana F3 basados en las variables y clases del POS, en tema claro y oscuro (D-020). Pendiente de confirmar en los dos temas.
+- «Marcas» como una categoría más en la barra del inicio, con las marcas como subcategorías y sus imágenes (D-022). Confirmado en local: funciona perfectamente.
+- Estilos de la pantalla «Marcas» y de la ventana F3 basados en las variables y clases del POS, en tema claro y oscuro (D-020). Confirmado en local en los dos temas.
+- Consolida la entrada de desarrollo 0.1.1.1. Notas de actualización: hacer Resync → Products en cada caja para que los productos traigan las marcas y sus imágenes.
 - `_dev/` ordenado: planes e investigaciones en `_dev/temp/` (D-021).
 - Instrucciones vigentes registradas en `contexto-activo.md`.
 

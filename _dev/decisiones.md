@@ -89,11 +89,22 @@ Pantalla propia con menú (`wkwcpos_menus_list`) y ruta añadida a la lista de p
 - Por qué: la pantalla «Marcas» y la ventana F3 se veían mal en oscuro (botones y etiquetas blancos sobre fondo claro) porque fijé colores a mano; el POS cambia su paleta según el tema.
 - Excepciones documentadas: el aviso amarillo de catálogo (color de advertencia, con su texto oscuro propio), el velo translúcido detrás de la ventana y el rojo de error.
 - Antes de dar una pantalla por buena, mirarla en los dos temas.
+- **Confirmado en local** en «Marcas» y en la ventana F3, en tema claro y oscuro.
 
 ## D-021 — Orden de `_dev/`
 - En `_dev/` solo van los archivos que el plugin y el sistema usan: la memoria (`contexto-activo.md`, `decisiones.md`, `roadmap.md`, `release-notes.md`), los scripts (`deploy-release.sh`), el `.env`, la documentación del proceso de release y la guía de funcionamiento.
 - Los **planes, investigaciones, ideas e informes** van en `_dev/temp/` (`plan-*.md`, `precheck-y-plan.md`, `resumen-investigacion.md`, referencias técnicas e informes a terceros).
 - Los documentos de memoria enlazan a los de `temp/` con su ruta.
+
+## D-022 — «Marcas» como una categoría más en la barra del inicio del POS
+- La barra de categorías del POS se pinta desde el árbol `categories.list` (nodos `{name, cat_id, child, thumbnail}`); al pulsar una categoría con hijas muestra las hijas como subcategorías y navega a `/category/{cat_id}`, y los productos se filtran en el navegador con `product.categories.includes(cat_id)`.
+- El bridge añade un nodo **«Marcas»** al principio de esa lista, con las marcas (`product_brand`) como hijas. Al pulsar «Marcas» salen las marcas como subcategorías y todos los productos con marca; al pulsar una marca, los productos de esa marca. Funciona con la barra nueva y con la antigua.
+- **Se hace en el navegador, no en el servidor.** El POS solo pide sus categorías al servidor cuando su tabla local está vacía (ni «Resync Products» las refresca), así que un cambio en PHP no llegaría sin un «Resync All», que borra ventas sin conexión. El bridge se suscribe a `window.posStore` y despacha `POS_CATEGORIES` con el nodo añadido cada vez que la lista se carga; no toca la base local. Sin bucles: no despacha si ya está el nodo con las mismas marcas.
+- Los productos se filtran con `wkwcpos_modify_load_category_products` (solo para el nodo raíz y los identificadores de marca; las categorías reales no se tocan). Las marcas salen de `vfwoo_webkul_brands`, que ya viaja con cada producto (ahora con `thumbnail`, la imagen de la marca de WooCommerce).
+- Identificadores: el nodo raíz usa `2000000000`; las marcas usan su `term_id`, que no choca con los de categorías (los `term_id` son únicos entre taxonomías).
+- Requiere haber hecho Resync → Products tras instalar esta versión (para que los productos lleven `vfwoo_webkul_brands`, y `thumbnail` si se quieren imágenes). Si no hay productos con marca, el nodo no aparece.
+- Solo `product_brand`; otras taxonomías siguen en el panel de filtros.
+- **Confirmado en local:** funciona perfectamente (marcas como subcategorías, productos por marca e imágenes).
 
 ## D-008 — Taxonomías configurables (implementado y confirmado en local)
 Opción `vfwoo_webkul_filter_taxonomies`. Lista de taxonomías registradas para `product` (incluye las de CPT/plugins propios) con `show_ui`. Lista elegible en la pestaña `VFWoo Bridge`. Por defecto solo `product_brand`. Excluir `product_cat`, `pa_*` y taxonomías internas de WooCommerce.

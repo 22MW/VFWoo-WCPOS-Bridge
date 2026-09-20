@@ -869,6 +869,118 @@
 	}
 
 	hooks.addFilter( 'wkwcpos_add_after_print_invoice_button', 'vfwoo-webkul-pos-bridge', renderF3Button );
+	// ---- "Marcas" as one more category in the home category bar ----
+	// The POS keeps its categories in a local table it only refreshes when it is empty, so the node is
+	// added in memory each time the list is loaded, from the brands that already travel with the products.
+	// Brand term ids never clash with category ids (term ids are unique across taxonomies).
+	var BRANDS_ROOT_ID = 2000000000;
+	var lastCategories = null;
+	var lastProducts = null;
+	var lastSignature = '';
+
+	function collectBrands( products ) {
+		var found = {};
+		products.forEach( function ( product ) {
+			( product && Array.isArray( product.vfwoo_webkul_brands ) ? product.vfwoo_webkul_brands : [] ).forEach( function ( brand ) {
+				if ( brand && brand.id && ! found[ brand.id ] ) {
+					found[ brand.id ] = brand;
+				}
+			} );
+		} );
+		return Object.keys( found )
+			.map( function ( id ) {
+				return found[ id ];
+			} )
+			.sort( function ( a, b ) {
+				return String( a.name ).localeCompare( String( b.name ) );
+			} );
+	}
+
+	function syncBrandCategories() {
+		var store = window.posStore;
+		var state = store && store.getState ? store.getState() : null;
+		var categories = state && state.categories ? state.categories.list : null;
+		var products = state && state.products ? state.products.list : null;
+		if ( ! config || ! config.brandsCategory || ! Array.isArray( categories ) || ! Array.isArray( products ) || ! products.length ) {
+			return;
+		}
+		if ( categories === lastCategories && products === lastProducts ) {
+			return;
+		}
+		lastCategories = categories;
+		lastProducts = products;
+
+		var plain = categories.filter( function ( category ) {
+			return category.cat_id !== BRANDS_ROOT_ID;
+		} );
+		var hasNode = plain.length !== categories.length;
+		var brands = collectBrands( products );
+		var signature = brands.map( function ( brand ) {
+			return brand.id + ':' + brand.name;
+		} ).join( '|' );
+
+		if ( hasNode && signature === lastSignature ) {
+			return;
+		}
+		if ( ! brands.length && ! hasNode ) {
+			return;
+		}
+		lastSignature = signature;
+
+		var list = plain;
+		if ( brands.length ) {
+			list = [ {
+				name: config.brandsCategory,
+				cat_id: BRANDS_ROOT_ID,
+				thumbnail: false,
+				child: brands.map( function ( brand ) {
+					return { name: brand.name, cat_id: Number( brand.id ), thumbnail: brand.thumbnail || false, child: [] };
+				} )
+			} ].concat( plain );
+		}
+		store.dispatch( { type: 'POS_CATEGORIES', categories: { list: list, isFetching: state.categories.isFetching } } );
+	}
+
+	// Products of a brand category (or of the "Marcas" root: every product that has a brand).
+	function filterBrandProducts( result, categoryId ) {
+		var id = parseInt( categoryId, 10 );
+		if ( ! id || ! result || ! Array.isArray( result.list ) ) {
+			return result;
+		}
+		var brandIds = collectBrands( result.list ).map( function ( brand ) {
+			return Number( brand.id );
+		} );
+		var isRoot = id === BRANDS_ROOT_ID;
+		if ( ! isRoot && brandIds.indexOf( id ) === -1 ) {
+			return result;
+		}
+		var matching = result.list.filter( function ( product ) {
+			return Array.isArray( product.vfwoo_webkul_brands ) && product.vfwoo_webkul_brands.some( function ( brand ) {
+				return isRoot || Number( brand.id ) === id;
+			} );
+		} );
+		matching.sort( function ( first ) {
+			return first.pin_product === 'pin' ? -1 : 1;
+		} );
+		return Object.assign( {}, result, { cproducts: matching } );
+	}
+
+	function startBrandCategories( attempt ) {
+		if ( window.posStore && window.posStore.subscribe ) {
+			window.posStore.subscribe( syncBrandCategories );
+			syncBrandCategories();
+		} else if ( attempt < 20 ) {
+			window.setTimeout( function () {
+				startBrandCategories( attempt + 1 );
+			}, 500 );
+		}
+	}
+
+	if ( config ) {
+		startBrandCategories( 0 );
+	}
+	hooks.addFilter( 'wkwcpos_modify_load_category_products', 'vfwoo-webkul-pos-bridge', filterBrandProducts );
+
 	hooks.addFilter( 'wkwc_add_custom_field_in_form_after_email', 'vfwoo-webkul-pos-bridge', renderNifField );
 	hooks.addFilter( 'wkwcpos_modify_order_success_popup', 'vfwoo-webkul-pos-bridge', checkAfterSale );
 	hooks.addFilter( 'wkwcpos_modify_homepage_products', 'vfwoo-webkul-pos-bridge', checkCatalogVersion );

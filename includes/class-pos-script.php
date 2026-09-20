@@ -105,6 +105,7 @@ final class POS_Script {
 						'issued'     => __( 'Factura completa (F3) enviada. Al imprimir el pedido saldrá la F3; si sale la simplificada, haz Resync de pedidos.', 'vfwoo-webkul-pos-bridge' ),
 						'error'      => __( 'No se ha podido completar la operación.', 'vfwoo-webkul-pos-bridge' ),
 					),
+					'brandsCategory' => __( 'Marcas', 'vfwoo-webkul-pos-bridge' ),
 					'store'          => Invoice_Variables::store(),
 					'qrAlt'          => __( 'QR Veri*Factu', 'vfwoo-webkul-pos-bridge' ),
 					'nifLabel'       => __( 'DNI / NIE / CIF', 'vfwoo-webkul-pos-bridge' ),
