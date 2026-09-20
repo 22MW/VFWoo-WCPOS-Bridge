@@ -25,15 +25,18 @@
 	cursor: pointer;
 }
 
+/* POS theme first: colours come from the POS variables (--primary, --secondary, --text-color,
+   --text-color-light, --primary-accent, --fixed), which change with its light and dark modes.
+   Primary actions use the POS class `primary`; nothing here hard-codes a colour except the warning notice. */
+
 .vfwoo-brands-page {
 	width: 100%;
 	max-height: 100vh;
 	overflow: auto;
 	padding: 20px 24px;
-	background: #f5f5f5;
-	color: #1d2327;
-	font-size: 15px;
 	box-sizing: border-box;
+	color: var(--text-color);
+	font-size: 15px;
 }
 
 .vfwoo-brands-header {
@@ -45,6 +48,7 @@
 .vfwoo-brands-header h2 {
 	margin: 0;
 	font-size: 22px;
+	color: var(--text-color);
 }
 
 .vfwoo-brands-toolbar,
@@ -56,40 +60,48 @@
 	margin: 14px 0;
 }
 
-.vfwoo-brands-page button {
+.vfwoo-brands-toolbar label {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--text-color);
+}
+
+.vfwoo-brands-page button:not(.primary),
+.vfwoo-f3-overlay button:not(.primary):not(.vfwoo-f3-x) {
 	padding: 8px 14px;
-	border: 1px solid #d0d0d0;
+	border: 1px solid var(--text-color-light);
 	border-radius: 6px;
-	background: #fff;
-	font-size: 14px;
+	background: var(--secondary);
+	color: var(--text-color);
 	cursor: pointer;
 }
 
-.vfwoo-brands-page button.vfwoo-brands-apply,
-.vfwoo-brands-page button.is-active {
-	border-color: #fc8019;
-	background: #fc8019;
-	color: #fff;
-}
-
-.vfwoo-brands-page input[type="date"] {
-	padding: 6px 8px;
-	border: 1px solid #d0d0d0;
+.vfwoo-brands-page button.primary,
+.vfwoo-f3-overlay button.primary {
+	padding: 8px 14px;
+	border: 0;
 	border-radius: 6px;
+	cursor: pointer;
 }
 
 .vfwoo-brands-table {
 	width: 100%;
 	border-collapse: collapse;
-	background: #fff;
-	border-radius: 8px;
-	overflow: hidden;
+	border-top: 3px solid var(--primary-accent);
+	border-bottom: 3px solid var(--primary-accent);
+	color: var(--text-color);
+}
+
+.vfwoo-brands-table th {
+	color: var(--primary-accent);
+	font-weight: 600;
+	letter-spacing: 0.5px;
 }
 
 .vfwoo-brands-table th,
 .vfwoo-brands-table td {
 	padding: 10px 12px;
-	border-bottom: 1px solid #eee;
 	text-align: right;
 }
 
@@ -98,9 +110,18 @@
 	text-align: left;
 }
 
+.vfwoo-brands-table tbody tr:nth-child(odd) {
+	background: var(--secondary);
+}
+
 .vfwoo-brands-brand {
 	font-weight: 600;
 	cursor: pointer;
+}
+
+.vfwoo-brands-brand:hover,
+.vfwoo-brands-page .vfwoo-brands-table tbody tr:hover {
+	box-shadow: inset 0 0 0 1px var(--primary-accent);
 }
 
 .vfwoo-brands-product td:first-child {
@@ -109,16 +130,20 @@
 
 .vfwoo-brands-total {
 	font-weight: 700;
-	background: #fafafa;
+	border-top: 1px solid var(--text-color-light);
 }
 
 .vfwoo-brands-note {
 	margin-top: 14px;
 	font-size: 12px;
-	color: #666;
+	color: var(--text-color-light);
 }
 
-/* The order-detail button reuses Webkul's own classes; the dialog sets its colours explicitly because the POS dark theme would make its text invisible. */
+.vfwoo-brands-status {
+	color: var(--text-color);
+}
+
+/* F3 dialog: --fixed is the opaque surface of each theme (black / white). */
 .vfwoo-f3-overlay {
 	position: fixed;
 	inset: 0;
@@ -134,14 +159,15 @@
 	max-height: 90vh;
 	overflow: auto;
 	padding: 18px 20px;
+	border: 1px solid var(--text-color-light);
 	border-radius: 10px;
-	background: #fff;
-	color: #1d2327;
+	background: var(--fixed);
+	color: var(--text-color);
 	font-size: 15px;
+	box-sizing: border-box;
 }
 
 .vfwoo-f3-overlay .vfwoo-f3-box * {
-	color: inherit;
 	box-sizing: border-box;
 }
 
@@ -154,17 +180,16 @@
 .vfwoo-f3-overlay .vfwoo-f3-head h3 {
 	margin: 0;
 	font-size: 18px;
-	color: #1d2327;
+	color: var(--text-color);
 }
 
-.vfwoo-f3-overlay .vfwoo-f3-box button {
-	padding: 9px 16px;
-	border: 1px solid #c3c4c7;
-	border-radius: 6px;
-	background: #f6f7f7;
-	color: #1d2327;
-	font-size: 14px;
-	line-height: 1.2;
+.vfwoo-f3-overlay .vfwoo-f3-box button.vfwoo-f3-x {
+	padding: 0 6px;
+	border: 0;
+	background: transparent;
+	color: var(--text-color);
+	font-size: 26px;
+	line-height: 1;
 	cursor: pointer;
 }
 
@@ -173,39 +198,27 @@
 	cursor: not-allowed;
 }
 
-.vfwoo-f3-overlay .vfwoo-f3-box button.vfwoo-f3-primary {
-	border-color: #fc8019;
-	background: #fc8019;
-	color: #fff;
-}
-
-.vfwoo-f3-overlay .vfwoo-f3-box button.vfwoo-f3-x {
-	padding: 0 6px;
-	border: 0;
-	background: transparent;
-	font-size: 26px;
-}
-
 .vfwoo-f3-overlay .vfwoo-f3-box input {
 	width: 100%;
 	padding: 9px 11px;
-	border: 1px solid #c3c4c7;
+	border: 1px solid var(--text-color-light);
 	border-radius: 6px;
-	background: #fff;
-	color: #1d2327;
+	background: var(--secondary);
+	color: var(--text-color);
 	font-size: 15px;
 }
 
 .vfwoo-f3-overlay .vfwoo-f3-box input::placeholder {
-	color: #787c82;
+	color: var(--text-color-light);
 }
 
 .vfwoo-f3-overlay .vfwoo-f3-message {
 	margin: 12px 0;
+	color: var(--text-color);
 }
 
 .vfwoo-f3-overlay .vfwoo-f3-message.is-error {
-	color: #b32d2e;
+	color: #d63638;
 }
 
 .vfwoo-f3-overlay .vfwoo-f3-bar {
@@ -229,7 +242,7 @@
 	justify-content: space-between;
 	gap: 12px;
 	padding: 8px 0;
-	border-bottom: 1px solid #eee;
+	border-bottom: 1px solid var(--text-color-light);
 }
 
 .vfwoo-f3-overlay .vfwoo-f3-info {
@@ -240,7 +253,7 @@
 
 .vfwoo-f3-overlay .vfwoo-f3-info span {
 	font-size: 13px;
-	color: #50575e;
+	color: var(--text-color-light);
 }
 
 .vfwoo-f3-overlay .vfwoo-f3-actions {

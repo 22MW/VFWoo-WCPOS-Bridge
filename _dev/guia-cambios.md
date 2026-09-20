@@ -42,7 +42,7 @@ Plugin: VFWoo Webkul POS Bridge. Conecta VFWoo (facturas Veri*Factu) con el POS 
 
 - Se crea en **Usuarios → Añadir nuevo** con rol **Cliente**, sin DNI.
 - Luego, en la lista de Usuarios, pasa el ratón por su fila y pulsa **Set Pos Default Customer**.
-- No uses el formulario **Point of Sale → Settings → Customer → Save Customer**: tiene un fallo de Webkul que, si falla la creación, modifica al usuario con ID 1 (informe para su soporte en `informe-soporte-webkul-default-customer.md`).
+- No uses el formulario **Point of Sale → Settings → Customer → Save Customer**: tiene un fallo de Webkul que, si falla la creación, modifica al usuario con ID 1 (informe para su soporte en `temp/informe-soporte-webkul-default-customer.md`).
 
 ## 7. Antispam en el alta de clientes del POS
 
@@ -84,6 +84,12 @@ Plugin: VFWoo Webkul POS Bridge. Conecta VFWoo (facturas Veri*Factu) con el POS 
 - Cualquier cajero puede emitirla. Solo una F3 por pedido.
 - Las **devoluciones** se hacen en WooCommerce; VFWoo genera la rectificativa (R5 sobre F2, R1 sobre F1).
 
+## 12. Actualizaciones
+
+- El plugin se actualiza desde **Escritorio › Actualizaciones**, como cualquier otro, cuando se publica una versión nueva en GitHub. Se guarda una hora la última consulta; «Buscar de nuevo» la fuerza.
+- Solo se actualizan las instalaciones hechas con el ZIP. La **copia de desarrollo** (una carpeta con `.git`) no ofrece la actualización, porque WordPress reemplazaría la carpeta entera y borraría el historial y `_dev/`.
+- La versión estable actual es la **0.1.1**. Cómo se publica una versión: `proceso-release.md`.
+
 ## Qué falta
 
 - Verificar en sandbox las rectificativas (devolución total y parcial de F2, F1 y F3).
@@ -93,4 +99,4 @@ Plugin: VFWoo Webkul POS Bridge. Conecta VFWoo (facturas Veri*Factu) con el POS 
 - Diagnóstico de compatibilidad en Settings.
 - Informes por marca dentro de WooCommerce Analytics (opcional, más esfuerzo).
 
-Detalle técnico: `plan-cliente-fiscal.md`, `decisiones.md`, `roadmap.md`.
+Detalle técnico: `temp/plan-cliente-fiscal.md`, `decisiones.md`, `roadmap.md`.

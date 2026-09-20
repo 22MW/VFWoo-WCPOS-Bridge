@@ -2,7 +2,11 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
-## [Sin publicar]
+## [Sin publicar] — dev 0.1.1.1
+
+### Cambiado
+
+- Pantalla «Marcas» y ventana de la factura completa (F3) con los estilos del propio POS: colores tomados de sus variables de tema (`--primary`, `--secondary`, `--text-color`, `--text-color-light`, `--primary-accent`, `--fixed`) y botones con su clase `primary`, para que se vean bien en el tema claro y en el oscuro. Antes fijaban colores a mano y en oscuro se veían textos blancos sobre fondo blanco.
 
 ## [0.1.1] - 2026-09-20
 

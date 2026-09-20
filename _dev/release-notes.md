@@ -1,5 +1,11 @@
 # Release notes
 
+## 0.1.1.1 — desarrollo
+
+- Estilos de la pantalla «Marcas» y de la ventana F3 basados en las variables y clases del POS, en tema claro y oscuro (D-020). Pendiente de confirmar en los dos temas.
+- `_dev/` ordenado: planes e investigaciones en `_dev/temp/` (D-021).
+- Instrucciones vigentes registradas en `contexto-activo.md`.
+
 ## 0.1.1 — release
 
 - Primera versión estable: consolida 0.1.0.1 a 0.1.0.13 (ticket fiscal con QR, filtros de catálogo, aviso de catálogo, clientes con NIF, F1/F2, parada de venta, pantalla «Marcas», variables de ticket, F3).
@@ -41,7 +47,7 @@
 
 - Clientes del POS con DNI/NIE/CIF obligatorio, validado (formato y censo AEAT) al guardar; NIF copiado al pedido para emitir F1. Confirmado en local.
 - Omitida la comprobación antispam de WP Armour Extended solo en el alta de clientes del POS.
-- Documentación: `guia-cambios.md`, `plan-cliente-fiscal.md`, `informe-soporte-webkul-default-customer.md`.
+- Documentación: `guia-cambios.md`, `temp/plan-cliente-fiscal.md`, `temp/informe-soporte-webkul-default-customer.md`.
 - Pendiente: bloqueo en Pay, ticket F2 sin datos del cliente, aviso post-venta, herramienta de NIF de clientes existentes.
 
 ## 0.1.0.8 — desarrollo

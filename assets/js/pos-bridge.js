@@ -334,7 +334,7 @@
 		var toInput = node( 'input' );
 		toInput.type = 'date';
 		toInput.value = range.end;
-		var apply = node( 'button', 'vfwoo-brands-apply', labels.apply );
+		var apply = node( 'button', 'vfwoo-brands-apply primary', labels.apply );
 		apply.type = 'button';
 		apply.addEventListener( 'click', function () {
 			range = { start: fromInput.value, end: toInput.value };
@@ -362,7 +362,7 @@
 			if ( ! data || ! data.brands.length ) {
 				return;
 			}
-			var all = node( 'button', 'vfwoo-brands-chip' + ( selected === null ? ' is-active' : '' ), labels.allBrands );
+			var all = node( 'button', 'vfwoo-brands-chip' + ( selected === null ? ' is-active primary' : '' ), labels.allBrands );
 			all.type = 'button';
 			all.addEventListener( 'click', function () {
 				selected = null;
@@ -371,7 +371,7 @@
 			filter.appendChild( all );
 			data.brands.forEach( function ( brand ) {
 				var active = selected !== null && selected.indexOf( brand.name ) !== -1;
-				var chip = node( 'button', 'vfwoo-brands-chip' + ( active ? ' is-active' : '' ), brand.name );
+				var chip = node( 'button', 'vfwoo-brands-chip' + ( active ? ' is-active primary' : '' ), brand.name );
 				chip.type = 'button';
 				chip.addEventListener( 'click', function () {
 					var current = selected === null ? [] : selected.slice();
@@ -650,7 +650,7 @@
 						return showSearch();
 					}
 					if ( result.state === 'pending' ) {
-						return show( message( labels.pending ), button( labels.refresh, 'vfwoo-f3-primary', checkOrder ), button( labels.close, '', close ) );
+						return show( message( labels.pending ), button( labels.refresh, 'primary vfwoo-f3-primary', checkOrder ), button( labels.close, '', close ) );
 					}
 					return show( message( result.state === 'done' ? labels.done : labels.none ), button( labels.close, '', close ) );
 				} )
@@ -699,7 +699,7 @@
 				var usable = !! nif && customer.vfwoo_webkul_is_default !== true;
 				info.appendChild( node( 'span', '', customer.vfwoo_webkul_is_default === true ? labels.defaultCst : ( nif ? nif : labels.noNif ) ) );
 				row.appendChild( info );
-				var choose = button( labels.choose, 'vfwoo-f3-primary', function () {
+				var choose = button( labels.choose, 'primary vfwoo-f3-primary', function () {
 					showConfirm( customer, name, nif );
 				} );
 				choose.disabled = ! usable;
@@ -707,7 +707,7 @@
 				return row;
 			}
 
-			var searchButton = button( labels.search, 'vfwoo-f3-primary', search );
+			var searchButton = button( labels.search, 'primary vfwoo-f3-primary', search );
 			input.addEventListener( 'keydown', function ( event ) {
 				if ( event.key === 'Enter' ) {
 					search();
@@ -742,7 +742,7 @@
 			form.appendChild( nifLabel );
 			var status = message( '' );
 
-			var save = button( labels.save, 'vfwoo-f3-primary', function () {
+			var save = button( labels.save, 'primary vfwoo-f3-primary', function () {
 				var first = fields.firstName.value.trim();
 				var last = fields.lastName.value.trim();
 				var email = fields.email.value.trim();
@@ -788,7 +788,7 @@
 		function showConfirm( customer, name, nif ) {
 			var text = labels.confirm.replace( '%order%', orderId ).replace( '%name%', name || customer.email ).replace( '%nif%', nif );
 			var status = message( '' );
-			var issue = button( labels.issue, 'vfwoo-f3-primary', function () {
+			var issue = button( labels.issue, 'primary vfwoo-f3-primary', function () {
 				issue.disabled = true;
 				status.className = 'vfwoo-f3-message';
 				status.textContent = labels.issuing;
@@ -806,7 +806,7 @@
 							Array.prototype.forEach.call( document.querySelectorAll( '.vfwoo-f3' ), function ( element ) {
 								element.style.display = 'none';
 							} );
-							return show( message( labels.issued ), button( labels.close, 'vfwoo-f3-primary', close ) );
+							return show( message( labels.issued ), button( labels.close, 'primary vfwoo-f3-primary', close ) );
 						}
 						issue.disabled = false;
 						status.className = 'vfwoo-f3-message is-error';

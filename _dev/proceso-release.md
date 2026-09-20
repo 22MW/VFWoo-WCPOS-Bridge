@@ -2,6 +2,8 @@
 
 Cómo se publica una versión de VFWoo Webkul POS Bridge y cómo la reciben los sitios.
 
+Los planes e investigaciones no van aquí sino en `_dev/temp/` (D-021).
+
 ## Piezas
 
 | Pieza | Dónde | Qué hace |
@@ -27,7 +29,7 @@ Cómo se publica una versión de VFWoo Webkul POS Bridge y cómo la reciben los 
 ./_dev/deploy-release.sh                 # release completa: rama + tag + release + ZIP (necesita GITHUB_TOKEN)
 ```
 
-**Dónde poner el token: fuera de la raíz web.** El `.env` está en la raíz del workspace (`/Users/22mw/Local Sites/pos/.env`, permisos 600), no en `_dev/`. La raíz web del sitio es `app/public`, y `_dev/` vive dentro de `wp-content/plugins/…`: un archivo en `_dev/` se serviría por URL en cualquier sitio que tenga esa carpeta. Además, un solo token sirve a todos los plugins del workspace. El script también lee `_dev/.env` si prefieres ponerlo ahí (Git lo ignora y el script ya no borra `_dev/`), pero no es lo recomendable.
+**Dónde está el token:** en `_dev/.env` (permisos 600). Git lo ignora (`.env*` en el `.gitignore` del plugin, comprobado con `git check-ignore`), la release no lo incluye (la rama `pos-release` y el ZIP se hacen sin `_dev`) y el script ya no borra `_dev/`. En el nginx de Local el servidor responde 404 a `_dev/.env` (bloquea los archivos que empiezan por punto) aunque sirva el resto de `_dev/` (200). Esa protección es de la configuración del servidor: en cualquier otro servidor, comprobarla antes de dejar un `.env` bajo la raíz web (`curl -I …/_dev/.env` debe dar 404 o 403). La raíz del workspace también sirve (`/Users/22mw/Local Sites/pos/.env`) y queda fuera de la web; hay un `.gitignore` allí con `.env*` y `dist/`.
 
 El token se busca en `_dev/.env`, `.env.local`, el `.env` de la raíz del workspace, el archivo indicado en `GITHUB_ENV_FILE`, o el entorno. Ningún archivo `.env*` se versiona.
 
@@ -46,7 +48,7 @@ El token se busca en `_dev/.env`, `.env.local`, el `.env` de la raíz del worksp
 - Solo se acepta un paquete alojado en `github.com/22MW/VFWoo-WCPOS-Bridge/`. Un ZIP de otra procedencia se rechaza.
 - **No se activa en una copia de desarrollo** (una carpeta con `.git`): una actualización de WordPress reemplaza la carpeta entera y borraría el historial y `_dev/`. Solo las instalaciones de producción (el ZIP, sin `.git`) reciben actualizaciones. Se puede forzar con la constante `VFWOO_WEBKUL_ALLOW_DEV_UPDATES`.
 - El actualizador se registra antes de comprobar las dependencias: un plugin al que le falta WooCommerce, VFWoo o Webkul se puede actualizar igual.
-- Las versiones de desarrollo (cuatro números) son anteriores a la siguiente estable, así que un sitio en `0.1.0.13` verá `0.1.1` como actualización.
+- Las versiones de desarrollo (cuatro números) son anteriores a la siguiente estable, así que un sitio en `0.1.0.13` o `0.1.1.1` verá la siguiente estable como actualización (y `0.1.1` a quien tenga una anterior).
 
 ## Recomendación
 

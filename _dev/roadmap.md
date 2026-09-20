@@ -4,7 +4,7 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 
 ## Fase 1 — Precheck y contrato Webkul (casi cerrada)
 
-- Hecho: versión 7.1.1, repo propio, hooks localizados, panel de filtros nativo analizado (ver `WEBKUL-REACT-EXTENSION.md` y `decisiones.md`).
+- Hecho: versión 7.1.1, repo propio, hooks localizados, panel de filtros nativo analizado (ver `temp/WEBKUL-REACT-EXTENSION.md` y `decisiones.md`).
 - Pendiente: confirmar en runtime que `product.attributes` con una entrada `BRANDS` aparece en el panel y no rompe el alta al carrito ni el popup de variaciones.
 - Pendiente: confirmar la taxonomía real de marcas (`product_brand`) y que las variaciones no necesitan el dato propio.
 
@@ -73,14 +73,14 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 
 ## Herramienta de NIF de clientes existentes (planificada, aparcada)
 
-- Plan completo en `plan-cliente-fiscal.md`, Fase 8: lista en `POS → Settings → VFWoo Bridge` (por defecto clientes con compras en el POS), guardar y verificar con la misma validación que el POS, sugerencia de NIF de pedidos anteriores sin guardar solo, aviso de «Resync» y trazabilidad.
+- Plan completo en `temp/plan-cliente-fiscal.md`, Fase 8: lista en `POS → Settings → VFWoo Bridge` (por defecto clientes con compras en el POS), guardar y verificar con la misma validación que el POS, sugerencia de NIF de pedidos anteriores sin guardar solo, aviso de «Resync» y trazabilidad.
 - Datos del sitio local: 619 clientes y solo 1 con NIF; 7 clientes registrados con compras en el POS.
 - Decisiones pendientes: lista por defecto, sugerencia de NIF, formulario por fila o AJAX, columna de domicilio, verificar todos por lotes.
 - Aparcada: primero F3 (sustitutiva) y rectificativas.
 
 ## F3 (factura sustitutiva) y rectificativas desde el POS (F3 hecha; confirmada la emisión en local)
 
-- Plan en `plan-f3-rectificativas.md`. VFWoo ya emite la F3 (`Invoice_Helper::emitir_sustitutiva`, solo desde una F2 confirmada, una por F2); el bridge añadiría un botón junto a «Imprimir factura» (`wkwcpos_add_after_print_invoice_button`), comprobación de NIF y nombre antes de enviar, y un endpoint `issue-f3`.
+- Plan en `temp/plan-f3-rectificativas.md`. VFWoo ya emite la F3 (`Invoice_Helper::emitir_sustitutiva`, solo desde una F2 confirmada, una por F2); el bridge añadiría un botón junto a «Imprimir factura» (`wkwcpos_add_after_print_invoice_button`), comprobación de NIF y nombre antes de enviar, y un endpoint `issue-f3`.
 - Al reimprimir tras la F3 saldría ya F3; hay que corregir `customer_block` para que use el comprador de la F3 y no el cliente mostrador.
 - Implementado (D-018): botón, ventana buscar/crear cliente, `f3-status` e `issue-f3`, y ticket F3 con el comprador de la F3. Confirmado en local: botón, ventana, emisión de la F3 y ticket con el cliente tras Resync. Pendiente de confirmar: cambiar de pedido e imprimir la F3 sin Resync tras la corrección de v0.1.0.13.
 - Rectificativas: el POS no crea reembolsos (solo los muestra); VFWoo las genera desde los reembolsos de WooCommerce. Primero verificar en sandbox (R5 sobre F2, R1 sobre F1, con F3); un botón «Devolver» en el POS quedaría para más adelante.
@@ -88,7 +88,7 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 ## Release 0.1.1 y actualizaciones (publicada)
 
 - Publicada `pos-v0.1.1` (`proceso-release.md`). Pendiente: comprobar en un sitio de staging, instalado desde el ZIP, que la siguiente release aparece en Actualizaciones y se instala.
-- El desarrollo sigue en `0.1.0.13`; al próximo push a dev toca `0.1.1.1`.
+- El desarrollo está en `0.1.1.1` (siguiente release: `0.1.2` o `0.2.0` según lo que entre).
 - Recomendación: repositorio propio para este plugin.
 
 ## Fase futura: informes

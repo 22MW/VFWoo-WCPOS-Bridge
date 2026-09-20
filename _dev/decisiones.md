@@ -40,7 +40,7 @@ Webkul imprime 500 ms después de montar el ticket; la ruta REST del QR tarda 0,
 El ticket ya no muestra la URL de cotejo en texto; sigue en los datos (`verification_url`).
 
 ## D-013 — NIF del cliente en el POS
-Campo obligatorio DNI/NIE/CIF en el formulario de cliente; se valida al guardar (formato + censo AEAT para NIF españoles) y se copia al pedido para que VFWoo emita F1. Cliente por defecto y clientes sin NIF: F2. Sin exención de IVA desde el POS. Detalle en `plan-cliente-fiscal.md`. Pendiente de QA.
+Campo obligatorio DNI/NIE/CIF en el formulario de cliente; se valida al guardar (formato + censo AEAT para NIF españoles) y se copia al pedido para que VFWoo emita F1. Cliente por defecto y clientes sin NIF: F2. Sin exención de IVA desde el POS. Detalle en `temp/plan-cliente-fiscal.md`. Pendiente de QA.
 
 ## D-014 — Antispam en el alta de clientes del POS
 El plugin WP Armour Extended (`wpa_woocommerce_register_validation` en `woocommerce_registration_errors`) marca como spam cualquier alta sin su campo oculto de formulario web, y eso rompía la creación de clientes desde el POS («Spamming or your Javascript is disabled !!»). El bridge quita ese filtro solo durante el guardado de un cliente del POS, que ya exige cajero autenticado en Webkul. En la web sigue activo.
@@ -74,7 +74,7 @@ Pantalla propia con menú (`wkwcpos_menus_list`) y ruta añadida a la lista de p
 - `Pos_Auth` centraliza la autenticación de los endpoints del bridge (también usada por «Marcas»).
 - `emitir_sustitutiva` es pública pero no es contrato documentado de VFWoo: pedirle un método oficial (otro plugin).
 - Devoluciones: por WooCommerce; VFWoo genera la rectificativa.
-- **Ajustes tras la primera prueba:** (1) el tema oscuro del POS pintaba de blanco el texto de botones y campos de la ventana: los colores se fijan explícitamente. (1c) Tras emitir, el botón se **oculta** con `display:none` en vez de eliminarse: borrar a mano un nodo del árbol de React de Webkul rompía el siguiente render y todos los pedidos mostraban «Algo salió mal» hasta hacer Resync de pedidos. Regla: el bridge nunca elimina nodos que crea vía `wp.element` dentro de la aplicación de Webkul. (1b) El botón del detalle usa las clases del propio POS (`pos-order-invoice` + `primary`, como «Imprimir Invoice»), no estilos propios, para que se vea igual en cualquier tema. (2) Webkul imprime desde el mismo objeto de pedido que pinta el detalle, así que `issue-f3` devuelve el bloque fiscal y de cliente ya actualizado (`Order_Integration::bridge_block`) y la ventana lo asigna al pedido: el ticket sale con la F3 sin recargar. (3) Mientras la factura no está confirmada, la ruta REST del QR se niega a servir la imagen (`Cotejo_Url::for_order` sin `temp`); con la F3 recién enviada, el QR del ticket fallaba. Ahora, si está pendiente, se incrusta la imagen y `qr_src` lleva `temp=1`.
+- **Ajustes tras la primera prueba:** (1) el tema oscuro del POS pintaba de blanco el texto de botones y campos de la ventana; primero se fijaron colores propios y después se sustituyó por las variables del POS (ver D-020). (1c) Tras emitir, el botón se **oculta** con `display:none` en vez de eliminarse: borrar a mano un nodo del árbol de React de Webkul rompía el siguiente render y todos los pedidos mostraban «Algo salió mal» hasta hacer Resync de pedidos. Regla: el bridge nunca elimina nodos que crea vía `wp.element` dentro de la aplicación de Webkul. (1b) El botón del detalle usa las clases del propio POS (`pos-order-invoice` + `primary`, como «Imprimir Invoice»), no estilos propios, para que se vea igual en cualquier tema. (2) Webkul imprime desde el mismo objeto de pedido que pinta el detalle, así que `issue-f3` devuelve el bloque fiscal y de cliente ya actualizado (`Order_Integration::bridge_block`) y la ventana lo asigna al pedido: el ticket sale con la F3 sin recargar. (3) Mientras la factura no está confirmada, la ruta REST del QR se niega a servir la imagen (`Cotejo_Url::for_order` sin `temp`); con la F3 recién enviada, el QR del ticket fallaba. Ahora, si está pendiente, se incrusta la imagen y `qr_src` lleva `temp=1`.
 
 ## D-019 — Sistema de release
 - Rama `pos-release` (sin `_dev`) en el remoto compartido, tag y release `pos-v<versión>`, ZIP `vfwoo-webkul-pos-bridge.zip`. Script `_dev/deploy-release.sh` (`--dry-run`, `--branch-only`).
@@ -82,6 +82,18 @@ Pantalla propia con menú (`wkwcpos_menus_list`) y ruta añadida a la lista de p
 - Actualizador `Github_Updater`: filtra por prefijo, ignora borradores y prereleases, solo acepta paquetes de `github.com/22MW/VFWoo-WCPOS-Bridge/`, caché de una hora.
 - Seguridad: el actualizador **no se activa en una copia con `.git`** (una actualización de WordPress reemplaza la carpeta entera y borraría el historial y `_dev/` de la copia de desarrollo). `VFWOO_WEBKUL_ALLOW_DEV_UPDATES` lo fuerza.
 - Detalle en `proceso-release.md`.
+
+## D-020 — Estilos: primero los del POS, en tema claro y oscuro
+- **Regla:** todo lo que el bridge pinte dentro del POS usa **primero los estilos del propio POS**, y debe verse bien en el tema claro y en el oscuro. Los colores fijos son la última opción.
+- Cómo: variables que Webkul define según el tema (`--primary` y `--secondary` para superficies, `--fixed` para la superficie opaca, `--text-color` y `--text-color-light` para el texto, `--primary-accent` para el naranja) y sus clases (`primary` para acciones, `pos-order-invoice` para botones del detalle, el estilo de tabla con bordes de acento).
+- Por qué: la pantalla «Marcas» y la ventana F3 se veían mal en oscuro (botones y etiquetas blancos sobre fondo claro) porque fijé colores a mano; el POS cambia su paleta según el tema.
+- Excepciones documentadas: el aviso amarillo de catálogo (color de advertencia, con su texto oscuro propio), el velo translúcido detrás de la ventana y el rojo de error.
+- Antes de dar una pantalla por buena, mirarla en los dos temas.
+
+## D-021 — Orden de `_dev/`
+- En `_dev/` solo van los archivos que el plugin y el sistema usan: la memoria (`contexto-activo.md`, `decisiones.md`, `roadmap.md`, `release-notes.md`), los scripts (`deploy-release.sh`), el `.env`, la documentación del proceso de release y la guía de funcionamiento.
+- Los **planes, investigaciones, ideas e informes** van en `_dev/temp/` (`plan-*.md`, `precheck-y-plan.md`, `resumen-investigacion.md`, referencias técnicas e informes a terceros).
+- Los documentos de memoria enlazan a los de `temp/` con su ruta.
 
 ## D-008 — Taxonomías configurables (implementado y confirmado en local)
 Opción `vfwoo_webkul_filter_taxonomies`. Lista de taxonomías registradas para `product` (incluye las de CPT/plugins propios) con `show_ui`. Lista elegible en la pestaña `VFWoo Bridge`. Por defecto solo `product_brand`. Excluir `product_cat`, `pa_*` y taxonomías internas de WooCommerce.
