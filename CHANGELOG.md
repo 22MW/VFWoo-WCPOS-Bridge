@@ -4,6 +4,14 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 
 ## [Sin publicar]
 
+### Corregido
+
+- **Los avisos del admin ya no se guardan dentro de la plantilla del ticket.** WordPress mueve cada aviso bajo el primer título de la página y, en el editor de plantillas de factura de Webkul, ese título es el del ticket: al guardar, el aviso quedaba grabado y salía impreso. Ahora esa pantalla no muestra avisos.
+
+### Añadido
+
+- Interruptor «Ocultar el aviso de WooCommerce sobre plugins que no declaran compatibilidad», desactivado por defecto, en POS → Settings → VFWoo Bridge.
+
 ## [0.1.3] - 2026-11-10
 
 ### Añadido
