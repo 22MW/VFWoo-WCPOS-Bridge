@@ -3,7 +3,7 @@ Contributors: verifacwoo
 Tags: woocommerce, pos, verifactu, receipts, webkul
 Requires at least: 6.2
 Requires PHP: 7.4
-Stable tag: 0.1.2
+Stable tag: 0.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,8 @@ habitual de impresión. El bridge no instala un catálogo paralelo de plantillas
 * Factura completa (F3) desde el detalle de un pedido F2 confirmado.
 * «Marcas» junto a «Todos» en la pantalla principal del POS: las marcas se comportan como subcategorías, con su imagen, y al pulsar una se ven sus productos.
 * Pantalla «Marcas» en el POS con las ventas por marca y producto.
+* Pantalla de login del POS configurable: titular, pie, ocultar la versión de Webkul y modo demo con usuario y contraseña rellenados.
+* VFWoo es opcional: sin él se desactivan el ticket fiscal, la factura F3 y el NIF obligatorio; el resto sigue funcionando.
 * Actualizaciones desde GitHub en Escritorio › Actualizaciones.
 
 == Notas ==

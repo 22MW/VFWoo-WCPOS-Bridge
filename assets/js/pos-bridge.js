@@ -198,7 +198,7 @@
 	// Required tax ID field in the POS customer form; Webkul submits every input of the form.
 	function renderNifField( field, customer ) {
 		var element = window.wp && window.wp.element;
-		if ( ! element || ! config ) {
+		if ( ! element || ! config || ! config.nifLabel ) {
 			return field;
 		}
 		var nif = customer && customer.vfwoo_webkul_nif ? customer.vfwoo_webkul_nif : '';

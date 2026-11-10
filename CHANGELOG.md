@@ -4,6 +4,17 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 
 ## [Sin publicar]
 
+## [0.1.3] - 2026-11-10
+
+### Añadido
+
+- **Pantalla de login del POS configurable** (POS → Settings → VFWoo Bridge): titular propio, texto del pie en lugar de «Un producto de Webkul», opción para ocultar la línea «versión - … - Webkul» y modo demo que rellena usuario y contraseña. Todo vacío por defecto: sin ajustes guardados no cambia nada. Confirmado en local.
+- Tabla «Módulos fiscales» en la pantalla de ajustes, con su estado.
+
+### Cambiado
+
+- **VFWoo pasa a ser opcional.** Ya no figura en `Requires Plugins` ni impide cargar el bridge. Sin VFWoo quedan desactivados el ticket fiscal con QR, la factura completa (F3) y el NIF obligatorio con su límite de factura simplificada; el resto (filtros y barra «Marcas», aviso de catálogo, informes por marca, login) sigue funcionando. El POS tampoco muestra el campo NIF ni las comprobaciones de venta en ese caso. Confirmado en local con VFWoo desactivado para la petición.
+
 ## [0.1.2] - 2026-09-20
 
 ### Añadido

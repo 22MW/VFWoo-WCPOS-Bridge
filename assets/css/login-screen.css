@@ -1,0 +1,8 @@
+html.vfwoo-hide-version .pos-version {
+	display: none;
+}
+
+/* Webkul's footer line stays hidden until the script has replaced its text. */
+html.vfwoo-custom-footer:not(.vfwoo-footer-ready) .pos-footer p {
+	visibility: hidden;
+}

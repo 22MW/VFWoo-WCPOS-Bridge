@@ -3,10 +3,10 @@
  * Plugin Name: VFWoo Webkul POS Bridge
  * Plugin URI: https://verifacwoo.com/
  * Description: Integraciones de Veri*Fac*WOO para WooCommerce Point of Sale de Webkul.
- * Version: 0.1.2
+ * Version: 0.1.3
  * Requires at least: 6.2
  * Requires PHP: 7.4
- * Requires Plugins: woocommerce, vfwoo, woo-point-of-sale
+ * Requires Plugins: woocommerce, woo-point-of-sale
  * Author: Veri*Fac*WOO
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -18,7 +18,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'VFWOO_WEBKUL_VERSION', '0.1.2' );
+define( 'VFWOO_WEBKUL_VERSION', '0.1.3' );
 define( 'VFWOO_WEBKUL_FILE', __FILE__ );
 define( 'VFWOO_WEBKUL_PATH', plugin_dir_path( __FILE__ ) );
 define( 'VFWOO_WEBKUL_URL', plugin_dir_url( __FILE__ ) );

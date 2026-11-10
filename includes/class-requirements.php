@@ -10,19 +10,24 @@ namespace VFWoo_Webkul_POS_Bridge;
 defined( 'ABSPATH' ) || exit;
 
 final class Requirements {
+	/**
+	 * Required dependencies: without them the bridge does not load.
+	 */
 	public static function are_met(): bool {
-		return class_exists( 'WooCommerce' )
-			&& class_exists( 'VFWoo\\Ticket_Fiscal_Data' )
-			&& defined( 'WK_WC_POS_VERSION' );
+		return class_exists( 'WooCommerce' ) && defined( 'WK_WC_POS_VERSION' );
+	}
+
+	/**
+	 * VFWoo is optional: without it the fiscal modules (QR ticket, F3, tax ID checks) stay off.
+	 */
+	public static function vfwoo_active(): bool {
+		return class_exists( 'VFWoo\\Ticket_Fiscal_Data' );
 	}
 
 	public static function missing(): array {
 		$missing = array();
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			$missing[] = __( 'WooCommerce', 'vfwoo-webkul-pos-bridge' );
-		}
-		if ( ! class_exists( 'VFWoo\\Ticket_Fiscal_Data' ) ) {
-			$missing[] = __( 'VFWoo', 'vfwoo-webkul-pos-bridge' );
 		}
 		if ( ! defined( 'WK_WC_POS_VERSION' ) ) {
 			$missing[] = __( 'WooCommerce Point of Sale de Webkul', 'vfwoo-webkul-pos-bridge' );

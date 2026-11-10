@@ -36,11 +36,17 @@ final class Plugin {
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-brand-report.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-f3-emission.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-script.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-login-screen.php';
 		new Order_Integration();
 		new Catalog_Integration();
-		new Customer_Integration();
 		new Brand_Report();
-		new F3_Emission();
 		new POS_Script();
+		new Login_Screen();
+
+		// Fiscal modules: they need VFWoo. Without it their hooks and routes are not registered.
+		if ( Requirements::vfwoo_active() ) {
+			new Customer_Integration();
+			new F3_Emission();
+		}
 	}
 }
