@@ -979,11 +979,216 @@
 	if ( config ) {
 		startBrandCategories( 0 );
 	}
+
+	// ---- Header shortcuts: WooCommerce admin screens in a window inside the POS, and the public shop ----
+	// WooCommerce's own logo (from its admin menu); the other icons are Dashicons, as WooCommerce uses.
+	var WOO_LOGO = "<svg aria-hidden=\"true\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 85.9 47.6\"><path fill=\"currentColor\" d=\"M77.4,0.1c-4.3,0-7.1,1.4-9.6,6.1L56.4,27.7V8.6c0-5.7-2.7-8.5-7.7-8.5s-7.1,1.7-9.6,6.5L28.3,27.7V8.8 c0-6.1-2.5-8.7-8.6-8.7H7.3C2.6,0.1,0,2.3,0,6.3s2.5,6.4,7.1,6.4h5.1v24.1c0,6.8,4.6,10.8,11.2,10.8S33,45,36.3,38.9l7.2-13.5v11.4 c0,6.7,4.4,10.8,11.1,10.8s9.2-2.3,13-8.7l16.6-28c3.6-6.1,1.1-10.8-6.9-10.8C77.3,0.1,77.3,0.1,77.4,0.1z\"/></svg>";
+
+	// Hides WordPress's menu and bar inside the window: the POS has its own menu.
+	var EMBED_CSS = ':root{--wp-admin--admin-bar--height:0px !important}' +
+		'#adminmenumain,#adminmenuback,#adminmenuwrap,#wpadminbar,#wpfooter{display:none !important}' +
+		'html.wp-toolbar{padding-top:0 !important}' +
+		'#wpcontent,#wpfooter{margin-left:0 !important}' +
+		'#wpbody-content{padding-bottom:0 !important}' +
+		'.woocommerce-layout__header{top:0 !important}';
+
+	var shortcutWindow = null;
+
+	function shortcutLabels() {
+		return ( config && config.shortcutLabels ) || { close: 'Close', openTab: 'Open in new tab', loading: '...' };
+	}
+
+	function shortcutIcon( item, element ) {
+		if ( 'woo' === item.icon ) {
+			return element.createElement( 'span', { className: 'vfwoo-woo-logo', dangerouslySetInnerHTML: { __html: WOO_LOGO } } );
+		}
+		return element.createElement( 'span', { className: 'dashicons dashicons-' + item.icon, 'aria-hidden': 'true' } );
+	}
+
+	// Where the window goes: under the POS header and to the right of its left menu.
+	function measureWindow() {
+		var header = document.querySelector( 'header' );
+		var top = header ? Math.round( header.getBoundingClientRect().bottom ) : 0;
+		var rail = null;
+		var probe = document.elementFromPoint( 4, top + 40 );
+		while ( probe && probe !== document.body && probe !== document.documentElement ) {
+			var box = probe.getBoundingClientRect();
+			if ( box.left <= 1 && box.width <= 220 && box.height > 200 ) {
+				rail = box;
+			}
+			probe = probe.parentElement;
+		}
+		return { top: top, left: rail ? Math.round( rail.right ) : 0 };
+	}
+
+	function placeWindow() {
+		if ( ! shortcutWindow ) {
+			return;
+		}
+		shortcutWindow.style.display = 'none';
+		var spot = measureWindow();
+		shortcutWindow.style.display = '';
+		shortcutWindow.style.top = spot.top + 'px';
+		shortcutWindow.style.left = spot.left + 'px';
+	}
+
+	function closeShortcutWindow() {
+		if ( shortcutWindow ) {
+			shortcutWindow.remove();
+			shortcutWindow = null;
+		}
+		document.documentElement.removeAttribute( 'data-vfwoo-shortcut' );
+		document.removeEventListener( 'keydown', onShortcutKey );
+		window.removeEventListener( 'resize', placeWindow );
+	}
+
+	function onShortcutKey( event ) {
+		if ( 'Escape' === event.key ) {
+			closeShortcutWindow();
+		}
+	}
+
+	function openShortcutWindow( item ) {
+		var labels = shortcutLabels();
+		closeShortcutWindow();
+
+		var frame = node( 'iframe', 'vfwoo-frame' );
+		var loading = node( 'div', 'vfwoo-frame-loading', labels.loading );
+		var current = item.url;
+
+		function show( url ) {
+			current = url;
+			frame.style.visibility = 'hidden';
+			loading.hidden = false;
+			frame.src = url;
+		}
+
+		frame.setAttribute( 'title', item.title );
+		frame.addEventListener( 'load', function () {
+			try {
+				var doc = frame.contentDocument;
+				if ( doc && doc.head && ! doc.getElementById( 'vfwoo-embed' ) ) {
+					var style = doc.createElement( 'style' );
+					style.id = 'vfwoo-embed';
+					style.textContent = EMBED_CSS;
+					doc.head.appendChild( style );
+				}
+				// Hide the page again as soon as it starts to leave, so the next one never shows WordPress's menu.
+				frame.contentWindow.addEventListener( 'beforeunload', function () {
+					frame.style.visibility = 'hidden';
+					loading.hidden = false;
+				} );
+				current = frame.contentWindow.location.href;
+			} catch ( error ) {
+				// Not the same origin: keep it as it is.
+			}
+			frame.style.visibility = 'visible';
+			loading.hidden = true;
+		} );
+
+		var win = node( 'div', 'vfwoo-frame-ov' );
+		var bar = node( 'div', 'vfwoo-frame-bar' );
+		var title = node( 'div', 'vfwoo-frame-title' );
+		var icon = document.createElement( 'span' );
+		icon.className = 'vfwoo-frame-icon' + ( 'woo' === item.icon ? ' vfwoo-woo-logo' : ' dashicons dashicons-' + item.icon );
+		if ( 'woo' === item.icon ) {
+			icon.innerHTML = WOO_LOGO;
+		}
+		title.appendChild( icon );
+		title.appendChild( node( 'span', '', item.title ) );
+
+		var newTab = node( 'button', '', labels.openTab );
+		newTab.type = 'button';
+		newTab.addEventListener( 'click', function () {
+			window.open( current, '_blank', 'noopener' );
+		} );
+		var closeButton = node( 'button', 'primary', labels.close );
+		closeButton.type = 'button';
+		closeButton.addEventListener( 'click', closeShortcutWindow );
+
+		bar.appendChild( title );
+		bar.appendChild( newTab );
+		bar.appendChild( closeButton );
+		win.appendChild( bar );
+
+		if ( Array.isArray( item.tabs ) && item.tabs.length > 1 ) {
+			var tabs = node( 'div', 'vfwoo-frame-tabs' );
+			item.tabs.forEach( function ( tab, index ) {
+				var button = node( 'button', index ? '' : 'is-active', tab.title );
+				button.type = 'button';
+				button.addEventListener( 'click', function () {
+					Array.prototype.forEach.call( tabs.children, function ( other ) {
+						other.classList.toggle( 'is-active', other === button );
+					} );
+					show( tab.url );
+				} );
+				tabs.appendChild( button );
+			} );
+			win.appendChild( tabs );
+		}
+
+		var body = node( 'div', 'vfwoo-frame-body' );
+		body.appendChild( loading );
+		body.appendChild( frame );
+		win.appendChild( body );
+		document.body.appendChild( win );
+		shortcutWindow = win;
+		// The matching header icon takes the accent color while its window is open (see pos-bridge.css).
+		document.documentElement.setAttribute( 'data-vfwoo-shortcut', item.id );
+		placeWindow();
+		document.addEventListener( 'keydown', onShortcutKey );
+		window.addEventListener( 'resize', placeWindow );
+		show( item.url );
+	}
+
+	function openShortcut( item ) {
+		if ( 'tab' === item.kind ) {
+			window.open( item.url, '_blank', 'noopener' );
+			return;
+		}
+		openShortcutWindow( item );
+	}
+
+	// The new icons go first in the header's row of icons, before Webkul's own.
+	function renderShortcuts( output ) {
+		var element = window.wp && window.wp.element;
+		if ( ! element || ! config || ! Array.isArray( config.shortcuts ) || ! config.shortcuts.length ) {
+			return output;
+		}
+		var last = config.shortcuts.length - 1;
+		var items = config.shortcuts.map( function ( item, index ) {
+			return element.createElement(
+				'li',
+				{ key: 'vfwoo-shortcut-' + item.id, 'data-shortcut': item.id, title: item.title, className: 'vfwoo-shortcut' + ( index === last ? ' vfwoo-shortcut-last' : '' ) },
+				element.createElement(
+					'div',
+					{
+						role: 'button',
+						tabIndex: 0,
+						'aria-label': item.title,
+						onClick: function () {
+							openShortcut( item );
+						},
+						onKeyDown: function ( event ) {
+							if ( 'Enter' === event.key || ' ' === event.key ) {
+								event.preventDefault();
+								openShortcut( item );
+							}
+						}
+					},
+					shortcutIcon( item, element )
+				)
+			);
+		} );
+		return element.createElement( element.Fragment, null, output || null, items );
+	}
+
 	hooks.addFilter( 'wkwcpos_modify_load_category_products', 'vfwoo-webkul-pos-bridge', filterBrandProducts );
 
 	hooks.addFilter( 'wkwc_add_custom_field_in_form_after_email', 'vfwoo-webkul-pos-bridge', renderNifField );
 	hooks.addFilter( 'wkwcpos_modify_order_success_popup', 'vfwoo-webkul-pos-bridge', checkAfterSale );
 	hooks.addFilter( 'wkwcpos_modify_homepage_products', 'vfwoo-webkul-pos-bridge', checkCatalogVersion );
 	hooks.addFilter( 'wkwcpos_summary_modify_invoice_data', 'vfwoo-webkul-pos-bridge', fillInvoiceVariables );
+	hooks.addFilter( 'wkwcpos_add_custom_header_data_at_right', 'vfwoo-webkul-pos-bridge', renderShortcuts );
 	hooks.addFilter( 'wkwcpos_invoice_after_footer_details_block', 'vfwoo-webkul-pos-bridge', renderFiscalBlock );
 }( window.wp && window.wp.hooks ? window.wp.hooks : null ) );

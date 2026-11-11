@@ -21,6 +21,55 @@ final class Catalog_Integration {
 	public function __construct() {
 		add_filter( 'manage_custom_product_type_support', array( $this, 'add_taxonomies' ), 20, 4 );
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+		add_action( 'save_post_product', array( $this, 'product_saved' ), 20, 3 );
+		add_action( 'trashed_post', array( $this, 'product_removed' ) );
+		add_action( 'untrashed_post', array( $this, 'product_removed' ) );
+		add_action( 'before_delete_post', array( $this, 'product_removed' ) );
+	}
+
+	/**
+	 * Whether a catalog bump was already made while handling this request.
+	 *
+	 * @var bool
+	 */
+	private static $bumped = false;
+
+	/**
+	 * A product saved from the admin makes the cached POS catalogs stale. Sales and other POS requests
+	 * do not go through the admin, so they never raise it.
+	 *
+	 * @param int      $post_id Product id.
+	 * @param \WP_Post $post    Product.
+	 * @param bool     $update  Whether it is an update.
+	 */
+	public function product_saved( $post_id, $post = null, $update = true ): void {
+		unset( $update );
+		if ( ! is_admin() || wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+		if ( $post instanceof \WP_Post && 'auto-draft' === $post->post_status ) {
+			return;
+		}
+		$this->bump_once();
+	}
+
+	/**
+	 * Trash, restore and delete of a product, from the admin.
+	 *
+	 * @param int $post_id Post id.
+	 */
+	public function product_removed( $post_id ): void {
+		if ( is_admin() && 'product' === get_post_type( $post_id ) ) {
+			$this->bump_once();
+		}
+	}
+
+	private function bump_once(): void {
+		if ( self::$bumped ) {
+			return;
+		}
+		self::$bumped = true;
+		self::bump_catalog_version();
 	}
 
 	/**

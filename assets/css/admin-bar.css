@@ -1,0 +1,17 @@
+#wpadminbar #wp-admin-bar-vfwoo-pos-caja > .ab-item {
+	background: #fc8019;
+	color: #1d1b19;
+	font-weight: 600;
+}
+
+#wpadminbar #wp-admin-bar-vfwoo-pos-caja > .ab-item .ab-icon:before {
+	content: "\f174";
+	color: #1d1b19;
+	top: 2px;
+}
+
+#wpadminbar #wp-admin-bar-vfwoo-pos-caja:hover > .ab-item,
+#wpadminbar #wp-admin-bar-vfwoo-pos-caja > .ab-item:focus {
+	background: #e56f0e;
+	color: #1d1b19;
+}

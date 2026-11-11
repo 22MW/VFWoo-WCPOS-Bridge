@@ -261,3 +261,173 @@
 	gap: 8px;
 	margin-top: 14px;
 }
+
+/* Header shortcuts (WooCommerce admin screens and the shop) */
+header ul li.vfwoo-shortcut .dashicons {
+	width: 22px;
+	height: 22px;
+	font-size: 22px;
+	line-height: 22px;
+}
+
+header ul li.vfwoo-shortcut .vfwoo-woo-logo {
+	display: inline-flex;
+	width: 30px;
+}
+
+header ul li.vfwoo-shortcut .vfwoo-woo-logo svg {
+	width: 100%;
+	height: auto;
+}
+
+header ul li.vfwoo-shortcut > div {
+	transition: color .15s, box-shadow .15s;
+}
+
+/* Under the pointer, with the keyboard, or while its window is open: the icon takes the accent color. */
+header ul li.vfwoo-shortcut > div:hover,
+header ul li.vfwoo-shortcut > div:focus-visible,
+html[data-vfwoo-shortcut="panel"] header ul li.vfwoo-shortcut[data-shortcut="panel"] > div,
+html[data-vfwoo-shortcut="products"] header ul li.vfwoo-shortcut[data-shortcut="products"] > div,
+html[data-vfwoo-shortcut="reports"] header ul li.vfwoo-shortcut[data-shortcut="reports"] > div,
+html[data-vfwoo-shortcut="analytics"] header ul li.vfwoo-shortcut[data-shortcut="analytics"] > div {
+	color: var(--primary-accent);
+	outline: none;
+}
+
+html[data-vfwoo-shortcut="panel"] header ul li.vfwoo-shortcut[data-shortcut="panel"] > div,
+html[data-vfwoo-shortcut="products"] header ul li.vfwoo-shortcut[data-shortcut="products"] > div,
+html[data-vfwoo-shortcut="reports"] header ul li.vfwoo-shortcut[data-shortcut="reports"] > div,
+html[data-vfwoo-shortcut="analytics"] header ul li.vfwoo-shortcut[data-shortcut="analytics"] > div {
+	box-shadow: inset 0 0 0 1px var(--primary-accent);
+	border-radius: .5rem;
+}
+
+header ul li.vfwoo-shortcut > div:focus-visible {
+	box-shadow: inset 0 0 0 2px var(--primary-accent);
+	border-radius: .5rem;
+}
+
+header ul li.vfwoo-shortcut-last {
+	position: relative;
+	margin-right: 6px;
+}
+
+header ul li.vfwoo-shortcut-last::after {
+	content: "";
+	position: absolute;
+	top: 6px;
+	right: -9px;
+	bottom: 6px;
+	border-right: 1px solid var(--text-color-light);
+	opacity: .5;
+}
+
+/* Window with a WooCommerce admin screen, under the header and beside the POS menu */
+.vfwoo-frame-ov {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	z-index: 50;
+	display: flex;
+	flex-direction: column;
+	border-left: 1px solid var(--text-color-light);
+	background: var(--fixed);
+	color: var(--text-color);
+}
+
+.vfwoo-frame-bar {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-height: 52px;
+	padding: 0 14px;
+	border-bottom: 1px solid var(--text-color-light);
+}
+
+.vfwoo-frame-title {
+	display: flex;
+	flex: 1;
+	align-items: center;
+	gap: 10px;
+	font-weight: 600;
+}
+
+.vfwoo-frame-icon.dashicons {
+	width: 22px;
+	height: 22px;
+	font-size: 22px;
+	color: var(--primary-accent);
+}
+
+.vfwoo-frame-icon.vfwoo-woo-logo {
+	display: inline-flex;
+	width: 28px;
+	color: var(--primary-accent);
+}
+
+.vfwoo-frame-icon.vfwoo-woo-logo svg {
+	width: 100%;
+	height: auto;
+}
+
+.vfwoo-frame-bar button:not(.primary),
+.vfwoo-frame-tabs button {
+	padding: 6px 12px;
+	border: 1px solid var(--text-color-light);
+	border-radius: 8px;
+	background: var(--secondary);
+	color: var(--text-color);
+	cursor: pointer;
+}
+
+.vfwoo-frame-bar button.primary {
+	padding: 6px 14px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+.vfwoo-frame-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	padding: 8px 14px;
+	border-bottom: 1px solid var(--text-color-light);
+}
+
+.vfwoo-frame-tabs button {
+	border-radius: 999px;
+}
+
+.vfwoo-frame-tabs button.is-active {
+	border-color: var(--primary-accent);
+	color: var(--primary-accent);
+}
+
+.vfwoo-frame-body {
+	position: relative;
+	flex: 1;
+	min-height: 0;
+	background: var(--secondary);
+}
+
+.vfwoo-frame {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	background: #f0f0f1;
+}
+
+.vfwoo-frame-loading {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-color-light);
+}
+
+.vfwoo-frame-loading[hidden] {
+	display: none;
+}

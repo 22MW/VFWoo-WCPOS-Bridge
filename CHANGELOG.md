@@ -4,13 +4,18 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 
 ## [Sin publicar]
 
+### Añadido
+
+- **Accesos en la cabecera del POS**, antes de los iconos de Webkul: Panel de WooCommerce, Productos, Informes de ventas, Análisis y Tienda online. Los de administración abren la pantalla real del admin en una ventana dentro del POS (a la derecha de su menú, sin el menú ni la barra de WordPress) y solo salen a quien tiene permiso para esa pantalla; Productos trae sus pestañas (todos, añadir, categorías, atributos, etiquetas). La tienda abre la página pública de compra en una pestaña nueva y la ven todos. Iconos de WooCommerce: su logo y Dashicons.
+- Los iconos de acceso de la cabecera toman el color de acento del POS al pasar el ratón, con el teclado y mientras su ventana está abierta.
+- **Botón «POS-CAJA» en la barra de administrador**, en la misma pestaña. Construye la dirección siempre con el endpoint guardado en Webkul (`_pos_endpoint_name`).
+- **Cajeros:** interruptor, desactivado por defecto, para añadir el rol «Gestor de tienda» a los cajeros que se creen desde Webkul.
+- **El aviso de catálogo salta al guardar, borrar o restaurar un producto desde el admin.** Texto: «Hay cambios en los productos. Pulsa Resync → Products para actualizar el catálogo.»
+- Interruptor «Ocultar el aviso de WooCommerce sobre plugins que no declaran compatibilidad», desactivado por defecto, en POS → Settings → VFWoo Bridge.
+
 ### Corregido
 
 - **Los avisos del admin ya no se guardan dentro de la plantilla del ticket.** WordPress mueve cada aviso bajo el primer título de la página y, en el editor de plantillas de factura de Webkul, ese título es el del ticket: al guardar, el aviso quedaba grabado y salía impreso. Ahora esa pantalla no muestra avisos.
-
-### Añadido
-
-- Interruptor «Ocultar el aviso de WooCommerce sobre plugins que no declaran compatibilidad», desactivado por defecto, en POS → Settings → VFWoo Bridge.
 
 ## [0.1.3] - 2026-11-10
 

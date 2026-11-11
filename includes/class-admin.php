@@ -18,6 +18,7 @@ final class Admin {
 		add_action( 'admin_post_vfwoo_webkul_bump_catalog', array( $this, 'bump_catalog' ) );
 		add_action( 'admin_post_vfwoo_webkul_save_login', array( $this, 'save_login' ) );
 		add_action( 'admin_post_vfwoo_webkul_save_notices', array( $this, 'save_notices' ) );
+		add_action( 'admin_post_vfwoo_webkul_save_cashiers', array( $this, 'save_cashiers' ) );
 	}
 
 	public function add_pos_settings_tab( $tabs ): array {
@@ -86,6 +87,18 @@ final class Admin {
 			),
 			false
 		);
+
+		wp_safe_redirect( add_query_arg( 'vfwoo_saved', '1', wp_get_referer() ? wp_get_referer() : admin_url( 'admin.php?page=vfwoo-webkul-pos-bridge' ) ) );
+		exit;
+	}
+
+	public function save_cashiers(): void {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_die( esc_html__( 'No tienes permisos para hacer esto.', 'vfwoo-webkul-pos-bridge' ), '', array( 'response' => 403 ) );
+		}
+		check_admin_referer( 'vfwoo_webkul_save_cashiers' );
+
+		update_option( Cashier_Roles::OPTION, ! empty( $_POST['vfwoo_cashier_manager'] ) ? '1' : '0', false ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified above.
 
 		wp_safe_redirect( add_query_arg( 'vfwoo_saved', '1', wp_get_referer() ? wp_get_referer() : admin_url( 'admin.php?page=vfwoo-webkul-pos-bridge' ) ) );
 		exit;
@@ -177,6 +190,17 @@ final class Admin {
 					</tr>
 				</table>
 				<?php submit_button( __( 'Guardar pantalla de login', 'vfwoo-webkul-pos-bridge' ) ); ?>
+			</form>
+			<h2><?php esc_html_e( 'Cajeros', 'vfwoo-webkul-pos-bridge' ); ?></h2>
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<input type="hidden" name="action" value="vfwoo_webkul_save_cashiers" />
+				<?php wp_nonce_field( 'vfwoo_webkul_save_cashiers' ); ?>
+				<p><label>
+					<input type="checkbox" name="vfwoo_cashier_manager" value="1" <?php checked( Cashier_Roles::enabled() ); ?> />
+					<?php esc_html_e( 'Al crear un cajero, añadirle también el rol «Gestor de tienda»', 'vfwoo-webkul-pos-bridge' ); ?>
+				</label></p>
+				<p class="description"><?php esc_html_e( 'Con él, los accesos a Panel, Productos, Informes y Análisis del POS funcionan para ese cajero. Solo afecta a los cajeros que se creen después de activarlo; los que ya existen no cambian. El rol «Gestor de tienda» da acceso amplio a WooCommerce: actívalo solo si quieres que los cajeros gestionen la tienda.', 'vfwoo-webkul-pos-bridge' ); ?></p>
+				<?php submit_button( __( 'Guardar cajeros', 'vfwoo-webkul-pos-bridge' ) ); ?>
 			</form>
 			<h2><?php esc_html_e( 'Avisos del admin', 'vfwoo-webkul-pos-bridge' ); ?></h2>
 			<p><?php esc_html_e( 'En el editor de plantillas de factura de Webkul no se muestran avisos del admin, para que no se guarden dentro del ticket. Esto no se puede desactivar.', 'vfwoo-webkul-pos-bridge' ); ?></p>

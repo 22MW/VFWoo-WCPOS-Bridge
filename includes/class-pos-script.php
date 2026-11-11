@@ -23,6 +23,7 @@ final class POS_Script {
 	public function allow_style( $styles ): array {
 		$styles   = is_array( $styles ) ? $styles : array();
 		$styles[] = 'vfwoo-webkul-pos-bridge';
+		$styles[] = 'dashicons';
 		return $styles;
 	}
 
@@ -37,7 +38,13 @@ final class POS_Script {
 		$config = array(
 			'catalogVersion' => Catalog_Integration::catalog_version(),
 			'versionUrl'     => esc_url_raw( rest_url( 'vfwoo-webkul/v1/catalog-version' ) ),
-			'staleNotice'    => __( 'El catálogo del POS está desactualizado. Abre el menú Resync y elige Products.', 'vfwoo-webkul-pos-bridge' ),
+			'staleNotice'    => __( 'Hay cambios en los productos. Pulsa Resync → Products para actualizar el catálogo.', 'vfwoo-webkul-pos-bridge' ),
+			'shortcuts'      => Admin_Shortcuts::items(),
+			'shortcutLabels' => array(
+				'close'   => __( 'Cerrar', 'vfwoo-webkul-pos-bridge' ),
+				'openTab' => __( 'Abrir en pestaña nueva', 'vfwoo-webkul-pos-bridge' ),
+				'loading' => __( 'Cargando…', 'vfwoo-webkul-pos-bridge' ),
+			),
 			'close'          => __( 'Cerrar', 'vfwoo-webkul-pos-bridge' ),
 			'brandReportUrl' => esc_url_raw( rest_url( 'vfwoo-webkul/v1/brand-report' ) ),
 			'brands'         => array(
@@ -119,6 +126,7 @@ final class POS_Script {
 			'window.vfwooWebkulBridge = ' . wp_json_encode( $config ) . ';',
 			'before'
 		);
+		wp_enqueue_style( 'dashicons' );
 		wp_enqueue_style(
 			'vfwoo-webkul-pos-bridge',
 			VFWOO_WEBKUL_URL . 'assets/css/pos-bridge.css',

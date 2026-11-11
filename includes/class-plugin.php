@@ -38,12 +38,17 @@ final class Plugin {
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-script.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-login-screen.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-admin-notices.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-admin-shortcuts.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-admin-bar.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-cashier-roles.php';
 		new Order_Integration();
 		new Catalog_Integration();
 		new Brand_Report();
 		new POS_Script();
 		new Login_Screen();
 		new Admin_Notices();
+		new Admin_Bar();
+		new Cashier_Roles();
 
 		// Fiscal modules: they need VFWoo. Without it their hooks and routes are not registered.
 		if ( Requirements::vfwoo_active() ) {
