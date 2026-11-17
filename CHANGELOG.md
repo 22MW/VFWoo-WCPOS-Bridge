@@ -2,6 +2,8 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
+## [Sin publicar]
+
 ## [2.0.0] - 2026-11-17
 
 Versión mayor. El bridge deja de depender de un plugin de VFWoo en concreto y detecta por capacidad lo que hay instalado; permite hacer factura a un ticket ya entregado con o sin Verifactu; añade el país del cliente, el cambio de estado del pedido Completado / Anular / Devolver y la impresión de la rectificativa. Cambia el vocabulario de la caja a «ticket» y «factura».

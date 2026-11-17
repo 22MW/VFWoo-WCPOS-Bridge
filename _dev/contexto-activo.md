@@ -22,39 +22,20 @@
 
 ## Release
 
-- Versiones **publicadas**: `pos-v0.1.1` y `pos-v0.1.2` (2026-09-20) y `pos-v0.1.3` (2026-11-10: pantalla de login configurable y VFWoo opcional) y **`pos-v0.1.4` (2026-11-17: accesos en la cabecera, botón POS-CAJA, cajeros gestores, plantilla de ticket propia, «Factura PDF» y PDF en el correo del POS)**. El desarrollo continúa desde `0.1.4.1`. Ver `proceso-release.md` y D-019.
-- Instalación: `https://github.com/22MW/VFWoo-WCPOS-Bridge/releases/download/pos-v0.1.4/vfwoo-webkul-pos-bridge.zip`. Instalado y **activo** en `pos.vfwoo.online` (ZIP por SSH, `wp plugin install`): 0.1.3 el 2026-11-10 y después la **dev 0.1.3.3**, ya commiteada y subida a la rama dev (`88926ff` avisos del admin; `2883f59` atajos en la cabecera del POS, botón POS-CAJA, rol de gestor para cajeros nuevos y aviso de catálogo al guardar productos). Interruptores activados en el servidor: `vfwoo_webkul_hide_wc_compat_notice` y `vfwoo_webkul_cashier_manager_role`. **Pendiente de decidir:** la cuenta pública de demostración `vfwoo-cash` tiene el rol `shop_manager` y su contraseña sale en el login. **La 0.1.4 aún no está instalada en el servidor** (sigue la dev 0.1.3.5). Rollback: reinstalar `dist/vfwoo-webkul-pos-bridge-0.1.3.zip`. Ticket del servidor: plantilla id 1 basada en la del staging de La Simbiosi (sin su logo), copia de la BD en `_backups-pos/`.
-- Falta probar la actualización en un sitio de staging instalado desde el ZIP (la copia de desarrollo no se actualiza por diseño).
-- Token de GitHub en `/Users/22mw/Local Sites/pos/.env` (fuera de la raíz web, sin versionar).
+- **Publicada `pos-v2.0.0` (2026-11-17)**, versión mayor: detección por capacidad del core y Verifactu (con su módulo activado), «Cambiar factura» (ticket → factura con o sin Verifactu, con país y empresa), estado del pedido Completado / Anular / Devolver con regla en el servidor, «Imprimir rectificativa» y vocabulario «ticket» y «factura». Commit `47ac75e`; ZIP en `https://github.com/22MW/VFWoo-WCPOS-Bridge/releases/download/pos-v2.0.0/vfwoo-webkul-pos-bridge.zip`. Detalle en `CHANGELOG.md`, `release-notes.md` y `docs/funcionalidades-pos-bridge.md`. El desarrollo continúa desde `2.0.0.1`.
+- **`pos.vfwoo.online` sigue con la dev 0.1.3.5**: no se ha actualizado a la 0.1.4 ni a la 2.0.0 (hace falta `validar-deploy` y OK).
+- Versiones anteriores: `pos-v0.1.1` a `pos-v0.1.4` (la 0.1.4, el 2026-11-17).
+- Falta probar la actualización en un sitio de staging instalado desde el ZIP (la copia de desarrollo no se actualiza por diseño). Token de GitHub en `/Users/22mw/Local Sites/pos/.env` (fuera de la raíz web, sin versionar).
 
 ## Pendiente
 
-- **Adaptación al core + Verifactu de VFWoo (D-026):** hecha en código y **subida a la rama dev en la 0.1.4.2** (`ff87986`). Orden para probarla en `pos.local`: copia de seguridad → desactivar el `vfwoo` antiguo → activar «VFWoo Invoices» y después «VFWoo Verifactu». Detalle y pendientes en `roadmap.md`.
-
-- **«Factura completa» desde el ticket, con o sin Verifactu (D-027):** hecha en código y **subida a la rama dev en la 0.1.4.2** (`ff87986`), probada con simulador (43 casos); el usuario la está probando en `pos.local`. Pendiente de probar en `pos.local` (crear cliente con empresa y domicilio, convertir, cambiar de cliente, PDF y correo, ticket reimpreso, y con Verifactu enviando F2→F3). Confirmar con la gestoría el «mismo número». Añadidos: país (España por defecto) + casilla «No comprobar el documento», y Verifactu solo cuenta con su módulo activado; lo pendiente de VFWoo está en `roadmap.md`.
-
-- **QA real pendiente de lo publicado en 0.1.4** (detalle en `roadmap.md`): correo con PDF desde «Send order email», botón «Factura PDF» (diálogo de imprimir, fallback a pestaña), plantilla de ticket propia con F1, reimpresión, F3 y rollo térmico, y el NIF mostrado (`seller_nif`). El PDF tarda unos segundos: causa sin medir.
-
-- **Plantilla de ticket propia (D-024):** publicada en la 0.1.4. Confirmado en local: F2 impresa con la plantilla y logo al 50 % del ancho (con `!important`, por el `fitCss` de Webkul). Falta probar F1 con cliente, reimpresión, F3, con y sin QR y rollo real. Verificar que el NIF mostrado es el de `seller_nif`.
-
-- **Esperando a VFWoo:** el usuario aplicará el filtro `vfwoo_simplified_limit` en su workspace (prompt en `temp/prompt-vfwoo-filtro-limite.md`) y avisará con la versión. Hasta entonces no se toca el límite en el bridge. Plan en `temp/plan-limite-pos.md`.
-
-- Opcional: probar «Marcas» de la barra de categorías con la barra antigua, con una marca sin imagen y combinada con el buscador y el panel de filtros.
-
-- QA detallada del filtro: producto variable, marca + categoría + búsqueda, paginación.
-- Pestaña `VFWoo Bridge` en `POS → Settings`: confirmar en runtime.
-- Diagnóstico de compatibilidad y recarga segura de caché.
-- Informes por marca: sin gancho de cliente conocido (D-007).
-- Versión de catálogo (D-009) y aviso (D-010): confirmados en local.
-- **«Marcas» junto a «Todos» en la barra de categorías del inicio (D-022): funciona perfectamente en local**, con las marcas como subcategorías, sus productos y sus imágenes.
-- **Estilos del POS en tema claro y oscuro (D-020): confirmados** en «Marcas» y en la ventana F3.
-- Pantalla «Marcas» del POS (D-015): funciona en local. Opcional: contrastar cifras con más pedidos y periodos.
-- Cliente y NIF (D-013, `temp/plan-cliente-fiscal.md`): fases 1-3 implementadas y confirmadas en local (alta con DNI, antispam D-014). Faltan bloqueo en Pay, aviso post-venta y herramienta de NIF de clientes existentes.
-- Ticket con variables `${vfwoo_*}` (tienda, factura, cliente F1/F3) y F2 sin datos del cliente (D-016): confirmado en local: el editor muestra la plantilla, el ticket imprime con QR, F1 con datos del cliente y F2 sin ellos.
-- Bloqueo de venta ≥ límite sin cliente con NIF (D-017): funciona en local (aviso de Webkul con ×, dura 8 s). Requiere Resync de clientes. Sin guarda de servidor todavía.
-- F3 desde el POS (D-018, `temp/plan-f3-rectificativas.md`): funciona en local (botón, ventana, emisión, ticket tras Resync). Corregido el «Algo salió mal» al cambiar de pedido; falta confirmar. Requiere una F2 confirmada (sandbox de VFWoo). Devoluciones por WooCommerce: verificar R5/R1 en sandbox.
-- Idea: botón en `POS → Settings → VFWoo Bridge` para borrar la caché local del POS (ver roadmap Fase 5).
+- **Pruebas en `pos.local` de lo publicado en 2.0.0** (detalle en `roadmap.md`): activar el core y Verifactu (copia → desactivar el `vfwoo` antiguo → activar «VFWoo Invoices» y «VFWoo Verifactu» con su módulo); «Cambiar factura» con y sin Verifactu (empresa, país, cambio de cliente, F3 con la F2 aceptada); «Imprimir rectificativa» de #39212; Anular y Devolver con su confirmación (y en Safari); correo con PDF; plantilla de ticket propia con F1.
+- **Confirmar con la gestoría** el «mismo número» al hacer factura sin Verifactu.
+- **Webkul:** enviar `temp/informe-soporte-webkul-service-worker.md` (service worker en 404 y cómo actualizar el plugin); probar el stock en modo Master Stock (si una venta del POS descuenta el stock de la web) antes de decidir sobre la venta sin conexión.
+- **Esperando a VFWoo:** filtro `vfwoo_simplified_limit` (`temp/prompt-vfwoo-filtro-limite.md`), F3 y factura a clientes de otro país, tipo de documento (pasaporte), marcar como anulada una factura del core con el pedido cancelado. Ver `roadmap.md`.
+- Decisión pendiente: devolver un solo producto desde el POS (Return POS de Webkul, hacerlo en el bridge o dejarlo en el escritorio).
+- Abiertos sin tocar: estrategia de licencias de Webkul para demos; cuenta pública `vfwoo-cash` con la contraseña visible; teléfono de la empresa en el ticket; icono de «Chaqueta porteo»; `_import-tmp` y 4 productos con SKU duplicado (6072, 35949, 37679, 37694); precios (`comercial/`, sin versionar).
 
 ## Siguiente paso
 
-Elegir entre QA detallada del filtro, diagnóstico en Settings o informes por marca.
+Probar en `pos.local` lo publicado en 2.0.0 y decidir si se actualiza `pos.vfwoo.online`.
