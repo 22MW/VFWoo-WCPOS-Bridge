@@ -287,7 +287,6 @@ header ul li.vfwoo-shortcut > div {
 /* Under the pointer, with the keyboard, or while its window is open: the icon takes the accent color. */
 header ul li.vfwoo-shortcut > div:hover,
 header ul li.vfwoo-shortcut > div:focus-visible,
-html[data-vfwoo-shortcut="panel"] header ul li.vfwoo-shortcut[data-shortcut="panel"] > div,
 html[data-vfwoo-shortcut="products"] header ul li.vfwoo-shortcut[data-shortcut="products"] > div,
 html[data-vfwoo-shortcut="reports"] header ul li.vfwoo-shortcut[data-shortcut="reports"] > div,
 html[data-vfwoo-shortcut="analytics"] header ul li.vfwoo-shortcut[data-shortcut="analytics"] > div {
@@ -295,7 +294,6 @@ html[data-vfwoo-shortcut="analytics"] header ul li.vfwoo-shortcut[data-shortcut=
 	outline: none;
 }
 
-html[data-vfwoo-shortcut="panel"] header ul li.vfwoo-shortcut[data-shortcut="panel"] > div,
 html[data-vfwoo-shortcut="products"] header ul li.vfwoo-shortcut[data-shortcut="products"] > div,
 html[data-vfwoo-shortcut="reports"] header ul li.vfwoo-shortcut[data-shortcut="reports"] > div,
 html[data-vfwoo-shortcut="analytics"] header ul li.vfwoo-shortcut[data-shortcut="analytics"] > div {
@@ -321,6 +319,36 @@ header ul li.vfwoo-shortcut-last::after {
 	bottom: 6px;
 	border-right: 1px solid var(--text-color-light);
 	opacity: .5;
+}
+
+/* Hint under a header icon: what the button is for. It lives in the body, not inside the header,
+   because Webkul's row of icons clips anything that falls outside it (overflow hidden). Uses the POS
+   colors, so it follows the light and dark themes. */
+.vfwoo-tip {
+	position: fixed;
+	z-index: 100000;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	width: max-content;
+	max-width: 240px;
+	padding: 9px 12px;
+	border: 1px solid var(--text-color-light);
+	border-radius: 8px;
+	background: var(--fixed);
+	box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+	color: var(--text-color);
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 1.4;
+	text-align: left;
+	pointer-events: none;
+}
+
+.vfwoo-tip-title {
+	color: var(--primary-accent);
+	font-size: 13px;
+	font-weight: 600;
 }
 
 /* Window with a WooCommerce admin screen, under the header and beside the POS menu */

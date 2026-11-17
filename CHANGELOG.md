@@ -6,15 +6,22 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 
 ### Añadido
 
-- **Accesos en la cabecera del POS**, antes de los iconos de Webkul: Panel de WooCommerce, Productos, Informes de ventas, Análisis y Tienda online. Los de administración abren la pantalla real del admin en una ventana dentro del POS (a la derecha de su menú, sin el menú ni la barra de WordPress) y solo salen a quien tiene permiso para esa pantalla; Productos trae sus pestañas (todos, añadir, categorías, atributos, etiquetas). La tienda abre la página pública de compra en una pestaña nueva y la ven todos. Iconos de WooCommerce: su logo y Dashicons.
+- **Accesos en la cabecera del POS**, antes de los iconos de Webkul: Productos, Informes de ventas, Análisis y Tienda online. Los de administración abren la pantalla real del admin en una ventana dentro del POS (a la derecha de su menú, sin el menú ni la barra de WordPress) y solo salen a quien tiene permiso para esa pantalla; Productos trae sus pestañas (todos, añadir, categorías, atributos, etiquetas). La tienda abre la página pública de compra en una pestaña nueva y la ven todos. Iconos Dashicons.
+- Cada acceso muestra, al pasar el ratón o con el teclado, un cuadro bajo el icono con su nombre y para qué sirve (colores del POS, tema claro y oscuro). Sustituye al `title` nativo del navegador.
 - Los iconos de acceso de la cabecera toman el color de acento del POS al pasar el ratón, con el teclado y mientras su ventana está abierta.
 - **Botón «POS-CAJA» en la barra de administrador**, en la misma pestaña. Construye la dirección siempre con el endpoint guardado en Webkul (`_pos_endpoint_name`).
 - **Cajeros:** interruptor, desactivado por defecto, para añadir el rol «Gestor de tienda» a los cajeros que se creen desde Webkul.
 - **El aviso de catálogo salta al guardar, borrar o restaurar un producto desde el admin.** Texto: «Hay cambios en los productos. Pulsa Resync → Products para actualizar el catálogo.»
 - Interruptor «Ocultar el aviso de WooCommerce sobre plugins que no declaran compatibilidad», desactivado por defecto, en POS → Settings → VFWoo Bridge.
 
+- **Plantilla de ticket propia del bridge** (POS → Settings → VFWoo Bridge → Ticket), desactivada por defecto. Activada, el ticket sale siempre con esa plantilla y se ignoran las de Webkul: logo, razón social, NIF, dirección, teléfono, email y pie salen de VFWoo, y lleva número de factura, QR (solo si VFWoo lo genera) y datos del cliente en F1/F3. Se aplica al instante al recargar la caja, sin depender de la plantilla que Webkul guarda en el navegador. Requiere VFWoo. Desactivada, todo sigue como antes y las plantillas de Webkul pueden usar las variables `${vfwoo_*}`.
+- Variable `${vfwoo_pdf_footer}`: el pie del PDF de VFWoo.
+- **El logo del ticket mide como máximo el 50 % del ancho del ticket** (`${vfwoo_company_logo}`, en la plantilla propia y en las de Webkul que la usen), así que se adapta al rollo. Un logo más pequeño no se amplía. Lleva `!important` porque, con el rollo térmico (T88V), Webkul fuerza `max-width:100% !important` a todo el ticket al imprimir y anulaba el límite. No afecta al PDF de VFWoo.
+- Un párrafo de una plantilla con la clase `vfwoo-hide-empty` desaparece si todas sus variables `${vfwoo_*}` están vacías (evita «NIF: » sin dato).
+
 ### Corregido
 
+- **`${vfwoo_company_nif}` ahora da el NIF que imprime el PDF de VFWoo** (el de «Diseño PDF», `seller_nif`, o el de la licencia si está vacío). Antes leía solo el de la licencia y el ticket podía mostrar un NIF distinto al del PDF.
 - **Los avisos del admin ya no se guardan dentro de la plantilla del ticket.** WordPress mueve cada aviso bajo el primer título de la página y, en el editor de plantillas de factura de Webkul, ese título es el del ticket: al guardar, el aviso quedaba grabado y salía impreso. Ahora esa pantalla no muestra avisos.
 
 ## [0.1.3] - 2026-11-10

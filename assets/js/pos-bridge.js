@@ -60,7 +60,8 @@
 			vfwoo_company_address: text( store.company_address ),
 			vfwoo_company_phone: text( store.company_phone ),
 			vfwoo_company_email: text( store.company_email ),
-			vfwoo_company_logo: store.company_logo ? literalSafe( '<img src="' + escapeAttribute( store.company_logo ) + '" alt="" style="max-width:100%;height:auto;" />' ) : '',
+			vfwoo_company_logo: store.company_logo ? literalSafe( '<img src="' + escapeAttribute( store.company_logo ) + '" alt="" style="max-width:50% !important;height:auto;" />' ) : '',
+			vfwoo_pdf_footer: text( store.pdf_footer ).replace( /\r?\n/g, '<br>' ),
 			vfwoo_invoice_number: text( fiscal.invoice_number ),
 			vfwoo_invoice_type: text( fiscal.invoice_type ),
 			vfwoo_invoice_date: text( fiscal.issued_at ),
@@ -78,9 +79,20 @@
 	var CUSTOMER_TAGS = [ '${customer_fname}', '${customer_lname}', '${customer_phone}' ];
 
 	// Runs before Webkul evaluates the template: hides customer data on F2 and fills the VFWoo variables.
+	// With the bridge's own template on, that template replaces the Webkul one on every print, so the
+	// change applies at once and does not depend on the template Webkul cached in the browser.
 	function fillInvoiceVariables( html, order ) {
+		var settings = window.vfwooWebkulBridge;
+		var own = !! ( settings && typeof settings.ownTemplate === 'string' && settings.ownTemplate );
 		var bridge = order && order.vfwoo_webkul_bridge;
-		if ( ! bridge || typeof html !== 'string' ) {
+		if ( typeof html !== 'string' ) {
+			return html;
+		}
+		if ( own ) {
+			html = settings.ownTemplate;
+			bridge = bridge || {};
+		}
+		if ( ! bridge ) {
 			return html;
 		}
 
@@ -97,6 +109,20 @@
 		// The template places the data by hand: drop the automatic block to avoid repeating it.
 		html = html.replace( /<div class="vfwoo-webkul-fiscal"[\s\S]*?<\/div>/, '' );
 		var values = invoiceValues( bridge, bridge.customer );
+
+		// A paragraph marked vfwoo-hide-empty disappears when all its VFWoo variables are empty.
+		html = html.replace( /<p\b[^>]*\bvfwoo-hide-empty\b[^>]*>[\s\S]*?<\/p>/g, function ( paragraph ) {
+			var tags = paragraph.match( /\$\{vfwoo_[a-z_]+\}/g );
+			if ( ! tags ) {
+				return paragraph;
+			}
+			var filled = tags.some( function ( tag ) {
+				var value = values[ tag.slice( 2, -1 ) ];
+				return value !== undefined && value !== '';
+			} );
+			return filled ? paragraph : '';
+		} );
+
 		return html.replace( /\$\{(vfwoo_[a-z_]+)\}/g, function ( match, name ) {
 			return values[ name ] !== undefined ? values[ name ] : '';
 		} );
@@ -1149,6 +1175,50 @@
 		openShortcutWindow( item );
 	}
 
+	// Hint with the name and purpose of a header shortcut. It is drawn in the body: the row of icons
+	// clips whatever falls outside it.
+	var tipTimer = null;
+	var tipNode = null;
+
+	function hideShortcutTip() {
+		window.clearTimeout( tipTimer );
+		if ( tipNode && tipNode.parentNode ) {
+			tipNode.parentNode.removeChild( tipNode );
+		}
+		tipNode = null;
+	}
+
+	function showShortcutTip( item, target ) {
+		hideShortcutTip();
+		if ( ! item || ! target ) {
+			return;
+		}
+		tipTimer = window.setTimeout( function () {
+			if ( ! document.body.contains( target ) ) {
+				return;
+			}
+			var node = document.createElement( 'div' );
+			node.className = 'vfwoo-tip';
+			node.setAttribute( 'role', 'tooltip' );
+			var title = document.createElement( 'strong' );
+			title.className = 'vfwoo-tip-title';
+			title.textContent = item.title || '';
+			node.appendChild( title );
+			if ( item.description ) {
+				var text = document.createElement( 'span' );
+				text.textContent = item.description;
+				node.appendChild( text );
+			}
+			document.body.appendChild( node );
+			var box = target.getBoundingClientRect();
+			var width = node.offsetWidth;
+			var left = Math.min( Math.max( 8, box.right - width ), window.innerWidth - width - 8 );
+			node.style.left = left + 'px';
+			node.style.top = ( box.bottom + 8 ) + 'px';
+			tipNode = node;
+		}, 250 );
+	}
+
 	// The new icons go first in the header's row of icons, before Webkul's own.
 	function renderShortcuts( output ) {
 		var element = window.wp && window.wp.element;
@@ -1159,14 +1229,23 @@
 		var items = config.shortcuts.map( function ( item, index ) {
 			return element.createElement(
 				'li',
-				{ key: 'vfwoo-shortcut-' + item.id, 'data-shortcut': item.id, title: item.title, className: 'vfwoo-shortcut' + ( index === last ? ' vfwoo-shortcut-last' : '' ) },
+				{ key: 'vfwoo-shortcut-' + item.id, 'data-shortcut': item.id, className: 'vfwoo-shortcut' + ( index === last ? ' vfwoo-shortcut-last' : '' ) },
 				element.createElement(
 					'div',
 					{
 						role: 'button',
 						tabIndex: 0,
 						'aria-label': item.title,
+						onMouseEnter: function ( event ) {
+							showShortcutTip( item, event.currentTarget );
+						},
+						onMouseLeave: hideShortcutTip,
+						onFocus: function ( event ) {
+							showShortcutTip( item, event.currentTarget );
+						},
+						onBlur: hideShortcutTip,
 						onClick: function () {
+							hideShortcutTip();
 							openShortcut( item );
 						},
 						onKeyDown: function ( event ) {

@@ -114,6 +114,7 @@ final class POS_Script {
 			'qrAlt'          => __( 'QR Veri*Factu', 'vfwoo-webkul-pos-bridge' ),
 			'nifLabel'       => __( 'DNI / NIE / CIF', 'vfwoo-webkul-pos-bridge' ),
 			'nifUnverified'  => __( 'NIF sin verificar en el censo de la AEAT.', 'vfwoo-webkul-pos-bridge' ),
+			'ownTemplate'    => Own_Template::enabled() ? Own_Template::html() : '',
 		);
 
 		// The fiscal parts of the POS extension need VFWoo; without it the script leaves them out.

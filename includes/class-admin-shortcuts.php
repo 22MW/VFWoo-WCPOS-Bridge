@@ -22,16 +22,6 @@ final class Admin_Shortcuts {
 	public static function items(): array {
 		$items = array();
 
-		if ( current_user_can( 'manage_woocommerce' ) ) {
-			$items[] = array(
-				'id'    => 'panel',
-				'kind'  => 'frame',
-				'icon'  => 'woo',
-				'title' => __( 'Panel de WooCommerce', 'vfwoo-webkul-pos-bridge' ),
-				'url'   => admin_url( 'admin.php?page=wc-admin' ),
-			);
-		}
-
 		if ( current_user_can( 'edit_products' ) ) {
 			$tabs = array(
 				array(
@@ -58,29 +48,32 @@ final class Admin_Shortcuts {
 				);
 			}
 			$items[] = array(
-				'id'    => 'products',
-				'kind'  => 'frame',
-				'icon'  => 'archive',
-				'title' => __( 'Productos', 'vfwoo-webkul-pos-bridge' ),
-				'url'   => $tabs[0]['url'],
-				'tabs'  => $tabs,
+				'id'          => 'products',
+				'kind'        => 'frame',
+				'icon'        => 'archive',
+				'title'       => __( 'Productos', 'vfwoo-webkul-pos-bridge' ),
+				'description' => __( 'Gestiona el catálogo: crea y edita productos, categorías, atributos y etiquetas.', 'vfwoo-webkul-pos-bridge' ),
+				'url'         => $tabs[0]['url'],
+				'tabs'        => $tabs,
 			);
 		}
 
 		if ( current_user_can( 'view_woocommerce_reports' ) ) {
 			$items[] = array(
-				'id'    => 'reports',
-				'kind'  => 'frame',
-				'icon'  => 'chart-line',
-				'title' => __( 'Informes de ventas', 'vfwoo-webkul-pos-bridge' ),
-				'url'   => admin_url( 'admin.php?page=wc-reports' ),
+				'id'          => 'reports',
+				'kind'        => 'frame',
+				'icon'        => 'chart-line',
+				'title'       => __( 'Informes de ventas', 'vfwoo-webkul-pos-bridge' ),
+				'description' => __( 'Informes clásicos de WooCommerce: ventas, pedidos y clientes por periodo.', 'vfwoo-webkul-pos-bridge' ),
+				'url'         => admin_url( 'admin.php?page=wc-reports' ),
 			);
 			$items[] = array(
-				'id'    => 'analytics',
-				'kind'  => 'frame',
-				'icon'  => 'chart-bar',
-				'title' => __( 'Análisis', 'vfwoo-webkul-pos-bridge' ),
-				'url'   => add_query_arg(
+				'id'          => 'analytics',
+				'kind'        => 'frame',
+				'icon'        => 'chart-bar',
+				'title'       => __( 'Análisis', 'vfwoo-webkul-pos-bridge' ),
+				'description' => __( 'Panel de análisis de WooCommerce: ingresos, pedidos y productos más vendidos.', 'vfwoo-webkul-pos-bridge' ),
+				'url'         => add_query_arg(
 					array(
 						'page' => 'wc-admin',
 						'path' => '/analytics/overview',
@@ -91,11 +84,12 @@ final class Admin_Shortcuts {
 		}
 
 		$items[] = array(
-			'id'    => 'shop',
-			'kind'  => 'tab',
-			'icon'  => 'store',
-			'title' => __( 'Tienda online', 'vfwoo-webkul-pos-bridge' ),
-			'url'   => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' ),
+			'id'          => 'shop',
+			'kind'        => 'tab',
+			'icon'        => 'store',
+			'title'       => __( 'Tienda online', 'vfwoo-webkul-pos-bridge' ),
+			'description' => __( 'Abre la tienda pública, la que ven tus clientes, en una pestaña nueva.', 'vfwoo-webkul-pos-bridge' ),
+			'url'         => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' ),
 		);
 
 		return $items;

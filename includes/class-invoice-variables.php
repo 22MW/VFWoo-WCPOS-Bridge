@@ -34,6 +34,7 @@ final class Invoice_Variables {
 			array( 'tag' => '${vfwoo_company_phone}', 'label' => __( 'Tienda: teléfono (VFWoo)', 'vfwoo-webkul-pos-bridge' ) ),
 			array( 'tag' => '${vfwoo_company_email}', 'label' => __( 'Tienda: email (VFWoo)', 'vfwoo-webkul-pos-bridge' ) ),
 			array( 'tag' => '${vfwoo_company_logo}', 'label' => __( 'Tienda: logo (imagen, VFWoo)', 'vfwoo-webkul-pos-bridge' ) ),
+			array( 'tag' => '${vfwoo_pdf_footer}', 'label' => __( 'Tienda: pie del PDF (VFWoo)', 'vfwoo-webkul-pos-bridge' ) ),
 			array( 'tag' => '${vfwoo_invoice_number}', 'label' => __( 'Factura: número', 'vfwoo-webkul-pos-bridge' ) ),
 			array( 'tag' => '${vfwoo_invoice_type}', 'label' => __( 'Factura: tipo (F1, F2…)', 'vfwoo-webkul-pos-bridge' ) ),
 			array( 'tag' => '${vfwoo_invoice_date}', 'label' => __( 'Factura: fecha de expedición', 'vfwoo-webkul-pos-bridge' ) ),
@@ -72,14 +73,26 @@ final class Invoice_Variables {
 	/**
 	 * Store data configured in VFWoo, read through its public shortcode.
 	 *
+	 * The tax ID is the exception: the VFWoo PDF prints the one from «Diseño PDF» (seller_nif),
+	 * falling back to the licence one. The shortcode only returns the latter, so the ticket asks
+	 * VFWoo for the same value the PDF uses.
+	 *
 	 * @return array<string,string>
 	 */
 	public static function store(): array {
 		$store = array();
-		foreach ( array( 'company_name', 'company_nif', 'company_address', 'company_phone', 'company_email', 'company_logo' ) as $field ) {
+		foreach ( array( 'company_name', 'company_nif', 'company_address', 'company_phone', 'company_email', 'company_logo', 'pdf_footer' ) as $field ) {
 			$value           = do_shortcode( '[verifacwoo_config return="' . $field . '"]' );
 			$store[ $field ] = trim( html_entity_decode( wp_strip_all_tags( (string) $value ), ENT_QUOTES, 'UTF-8' ) );
 		}
+
+		if ( class_exists( '\\VFWoo\\Helpers\\Settings_Compat' ) && method_exists( '\\VFWoo\\Helpers\\Settings_Compat', 'get_seller_nif' ) ) {
+			$seller_nif = trim( (string) \VFWoo\Helpers\Settings_Compat::get_seller_nif() );
+			if ( '' !== $seller_nif ) {
+				$store['company_nif'] = $seller_nif;
+			}
+		}
+
 		return $store;
 	}
 

@@ -19,6 +19,7 @@ final class Admin {
 		add_action( 'admin_post_vfwoo_webkul_save_login', array( $this, 'save_login' ) );
 		add_action( 'admin_post_vfwoo_webkul_save_notices', array( $this, 'save_notices' ) );
 		add_action( 'admin_post_vfwoo_webkul_save_cashiers', array( $this, 'save_cashiers' ) );
+		add_action( 'admin_post_vfwoo_webkul_save_template', array( $this, 'save_template' ) );
 	}
 
 	public function add_pos_settings_tab( $tabs ): array {
@@ -104,6 +105,18 @@ final class Admin {
 		exit;
 	}
 
+	public function save_template(): void {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_die( esc_html__( 'No tienes permisos para hacer esto.', 'vfwoo-webkul-pos-bridge' ), '', array( 'response' => 403 ) );
+		}
+		check_admin_referer( 'vfwoo_webkul_save_template' );
+
+		update_option( Own_Template::OPTION, ! empty( $_POST['vfwoo_own_template'] ) ? '1' : '0', false ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified above.
+
+		wp_safe_redirect( add_query_arg( 'vfwoo_saved', '1', wp_get_referer() ? wp_get_referer() : admin_url( 'admin.php?page=vfwoo-webkul-pos-bridge' ) ) );
+		exit;
+	}
+
 	public function save_notices(): void {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			wp_die( esc_html__( 'No tienes permisos para hacer esto.', 'vfwoo-webkul-pos-bridge' ), '', array( 'response' => 403 ) );
@@ -157,6 +170,20 @@ final class Admin {
 					<?php endforeach; ?>
 				</tbody>
 			</table>
+			<h2><?php esc_html_e( 'Ticket', 'vfwoo-webkul-pos-bridge' ); ?></h2>
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<input type="hidden" name="action" value="vfwoo_webkul_save_template" />
+				<?php wp_nonce_field( 'vfwoo_webkul_save_template' ); ?>
+				<p><label>
+					<input type="checkbox" name="vfwoo_own_template" value="1" <?php checked( '1' === get_option( Own_Template::OPTION, '0' ) ); ?> <?php disabled( ! $fiscal ); ?> />
+					<?php esc_html_e( 'Usar la plantilla de ticket del bridge', 'vfwoo-webkul-pos-bridge' ); ?>
+				</label></p>
+				<p class="description"><?php esc_html_e( 'Activada, el ticket sale siempre con la plantilla del bridge y se ignoran las plantillas de factura de Webkul. Logo, razón social, NIF (el mismo del PDF), dirección, teléfono, email y pie salen de VFWoo, y el ticket lleva el número de factura, el QR (solo si VFWoo lo genera) y los datos del cliente en facturas completas. Se aplica al recargar la caja. Desactivada, todo sigue como siempre: cada plantilla de Webkul puede usar las variables ${vfwoo_*} desde su editor.', 'vfwoo-webkul-pos-bridge' ); ?></p>
+				<?php if ( ! $fiscal ) : ?>
+					<p class="description"><?php esc_html_e( 'Requiere el plugin VFWoo.', 'vfwoo-webkul-pos-bridge' ); ?></p>
+				<?php endif; ?>
+				<?php submit_button( __( 'Guardar ticket', 'vfwoo-webkul-pos-bridge' ) ); ?>
+			</form>
 			<h2><?php esc_html_e( 'Pantalla de login del POS', 'vfwoo-webkul-pos-bridge' ); ?></h2>
 			<?php $login = Login_Screen::settings(); ?>
 			<p><?php esc_html_e( 'Cambia los textos de la pantalla de acceso del POS sin tocar el plugin de Webkul. Los campos vacíos dejan el valor de Webkul.', 'vfwoo-webkul-pos-bridge' ); ?></p>
