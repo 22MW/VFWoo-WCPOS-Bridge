@@ -2,6 +2,8 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
+## [Sin publicar]
+
 ## [0.1.4] - 2026-11-17
 
 ### Añadido
