@@ -77,47 +77,57 @@ final class POS_Script {
 				'blockedAlways' => __( 'La tienda emite siempre factura completa. Elige un cliente con NIF.', 'vfwoo-webkul-pos-bridge' ),
 				'unverified'    => __( 'El NIF de este cliente no está verificado en el censo de la AEAT.', 'vfwoo-webkul-pos-bridge' ),
 			),
-			'f3'             => array(
-				'statusUrl'  => esc_url_raw( rest_url( 'vfwoo-webkul/v1/f3-status' ) ),
-				'issueUrl'   => esc_url_raw( rest_url( 'vfwoo-webkul/v1/issue-f3' ) ),
-				'button'     => __( 'Factura completa (F3)', 'vfwoo-webkul-pos-bridge' ),
-				'title'      => __( 'Factura completa (F3) del pedido', 'vfwoo-webkul-pos-bridge' ),
-				'checking'   => __( 'Comprobando el pedido…', 'vfwoo-webkul-pos-bridge' ),
-				'pending'    => __( 'La factura simplificada aún no está confirmada. Espera a que se confirme.', 'vfwoo-webkul-pos-bridge' ),
-				'refresh'    => __( 'Actualizar estado', 'vfwoo-webkul-pos-bridge' ),
-				'done'       => __( 'Este pedido ya tiene factura completa.', 'vfwoo-webkul-pos-bridge' ),
-				'none'       => __( 'Este pedido no admite factura completa desde el POS.', 'vfwoo-webkul-pos-bridge' ),
-				'searchHint' => __( 'Busca por nombre, teléfono o email (mínimo 2 letras)', 'vfwoo-webkul-pos-bridge' ),
-				'search'     => __( 'Buscar', 'vfwoo-webkul-pos-bridge' ),
-				'choose'     => __( 'Elegir', 'vfwoo-webkul-pos-bridge' ),
-				'noResults'  => __( 'No hay clientes con ese dato.', 'vfwoo-webkul-pos-bridge' ),
-				'noNif'      => __( 'Sin NIF: no se puede usar. Complétalo o crea uno nuevo.', 'vfwoo-webkul-pos-bridge' ),
-				'defaultCst' => __( 'Cliente por defecto: no se puede usar.', 'vfwoo-webkul-pos-bridge' ),
-				'unverified' => __( 'NIF sin verificar en el censo de la AEAT.', 'vfwoo-webkul-pos-bridge' ),
-				'create'     => __( 'Crear cliente nuevo', 'vfwoo-webkul-pos-bridge' ),
-				'firstName'  => __( 'Nombre', 'vfwoo-webkul-pos-bridge' ),
-				'lastName'   => __( 'Apellidos', 'vfwoo-webkul-pos-bridge' ),
-				'phone'      => __( 'Teléfono', 'vfwoo-webkul-pos-bridge' ),
-				'email'      => __( 'Email', 'vfwoo-webkul-pos-bridge' ),
-				'save'       => __( 'Crear y elegir', 'vfwoo-webkul-pos-bridge' ),
-				'back'       => __( 'Volver', 'vfwoo-webkul-pos-bridge' ),
-				'cancel'     => __( 'Cancelar', 'vfwoo-webkul-pos-bridge' ),
-				'close'      => __( 'Cerrar', 'vfwoo-webkul-pos-bridge' ),
-				'confirm'    => __( 'Se emitirá la factura completa (F3) del pedido #%order% a nombre de %name% (%nif%). La factura simplificada se conserva.', 'vfwoo-webkul-pos-bridge' ),
-				'issue'      => __( 'Emitir F3', 'vfwoo-webkul-pos-bridge' ),
-				'issuing'    => __( 'Emitiendo…', 'vfwoo-webkul-pos-bridge' ),
-				'issued'     => __( 'Factura completa (F3) enviada. Al imprimir el pedido saldrá la F3; si sale la simplificada, haz Resync de pedidos.', 'vfwoo-webkul-pos-bridge' ),
-				'error'      => __( 'No se ha podido completar la operación.', 'vfwoo-webkul-pos-bridge' ),
+			'fullInvoice'    => array(
+				'statusUrl'    => esc_url_raw( rest_url( 'vfwoo-webkul/v1/full-invoice-status' ) ),
+				'issueUrl'     => esc_url_raw( rest_url( 'vfwoo-webkul/v1/full-invoice-issue' ) ),
+				'nifRequired'  => Customer_Integration::nif_required(),
+				'countries'    => function_exists( 'WC' ) && WC()->countries ? WC()->countries->get_countries() : array( 'ES' => 'España' ),
+				'countryLabel' => __( 'País', 'vfwoo-webkul-pos-bridge' ),
+				'noCheck'      => __( 'No comprobar el documento (por defecto, solo se comprueba en España)', 'vfwoo-webkul-pos-bridge' ),
+				'button'       => __( 'Factura completa', 'vfwoo-webkul-pos-bridge' ),
+				'title'        => __( 'Factura completa del pedido', 'vfwoo-webkul-pos-bridge' ),
+				'checking'     => __( 'Comprobando el pedido…', 'vfwoo-webkul-pos-bridge' ),
+				'refresh'      => __( 'Actualizar estado', 'vfwoo-webkul-pos-bridge' ),
+				'none'         => __( 'Este pedido no admite factura completa desde el POS.', 'vfwoo-webkul-pos-bridge' ),
+				'searchHint'   => __( 'Busca por nombre, teléfono o email (mínimo 2 letras)', 'vfwoo-webkul-pos-bridge' ),
+				'search'       => __( 'Buscar', 'vfwoo-webkul-pos-bridge' ),
+				'choose'       => __( 'Elegir', 'vfwoo-webkul-pos-bridge' ),
+				'noResults'    => __( 'No hay clientes con ese dato.', 'vfwoo-webkul-pos-bridge' ),
+				'noNif'        => __( 'Sin NIF: no se puede usar. Complétalo o crea uno nuevo.', 'vfwoo-webkul-pos-bridge' ),
+				'noNifOptional' => __( 'Sin NIF', 'vfwoo-webkul-pos-bridge' ),
+				'defaultCst'   => __( 'Cliente por defecto: no se puede usar.', 'vfwoo-webkul-pos-bridge' ),
+				'unverified'   => __( 'NIF sin verificar en el censo de la AEAT.', 'vfwoo-webkul-pos-bridge' ),
+				'create'       => __( 'Crear cliente nuevo', 'vfwoo-webkul-pos-bridge' ),
+				'firstName'    => __( 'Nombre', 'vfwoo-webkul-pos-bridge' ),
+				'lastName'     => __( 'Apellidos', 'vfwoo-webkul-pos-bridge' ),
+				'company'      => __( 'Empresa / razón social (si la factura es a nombre de una empresa)', 'vfwoo-webkul-pos-bridge' ),
+				'address'      => __( 'Domicilio', 'vfwoo-webkul-pos-bridge' ),
+				'postcode'     => __( 'Código postal', 'vfwoo-webkul-pos-bridge' ),
+				'city'         => __( 'Población', 'vfwoo-webkul-pos-bridge' ),
+				'phone'        => __( 'Teléfono', 'vfwoo-webkul-pos-bridge' ),
+				'email'        => __( 'Email (obligatorio)', 'vfwoo-webkul-pos-bridge' ),
+				'save'         => __( 'Crear y elegir', 'vfwoo-webkul-pos-bridge' ),
+				'back'         => __( 'Volver', 'vfwoo-webkul-pos-bridge' ),
+				'cancel'       => __( 'Cancelar', 'vfwoo-webkul-pos-bridge' ),
+				'close'        => __( 'Cerrar', 'vfwoo-webkul-pos-bridge' ),
+				'confirmLocal' => __( 'El ticket del pedido #%order% pasará a ser la factura completa a nombre de %name% %nif%, con el mismo número. Si ya tenía otro cliente, se sustituye.', 'vfwoo-webkul-pos-bridge' ),
+				'confirmSent'  => __( 'Se emitirá la factura completa del pedido #%order% a nombre de %name% %nif% y se enviará a Verifactu. La factura simplificada se conserva.', 'vfwoo-webkul-pos-bridge' ),
+				'issue'        => __( 'Emitir factura completa', 'vfwoo-webkul-pos-bridge' ),
+				'issuing'      => __( 'Emitiendo…', 'vfwoo-webkul-pos-bridge' ),
+				'issuedLocal'  => __( 'Factura completa guardada. Al imprimir el pedido saldrá con los datos del cliente; si no, haz Resync de pedidos.', 'vfwoo-webkul-pos-bridge' ),
+				'issuedSent'   => __( 'Factura completa enviada a Verifactu. Al imprimir el pedido saldrá con los datos del cliente; si no, haz Resync de pedidos.', 'vfwoo-webkul-pos-bridge' ),
+				'error'        => __( 'No se ha podido completar la operación.', 'vfwoo-webkul-pos-bridge' ),
 			),
 			'brandsCategory' => __( 'Marcas', 'vfwoo-webkul-pos-bridge' ),
 			'store'          => Invoice_Variables::store(),
 			'qrAlt'          => __( 'QR Veri*Factu', 'vfwoo-webkul-pos-bridge' ),
 			'nifLabel'       => __( 'DNI / NIE / CIF', 'vfwoo-webkul-pos-bridge' ),
+			'nifRequired'    => Customer_Integration::nif_required(),
 			'nifUnverified'  => __( 'NIF sin verificar en el censo de la AEAT.', 'vfwoo-webkul-pos-bridge' ),
 			'ownTemplate'    => Own_Template::enabled() ? Own_Template::html() : '',
 		);
 
-		// The invoice PDF button needs VFWoo and a user who can open orders in the admin.
+		// The invoice PDF button needs an invoicing plugin and a user who can open orders in the admin.
 		if ( Pdf_Actions::can_print() ) {
 			$config['pdf'] = array(
 				'url'     => esc_url_raw( admin_url( 'admin-post.php?action=' . Pdf_Actions::ACTION ) ),
@@ -127,9 +137,12 @@ final class POS_Script {
 			);
 		}
 
-		// The fiscal parts of the POS extension need VFWoo; without it the script leaves them out.
-		if ( ! Requirements::vfwoo_active() ) {
-			unset( $config['sale'], $config['f3'], $config['nifLabel'], $config['nifUnverified'] );
+		// Each part of the POS extension that leans on the invoicing plugins is left out when what it needs is missing.
+		if ( ! Capabilities::verifactu() ) {
+			unset( $config['sale'] );
+		}
+		if ( ! Capabilities::invoices() ) {
+			unset( $config['fullInvoice'], $config['nifLabel'], $config['nifRequired'], $config['nifUnverified'] );
 		}
 
 		wp_add_inline_script(

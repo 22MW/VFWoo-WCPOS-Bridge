@@ -221,7 +221,7 @@
 		window.setTimeout( checkServerVersion, 2000 );
 	}
 
-	// Required tax ID field in the POS customer form; Webkul submits every input of the form.
+	// Tax ID field in the POS customer form (required only with Verifactu); Webkul submits every input of the form.
 	function renderNifField( field, customer ) {
 		var element = window.wp && window.wp.element;
 		if ( ! element || ! config || ! config.nifLabel ) {
@@ -232,7 +232,7 @@
 		return element.createElement(
 			'div',
 			{ className: 'customer-nif' },
-			element.createElement( 'label', { htmlFor: 'pos_customer_nif' }, config.nifLabel, element.createElement( 'i', null, '*' ) ),
+			element.createElement( 'label', { htmlFor: 'pos_customer_nif' }, config.nifLabel, config.nifRequired ? element.createElement( 'i', null, '*' ) : null ),
 			element.createElement( 'input', { type: 'text', name: 'pos_customer_nif', id: 'pos_customer_nif', defaultValue: nif, autoComplete: 'off' } ),
 			unverified ? element.createElement( 'span', { className: 'error' }, config.nifUnverified ) : null
 		);
@@ -600,7 +600,7 @@
 		notifySale( { block: true, message: stopMessage } );
 	} );
 
-	// ---- F3: complete invoice that replaces a simplified one, from the order detail ----
+	// ---- Complete invoice from a ticket, from the order detail (Verifactu registers it as F3 when it must) ----
 	function posPost( url, payload, retry ) {
 		var session = ( window.localStorage && window.localStorage.getItem( 'WKWCPOS_API_SESSION_ID' ) ) || '';
 		payload.logged_in_user_id = window.apif_script && window.apif_script.logged_in ? window.apif_script.logged_in.user_id : 0;
@@ -621,14 +621,14 @@
 			} );
 	}
 
-	function openF3Dialog( order ) {
-		var labels = config.f3;
+	function openFullInvoiceDialog( order ) {
+		var labels = config.fullInvoice;
 		var orderId = order.order_id || order.id;
-		var overlay = node( 'div', 'vfwoo-f3-overlay' );
-		var box = node( 'div', 'vfwoo-f3-box' );
-		var body = node( 'div', 'vfwoo-f3-body' );
-		var head = node( 'div', 'vfwoo-f3-head' );
-		var closeButton = node( 'button', 'vfwoo-f3-x', '\u00d7' );
+		var overlay = node( 'div', 'vfwoo-full-overlay' );
+		var box = node( 'div', 'vfwoo-full-box' );
+		var body = node( 'div', 'vfwoo-full-body' );
+		var head = node( 'div', 'vfwoo-full-head' );
+		var closeButton = node( 'button', 'vfwoo-full-x', '\u00d7' );
 		closeButton.type = 'button';
 		closeButton.setAttribute( 'aria-label', labels.close );
 		closeButton.addEventListener( 'click', close );
@@ -638,6 +638,9 @@
 		box.appendChild( body );
 		overlay.appendChild( box );
 		document.body.appendChild( overlay );
+
+		// How the invoice will be registered: 'local' (the ticket becomes the complete invoice) or 'verifactu'.
+		var route = 'local';
 
 		function close() {
 			overlay.remove();
@@ -651,7 +654,7 @@
 		}
 
 		function message( text, isError ) {
-			return node( 'p', 'vfwoo-f3-message' + ( isError ? ' is-error' : '' ), text );
+			return node( 'p', 'vfwoo-full-message' + ( isError ? ' is-error' : '' ), text );
 		}
 
 		function show() {
@@ -667,18 +670,19 @@
 
 		function checkOrder() {
 			show( message( labels.checking ) );
-			posPost( config.f3.statusUrl, { order_id: orderId } )
+			posPost( config.fullInvoice.statusUrl, { order_id: orderId } )
 				.then( function ( result ) {
 					if ( ! result || ! result.success ) {
 						return fail( result && result.message );
 					}
 					if ( result.state === 'ready' ) {
+						route = result.route === 'verifactu' ? 'verifactu' : 'local';
 						return showSearch();
 					}
 					if ( result.state === 'pending' ) {
-						return show( message( labels.pending ), button( labels.refresh, 'primary vfwoo-f3-primary', checkOrder ), button( labels.close, '', close ) );
+						return show( message( result.message || labels.none ), button( labels.refresh, 'primary vfwoo-full-primary', checkOrder ), button( labels.close, '', close ) );
 					}
-					return show( message( result.state === 'done' ? labels.done : labels.none ), button( labels.close, '', close ) );
+					return show( message( result.message || labels.none ), button( labels.close, '', close ) );
 				} )
 				.catch( function () {
 					fail();
@@ -686,10 +690,10 @@
 		}
 
 		function showSearch() {
-			var input = node( 'input', 'vfwoo-f3-input' );
+			var input = node( 'input', 'vfwoo-full-input' );
 			input.type = 'search';
 			input.placeholder = labels.searchHint;
-			var results = node( 'div', 'vfwoo-f3-results' );
+			var results = node( 'div', 'vfwoo-full-results' );
 
 			function search() {
 				var term = input.value.trim();
@@ -716,16 +720,16 @@
 			}
 
 			function customerRow( customer ) {
-				var row = node( 'div', 'vfwoo-f3-row' );
+				var row = node( 'div', 'vfwoo-full-row' );
 				var name = ( ( customer.first_name || '' ) + ' ' + ( customer.last_name && customer.last_name !== 'null' ? customer.last_name : '' ) ).trim();
-				var info = node( 'div', 'vfwoo-f3-info' );
-				info.appendChild( node( 'strong', '', name || customer.email ) );
+				var info = node( 'div', 'vfwoo-full-info' );
+				info.appendChild( node( 'strong', '', customer.vfwoo_webkul_company || name || customer.email ) );
 				info.appendChild( node( 'span', '', customer.email || '' ) );
 				var nif = customer.vfwoo_webkul_nif || '';
-				var usable = !! nif && customer.vfwoo_webkul_is_default !== true;
-				info.appendChild( node( 'span', '', customer.vfwoo_webkul_is_default === true ? labels.defaultCst : ( nif ? nif : labels.noNif ) ) );
+				var usable = ( !! nif || ! labels.nifRequired ) && customer.vfwoo_webkul_is_default !== true;
+				info.appendChild( node( 'span', '', customer.vfwoo_webkul_is_default === true ? labels.defaultCst : ( nif ? nif : ( labels.nifRequired ? labels.noNif : labels.noNifOptional ) ) ) );
 				row.appendChild( info );
-				var choose = button( labels.choose, 'primary vfwoo-f3-primary', function () {
+				var choose = button( labels.choose, 'primary vfwoo-full-primary', function () {
 					showConfirm( customer, name, nif );
 				} );
 				choose.disabled = ! usable;
@@ -733,16 +737,16 @@
 				return row;
 			}
 
-			var searchButton = button( labels.search, 'primary vfwoo-f3-primary', search );
+			var searchButton = button( labels.search, 'primary vfwoo-full-primary', search );
 			input.addEventListener( 'keydown', function ( event ) {
 				if ( event.key === 'Enter' ) {
 					search();
 				}
 			} );
-			var bar = node( 'div', 'vfwoo-f3-bar' );
+			var bar = node( 'div', 'vfwoo-full-bar' );
 			bar.appendChild( input );
 			bar.appendChild( searchButton );
-			var actions = node( 'div', 'vfwoo-f3-actions' );
+			var actions = node( 'div', 'vfwoo-full-actions' );
 			actions.appendChild( button( labels.create, '', showCreate ) );
 			actions.appendChild( button( labels.cancel, '', close ) );
 			show( bar, results, actions );
@@ -751,25 +755,57 @@
 
 		function showCreate() {
 			var fields = {};
-			var form = node( 'div', 'vfwoo-f3-form' );
-			[ [ 'firstName', 'text' ], [ 'lastName', 'text' ], [ 'phone', 'tel' ], [ 'email', 'email' ] ].forEach( function ( definition ) {
+			var form = node( 'div', 'vfwoo-full-form' );
+			[ [ 'firstName', 'text' ], [ 'lastName', 'text' ], [ 'company', 'text' ], [ 'address', 'text' ], [ 'postcode', 'text' ], [ 'city', 'text' ], [ 'phone', 'tel' ], [ 'email', 'email' ] ].forEach( function ( definition ) {
 				var label = node( 'label', '', labels[ definition[ 0 ] ] );
-				var input = node( 'input', 'vfwoo-f3-input' );
+				var input = node( 'input', 'vfwoo-full-input' );
 				input.type = definition[ 1 ];
 				label.appendChild( input );
 				form.appendChild( label );
 				fields[ definition[ 0 ] ] = input;
 			} );
+			// Country: Spain by default. Outside Spain the document is not checked unless the cashier says so.
+			var countryLabel = node( 'label', '', labels.countryLabel );
+			var countrySelect = node( 'select', 'vfwoo-full-input' );
+			var countries = labels.countries || { ES: 'España' };
+			Object.keys( countries )
+				.sort( function ( a, b ) {
+					if ( a === 'ES' || b === 'ES' ) {
+						return a === 'ES' ? -1 : 1;
+					}
+					return String( countries[ a ] ).localeCompare( String( countries[ b ] ) );
+				} )
+				.forEach( function ( code ) {
+					var option = node( 'option', '', countries[ code ] );
+					option.value = code;
+					countrySelect.appendChild( option );
+				} );
+			countrySelect.value = 'ES';
+			countryLabel.appendChild( countrySelect );
+			form.appendChild( countryLabel );
+
 			var nifLabel = node( 'label', '', config.nifLabel );
-			var nifInput = node( 'input', 'vfwoo-f3-input' );
+			var nifInput = node( 'input', 'vfwoo-full-input' );
 			nifInput.type = 'text';
 			nifInput.autocomplete = 'off';
 			nifLabel.appendChild( nifInput );
 			form.appendChild( nifLabel );
+
+			var noCheckLabel = node( 'label', 'vfwoo-full-check' );
+			var noCheck = node( 'input', '' );
+			noCheck.type = 'checkbox';
+			noCheckLabel.appendChild( noCheck );
+			noCheckLabel.appendChild( document.createTextNode( ' ' + labels.noCheck ) );
+			form.appendChild( noCheckLabel );
+			countrySelect.addEventListener( 'change', function () {
+				noCheck.checked = countrySelect.value !== 'ES';
+			} );
 			var status = message( '' );
 
-			var save = button( labels.save, 'primary vfwoo-f3-primary', function () {
-				var first = fields.firstName.value.trim();
+			var save = button( labels.save, 'primary vfwoo-full-primary', function () {
+				var company = fields.company.value.trim();
+				// Webkul asks for a name: a company without a contact person uses its own name.
+				var first = fields.firstName.value.trim() || company;
 				var last = fields.lastName.value.trim();
 				var email = fields.email.value.trim();
 				var phone = fields.phone.value.trim();
@@ -781,12 +817,18 @@
 					[ 'pos_customer_phone', phone ],
 					[ 'pos_customer_email', email ],
 					[ 'pos_customer_bemail', email ],
-					[ 'pos_customer_nif', nifInput.value.trim() ]
+					[ 'pos_customer_nif', nifInput.value.trim() ],
+					[ 'pos_customer_company', company ],
+					[ 'pos_customer_address1', fields.address.value.trim() ],
+					[ 'pos_customer_pincode', fields.postcode.value.trim() ],
+					[ 'pos_customer_city', fields.city.value.trim() ],
+					[ 'pos_customer_country', countrySelect.value ],
+					[ 'pos_customer_nocheck', noCheck.checked ? '1' : '0' ]
 				].map( function ( pair ) {
 					return { name: pair[ 0 ], value: pair[ 1 ] };
 				} );
 				save.disabled = true;
-				status.className = 'vfwoo-f3-message';
+				status.className = 'vfwoo-full-message';
 				status.textContent = labels.checking;
 				posPost( window.wkwcpos_variables.WK_CREATE_CUSTOMER_ENDPOINT, { pos: list } )
 					.then( function ( result ) {
@@ -796,55 +838,53 @@
 							var name = ( ( created.first_name || '' ) + ' ' + ( created.last_name || '' ) ).trim();
 							return showConfirm( created, name, created.vfwoo_webkul_nif || '' );
 						}
-						status.className = 'vfwoo-f3-message is-error';
+						status.className = 'vfwoo-full-message is-error';
 						status.textContent = result && result.msg ? result.msg : labels.error;
 					} )
 					.catch( function () {
 						save.disabled = false;
-						status.className = 'vfwoo-f3-message is-error';
+						status.className = 'vfwoo-full-message is-error';
 						status.textContent = labels.error;
 					} );
 			} );
-			var actions = node( 'div', 'vfwoo-f3-actions' );
+			var actions = node( 'div', 'vfwoo-full-actions' );
 			actions.appendChild( save );
 			actions.appendChild( button( labels.back, '', showSearch ) );
 			show( form, status, actions );
 		}
 
 		function showConfirm( customer, name, nif ) {
-			var text = labels.confirm.replace( '%order%', orderId ).replace( '%name%', name || customer.email ).replace( '%nif%', nif );
+			var company = customer.vfwoo_webkul_company || '';
+			var text = ( route === 'verifactu' ? labels.confirmSent : labels.confirmLocal )
+				.replace( '%order%', orderId )
+				.replace( '%name%', company || name || customer.email )
+				.replace( '%nif%', nif ? '(' + nif + ')' : '' );
 			var status = message( '' );
-			var issue = button( labels.issue, 'primary vfwoo-f3-primary', function () {
+			var issue = button( labels.issue, 'primary vfwoo-full-primary', function () {
 				issue.disabled = true;
-				status.className = 'vfwoo-f3-message';
+				status.className = 'vfwoo-full-message';
 				status.textContent = labels.issuing;
-				posPost( config.f3.issueUrl, { order_id: orderId, customer_id: customer.id } )
+				posPost( config.fullInvoice.issueUrl, { order_id: orderId, customer_id: customer.id } )
 					.then( function ( result ) {
 						if ( result && result.success ) {
-							// Webkul prints from this same order object: give it the F3 data.
+							// Webkul prints from this same order object: give it the complete invoice data.
 							if ( result.bridge ) {
 								order.vfwoo_webkul_bridge = result.bridge;
-							} else if ( order.vfwoo_webkul_bridge && order.vfwoo_webkul_bridge.fiscal ) {
-								order.vfwoo_webkul_bridge.fiscal.invoice_type = 'F3';
 							}
-							// Hide, never remove: the button belongs to Webkul's React tree and removing it by hand
-							// breaks the next re-render ("Algo salió mal"). The next render drops it by itself.
-							Array.prototype.forEach.call( document.querySelectorAll( '.vfwoo-f3' ), function ( element ) {
-								element.style.display = 'none';
-							} );
-							return show( message( labels.issued ), button( labels.close, 'primary vfwoo-f3-primary', close ) );
+							// The button stays: a mistaken customer can be changed again (the server says when it cannot).
+							return show( message( route === 'verifactu' ? labels.issuedSent : labels.issuedLocal ), button( labels.close, 'primary vfwoo-full-primary', close ) );
 						}
 						issue.disabled = false;
-						status.className = 'vfwoo-f3-message is-error';
+						status.className = 'vfwoo-full-message is-error';
 						status.textContent = result && result.message ? result.message : labels.error;
 					} )
 					.catch( function () {
 						issue.disabled = false;
-						status.className = 'vfwoo-f3-message is-error';
+						status.className = 'vfwoo-full-message is-error';
 						status.textContent = labels.error;
 					} );
 			} );
-			var actions = node( 'div', 'vfwoo-f3-actions' );
+			var actions = node( 'div', 'vfwoo-full-actions' );
 			actions.appendChild( issue );
 			actions.appendChild( button( labels.back, '', showSearch ) );
 			var lines = [ message( text ) ];
@@ -857,11 +897,10 @@
 		checkOrder();
 	}
 
-	// Button next to "Print invoice" in the POS order detail; only for orders sold as F2.
-	function renderF3Button( output, order ) {
+	// Button next to "Print invoice" in the POS order detail. The server decides whether the order can change.
+	function renderFullInvoiceButton( output, order ) {
 		var element = window.wp && window.wp.element;
-		var fiscal = order && order.vfwoo_webkul_bridge && order.vfwoo_webkul_bridge.fiscal;
-		if ( ! element || ! config || ! config.f3 || ! fiscal || fiscal.invoice_type !== 'F2' ) {
+		if ( ! element || ! config || ! config.fullInvoice || ! order ) {
 			return output;
 		}
 		return element.createElement(
@@ -871,14 +910,14 @@
 			// Same wrapper and classes as Webkul's own "Print invoice" button, so it looks the same in every theme.
 			element.createElement(
 				'div',
-				{ className: 'pos-order-invoice vfwoo-f3' },
+				{ className: 'pos-order-invoice vfwoo-full' },
 				element.createElement(
 					'button',
 					{
 						type: 'button',
 						className: 'primary',
 						onClick: function () {
-							openF3Dialog( order );
+							openFullInvoiceDialog( order );
 						}
 					},
 					element.createElement(
@@ -888,13 +927,13 @@
 						element.createElement( 'path', { d: 'M14 3v5h5M9 13h6M9 17h6' } )
 					),
 					' ',
-					config.f3.button
+					config.fullInvoice.button
 				)
 			)
 		);
 	}
 
-	hooks.addFilter( 'wkwcpos_add_after_print_invoice_button', 'vfwoo-webkul-pos-bridge', renderF3Button );
+	hooks.addFilter( 'wkwcpos_add_after_print_invoice_button', 'vfwoo-webkul-pos-bridge', renderFullInvoiceButton );
 
 	// Prints VFWoo's invoice PDF the way Webkul prints the ticket: a hidden iframe and print(), so the
 	// print dialog opens without leaving the POS. If the browser refuses, the PDF opens in a new tab.
@@ -995,7 +1034,7 @@
 		);
 	}
 
-	// Button below the F3 one; shown only when the order already has an invoice number.
+	// Button below the complete-invoice one; shown only when the order already has an invoice number.
 	function renderPdfButton( output, order ) {
 		var element = window.wp && window.wp.element;
 		var fiscal = order && order.vfwoo_webkul_bridge && order.vfwoo_webkul_bridge.fiscal;

@@ -64,6 +64,40 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 - Futuro: facturas F3 (sustitutiva) y rectificativas; ampliar `CUSTOMER_TYPES` y el cálculo del tipo. Herramienta para convertir a F3 y crear rectificativas.
 - Pendiente de decidir: domicilio del cliente obligatorio en el formulario del POS para las F1.
 
+## Ticket: plantilla propia del bridge (publicada en 0.1.4; F2 y logo confirmados en local)
+
+- Casilla en POS → Settings → VFWoo Bridge → Ticket (D-024). Probada la sustitución y el relleno con un simulador de JS (F2 sin cliente, F1 con cliente, sin datos fiscales, casilla desactivada).
+- **Confirmado en local (2026-11-17):** F2 impresa con la plantilla propia (logo, razón social, NIF, dirección, teléfono, email, factura y líneas) y logo al 50 % del ancho del ticket.
+- Pendiente: F1 con cliente, reimpresión y F3; con y sin QR; con el rollo térmico real (anchos 58/80 mm).
+- Pendiente: contrastar en el sitio que `seller_nif` y `company_nif` difieren o no, y que el ticket muestra el de «Diseño PDF».
+- Futuro: `company_extra` (datos adicionales) si VFWoo lo expone.
+
+## Adaptación al core y al complemento de VFWoo (hecha en código; pendiente de activar y probar)
+
+- Ver D-026. Probado con simuladores en cuatro escenarios (core solo, core + Verifactu, VFWoo antiguo, sin plugin).
+- **Pendiente de probar en `pos.local`** al activar el core y el complemento (con el VFWoo antiguo desactivado): que el POS carga, que el ticket sale con número de factura al cobrar (el core crea la factura en el estado de expedición que se configure), el QR con Verifactu, la regla de 3.000 € y el NIF opcional/obligatorio.
+- **Hecho en código (D-027, sin commit): «Factura completa» desde el ticket con o sin Verifactu.** Ruta local (mismo número, datos del cliente en el pedido) y ruta Verifactu (F3). Pendiente de probar en `pos.local`: crear cliente con empresa y domicilio, convertir un ticket sin cliente, cambiar de cliente, PDF y correo con los datos nuevos, ticket reimpreso como factura completa, y con Verifactu enviando: F2 aceptada → F3, F1/F3 registradas → mensaje, y que el PDF de la F3 saque el cliente y el domicilio.
+- **Pendiente de confirmar con la gestoría:** que una factura completa con el mismo número que el ticket (sin Verifactu) sirva, o si debe llevar número nuevo y referirse al ticket (requeriría que el core de VFWoo emita una segunda factura por pedido).
+- Pendiente: avisar a VFWoo de que, tras cambiar el cliente en una factura local, el PDF se regenera a nombre del nuevo (no se conserva el anterior).
+- **Cambios que hacen falta en VFWoo / Verifactu (no sabemos cuándo estarán; de momento el bridge se protege):**
+  1. **F3 y factura completa a clientes de otro país.** `Invoice_Helper_Verifactu::emitir_sustitutiva` solo acepta `nif` y `nombre` y copia el envío de la F2: debe aceptar **país** y **tipo de documento** (`IDOtro`: 02 NIF-IVA, 03 pasaporte, 04 documento del país de residencia, 05 certificado de residencia, 06 otro, 07 no censado) y no comprobar contra el censo un documento que no es español (`Emission_Check::aviso_de_censo`). Hoy el bridge **bloquea** la conversión con Verifactu si el cliente no es de España.
+  2. **Tipo de documento en el pedido.** `Payload_Builder` elige el tipo del `IDOtro` solo (02 o 04) y nunca el pasaporte (03): debería leerlo de un dato del pedido (p. ej. meta `_billing_nif_type`) cuando exista. El bridge lo guardaría desde el formulario (selector «Tipo de documento»: DNI/NIE/CIF, NIF-IVA, Pasaporte, Otro).
+  3. **IVA al facturar a un extranjero.** Con país ≠ ES, Verifactu trata la operación como exportación exenta (art. 21): un ticket ya vendido con IVA no se puede convertir sin decidir qué pasa con los importes. Lo decide VFWoo, no el bridge.
+  4. **El plugin Verifactu activo con su módulo apagado** no debería exponer datos de ticket (`Ticket_Fiscal_Data::for_order`) ni el censo: hoy el bridge lo evita preguntando `Modules::is_active('verifactu')`; ideal que VFWoo ofrezca una función pública («¿Verifactu en uso?») y el bridge la use.
+  5. **Filtro `vfwoo_simplified_limit`** (prompt en `temp/prompt-vfwoo-filtro-limite.md`) y comprobar que «Sector autorizado» coincide con el límite fijo de 3.000 € del POS.
+  6. Probar F3 con una venta real en sandbox: que el PDF de la F3 saque el cliente y el domicilio (el bridge escribe el domicilio en el pedido tras la F3; Verifactu solo escribe NIF y nombre).
+- **Pendiente en el bridge cuando VFWoo lo soporte:** selector «Tipo de documento» (pasaporte, NIF-IVA, otro) en el formulario del POS, guardarlo en el cliente y el pedido, validarlo por tipo y quitar el bloqueo de la conversión a extranjeros con Verifactu.
+- Pendiente: comprobar con VFWoo que «Sector autorizado» en Verifactu coincide con el límite fijo del POS (3.000 €) o aplicar el filtro `vfwoo_simplified_limit`.
+- Pendiente: si el core 1.2.1 lee los datos (tablas y opciones) del VFWoo antiguo al activarlo en un sitio con facturas.
+
+## PDF de VFWoo en el POS (publicado en 0.1.4; pendiente de QA en la caja)
+
+- «Send order email» con el PDF adjunto **siempre** desde el botón y botón «Factura PDF» con indicador de carga, que imprime sin salir del POS (D-025). Probado con simuladores de PHP y JS; **falta** probarlo con una venta real: que llega el correo con el PDF, que el diálogo de imprimir se abre y que el fallback a pestaña funciona.
+- **Mejora futura: acelerar el PDF.** VFWoo lo genera con dompdf en cada petición y tarda unos segundos (el ticket sale al momento). Causa **sin medir**. Pasos: (1) medir con un `wp eval` cronometrado o con el Network del navegador; (2) si es la doble generación, apagar `auto_save_pdf` en VFWoo; (3) si son las imágenes remotas (logo y QR por HTTP), corregirlo en VFWoo o en el entorno; (4) si es dompdf puro, guardar el PDF generado por factura (clave: número de factura + fecha de modificación + ajustes del PDF) y reutilizarlo, o generarlo por adelantado cuando la factura se confirme.
+- **Mejora futura: el botón «Factura PDF» y el correo con rectificativas y F3.** Hoy el correo de reembolso sale sin PDF, y con una F3 que sustituye a una F2 sale la factura que VFWoo da como más reciente (sin comprobar).
+- Pendiente de comprobar en el sitio: que el motivo queda en el registro cuando no se adjunta (`WP_DEBUG_LOG`), para diagnosticar casos reales.
+- Idea: pedir a VFWoo un filtro oficial para adjuntar o forzar el PDF en correos de WooCommerce (hoy el bridge usa `VFWOO_PDF_Engine` y `Invoice_Helper`, internos).
+
 ## Bloqueo de venta ≥ límite sin cliente con NIF (hecho y confirmado en local)
 
 - Parada en el navegador en el botón Pay y en el botón final de pago (D-017); aviso si el NIF del cliente está sin verificar.
@@ -91,31 +125,21 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 - Pendiente opcional de probar: la barra antigua, una marca sin imagen y la combinación con el buscador y el panel de filtros.
 - Posible ampliación: otras taxonomías como nodos propios (hoy solo `product_brand`), y una opción para ocultarlo.
 
-## Límite de factura simplificada propio del POS (plan, sin implementar)
+## Límite de factura simplificada propio del POS (planificado; esperando a VFWoo)
 
-**Necesidad:** la web puede tener el límite en 400 € y la tienda física en 3.000 € (venta al por menor). Hoy no se puede.
-
-**Situación real (leída en VFWoo):**
-- Hay **un solo ajuste global**, `authorized_sector` («sector autorizado»): 3.000 € si está activo, 400 € si no (`NIF_Rules::simplified_limit`). Vale para la web y para el POS.
-- Quien decide F1 o F2 en cada pedido es VFWoo (`Invoice_Type_Calculator::decidir_tipo`: `total >= límite` ⇒ F1), con ese ajuste global.
-- El bridge solo **lee** ese límite para parar la venta en el POS (D-017). No lo aplica.
-
-**Riesgo principal:** si el bridge tuviera su propio límite (3.000 €) pero VFWoo siguiera con 400 €, el POS dejaría vender 1.000 € sin cliente y **VFWoo emitiría F1 sin NIF**, que fallaría. El límite propio del POS solo es seguro si **VFWoo también lo aplica** a los pedidos del POS.
-
-**Plan propuesto (3 piezas, en este orden):**
-1. **VFWoo** (otro plugin, requiere autorización aparte): que el límite de un pedido pase por un filtro (por ejemplo `vfwoo_simplified_limit`, con el pedido como argumento) o por un ajuste por canal. Cambio pequeño en `Invoice_Type_Calculator`.
-2. **Bridge:** ajuste en `POS → Settings → VFWoo Bridge`: «Límite de factura simplificada en el POS» (vacío = usar el de VFWoo). Engancha el filtro anterior solo para pedidos del POS (meta `_wk_wc_pos_outlet`).
-3. **Bridge:** la parada de venta (D-017) y el aviso pasan a leer ese límite del POS.
-
-**Decisiones pendientes:** ¿ajuste por canal dentro de VFWoo o filtro que use el bridge? ¿qué límites permite (solo 400 y 3.000, o cualquier importe)? ¿qué hacer con pedidos antiguos ya emitidos?
-
-**Validación prevista:** ventas de prueba en sandbox por debajo y por encima de cada límite, en POS y en web, comprobando el tipo que emite VFWoo. Sin facturas reales.
+- **Plan completo:** `temp/plan-limite-pos.md`. **Prompt para el desarrollador de VFWoo:** `temp/prompt-vfwoo-filtro-limite.md`.
+- **Necesidad:** web en 400 € y tienda física en 3.000 € (o al revés). Hoy hay un único ajuste global de VFWoo (`authorized_sector`).
+- **Decisiones (2026-09-20):** filtro en VFWoo (`vfwoo_simplified_limit`); el límite del POS admite solo 400 o 3.000 (interpretación del «sí», por confirmar); el cambio de VFWoo lo hace el usuario en su workspace y avisará al aplicarlo.
+- **Orden:** Fase A VFWoo (filtro, documentación y versión) → Fase B bridge (ajuste en `POS → Settings → VFWoo Bridge`, enganche al filtro solo para pedidos del POS, versión mínima de VFWoo y parada de venta con el mismo límite) → Fase C pruebas en sandbox. Primero VFWoo, luego el bridge.
+- **Riesgo principal:** el bridge no puede forzar F2; si pusiera 3.000 € con un VFWoo antiguo, el TPV dejaría vender sin cliente y VFWoo emitiría F1 sin NIF. Por eso el ajuste queda desactivado con aviso si VFWoo no tiene el filtro.
+- **Bloqueado hasta que el usuario confirme que el filtro está aplicado y diga la versión de VFWoo.**
 
 ## Release 0.1.1 y actualizaciones (publicada)
 
 - Publicada `pos-v0.1.1` (`proceso-release.md`). Pendiente: comprobar en un sitio de staging, instalado desde el ZIP, que la siguiente release aparece en Actualizaciones y se instala.
 - Publicadas `pos-v0.1.1` y `pos-v0.1.2` (Marcas en la barra de categorías y estilos del POS). El desarrollo sigue en `0.1.2.1`.
 - Pendiente: comprobar en un sitio de staging, instalado desde el ZIP, que la actualización aparece y se instala (solo verificada con las releases reales en simulación).
+- Publicadas también `pos-v0.1.3` (login configurable, VFWoo opcional) y **`pos-v0.1.4` (2026-11-17)**. El desarrollo sigue en `0.1.4.1`. Pendiente: actualizar `pos.vfwoo.online` a la 0.1.4 (hoy tiene la dev 0.1.3.5) con `validar-deploy` y `desplegar`.
 - Recomendación: repositorio propio para este plugin.
 
 ## Fase futura: informes

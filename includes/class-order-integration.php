@@ -71,7 +71,7 @@ final class Order_Integration {
 	 */
 	public static function bridge_block( \WC_Order $order, bool $with_qr_image ): array {
 		$provider  = new Fiscal_Provider();
-		$data      = $provider->for_order( $order );
+		$data      = Ticket_Invoice::mark_complete( $order, $provider->for_order( $order ) );
 		$pending   = ! empty( $data['available'] ) && empty( $data['confirmed'] );
 		$qr_source = (string) ( $data['qr_src'] ?? '' );
 

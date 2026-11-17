@@ -4,6 +4,31 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 
 ## [Sin publicar]
 
+### Añadido
+
+- **Factura completa a nombre del cliente desde el ticket, con o sin Verifactu.** El botón «Factura completa» del detalle del pedido (antes «Factura completa (F3)», solo con Verifactu) sale en cualquier pedido del POS. Se elige o se crea el cliente (ahora con empresa / razón social, domicilio, código postal y población) y:
+  - **Sin Verifactu** (o con Verifactu sin enviar nada a la AEAT): el ticket pasa a ser la factura completa **con el mismo número**. Los datos del cliente (NIF, nombre o razón social, domicilio) se escriben en el pedido, y el PDF y el correo salen con ellos. Se puede cambiar de cliente si hubo un error. Una nota del pedido guarda los datos anteriores.
+  - **Con Verifactu enviando a la AEAT:** F2 aceptada → se emite la F3 que la sustituye (como antes, ahora también con el domicilio en el pedido). Una factura ya registrada con cliente (F1 o F3) no se puede cambiar sin rectificarla; el botón lo explica. Si la F2 aún no se ha enviado, pide esperar.
+  - El NIF es opcional sin Verifactu y obligatorio con él. Una empresa se guarda como razón social (y su contacto, si lo hay); un CIF sin empresa indicada se trata como razón social.
+  - El ticket de un pedido convertido sale como factura completa (F1) con los datos del cliente.
+- **País del cliente en el formulario del POS** (España por defecto) y casilla **«No comprobar el documento»**. Con España se comprueba el DNI, NIE o CIF (letra de control) y, con Verifactu, el censo de la AEAT; con cualquier otro país la casilla sale marcada y no se comprueba nada, salvo que el cajero la desmarque (entonces se valida el formato genérico). El país se guarda en el cliente y en el pedido y sale en el PDF. Con Verifactu, la factura completa a un cliente de otro país se bloquea con un mensaje: la F3 de Verifactu solo envía un NIF español (pendiente en VFWoo).
+
+### Cambiado
+
+- Las rutas internas del botón pasan de `f3-status` / `issue-f3` a `full-invoice-status` / `full-invoice-issue`, y la clase `F3_Emission` a `Ticket_Invoice`.
+- **El bridge ya no depende de un plugin de VFWoo en concreto: se apoya en lo que el POS necesita y detecta por capacidad.** Funciona con el core de facturas (VFWoo Invoices) solo, con el core más el complemento Verifactu o con el VFWoo de un solo plugin anterior. Cada función se enciende cuando existe la pieza que usa:
+  - **Con el core de facturas:** número y fecha de factura en el ticket (leídos de la factura del core), plantilla de ticket propia, «Factura PDF», PDF en el correo del pedido y NIF del cliente con comprobación de formato (opcional).
+  - **Solo con Verifactu:** QR, leyenda legal y tipo de factura en el ticket, NIF obligatorio, límite de venta, comprobación del nombre contra el censo de la AEAT y el registro de la factura completa como F3.
+- **Límite de venta fijo en el POS: 3.000 €** (el máximo, con sector autorizado), solo con Verifactu. Ya no lee el límite ni el interruptor de simplificadas del plugin de facturas.
+- **El NIF del cliente es obligatorio solo con Verifactu.** Sin él es opcional, se comprueba su formato si se escribe y no se avisa de «sin verificar» (no hay censo que consultar). Si se deja vacío, se borra el NIF que el cliente tuviera.
+- La pantalla de ajustes lista qué está activo por función («Qué está activo») en lugar de «Módulos fiscales».
+
+### Corregido
+
+- **Con el módulo Verifactu desactivado en VFWoo (pero el plugin activo), el bridge seguía sacando el QR y aplicando las reglas de Verifactu.** Ahora «Verifactu» solo cuenta si su módulo está activado (`Modules::is_active('verifactu')`); con el módulo apagado no hay QR, ni NIF obligatorio, ni límite de venta, ni censo, ni F3, igual que sin el plugin. Con el VFWoo de un solo plugin, que no tiene interruptor de módulos, estar instalado cuenta como estar en uso. La pantalla de ajustes indica «Plugin activo, pero su módulo está desactivado».
+- **Con el core nuevo, el POS fallaba con un error fatal** al cargar su configuración (el límite de simplificada se había movido a otra clase) y al emitir una F3. Ahora cada llamada comprueba que exista la pieza y prueba la clase nueva antes que la antigua.
+- **El PDF en el correo no se adjuntaba con el VFWoo anterior** (0.9.17), que no tiene `Channel_Registry`: ahora ese dato es opcional.
+
 ## [0.1.4] - 2026-11-17
 
 ### Añadido

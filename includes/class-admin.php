@@ -151,32 +151,40 @@ final class Admin {
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'VFWoo Webkul POS Bridge', 'vfwoo-webkul-pos-bridge' ); ?></h1>
-			<p><?php esc_html_e( 'Estado inicial de la integración. La configuración fiscal sigue perteneciendo a VFWoo.', 'vfwoo-webkul-pos-bridge' ); ?></p>
+			<p><?php esc_html_e( 'Estado de la integración. La configuración de las facturas pertenece al plugin de facturas.', 'vfwoo-webkul-pos-bridge' ); ?></p>
 			<table class="widefat striped" style="max-width:720px">
 				<tbody>
 					<tr><td><?php esc_html_e( 'WooCommerce', 'vfwoo-webkul-pos-bridge' ); ?></td><td><?php echo class_exists( 'WooCommerce' ) ? esc_html__( 'Detectado', 'vfwoo-webkul-pos-bridge' ) : esc_html__( 'Falta', 'vfwoo-webkul-pos-bridge' ); ?></td></tr>
-					<tr><td><?php esc_html_e( 'VFWoo', 'vfwoo-webkul-pos-bridge' ); ?></td><td><?php echo Requirements::vfwoo_active() ? esc_html__( 'Detectado', 'vfwoo-webkul-pos-bridge' ) : esc_html__( 'No detectado (opcional)', 'vfwoo-webkul-pos-bridge' ); ?></td></tr>
+					<tr><td><?php esc_html_e( 'Facturas y PDF (VFWoo Invoices)', 'vfwoo-webkul-pos-bridge' ); ?></td><td><?php echo Capabilities::invoices() ? esc_html__( 'Detectado', 'vfwoo-webkul-pos-bridge' ) : esc_html__( 'No detectado (opcional)', 'vfwoo-webkul-pos-bridge' ); ?></td></tr>
+					<tr><td><?php esc_html_e( 'Verifactu', 'vfwoo-webkul-pos-bridge' ); ?></td><td><?php
+					if ( Capabilities::verifactu() ) {
+						esc_html_e( 'Detectado y activado', 'vfwoo-webkul-pos-bridge' );
+					} elseif ( Capabilities::verifactu_installed() ) {
+						esc_html_e( 'Plugin activo, pero su módulo está desactivado en VFWoo (se ignora)', 'vfwoo-webkul-pos-bridge' );
+					} else {
+						esc_html_e( 'No detectado (opcional)', 'vfwoo-webkul-pos-bridge' );
+					}
+					?></td></tr>
 					<tr><td><?php esc_html_e( 'Webkul POS', 'vfwoo-webkul-pos-bridge' ); ?></td><td><?php echo defined( 'WK_WC_POS_VERSION' ) ? esc_html( WK_WC_POS_VERSION ) : esc_html__( 'No detectado', 'vfwoo-webkul-pos-bridge' ); ?></td></tr>
 				</tbody>
 			</table>
-			<h2><?php esc_html_e( 'Módulos fiscales', 'vfwoo-webkul-pos-bridge' ); ?></h2>
-			<?php $fiscal = Requirements::vfwoo_active(); ?>
+			<h2><?php esc_html_e( 'Qué está activo', 'vfwoo-webkul-pos-bridge' ); ?></h2>
+			<?php $fiscal = Capabilities::invoices(); ?>
 			<table class="widefat striped" style="max-width:720px">
 				<tbody>
-					<?php
-					foreach ( array(
-						__( 'Ticket fiscal con QR', 'vfwoo-webkul-pos-bridge' ),
-						__( 'Factura completa (F3) desde el POS', 'vfwoo-webkul-pos-bridge' ),
-						__( 'NIF obligatorio y límite de factura simplificada', 'vfwoo-webkul-pos-bridge' ),
-					) as $module ) :
-						?>
+					<?php foreach ( Capabilities::overview() as $row ) : ?>
 						<tr>
-							<td><?php echo esc_html( $module ); ?></td>
+							<td><?php echo esc_html( $row['label'] ); ?></td>
 							<td>
-								<?php if ( $fiscal ) : ?>
+								<?php if ( $row['active'] ) : ?>
 									<?php esc_html_e( 'Activo', 'vfwoo-webkul-pos-bridge' ); ?>
 								<?php else : ?>
-									<span class="description"><?php esc_html_e( 'Desactivado: requiere el plugin VFWoo', 'vfwoo-webkul-pos-bridge' ); ?></span>
+									<span class="description">
+										<?php
+										/* translators: %s: what the function needs. */
+										echo esc_html( sprintf( __( 'Desactivado: requiere %s', 'vfwoo-webkul-pos-bridge' ), $row['needs'] ) );
+										?>
+									</span>
 								<?php endif; ?>
 							</td>
 						</tr>
@@ -191,9 +199,9 @@ final class Admin {
 					<input type="checkbox" name="vfwoo_own_template" value="1" <?php checked( '1' === get_option( Own_Template::OPTION, '0' ) ); ?> <?php disabled( ! $fiscal ); ?> />
 					<?php esc_html_e( 'Usar la plantilla de ticket del bridge', 'vfwoo-webkul-pos-bridge' ); ?>
 				</label></p>
-				<p class="description"><?php esc_html_e( 'Activada, el ticket sale siempre con la plantilla del bridge y se ignoran las plantillas de factura de Webkul. Logo, razón social, NIF (el mismo del PDF), dirección, teléfono, email y pie salen de VFWoo, y el ticket lleva el número de factura, el QR (solo si VFWoo lo genera) y los datos del cliente en facturas completas. Se aplica al recargar la caja. Desactivada, todo sigue como siempre: cada plantilla de Webkul puede usar las variables ${vfwoo_*} desde su editor.', 'vfwoo-webkul-pos-bridge' ); ?></p>
+				<p class="description"><?php esc_html_e( 'Activada, el ticket sale siempre con la plantilla del bridge y se ignoran las plantillas de factura de Webkul. Logo, razón social, NIF (el mismo del PDF), dirección, teléfono, email y pie salen del plugin de facturas, y el ticket lleva el número de factura, el QR (solo con Verifactu) y los datos del cliente en facturas completas. Se aplica al recargar la caja. Desactivada, todo sigue como siempre: cada plantilla de Webkul puede usar las variables ${vfwoo_*} desde su editor.', 'vfwoo-webkul-pos-bridge' ); ?></p>
 				<?php if ( ! $fiscal ) : ?>
-					<p class="description"><?php esc_html_e( 'Requiere el plugin VFWoo.', 'vfwoo-webkul-pos-bridge' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Requiere un plugin de facturas (VFWoo Invoices).', 'vfwoo-webkul-pos-bridge' ); ?></p>
 				<?php endif; ?>
 				<?php submit_button( __( 'Guardar ticket', 'vfwoo-webkul-pos-bridge' ) ); ?>
 			</form>
@@ -205,9 +213,9 @@ final class Admin {
 					<input type="checkbox" name="vfwoo_email_pdf" value="1" <?php checked( Pdf_Actions::email_enabled() ); ?> <?php disabled( ! $fiscal ); ?> />
 					<?php esc_html_e( 'Adjuntar el PDF de la factura al correo del botón «Send order email» del POS', 'vfwoo-webkul-pos-bridge' ); ?>
 				</label></p>
-				<p class="description"><?php esc_html_e( 'Se adjunta siempre que se pulsa el botón (VFWoo, por su cuenta, no lo adjunta en el canal VERI*FACTU y en el local solo una vez por pedido), cuando la factura tiene número y se puede imprimir. Va solo al cliente y solo en el correo que envía ese botón; el correo propio de VFWoo tras la aceptación de la AEAT no cambia.', 'vfwoo-webkul-pos-bridge' ); ?></p>
+				<p class="description"><?php esc_html_e( 'Se adjunta siempre que se pulsa el botón (el plugin de facturas, por su cuenta, no lo adjunta en el canal VERI*FACTU y en el local solo una vez por pedido), cuando la factura tiene número y se puede imprimir. Va solo al cliente y solo en el correo que envía ese botón; el correo propio de VFWoo tras la aceptación de la AEAT no cambia.', 'vfwoo-webkul-pos-bridge' ); ?></p>
 				<?php if ( ! $fiscal ) : ?>
-					<p class="description"><?php esc_html_e( 'Requiere el plugin VFWoo.', 'vfwoo-webkul-pos-bridge' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Requiere un plugin de facturas (VFWoo Invoices).', 'vfwoo-webkul-pos-bridge' ); ?></p>
 				<?php endif; ?>
 				<?php submit_button( __( 'Guardar correo', 'vfwoo-webkul-pos-bridge' ) ); ?>
 			</form>

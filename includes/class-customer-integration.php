@@ -1,6 +1,7 @@
 <?php
 /**
- * Customer tax ID (NIF/NIE/CIF): required, verified on save and copied to POS orders.
+ * Customer tax ID (NIF/NIE/CIF): checked on save (format always, AEAT census with Verifactu), required
+ * only with Verifactu, and copied to POS orders.
  *
  * @package VFWoo_Webkul_POS_Bridge
  */
@@ -12,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 final class Customer_Integration {
 	private const USER_NIF_META   = 'billing_nif';
 	private const USER_CHECK_META = '_vfwoo_webkul_nif_check';
-	private const ORDER_NIF_META  = '_billing_nif';
+	public const ORDER_NIF_META   = '_billing_nif';
 
 	/**
 	 * Result of the tax ID check for the customer being saved.
@@ -50,19 +51,42 @@ final class Customer_Integration {
 			}
 		}
 
+		// The company name comes only from the POS dialog that creates customers for a complete invoice;
+		// when the field is absent (any other customer form) the stored company is left as it is.
+		$company = array_key_exists( 'pos_customer_company', $fields ) ? sanitize_text_field( $fields['pos_customer_company'] ) : null;
+
+		// Document check: on for a Spanish customer, off for any other country, unless the cashier decides otherwise
+		// with the «don't check» box of the POS dialog.
+		$country  = strtoupper( trim( (string) ( $fields['pos_customer_country'] ?? '' ) ) );
+		$no_check = array_key_exists( 'pos_customer_nocheck', $fields )
+			? '1' === $fields['pos_customer_nocheck']
+			: ( '' !== $country && 'ES' !== $country );
+
 		$nif = self::normalize( $fields['pos_customer_nif'] ?? '' );
 		if ( '' === $nif ) {
-			throw new \Exception( esc_html__( 'El DNI/NIE/CIF del cliente es obligatorio.', 'vfwoo-webkul-pos-bridge' ) );
+			// The tax ID is only required where the simplified invoice rules apply (Verifactu).
+			if ( self::nif_required() ) {
+				throw new \Exception( esc_html__( 'El DNI/NIE/CIF del cliente es obligatorio.', 'vfwoo-webkul-pos-bridge' ) );
+			}
+			// Optional and left empty: any ID the customer had before is cleared.
+			$this->pending = array(
+				'nif'      => '',
+				'name'     => self::customer_name( $fields ),
+				'company'  => $company,
+				'verified' => false,
+			);
+			return $data;
 		}
-		if ( class_exists( 'VFWoo\\NIF\\NIF_Format' ) && ! \VFWoo\NIF\NIF_Format::is_valid( $nif ) ) {
-			throw new \Exception( esc_html__( 'El formato del DNI/NIE/CIF no es válido.', 'vfwoo-webkul-pos-bridge' ) );
+		if ( ! $no_check && Capabilities::nif_format() && ! self::format_ok( $nif, $country ) ) {
+			throw new \Exception( esc_html__( 'El formato del documento no es válido. Si es de otro país, marca «No comprobar el documento».', 'vfwoo-webkul-pos-bridge' ) );
 		}
 
-		$name     = self::customer_name( $fields );
+		// The census knows a company by its registered name, so that is the name checked and remembered.
+		$name     = '' !== (string) $company ? (string) $company : self::customer_name( $fields );
 		$verified = false;
 
 		// The AEAT census only knows Spanish IDs. It fails open (no 'resultado') when it cannot answer.
-		if ( self::is_spanish( $nif ) && '' !== $name && class_exists( 'VFWoo\\NIF\\NIF_Census' ) ) {
+		if ( ! $no_check && self::is_spanish( $nif ) && '' !== $name && Capabilities::census() ) {
 			$result = \VFWoo\NIF\NIF_Census::validate( $nif, $name );
 			if ( ! empty( $result['resultado'] ) ) {
 				if ( empty( $result['valid'] ) ) {
@@ -75,6 +99,7 @@ final class Customer_Integration {
 		$this->pending = array(
 			'nif'      => $nif,
 			'name'     => $name,
+			'company'  => $company,
 			'verified' => $verified,
 		);
 
@@ -101,52 +126,65 @@ final class Customer_Integration {
 
 		update_user_meta( $user_id, self::USER_NIF_META, $this->pending['nif'] );
 		update_user_meta( $user_id, self::USER_CHECK_META, $this->pending['verified'] ? self::hash( $this->pending['nif'], $this->pending['name'] ) : '' );
+		if ( null !== $this->pending['company'] ) {
+			update_user_meta( $user_id, 'billing_company', $this->pending['company'] );
+		}
 		$this->pending = null;
 	}
 
 	/**
-	 * Limit of the simplified invoice (F2) as VFWoo applies it: from that total on, a customer with a
-	 * tax ID is required. With simplified invoices disabled, every sale needs one.
+	 * The tax ID of a POS customer is required only where the simplified invoice exists (Verifactu).
+	 */
+	public static function nif_required(): bool {
+		return Capabilities::verifactu();
+	}
+
+	/**
+	 * Sale rule of the POS: from the maximum limit of the simplified invoice (authorised sector on) a
+	 * customer with a tax ID is required. It is fixed here and does not read the invoicing plugin's
+	 * settings; it only applies with Verifactu, which is where the simplified invoice lives.
 	 *
 	 * @return array{simplifiedEnabled:bool,limit:float}
 	 */
 	public static function sale_rules(): array {
-		$enabled = true;
-		$limit   = 400.0;
-		if ( class_exists( 'VFWoo\\NIF\\NIF_Config' ) && class_exists( 'VFWoo\\NIF\\NIF_Rules' ) ) {
-			$settings = \VFWoo\NIF\NIF_Config::settings();
-			$enabled  = \VFWoo\NIF\NIF_Rules::is_simplified_enabled( $settings );
-			$limit    = \VFWoo\NIF\NIF_Rules::simplified_limit( $settings );
-		}
-
 		return array(
-			'simplifiedEnabled' => $enabled,
-			'limit'             => (float) $limit,
+			'simplifiedEnabled' => true,
+			'limit'             => Capabilities::SIMPLIFIED_LIMIT,
 		);
 	}
 
 	/**
 	 * Tax ID and invoice name of a registered customer, as they were verified.
 	 *
-	 * @return array{nif:string,name:string}
+	 * @return array{nif:string,name:string,first:string,last:string,company:string,country:string}
 	 */
 	public static function identity( int $customer_id ): array {
 		$identity = array(
-			'nif'  => '',
-			'name' => '',
+			'nif'     => '',
+			'name'    => '',
+			'first'   => '',
+			'last'    => '',
+			'company' => '',
+			'country' => '',
 		);
 		if ( ! $customer_id || ! get_userdata( $customer_id ) ) {
 			return $identity;
 		}
 
 		$customer = new \WC_Customer( $customer_id );
-		$name     = trim( $customer->get_billing_first_name() . ' ' . $customer->get_billing_last_name() );
-		if ( '' === $name ) {
-			$name = trim( $customer->get_first_name() . ' ' . $customer->get_last_name() );
+		$first    = trim( $customer->get_billing_first_name() );
+		$last     = trim( $customer->get_billing_last_name() );
+		if ( '' === $first . $last ) {
+			$first = trim( $customer->get_first_name() );
+			$last  = trim( $customer->get_last_name() );
 		}
 
-		$identity['nif']  = trim( (string) get_user_meta( $customer_id, self::USER_NIF_META, true ) );
-		$identity['name'] = $name;
+		$identity['nif']     = trim( (string) get_user_meta( $customer_id, self::USER_NIF_META, true ) );
+		$identity['first']   = $first;
+		$identity['last']    = $last;
+		$identity['name']    = trim( $first . ' ' . $last );
+		$identity['company'] = trim( $customer->get_billing_company() );
+		$identity['country'] = strtoupper( trim( $customer->get_billing_country() ) );
 		return $identity;
 	}
 
@@ -184,27 +222,47 @@ final class Customer_Integration {
 
 	private function with_nif( array $customer_data, int $customer_id ): array {
 		$customer_data['vfwoo_webkul_nif']        = '';
+		$customer_data['vfwoo_webkul_company']    = '';
 		$customer_data['vfwoo_webkul_nif_status'] = 'missing';
 		$customer_data['vfwoo_webkul_is_default'] = '1' === (string) get_user_meta( $customer_id, 'deault_customer_pos', true );
 		if ( ! $customer_id ) {
 			return $customer_data;
 		}
 
+		$customer_data['vfwoo_webkul_company'] = trim( (string) get_user_meta( $customer_id, 'billing_company', true ) );
+
 		$nif = trim( (string) get_user_meta( $customer_id, self::USER_NIF_META, true ) );
 		if ( '' === $nif ) {
 			return $customer_data;
 		}
 
-		$name  = self::identity( $customer_id )['name'];
+		$who   = self::identity( $customer_id );
+		$name  = '' !== $who['company'] ? $who['company'] : $who['name'];
 		$check = (string) get_user_meta( $customer_id, self::USER_CHECK_META, true );
 		$customer_data['vfwoo_webkul_nif']        = $nif;
-		$customer_data['vfwoo_webkul_nif_status'] = ( '' !== $check && hash_equals( $check, self::hash( $nif, $name ) ) ) ? 'verified' : 'unverified';
+		if ( ! Capabilities::census() || ! self::is_spanish( $nif ) ) {
+			// Without the census, or with a foreign document, nothing is checked, so there is nothing to warn about.
+			$customer_data['vfwoo_webkul_nif_status'] = 'unchecked';
+		} else {
+			$customer_data['vfwoo_webkul_nif_status'] = ( '' !== $check && hash_equals( $check, self::hash( $nif, $name ) ) ) ? 'verified' : 'unverified';
+		}
 
 		return $customer_data;
 	}
 
 	private static function normalize( string $value ): string {
 		return strtoupper( preg_replace( '/[\s.\-]/', '', trim( $value ) ) );
+	}
+
+	/**
+	 * Spanish customer: only a DNI, NIE or CIF with its control letter. Any other country: the generic
+	 * tax ID formats (EU VAT numbers with their prefix and so on).
+	 */
+	private static function format_ok( string $nif, string $country ): bool {
+		if ( ( '' === $country || 'ES' === $country ) && method_exists( '\VFWoo\NIF\NIF_Format', 'is_valid_spanish' ) ) {
+			return \VFWoo\NIF\NIF_Format::is_valid_spanish( $nif );
+		}
+		return \VFWoo\NIF\NIF_Format::is_valid( $nif );
 	}
 
 	private static function is_spanish( string $nif ): bool {

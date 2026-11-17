@@ -26,14 +26,14 @@ habitual de impresión. El bridge no instala un catálogo paralelo de plantillas
 * Filtros del catálogo del POS por marca u otras taxonomías de producto, que se eligen en `POS → Settings → VFWoo Bridge`, y aviso en el POS cuando hay que recargar el catálogo.
 * Clientes del POS con DNI/NIE/CIF obligatorio y validado (formato y censo de la AEAT); con NIF se emite factura completa (F1).
 * El POS impide cobrar por encima del límite de la factura simplificada sin un cliente con NIF.
-* Factura completa (F3) desde el detalle de un pedido F2 confirmado.
+* Factura completa a nombre de un cliente desde el detalle de un pedido del POS: con el plugin de facturas, el ticket pasa a ser la factura completa con el mismo número; con Verifactu enviando a la AEAT se emite la F3 sustitutiva.
 * «Marcas» junto a «Todos» en la pantalla principal del POS: las marcas se comportan como subcategorías, con su imagen, y al pulsar una se ven sus productos.
 * Pantalla «Marcas» en el POS con las ventas por marca y producto.
 * Plantilla de ticket propia (opcional): logo, razón social, NIF, dirección, teléfono, email y pie salen de VFWoo, con número de factura, QR y datos del cliente en facturas completas. Logo al 50 % del ancho del ticket.
 * «Factura PDF» en el detalle del pedido del POS (imprime el PDF de VFWoo sin salir del POS) y PDF adjunto al correo del botón «Send order email».
 * Accesos en la cabecera del POS a Productos, Informes, Análisis y la tienda online, con un cuadro explicativo al pasar el ratón; botón «POS-CAJA» en la barra de administrador; rol de gestor opcional para los cajeros nuevos.
 * Pantalla de login del POS configurable: titular, pie, ocultar la versión de Webkul y modo demo con usuario y contraseña rellenados.
-* VFWoo es opcional: sin él se desactivan el ticket fiscal, la factura F3 y el NIF obligatorio; el resto sigue funcionando.
+* VFWoo es opcional: sin él se desactivan el ticket fiscal, la factura completa y el NIF obligatorio; el resto sigue funcionando.
 * Actualizaciones desde GitHub en Escritorio › Actualizaciones.
 
 == Notas ==

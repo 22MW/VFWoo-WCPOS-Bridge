@@ -17,13 +17,6 @@ final class Requirements {
 		return class_exists( 'WooCommerce' ) && defined( 'WK_WC_POS_VERSION' );
 	}
 
-	/**
-	 * VFWoo is optional: without it the fiscal modules (QR ticket, F3, tax ID checks) stay off.
-	 */
-	public static function vfwoo_active(): bool {
-		return class_exists( 'VFWoo\\Ticket_Fiscal_Data' );
-	}
-
 	public static function missing(): array {
 		$missing = array();
 		if ( ! class_exists( 'WooCommerce' ) ) {

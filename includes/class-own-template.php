@@ -17,10 +17,10 @@ final class Own_Template {
 	public const OPTION = 'vfwoo_webkul_own_template';
 
 	/**
-	 * The template needs VFWoo: it is made of VFWoo variables.
+	 * The template needs the invoicing plugin: it is made of its variables.
 	 */
 	public static function enabled(): bool {
-		return '1' === get_option( self::OPTION, '0' ) && Requirements::vfwoo_active();
+		return '1' === get_option( self::OPTION, '0' ) && Capabilities::invoices();
 	}
 
 	/**

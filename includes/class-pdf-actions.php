@@ -1,10 +1,10 @@
 <?php
 /**
- * VFWoo invoice PDF from the POS: attached to the «Send order email» message and printed from the
+ * Invoice PDF from the POS: attached to the «Send order email» message and printed from the
  * order detail.
  *
- * Needs VFWoo. It only uses VFWoo's own PDF engine and its own preview screen, and does nothing
- * when something it needs is missing: the email then goes out exactly as Webkul sends it.
+ * Needs an invoicing plugin. It only uses that plugin's own PDF engine and preview screen, and does
+ * nothing when something it needs is missing: the email then goes out exactly as Webkul sends it.
  *
  * @package VFWoo_Webkul_POS_Bridge
  */
@@ -47,7 +47,7 @@ final class Pdf_Actions {
 	 * Who gets the print button: whoever can open an order in the admin, like VFWoo's own PDF screen.
 	 */
 	public static function can_print(): bool {
-		return Requirements::vfwoo_active() && is_user_logged_in() && current_user_can( 'edit_shop_orders' );
+		return Capabilities::invoices() && is_user_logged_in() && current_user_can( 'edit_shop_orders' );
 	}
 
 	/**
@@ -99,8 +99,8 @@ final class Pdf_Actions {
 		if ( isset( $email->refund ) ) {
 			return $skip( 'correo de reembolso' );
 		}
-		if ( ! class_exists( 'VFWOO_PDF_Engine' ) || ! class_exists( 'VFWoo\\Helpers\\Invoice_Helper' ) || ! class_exists( 'VFWoo\\Channels\\Channel_Registry' ) ) {
-			return $skip( 'VFWoo no ofrece el motor de PDF' );
+		if ( ! Capabilities::invoices() ) {
+			return $skip( 'no hay plugin de facturas con motor de PDF' );
 		}
 
 		$invoice = \VFWoo\Helpers\Invoice_Helper::get_invoice_by_order_id( $object->get_id() );
@@ -108,7 +108,9 @@ final class Pdf_Actions {
 		if ( '' === $number ) {
 			return $skip( 'el pedido aún no tiene número de factura' );
 		}
-		if ( ! \VFWoo\Channels\Channel_Registry::current()->is_printable( $invoice ) ) {
+		// Older invoicing plugins have no channels: their invoices are always printable.
+		$channel = class_exists( 'VFWoo\\Channels\\Channel_Registry' ) ? \VFWoo\Channels\Channel_Registry::current() : null;
+		if ( $channel && ! $channel->is_printable( $invoice ) ) {
 			return $skip( 'la factura aún no se puede imprimir (estado ' . ( method_exists( $invoice, 'get_estado' ) ? (string) $invoice->get_estado() : '?' ) . ')' );
 		}
 

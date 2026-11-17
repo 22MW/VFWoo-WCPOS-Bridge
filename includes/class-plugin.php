@@ -18,6 +18,7 @@ final class Plugin {
 		( new Github_Updater() )->register_hooks();
 
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-requirements.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-capabilities.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-catalog-integration.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-invoice-variables.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-own-template.php';
@@ -35,7 +36,7 @@ final class Plugin {
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-customer-integration.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-auth.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-brand-report.php';
-		require_once VFWOO_WEBKUL_PATH . 'includes/class-f3-emission.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-ticket-invoice.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pdf-actions.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-script.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-login-screen.php';
@@ -52,11 +53,19 @@ final class Plugin {
 		new Admin_Bar();
 		new Cashier_Roles();
 
-		// Fiscal modules: they need VFWoo. Without it their hooks and routes are not registered.
-		if ( Requirements::vfwoo_active() ) {
+		// The invoicing plugins load their classes during plugins_loaded, so what they offer is asked on init.
+		add_action( 'init', array( __CLASS__, 'register_invoice_modules' ), 1 );
+	}
+
+	/**
+	 * Modules that lean on the invoicing plugins. Each one registers only when the piece it uses exists
+	 * (see Capabilities); without it, its hooks and routes are not registered.
+	 */
+	public static function register_invoice_modules(): void {
+		if ( Capabilities::invoices() ) {
 			new Customer_Integration();
-			new F3_Emission();
 			new Pdf_Actions();
+			new Ticket_Invoice();
 		}
 	}
 }

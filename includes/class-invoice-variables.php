@@ -111,11 +111,12 @@ final class Invoice_Variables {
 			return array( 'visible' => false );
 		}
 
-		// A substitute invoice (F3) belongs to the buyer VFWoo stored on the order; the order's own
-		// customer is usually the over-the-counter one. Contact and address come from the customer
-		// chosen when the F3 was issued.
-		$is_f3       = 'F3' === $type;
-		$customer_id = $is_f3 ? (int) $order->get_meta( F3_Emission::ORDER_CUSTOMER_META, true ) : (int) $order->get_customer_id();
+		// A complete invoice made from a ticket (F3, or converted at the POS) belongs to the buyer written on the
+		// order, and its contact and address come from the customer chosen then; the order's own customer was
+		// usually the over-the-counter one.
+		$chosen      = (int) $order->get_meta( Ticket_Invoice::ORDER_CUSTOMER_META, true );
+		$is_f3       = 'F3' === $type || $chosen > 0;
+		$customer_id = $is_f3 ? $chosen : (int) $order->get_customer_id();
 		$customer    = $customer_id ? new \WC_Customer( $customer_id ) : null;
 
 		if ( $is_f3 && '' !== trim( $order->get_billing_company() . $order->get_billing_first_name() . $order->get_billing_last_name() ) ) {
