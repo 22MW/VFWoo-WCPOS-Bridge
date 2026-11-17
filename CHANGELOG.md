@@ -2,7 +2,7 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
-## [Sin publicar]
+## [0.1.4] - 2026-11-17
 
 ### Añadido
 
@@ -13,8 +13,9 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 - **Cajeros:** interruptor, desactivado por defecto, para añadir el rol «Gestor de tienda» a los cajeros que se creen desde Webkul.
 - **El aviso de catálogo salta al guardar, borrar o restaurar un producto desde el admin.** Texto: «Hay cambios en los productos. Pulsa Resync → Products para actualizar el catálogo.»
 - Interruptor «Ocultar el aviso de WooCommerce sobre plugins que no declaran compatibilidad», desactivado por defecto, en POS → Settings → VFWoo Bridge.
-
 - **Plantilla de ticket propia del bridge** (POS → Settings → VFWoo Bridge → Ticket), desactivada por defecto. Activada, el ticket sale siempre con esa plantilla y se ignoran las de Webkul: logo, razón social, NIF, dirección, teléfono, email y pie salen de VFWoo, y lleva número de factura, QR (solo si VFWoo lo genera) y datos del cliente en F1/F3. Se aplica al instante al recargar la caja, sin depender de la plantilla que Webkul guarda en el navegador. Requiere VFWoo. Desactivada, todo sigue como antes y las plantillas de Webkul pueden usar las variables `${vfwoo_*}`.
+- **El PDF de la factura va adjunto al correo del botón «Send order email» del POS** (casilla en POS → Settings → VFWoo Bridge → Correo del pedido, activada por defecto). VFWoo no basta: en el canal VERI\*FACTU no adjunta el PDF a los correos de WooCommerce y en el local lo adjunta una sola vez por pedido, así que un reenvío desde el POS salía sin él. Ahora el bridge lo adjunta siempre desde ese botón, sin duplicarlo si VFWoo ya lo había añadido. Solo va al cliente, solo en el correo que envía ese botón y solo cuando la factura tiene número y se puede imprimir; si falta algo, el correo sale como antes y, con `WP_DEBUG` activo, queda en el registro el motivo. No cambia el correo propio de VFWoo tras la aceptación de la AEAT.
+- **Botón «Factura PDF» en el detalle del pedido del POS**, bajo «Factura completa (F3)». Imprime el PDF de VFWoo como Webkul imprime el ticket (iframe oculto y `print()`, sin salir del POS); si el navegador no lo permite, abre el PDF en una pestaña nueva. Sale solo si el pedido ya tiene número de factura y el usuario puede abrir pedidos en el admin. Mientras VFWoo genera el PDF (lo hace de cero en cada pulsación y puede tardar unos segundos) el botón muestra un indicador de carga («Preparando PDF…»), se desactiva para evitar pulsaciones repetidas y vuelve a su estado al empezar la impresión o, como máximo, al cabo de un minuto.
 - Variable `${vfwoo_pdf_footer}`: el pie del PDF de VFWoo.
 - **El logo del ticket mide como máximo el 50 % del ancho del ticket** (`${vfwoo_company_logo}`, en la plantilla propia y en las de Webkul que la usen), así que se adapta al rollo. Un logo más pequeño no se amplía. Lleva `!important` porque, con el rollo térmico (T88V), Webkul fuerza `max-width:100% !important` a todo el ticket al imprimir y anulaba el límite. No afecta al PDF de VFWoo.
 - Un párrafo de una plantilla con la clase `vfwoo-hide-empty` desaparece si todas sus variables `${vfwoo_*}` están vacías (evita «NIF: » sin dato).

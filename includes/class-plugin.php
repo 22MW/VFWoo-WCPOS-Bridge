@@ -36,6 +36,7 @@ final class Plugin {
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-auth.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-brand-report.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-f3-emission.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-pdf-actions.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-script.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-login-screen.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-admin-notices.php';
@@ -55,6 +56,7 @@ final class Plugin {
 		if ( Requirements::vfwoo_active() ) {
 			new Customer_Integration();
 			new F3_Emission();
+			new Pdf_Actions();
 		}
 	}
 }

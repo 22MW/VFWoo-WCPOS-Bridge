@@ -117,6 +117,16 @@ final class POS_Script {
 			'ownTemplate'    => Own_Template::enabled() ? Own_Template::html() : '',
 		);
 
+		// The invoice PDF button needs VFWoo and a user who can open orders in the admin.
+		if ( Pdf_Actions::can_print() ) {
+			$config['pdf'] = array(
+				'url'     => esc_url_raw( admin_url( 'admin-post.php?action=' . Pdf_Actions::ACTION ) ),
+				'nonce'   => wp_create_nonce( Pdf_Actions::ACTION ),
+				'button'  => __( 'Factura PDF', 'vfwoo-webkul-pos-bridge' ),
+				'loading' => __( 'Preparando PDF…', 'vfwoo-webkul-pos-bridge' ),
+			);
+		}
+
 		// The fiscal parts of the POS extension need VFWoo; without it the script leaves them out.
 		if ( ! Requirements::vfwoo_active() ) {
 			unset( $config['sale'], $config['f3'], $config['nifLabel'], $config['nifUnverified'] );

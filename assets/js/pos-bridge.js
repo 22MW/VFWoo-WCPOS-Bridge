@@ -895,6 +895,117 @@
 	}
 
 	hooks.addFilter( 'wkwcpos_add_after_print_invoice_button', 'vfwoo-webkul-pos-bridge', renderF3Button );
+
+	// Prints VFWoo's invoice PDF the way Webkul prints the ticket: a hidden iframe and print(), so the
+	// print dialog opens without leaving the POS. If the browser refuses, the PDF opens in a new tab.
+	// VFWoo builds the PDF on every request, so it can take a few seconds: `done` tells the button when
+	// to stop showing the loading state (once the print starts, or after a safety timeout).
+	function printInvoicePdf( order, done ) {
+		var orderId = order.order_id || order.id;
+		var url = config.pdf.url + '&order_id=' + encodeURIComponent( orderId ) + '&_wpnonce=' + encodeURIComponent( config.pdf.nonce );
+		var previous = document.querySelector( 'iframe.vfwoo-pdf-frame' );
+		if ( previous ) {
+			previous.remove();
+		}
+
+		var finished = false;
+		var finish = function () {
+			if ( ! finished ) {
+				finished = true;
+				done();
+			}
+		};
+		// If the PDF never answers, give the button back after a minute.
+		setTimeout( finish, 60000 );
+
+		var frame = document.createElement( 'iframe' );
+		frame.className = 'vfwoo-pdf-frame';
+		frame.setAttribute( 'aria-hidden', 'true' );
+		frame.setAttribute( 'tabindex', '-1' );
+		var printed = false;
+		frame.addEventListener( 'load', function () {
+			if ( printed ) {
+				return;
+			}
+			printed = true;
+			setTimeout( function () {
+				try {
+					frame.contentWindow.focus();
+					frame.contentWindow.print();
+				} catch ( error ) {
+					window.open( url, '_blank', 'noopener' );
+				}
+				finish();
+			}, 500 );
+		} );
+		frame.src = url;
+		document.body.appendChild( frame );
+	}
+
+	// Own component so the button can show its loading state (spinner, disabled) while the PDF is built.
+	function PdfButton( props ) {
+		var element = window.wp.element;
+		var state = element.useState( false );
+		var loading = state[ 0 ];
+		var setLoading = state[ 1 ];
+		var mounted = element.useRef( true );
+
+		element.useEffect( function () {
+			mounted.current = true;
+			return function () {
+				mounted.current = false;
+			};
+		}, [] );
+
+		function start() {
+			if ( loading ) {
+				return;
+			}
+			setLoading( true );
+			printInvoicePdf( props.order, function () {
+				if ( mounted.current ) {
+					setLoading( false );
+				}
+			} );
+		}
+
+		return element.createElement(
+			'div',
+			{ className: 'pos-order-invoice vfwoo-pdf' },
+			element.createElement(
+				'button',
+				{
+					type: 'button',
+					className: 'primary' + ( loading ? ' vfwoo-loading' : '' ),
+					disabled: loading,
+					'aria-busy': loading ? 'true' : 'false',
+					onClick: start
+				},
+				loading
+					? element.createElement( 'span', { className: 'vfwoo-spinner', 'aria-hidden': 'true' } )
+					: element.createElement(
+						'svg',
+						{ viewBox: '0 0 24 24', width: 22, height: 22, fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' },
+						element.createElement( 'path', { d: 'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z' } ),
+						element.createElement( 'path', { d: 'M14 3v5h5M9 14h6v4H9z' } )
+					),
+				' ',
+				loading ? config.pdf.loading : config.pdf.button
+			)
+		);
+	}
+
+	// Button below the F3 one; shown only when the order already has an invoice number.
+	function renderPdfButton( output, order ) {
+		var element = window.wp && window.wp.element;
+		var fiscal = order && order.vfwoo_webkul_bridge && order.vfwoo_webkul_bridge.fiscal;
+		if ( ! element || ! element.useState || ! config || ! config.pdf || ! fiscal || ! fiscal.invoice_number ) {
+			return output;
+		}
+		return element.createElement( element.Fragment, null, output, element.createElement( PdfButton, { order: order, key: 'vfwoo-pdf' } ) );
+	}
+
+	hooks.addFilter( 'wkwcpos_add_after_print_invoice_button', 'vfwoo-webkul-pos-bridge-pdf', renderPdfButton );
 	// ---- "Marcas" as one more category in the home category bar ----
 	// The POS keeps its categories in a local table it only refreshes when it is empty, so the node is
 	// added in memory each time the list is loaded, from the brands that already travel with the products.

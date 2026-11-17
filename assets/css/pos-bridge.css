@@ -459,3 +459,43 @@ header ul li.vfwoo-shortcut-last::after {
 .vfwoo-frame-loading[hidden] {
 	display: none;
 }
+
+/* Hidden frame used to print the invoice PDF without leaving the POS. */
+iframe.vfwoo-pdf-frame {
+	position: fixed;
+	left: -10000px;
+	top: 0;
+	width: 794px;
+	height: 1123px;
+	border: 0;
+}
+
+/* «Factura PDF» button while VFWoo builds the PDF. Colours follow the button text, so it fits the light and dark POS themes. */
+.pos-order-invoice.vfwoo-pdf button:disabled {
+	opacity: 0.75;
+	cursor: wait;
+}
+
+.pos-order-invoice.vfwoo-pdf .vfwoo-spinner {
+	display: inline-block;
+	box-sizing: border-box;
+	width: 22px;
+	height: 22px;
+	vertical-align: middle;
+	border: 2px solid currentColor;
+	border-right-color: transparent;
+	border-radius: 50%;
+	animation: vfwoo-spin 0.8s linear infinite;
+}
+
+@keyframes vfwoo-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pos-order-invoice.vfwoo-pdf .vfwoo-spinner {
+		animation-duration: 2.4s;
+	}
+}
