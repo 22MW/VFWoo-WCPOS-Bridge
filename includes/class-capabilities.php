@@ -109,7 +109,7 @@ final class Capabilities {
 	public static function overview(): array {
 		return array(
 			array(
-				'label'  => __( 'Número de factura en el ticket, PDF y correo con PDF', 'vfwoo-webkul-pos-bridge' ),
+				'label'  => __( 'Número de factura en el ticket, «Imprimir factura» y correo con PDF', 'vfwoo-webkul-pos-bridge' ),
 				'active' => self::invoices(),
 				'needs'  => __( 'un plugin de facturas (VFWoo Invoices)', 'vfwoo-webkul-pos-bridge' ),
 			),
@@ -129,7 +129,7 @@ final class Capabilities {
 				'needs'  => __( 'Verifactu', 'vfwoo-webkul-pos-bridge' ),
 			),
 			array(
-				'label'  => __( 'Factura completa desde el ticket (con Verifactu se registra como F3)', 'vfwoo-webkul-pos-bridge' ),
+				'label'  => __( 'Botón «Cambiar factura»: convertir un ticket en factura (con Verifactu se registra como F3)', 'vfwoo-webkul-pos-bridge' ),
 				'active' => self::invoices(),
 				'needs'  => __( 'un plugin de facturas (VFWoo Invoices)', 'vfwoo-webkul-pos-bridge' ),
 			),

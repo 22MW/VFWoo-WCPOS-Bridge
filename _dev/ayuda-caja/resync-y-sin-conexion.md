@@ -33,14 +33,22 @@ Algunas veces la caja conserva datos antiguos. Haz **Resync** y recarga la pági
 
 ## Sin conexión a internet
 
-La caja detecta cuándo pierde la conexión y avisa de que estás **sin conexión**. Si trabajas con la **app de la caja**, **puedes seguir vendiendo**: los pedidos cobrados sin internet se guardan en el dispositivo y se envían al volver la conexión, con **Sincronizar pedidos sin conexión**. La caja pide sincronizarlos antes de hacer otras cosas.
+La caja detecta cuándo pierde la conexión y avisa de que estás **sin conexión**. Los pedidos cobrados sin internet se guardan en el dispositivo y se envían al volver la conexión, con **Sincronizar pedidos sin conexión**.
+
+**Cuándo se puede vender sin conexión (condiciones):**
+
+- **Solo si la tienda usa stock propio de la caja (Master Stock).** Si la caja comparte el stock con la tienda online (inventario centralizado, lo habitual), **no deja cobrar sin conexión** y avisa: «Cannot process orders with centralized inventory at offline mode».
+- **La caja tiene que estar ya abierta** cuando se corta la conexión. Si la cierras o la recargas sin internet, **no arranca**: la copia de la caja para arrancar sin conexión no está funcionando en esta versión del plugin del POS.
+- Hay que haber hecho **Resync** de productos y clientes antes, con conexión.
 
 **Lo que no se puede hacer sin internet:**
 
 - Aplicar **cupones**.
-- **Añadir, editar o eliminar clientes.**
+- **Añadir, editar o eliminar clientes** (el cliente con su NIF tiene que existir ya).
 - Sincronizar pedidos, hasta que vuelva la conexión.
+
+**El ticket sin conexión** sale probablemente **sin número de factura ni QR**: el pedido todavía no existe en la tienda. Consulta con tu gestor antes de entregar un ticket así.
 
 ## Consejo
 
-No cierres la caja con ventas sin sincronizar.
+La solución más segura para no parar de vender es una **conexión de respaldo** (router 4G o los datos del móvil). No cierres la caja con ventas sin sincronizar.

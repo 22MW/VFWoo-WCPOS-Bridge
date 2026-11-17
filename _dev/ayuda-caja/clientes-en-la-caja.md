@@ -29,7 +29,7 @@ Es el cliente al que se asignan las ventas sin cliente. Se prepara **una sola ve
 2. Crea un usuario con rol **Cliente**, por ejemplo «Cliente mostrador», sin DNI.
 3. Pasa el ratón por su fila y pulsa **Set Pos Default Customer**.
 
-Con él, una venta pequeña sin cliente sale como **ticket simplificado**, sin datos del cliente.
+Con él, una venta pequeña sin cliente sale como **ticket**, sin datos del cliente.
 
 ## Sin conexión
 

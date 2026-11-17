@@ -14,10 +14,10 @@ Pulsa **Resync → Products**. Si sigue sin salir, escríbenos. → [Productos e
 Pulsa **Resync → Products**. Si no cambia, recarga la página con **Ctrl + F5**. → [Resync y trabajo sin conexión](resync-y-sin-conexion.md)
 
 **La caja no me deja cobrar y pide un cliente.**
-La venta llega al límite del ticket simplificado. Elige un cliente con DNI/NIE/CIF. → [Venta grande: elegir un cliente](venta-con-limite.md)
+La venta llega al límite del ticket. Elige un cliente con DNI/NIE/CIF. → [Venta grande: elegir un cliente](venta-con-limite.md)
 
 **Un cliente pide factura después de llevarse el ticket.**
-Pulsa **Factura completa** en el pedido y elige o crea el cliente. → [Factura completa después de la venta](factura-completa-posterior.md)
+Pulsa **Cambiar factura** en el pedido y elige o crea el cliente. → [Convertir un ticket en factura](convertir-ticket-en-factura.md)
 
 **El ticket no sale con el número o con el QR.**
 El QR solo sale si tu tienda tiene el módulo VeriFacWoo; sin él, el ticket sale sin QR. Si falta el número, la factura puede estar aún pendiente: espera un momento y vuelve a imprimir desde **Pedidos**. → [Ticket con número de factura y QR](ticket-con-factura-y-qr.md)

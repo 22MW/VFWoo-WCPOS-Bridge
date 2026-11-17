@@ -73,8 +73,8 @@ final class POS_Script {
 			),
 			'sale'           => Customer_Integration::sale_rules() + array(
 				'currency'      => html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ),
-				'blockedLimit'  => __( 'La venta (%total%) alcanza el límite de la factura simplificada (%limit%). Elige un cliente con NIF.', 'vfwoo-webkul-pos-bridge' ),
-				'blockedAlways' => __( 'La tienda emite siempre factura completa. Elige un cliente con NIF.', 'vfwoo-webkul-pos-bridge' ),
+				'blockedLimit'  => __( 'La venta (%total%) alcanza el límite del ticket (%limit%). Elige un cliente con NIF.', 'vfwoo-webkul-pos-bridge' ),
+				'blockedAlways' => __( 'La tienda emite siempre factura. Elige un cliente con NIF.', 'vfwoo-webkul-pos-bridge' ),
 				'unverified'    => __( 'El NIF de este cliente no está verificado en el censo de la AEAT.', 'vfwoo-webkul-pos-bridge' ),
 			),
 			'fullInvoice'    => array(
@@ -84,11 +84,11 @@ final class POS_Script {
 				'countries'    => function_exists( 'WC' ) && WC()->countries ? WC()->countries->get_countries() : array( 'ES' => 'España' ),
 				'countryLabel' => __( 'País', 'vfwoo-webkul-pos-bridge' ),
 				'noCheck'      => __( 'No comprobar el documento (por defecto, solo se comprueba en España)', 'vfwoo-webkul-pos-bridge' ),
-				'button'       => __( 'Factura completa', 'vfwoo-webkul-pos-bridge' ),
-				'title'        => __( 'Factura completa del pedido', 'vfwoo-webkul-pos-bridge' ),
+				'button'       => __( 'Cambiar factura', 'vfwoo-webkul-pos-bridge' ),
+				'title'        => __( 'Factura del pedido', 'vfwoo-webkul-pos-bridge' ),
 				'checking'     => __( 'Comprobando el pedido…', 'vfwoo-webkul-pos-bridge' ),
 				'refresh'      => __( 'Actualizar estado', 'vfwoo-webkul-pos-bridge' ),
-				'none'         => __( 'Este pedido no admite factura completa desde el POS.', 'vfwoo-webkul-pos-bridge' ),
+				'none'         => __( 'Este pedido no admite hacer factura desde el POS.', 'vfwoo-webkul-pos-bridge' ),
 				'searchHint'   => __( 'Busca por nombre, teléfono o email (mínimo 2 letras)', 'vfwoo-webkul-pos-bridge' ),
 				'search'       => __( 'Buscar', 'vfwoo-webkul-pos-bridge' ),
 				'choose'       => __( 'Elegir', 'vfwoo-webkul-pos-bridge' ),
@@ -110,13 +110,22 @@ final class POS_Script {
 				'back'         => __( 'Volver', 'vfwoo-webkul-pos-bridge' ),
 				'cancel'       => __( 'Cancelar', 'vfwoo-webkul-pos-bridge' ),
 				'close'        => __( 'Cerrar', 'vfwoo-webkul-pos-bridge' ),
-				'confirmLocal' => __( 'El ticket del pedido #%order% pasará a ser la factura completa a nombre de %name% %nif%, con el mismo número. Si ya tenía otro cliente, se sustituye.', 'vfwoo-webkul-pos-bridge' ),
-				'confirmSent'  => __( 'Se emitirá la factura completa del pedido #%order% a nombre de %name% %nif% y se enviará a Verifactu. La factura simplificada se conserva.', 'vfwoo-webkul-pos-bridge' ),
-				'issue'        => __( 'Emitir factura completa', 'vfwoo-webkul-pos-bridge' ),
+				'confirmLocal' => __( 'El ticket del pedido #%order% pasará a ser factura a nombre de %name% %nif%, con el mismo número. Si ya tenía otro cliente, se sustituye.', 'vfwoo-webkul-pos-bridge' ),
+				'confirmSent'  => __( 'Se hará la factura del pedido #%order% a nombre de %name% %nif% y se enviará a Verifactu. El ticket se conserva.', 'vfwoo-webkul-pos-bridge' ),
+				'issue'        => __( 'Hacer factura', 'vfwoo-webkul-pos-bridge' ),
 				'issuing'      => __( 'Emitiendo…', 'vfwoo-webkul-pos-bridge' ),
-				'issuedLocal'  => __( 'Factura completa guardada. Al imprimir el pedido saldrá con los datos del cliente; si no, haz Resync de pedidos.', 'vfwoo-webkul-pos-bridge' ),
-				'issuedSent'   => __( 'Factura completa enviada a Verifactu. Al imprimir el pedido saldrá con los datos del cliente; si no, haz Resync de pedidos.', 'vfwoo-webkul-pos-bridge' ),
+				'issuedLocal'  => __( 'Factura guardada. Al imprimir el pedido saldrá con los datos del cliente; si no, haz Resync de pedidos.', 'vfwoo-webkul-pos-bridge' ),
+				'issuedSent'   => __( 'Factura enviada a Verifactu. Al imprimir el pedido saldrá con los datos del cliente; si no, haz Resync de pedidos.', 'vfwoo-webkul-pos-bridge' ),
 				'error'        => __( 'No se ha podido completar la operación.', 'vfwoo-webkul-pos-bridge' ),
+			),
+			'orderStatus'    => array(
+				'allowed'        => Order_Status::ALLOWED,
+				'cancel'         => __( 'Anular', 'vfwoo-webkul-pos-bridge' ),
+				'refund'         => __( 'Devolver', 'vfwoo-webkul-pos-bridge' ),
+				'confirmCancel'  => Capabilities::verifactu()
+					? __( 'Se anulará el pedido y su factura, y la anulación se enviará a Verifactu. ¿Continuar?', 'vfwoo-webkul-pos-bridge' )
+					: __( 'Se anulará el pedido. ¿Continuar?', 'vfwoo-webkul-pos-bridge' ),
+				'confirmRefund'  => __( 'Se devolverá el pedido entero: el importe pasa a 0 y se crea la rectificativa. El dinero lo devuelves tú. ¿Continuar?', 'vfwoo-webkul-pos-bridge' ),
 			),
 			'brandsCategory' => __( 'Marcas', 'vfwoo-webkul-pos-bridge' ),
 			'store'          => Invoice_Variables::store(),
@@ -132,8 +141,10 @@ final class POS_Script {
 			$config['pdf'] = array(
 				'url'     => esc_url_raw( admin_url( 'admin-post.php?action=' . Pdf_Actions::ACTION ) ),
 				'nonce'   => wp_create_nonce( Pdf_Actions::ACTION ),
-				'button'  => __( 'Factura PDF', 'vfwoo-webkul-pos-bridge' ),
-				'loading' => __( 'Preparando PDF…', 'vfwoo-webkul-pos-bridge' ),
+				'button'  => __( 'Imprimir factura', 'vfwoo-webkul-pos-bridge' ),
+				'loading' => __( 'Preparando factura…', 'vfwoo-webkul-pos-bridge' ),
+				'creditNote'        => __( 'Imprimir rectificativa', 'vfwoo-webkul-pos-bridge' ),
+				'creditNoteLoading' => __( 'Preparando rectificativa…', 'vfwoo-webkul-pos-bridge' ),
 			);
 		}
 

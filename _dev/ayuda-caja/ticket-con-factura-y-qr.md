@@ -14,7 +14,7 @@ Cada venta de la caja sale con su **factura correcta**. El ticket que entregas l
 - Los **datos de tu tienda** (nombre, NIF, dirección, teléfono, logo…).
 - El **número de factura** y su **fecha**.
 - El **código QR** que permite **comprobar la factura** en la Agencia Tributaria, y la frase legal que lo acompaña. **Solo sale si tu tienda tiene el módulo VeriFacWoo (VeriFactu).** Sin ese módulo el ticket sale igual, pero sin QR.
-- Los **datos del cliente**, solo cuando es una factura completa.
+- Los **datos del cliente**, solo cuando es una factura.
 
 Con VeriFacWoo, el QR sale **a la primera**, al cobrar y al reimprimir.
 
@@ -30,15 +30,15 @@ El ticket de la caja y el PDF llevan **el mismo número de factura**. El correo 
 
 | Situación | Documento |
 |---|---|
-| Venta sin cliente, por debajo del límite | **Ticket simplificado**, sin datos del cliente |
-| Venta con un cliente que tiene DNI/NIE/CIF | **Factura completa**, con sus datos, aunque la compra sea pequeña |
+| Venta sin cliente, por debajo del límite | **Ticket**, sin datos del cliente |
+| Venta con un cliente que tiene DNI/NIE/CIF | **Factura**, con sus datos, aunque la compra sea pequeña |
 | Venta que llega al límite | La caja pide un cliente con DNI/NIE/CIF antes de cobrar |
-| El cliente pide factura después de llevarse el ticket | **Factura completa posterior**: el ticket pasa a ser la factura (con VeriFacWoo, una factura nueva que lo sustituye) |
+| El cliente pide factura después de llevarse el ticket | **Factura de un ticket ya entregado**: el ticket pasa a ser la factura (con VeriFacWoo, una factura nueva que lo sustituye) |
 
 → [Venta grande: elegir un cliente](venta-con-limite.md)
-→ [Factura completa después de la venta](factura-completa-posterior.md)
+→ [Convertir un ticket en factura](convertir-ticket-en-factura.md)
 
-> **El límite del ticket simplificado** lo marca la ley y depende de tu actividad. Si no estás seguro de cuál te corresponde, consúltalo con tu gestor.
+> **El límite del ticket** lo marca la ley y depende de tu actividad. Si no estás seguro de cuál te corresponde, consúltalo con tu gestor.
 
 ## VeriFacWoo: módulo opcional
 
@@ -56,7 +56,7 @@ Un ticket reimpreso sale **igual que el original**, con el mismo número y, si h
 
 ## Imprimir el PDF de la factura desde la caja
 
-En el detalle de un pedido, el botón **Factura PDF** abre el diálogo de imprimir con el **PDF de la factura** (A4), sin salir de la caja. Tarda unos segundos, porque el PDF se prepara en ese momento: el botón muestra «Preparando PDF…». Según el navegador, si no puede abrir el diálogo, abre el PDF en una pestaña nueva.
+En el detalle de un pedido, el botón **Imprimir factura** abre el diálogo de imprimir con el **PDF de la factura** (A4), sin salir de la caja. Tarda unos segundos, porque el PDF se prepara en ese momento: el botón muestra «Preparando PDF…». Según el navegador, si no puede abrir el diálogo, abre el PDF en una pestaña nueva.
 
 ## Diseñar tu ticket
 
@@ -67,6 +67,6 @@ El aspecto del ticket (logo, textos, orden) lo dejamos a tu gusto al configurar 
 - **No sale el QR:** si tu tienda no tiene el módulo VeriFacWoo, es lo normal: no existe. Si lo tiene, la factura puede estar todavía pendiente de confirmar: espera un momento y vuelve a imprimir desde **Pedidos**.
 - **No sale el número de factura:** espera un momento y vuelve a imprimir desde **Pedidos**.
 - **Hay una imagen rota donde iría el QR (con VeriFacWoo):** pulsa **Resync** y vuelve a imprimir.
-- **Salen datos del cliente en un ticket simplificado:** no debería pasar; avísanos y lo corregimos.
+- **Salen datos del cliente en un ticket:** no debería pasar; avísanos y lo corregimos.
 
 Antes de usarlo con clientes reales, haz **ventas de prueba** con la facturación en **modo de pruebas**.

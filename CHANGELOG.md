@@ -2,32 +2,51 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
-## [Sin publicar]
+## [2.0.0] - 2026-11-17
+
+Versión mayor. El bridge deja de depender de un plugin de VFWoo en concreto y detecta por capacidad lo que hay instalado; permite hacer factura a un ticket ya entregado con o sin Verifactu; añade el país del cliente, el cambio de estado del pedido Completado / Anular / Devolver y la impresión de la rectificativa. Cambia el vocabulario de la caja a «ticket» y «factura».
 
 ### Añadido
 
-- **Factura completa a nombre del cliente desde el ticket, con o sin Verifactu.** El botón «Factura completa» del detalle del pedido (antes «Factura completa (F3)», solo con Verifactu) sale en cualquier pedido del POS. Se elige o se crea el cliente (ahora con empresa / razón social, domicilio, código postal y población) y:
-  - **Sin Verifactu** (o con Verifactu sin enviar nada a la AEAT): el ticket pasa a ser la factura completa **con el mismo número**. Los datos del cliente (NIF, nombre o razón social, domicilio) se escriben en el pedido, y el PDF y el correo salen con ellos. Se puede cambiar de cliente si hubo un error. Una nota del pedido guarda los datos anteriores.
-  - **Con Verifactu enviando a la AEAT:** F2 aceptada → se emite la F3 que la sustituye (como antes, ahora también con el domicilio en el pedido). Una factura ya registrada con cliente (F1 o F3) no se puede cambiar sin rectificarla; el botón lo explica. Si la F2 aún no se ha enviado, pide esperar.
-  - El NIF es opcional sin Verifactu y obligatorio con él. Una empresa se guarda como razón social (y su contacto, si lo hay); un CIF sin empresa indicada se trata como razón social.
-  - El ticket de un pedido convertido sale como factura completa (F1) con los datos del cliente.
-- **País del cliente en el formulario del POS** (España por defecto) y casilla **«No comprobar el documento»**. Con España se comprueba el DNI, NIE o CIF (letra de control) y, con Verifactu, el censo de la AEAT; con cualquier otro país la casilla sale marcada y no se comprueba nada, salvo que el cajero la desmarque (entonces se valida el formato genérico). El país se guarda en el cliente y en el pedido y sale en el PDF. Con Verifactu, la factura completa a un cliente de otro país se bloquea con un mensaje: la F3 de Verifactu solo envía un NIF español (pendiente en VFWoo).
+- **Factura a nombre del cliente desde el ticket, con o sin Verifactu.** El botón **«Cambiar factura»** del detalle del pedido (antes «Factura completa (F3)», solo con Verifactu) sale en cualquier pedido del POS. Se elige o se crea el cliente (con empresa / razón social, domicilio, código postal y población) y:
+  - **Sin Verifactu** (o con Verifactu sin enviar nada a la AEAT): el ticket pasa a ser la factura **con el mismo número**. Los datos del cliente se escriben en el pedido y el PDF y el correo salen con ellos. Se puede cambiar de cliente si hubo un error; una nota del pedido guarda los datos anteriores.
+  - **Con Verifactu enviando a la AEAT:** con la simplificada aceptada se emite la **F3** que la sustituye (ahora también con el domicilio en el pedido). Una factura ya registrada con cliente (F1 o F3) no se cambia sin rectificarla; si la simplificada aún no está confirmada, pide esperar.
+  - El NIF es opcional sin Verifactu y obligatorio con él. Una empresa se guarda como razón social (y su contacto, si lo hay).
+  - El ticket de un pedido convertido sale como factura (F1) con los datos del cliente.
+  - Se bloquea en pedidos reembolsados (total o parcialmente), cancelados, fallidos y en borrador.
+- **País del cliente en el formulario del POS** (España por defecto) y casilla **«No comprobar el documento»**. Con España se comprueba el DNI, NIE o CIF (letra de control) y, con Verifactu, el censo de la AEAT; con cualquier otro país la casilla sale marcada y no se comprueba nada (cabe un pasaporte), salvo que el cajero la desmarque. El país se guarda en el cliente y en el pedido. Con Verifactu, la factura a un cliente de otro país se bloquea con un aviso (la F3 de Verifactu solo envía un NIF español).
+- **Cambio de estado del pedido desde el POS: solo «Completado», «Anular» y «Devolver».** El desplegable oculta Pendiente de pago, Procesando, En espera, Fallido y Borrador, y «Cancelado» y «Reembolsado» pasan a leerse como las acciones «Anular» y «Devolver» (el estado actual del pedido siempre se ve con su nombre). La lista de pedidos conserva los nombres de siempre. La pregunta de confirmación dice qué ocurre (con Verifactu, que la anulación se envía a la AEAT). **El servidor rechaza cualquier otro estado.**
+- **Botón «Imprimir rectificativa»** en el detalle de un pedido con reembolso (uno por reembolso): imprime el PDF de la rectificativa de VFWoo con el mismo diálogo de impresión, sin salir del POS. Sin Verifactu, VFWoo la crea la primera vez que se imprime.
+- **Panel «Qué está activo»** en los ajustes: lista cada función con lo que necesita.
 
 ### Cambiado
 
-- Las rutas internas del botón pasan de `f3-status` / `issue-f3` a `full-invoice-status` / `full-invoice-issue`, y la clase `F3_Emission` a `Ticket_Invoice`.
-- **El bridge ya no depende de un plugin de VFWoo en concreto: se apoya en lo que el POS necesita y detecta por capacidad.** Funciona con el core de facturas (VFWoo Invoices) solo, con el core más el complemento Verifactu o con el VFWoo de un solo plugin anterior. Cada función se enciende cuando existe la pieza que usa:
-  - **Con el core de facturas:** número y fecha de factura en el ticket (leídos de la factura del core), plantilla de ticket propia, «Factura PDF», PDF en el correo del pedido y NIF del cliente con comprobación de formato (opcional).
-  - **Solo con Verifactu:** QR, leyenda legal y tipo de factura en el ticket, NIF obligatorio, límite de venta, comprobación del nombre contra el censo de la AEAT y el registro de la factura completa como F3.
+- **El bridge ya no depende de un plugin de VFWoo en concreto: detecta por capacidad.** Funciona con el core de facturas (VFWoo Invoices) solo, con el core más el complemento Verifactu o con el VFWoo de un solo plugin anterior.
+  - **Con el core:** número y fecha de factura en el ticket (leídos de la factura del core), plantilla de ticket propia, «Imprimir factura», PDF en el correo del pedido y NIF del cliente con comprobación de formato (opcional).
+  - **Solo con Verifactu y su módulo activado:** QR, leyenda legal y tipo de factura en el ticket, NIF obligatorio, límite de venta, censo de la AEAT y F3.
+- **Verifactu solo cuenta si su módulo está activado en VFWoo** (Módulos), no solo el plugin. Antes, con el plugin activo y el módulo apagado, seguía saliendo el QR.
 - **Límite de venta fijo en el POS: 3.000 €** (el máximo, con sector autorizado), solo con Verifactu. Ya no lee el límite ni el interruptor de simplificadas del plugin de facturas.
-- **El NIF del cliente es obligatorio solo con Verifactu.** Sin él es opcional, se comprueba su formato si se escribe y no se avisa de «sin verificar» (no hay censo que consultar). Si se deja vacío, se borra el NIF que el cliente tuviera.
-- La pantalla de ajustes lista qué está activo por función («Qué está activo») en lugar de «Módulos fiscales».
+- **El NIF del cliente es obligatorio solo con Verifactu.** Sin él es opcional, se comprueba su formato si se escribe y no se avisa de «sin verificar». Si se deja vacío, se borra el NIF que el cliente tuviera.
+- **Textos de la caja: «ticket» y «factura».** Botones «Cambiar factura» e «Imprimir factura» (antes «Factura PDF»); el diálogo dice «Hacer factura»; los avisos no hablan de «simplificada» ni de «completa». Esos términos se mantienen en la documentación técnica.
+- Las rutas internas pasan de `f3-status` / `issue-f3` a `full-invoice-status` / `full-invoice-issue`, y la clase `F3_Emission` a `Ticket_Invoice`.
+- El correo con PDF no adjunta la factura a los correos de reembolso ni a los de pedidos cancelados o fallidos.
 
 ### Corregido
 
-- **Con el módulo Verifactu desactivado en VFWoo (pero el plugin activo), el bridge seguía sacando el QR y aplicando las reglas de Verifactu.** Ahora «Verifactu» solo cuenta si su módulo está activado (`Modules::is_active('verifactu')`); con el módulo apagado no hay QR, ni NIF obligatorio, ni límite de venta, ni censo, ni F3, igual que sin el plugin. Con el VFWoo de un solo plugin, que no tiene interruptor de módulos, estar instalado cuenta como estar en uso. La pantalla de ajustes indica «Plugin activo, pero su módulo está desactivado».
-- **Con el core nuevo, el POS fallaba con un error fatal** al cargar su configuración (el límite de simplificada se había movido a otra clase) y al emitir una F3. Ahora cada llamada comprueba que exista la pieza y prueba la clase nueva antes que la antigua.
+- **Con el core nuevo de VFWoo el POS fallaba con un error fatal** al cargar su configuración (el límite de simplificada se había movido de clase) y al emitir una F3. Ahora cada llamada comprueba que exista la pieza y prueba la clase nueva antes que la antigua.
 - **El PDF en el correo no se adjuntaba con el VFWoo anterior** (0.9.17), que no tiene `Channel_Registry`: ahora ese dato es opcional.
+
+### Notas de actualización
+
+- Recarga cada caja con Ctrl+F5; no hace falta Resync.
+- Si pasas del VFWoo antiguo al core: copia de seguridad, desactiva el antiguo, activa «VFWoo Invoices» y, si lo usas, «VFWoo Verifactu» con su módulo activado.
+
+### Riesgos conocidos al publicar
+
+- **Sin probar en una tienda real:** la factura desde el ticket con Verifactu enviando a la AEAT, la impresión de la rectificativa desde el POS, el cambio de estado en Safari y la venta sin conexión.
+- **Factura sin Verifactu con el mismo número del ticket:** el PDF original deja de existir tal cual; pendiente de confirmar con la gestoría.
+- **Con el core solo**, una factura de un pedido cancelado no se marca como anulada (pendiente en VFWoo).
+- **Venta sin conexión:** con inventario centralizado Webkul no deja cobrar sin conexión, y su service worker no se registra en esta versión (7.1.1); pendiente de consultar a Webkul.
 
 ## [0.1.4] - 2026-11-17
 

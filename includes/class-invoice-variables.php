@@ -36,16 +36,16 @@ final class Invoice_Variables {
 			array( 'tag' => '${vfwoo_company_logo}', 'label' => __( 'Tienda: logo (imagen, VFWoo)', 'vfwoo-webkul-pos-bridge' ) ),
 			array( 'tag' => '${vfwoo_pdf_footer}', 'label' => __( 'Tienda: pie del PDF (VFWoo)', 'vfwoo-webkul-pos-bridge' ) ),
 			array( 'tag' => '${vfwoo_invoice_number}', 'label' => __( 'Factura: número', 'vfwoo-webkul-pos-bridge' ) ),
-			array( 'tag' => '${vfwoo_invoice_type}', 'label' => __( 'Factura: tipo (F1, F2…)', 'vfwoo-webkul-pos-bridge' ) ),
+			array( 'tag' => '${vfwoo_invoice_type}', 'label' => __( 'Factura: tipo (F1 factura, F2 ticket…)', 'vfwoo-webkul-pos-bridge' ) ),
 			array( 'tag' => '${vfwoo_invoice_date}', 'label' => __( 'Factura: fecha de expedición', 'vfwoo-webkul-pos-bridge' ) ),
 			array( 'tag' => '${vfwoo_legal_legend}', 'label' => __( 'Factura: leyenda legal Veri*Factu', 'vfwoo-webkul-pos-bridge' ) ),
 			array( 'tag' => '${vfwoo_verification_url}', 'label' => __( 'Factura: URL de cotejo', 'vfwoo-webkul-pos-bridge' ) ),
 			array( 'tag' => '${vfwoo_qr}', 'label' => __( 'Factura: código QR (imagen)', 'vfwoo-webkul-pos-bridge' ) ),
-			array( 'tag' => '${vfwoo_customer_name}', 'label' => __( 'Cliente: nombre (solo F1/F3)', 'vfwoo-webkul-pos-bridge' ) ),
-			array( 'tag' => '${vfwoo_customer_nif}', 'label' => __( 'Cliente: NIF (solo F1/F3)', 'vfwoo-webkul-pos-bridge' ) ),
-			array( 'tag' => '${vfwoo_customer_address}', 'label' => __( 'Cliente: domicilio (solo F1/F3)', 'vfwoo-webkul-pos-bridge' ) ),
-			array( 'tag' => '${vfwoo_customer_email}', 'label' => __( 'Cliente: email (solo F1/F3)', 'vfwoo-webkul-pos-bridge' ) ),
-			array( 'tag' => '${vfwoo_customer_phone}', 'label' => __( 'Cliente: teléfono (solo F1/F3)', 'vfwoo-webkul-pos-bridge' ) ),
+			array( 'tag' => '${vfwoo_customer_name}', 'label' => __( 'Cliente: nombre (solo en facturas, no en tickets)', 'vfwoo-webkul-pos-bridge' ) ),
+			array( 'tag' => '${vfwoo_customer_nif}', 'label' => __( 'Cliente: NIF (solo en facturas, no en tickets)', 'vfwoo-webkul-pos-bridge' ) ),
+			array( 'tag' => '${vfwoo_customer_address}', 'label' => __( 'Cliente: domicilio (solo en facturas, no en tickets)', 'vfwoo-webkul-pos-bridge' ) ),
+			array( 'tag' => '${vfwoo_customer_email}', 'label' => __( 'Cliente: email (solo en facturas, no en tickets)', 'vfwoo-webkul-pos-bridge' ) ),
+			array( 'tag' => '${vfwoo_customer_phone}', 'label' => __( 'Cliente: teléfono (solo en facturas, no en tickets)', 'vfwoo-webkul-pos-bridge' ) ),
 		);
 	}
 

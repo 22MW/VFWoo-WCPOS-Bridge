@@ -25,7 +25,7 @@ Si trabajas con la **app de la caja**, puedes seguir vendiendo aunque se corte i
 
 La caja no se limita a cobrar. Lo que añade DEFACWOO:
 
-- **Facturas y tickets en regla.** Cada venta sale con su número de factura, al cobrar y al volver a imprimirla. Con el módulo opcional **VeriFacWoo** (VeriFactu), el ticket y la factura llevan además su **código QR**. Si un cliente necesita la factura por correo, o la necesita tu gestor, recibe un **PDF** bien hecho. Y si pide factura completa después, se emite sin liarte.
+- **Facturas y tickets en regla.** Cada venta sale con su número de factura, al cobrar y al volver a imprimirla. Con el módulo opcional **VeriFacWoo** (VeriFactu), el ticket y la factura llevan además su **código QR**. Si un cliente necesita la factura por correo, o la necesita tu gestor, recibe un **PDF** bien hecho. Y si pide factura después, se emite sin liarte.
 - **Clientes bien recogidos.** Al crear un cliente se pide su DNI/NIE/CIF, y en ventas grandes la caja te pide elegir un cliente antes de cobrar.
 - **Marcas.** Encuentras un producto por marca en dos toques y ves **cuánto vendes de cada una**, por días, semanas o meses.
 - **Control del negocio.** Aperturas y cierres de caja con el efectivo cuadrado, informes de ventas y devoluciones.
@@ -68,7 +68,7 @@ Si es tu primera vez, empieza por **[Primeros pasos con la caja](primeros-pasos.
 - [Ticket con número de factura y QR](ticket-con-factura-y-qr.md)
 - [Clientes con DNI/NIE/CIF](cliente-con-nif.md)
 - [Venta grande: elegir un cliente](venta-con-limite.md)
-- [Factura completa después de la venta](factura-completa-posterior.md)
+- [Convertir un ticket en factura](convertir-ticket-en-factura.md)
 - [Marcas en la caja](marcas-en-la-caja.md)
 - [Ventas por marca](ventas-por-marca.md)
 - [Aviso de cambios en el catálogo](aviso-de-catalogo.md)

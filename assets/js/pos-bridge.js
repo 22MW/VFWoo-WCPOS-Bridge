@@ -939,9 +939,13 @@
 	// print dialog opens without leaving the POS. If the browser refuses, the PDF opens in a new tab.
 	// VFWoo builds the PDF on every request, so it can take a few seconds: `done` tells the button when
 	// to stop showing the loading state (once the print starts, or after a safety timeout).
-	function printInvoicePdf( order, done ) {
+	function printInvoicePdf( order, done, refundId ) {
 		var orderId = order.order_id || order.id;
 		var url = config.pdf.url + '&order_id=' + encodeURIComponent( orderId ) + '&_wpnonce=' + encodeURIComponent( config.pdf.nonce );
+		// With a refund id it prints that refund's credit note (rectificativa) instead of the invoice.
+		if ( refundId ) {
+			url += '&refund_id=' + encodeURIComponent( refundId );
+		}
 		var previous = document.querySelector( 'iframe.vfwoo-pdf-frame' );
 		if ( previous ) {
 			previous.remove();
@@ -1005,7 +1009,7 @@
 				if ( mounted.current ) {
 					setLoading( false );
 				}
-			} );
+			}, props.refundId );
 		}
 
 		return element.createElement(
@@ -1029,22 +1033,149 @@
 						element.createElement( 'path', { d: 'M14 3v5h5M9 14h6v4H9z' } )
 					),
 				' ',
-				loading ? config.pdf.loading : config.pdf.button
+				loading ? props.loadingLabel : props.label
 			)
 		);
 	}
 
-	// Button below the complete-invoice one; shown only when the order already has an invoice number.
+	// «Imprimir factura» below the «Cambiar factura» one, plus «Imprimir rectificativa» for each refund; shown only when the order already has an invoice number.
 	function renderPdfButton( output, order ) {
 		var element = window.wp && window.wp.element;
 		var fiscal = order && order.vfwoo_webkul_bridge && order.vfwoo_webkul_bridge.fiscal;
 		if ( ! element || ! element.useState || ! config || ! config.pdf || ! fiscal || ! fiscal.invoice_number ) {
 			return output;
 		}
-		return element.createElement( element.Fragment, null, output, element.createElement( PdfButton, { order: order, key: 'vfwoo-pdf' } ) );
+		var buttons = [ element.createElement( PdfButton, { order: order, key: 'vfwoo-pdf', label: config.pdf.button, loadingLabel: config.pdf.loading } ) ];
+
+		// One «Imprimir rectificativa» button per refund the order has (VFWoo issues a credit note for each).
+		var refunds = Array.isArray( order.refunds ) ? order.refunds.filter( function ( refund ) {
+			return refund && refund.id;
+		} ) : [];
+		refunds.forEach( function ( refund, index ) {
+			buttons.push(
+				element.createElement( PdfButton, {
+					order: order,
+					key: 'vfwoo-pdf-refund-' + refund.id,
+					refundId: refund.id,
+					label: config.pdf.creditNote + ( refunds.length > 1 ? ' ' + ( index + 1 ) : '' ),
+					loadingLabel: config.pdf.creditNoteLoading
+				} )
+			);
+		} );
+
+		return element.createElement.apply( element, [ element.Fragment, null, output ].concat( buttons ) );
 	}
 
 	hooks.addFilter( 'wkwcpos_add_after_print_invoice_button', 'vfwoo-webkul-pos-bridge-pdf', renderPdfButton );
+
+	// ---- Order status dropdown: only Completado, Anular (cancel) and Devolver (refund) ----
+	// Webkul fills the dropdown with every WooCommerce status, from the same list it uses to name the status in
+	// the order table, so that list cannot be trimmed without breaking those names. The options are tidied in
+	// place instead: the unwanted ones are hidden (never removed: the dropdown belongs to Webkul's React tree),
+	// «Cancelado» and «Reembolsado» read as the actions «Anular» and «Devolver», and the order's current status
+	// always stays visible (as it is called) so the control never shows a wrong value.
+	function findStatusSelects() {
+		return Array.prototype.filter.call( document.querySelectorAll( 'select' ), function ( select ) {
+			return !! select.querySelector( 'option[value="wc-completed"]' );
+		} );
+	}
+
+	function tidyStatusSelect( select ) {
+		var settings = config && config.orderStatus;
+		if ( ! settings || ! select ) {
+			return;
+		}
+		var allowed = ( settings.allowed || [] ).map( function ( status ) {
+			return 'wc-' + status;
+		} );
+		Array.prototype.forEach.call( select.options, function ( option ) {
+			var value = option.value;
+			var isAllowed = allowed.indexOf( value ) !== -1;
+			var isCurrent = value === select.value;
+			var textNode = option.firstChild && option.firstChild.nodeType === 3 ? option.firstChild : null;
+			if ( textNode && option.getAttribute( 'data-vfwoo-label' ) === null ) {
+				option.setAttribute( 'data-vfwoo-label', textNode.nodeValue );
+			}
+			var verb = value === 'wc-cancelled' ? settings.cancel : ( value === 'wc-refunded' ? settings.refund : '' );
+			var wanted = verb && ! isCurrent ? verb : option.getAttribute( 'data-vfwoo-label' );
+			if ( textNode && wanted && textNode.nodeValue !== wanted ) {
+				textNode.nodeValue = wanted;
+			}
+			if ( option.hidden !== ( ! isAllowed && ! isCurrent ) ) {
+				option.hidden = ! isAllowed && ! isCurrent;
+			}
+			if ( option.disabled !== ! isAllowed ) {
+				option.disabled = ! isAllowed;
+			}
+		} );
+	}
+
+	// Webkul asks «are you sure?» before changing the status; for Anular and Devolver the question says what happens.
+	function patchStatusConfirm() {
+		var jq = window.jQuery;
+		if ( ! jq || typeof jq.confirm !== 'function' || jq.confirm.vfwooPatched ) {
+			return;
+		}
+		var original = jq.confirm;
+		var patched = function ( options ) {
+			var args = Array.prototype.slice.call( arguments );
+			try {
+				var settings = config && config.orderStatus;
+				if ( settings && options && typeof options === 'object' && options.buttons && options.buttons.change && typeof options.content === 'string' && options.content.indexOf( '<h4>' ) === 0 ) {
+					var chosen = '';
+					findStatusSelects().forEach( function ( select ) {
+						if ( select.value === 'wc-cancelled' || select.value === 'wc-refunded' ) {
+							chosen = select.value;
+						}
+					} );
+					var text = chosen === 'wc-cancelled' ? settings.confirmCancel : ( chosen === 'wc-refunded' ? settings.confirmRefund : '' );
+					if ( text ) {
+						options.content = '<h4>' + escapeHtml( text ) + '</h4>';
+						args[ 0 ] = options;
+					}
+				}
+			} catch ( error ) {
+				// Whatever goes wrong here, Webkul's own question is shown.
+			}
+			return original.apply( this, args );
+		};
+		Object.keys( original ).forEach( function ( key ) {
+			patched[ key ] = original[ key ];
+		} );
+		patched.vfwooPatched = true;
+		jq.confirm = patched;
+	}
+
+	( function watchStatusSelect() {
+		if ( ! config || ! config.orderStatus || ! window.MutationObserver ) {
+			return;
+		}
+		var timer = null;
+		var run = function () {
+			timer = null;
+			patchStatusConfirm();
+			findStatusSelects().forEach( tidyStatusSelect );
+		};
+		var schedule = function () {
+			if ( ! timer ) {
+				timer = window.setTimeout( run, 30 );
+			}
+		};
+		var start = function () {
+			new window.MutationObserver( schedule ).observe( document.body, { childList: true, subtree: true } );
+			document.addEventListener( 'mousedown', function ( event ) {
+				if ( event.target && event.target.tagName === 'SELECT' ) {
+					tidyStatusSelect( event.target );
+				}
+			}, true );
+			run();
+		};
+		if ( document.body ) {
+			start();
+		} else {
+			document.addEventListener( 'DOMContentLoaded', start );
+		}
+	}() );
 	// ---- "Marcas" as one more category in the home category bar ----
 	// The POS keeps its categories in a local table it only refreshes when it is empty, so the node is
 	// added in memory each time the list is loaded, from the brands that already travel with the products.

@@ -96,8 +96,12 @@ final class Pdf_Actions {
 		if ( ! $email instanceof \WC_Email || ! $email->is_customer_email() ) {
 			return $skip( 'no es un correo al cliente' );
 		}
-		if ( isset( $email->refund ) ) {
+		if ( isset( $email->refund ) || in_array( (string) $email_id, array( 'customer_refunded_order', 'customer_partially_refunded_order' ), true ) ) {
 			return $skip( 'correo de reembolso' );
+		}
+		// A cancelled or failed order is not a sale: its email must not carry an invoice.
+		if ( in_array( $object->get_status(), array( 'cancelled', 'failed' ), true ) ) {
+			return $skip( 'pedido cancelado o fallido' );
 		}
 		if ( ! Capabilities::invoices() ) {
 			return $skip( 'no hay plugin de facturas con motor de PDF' );
@@ -141,7 +145,7 @@ final class Pdf_Actions {
 	}
 
 	/**
-	 * Target of the POS «Factura PDF» button. VFWoo's PDF screen asks for a nonce tied to the browser
+	 * Target of the POS «Imprimir factura» and «Imprimir rectificativa» buttons. VFWoo's PDF screen asks for a nonce tied to the browser
 	 * session, so the link is built here, in that session, and the browser is sent to it.
 	 */
 	public function redirect_to_pdf(): void {
@@ -155,14 +159,27 @@ final class Pdf_Actions {
 			wp_die( esc_html__( 'Pedido no encontrado.', 'vfwoo-webkul-pos-bridge' ), '', array( 'response' => 404 ) );
 		}
 
+		// The credit note (rectificativa) of a refund: VFWoo identifies it by the refund's id, not the order's.
+		$document_id = $order_id;
+		$type        = 'invoice';
+		$refund_id   = isset( $_GET['refund_id'] ) ? absint( wp_unslash( $_GET['refund_id'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Verified above.
+		if ( $refund_id ) {
+			$refund = wc_get_order( $refund_id );
+			if ( ! $refund instanceof \WC_Order_Refund || (int) $refund->get_parent_id() !== $order_id ) {
+				wp_die( esc_html__( 'Reembolso no encontrado.', 'vfwoo-webkul-pos-bridge' ), '', array( 'response' => 404 ) );
+			}
+			$document_id = $refund_id;
+			$type        = 'credit_note';
+		}
+
 		wp_safe_redirect(
 			add_query_arg(
 				array(
 					'action'   => 'vfwoo_pdf_preview',
-					'order_id' => $order_id,
-					'type'     => 'invoice',
+					'order_id' => $document_id,
+					'type'     => $type,
 					'format'   => 'pdf',
-					'_nonce'   => wp_create_nonce( 'vfwoo_pdf_preview_' . $order_id ),
+					'_nonce'   => wp_create_nonce( 'vfwoo_pdf_preview_' . $document_id ),
 				),
 				admin_url( 'admin-post.php' )
 			)

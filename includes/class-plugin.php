@@ -37,6 +37,7 @@ final class Plugin {
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-auth.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-brand-report.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-ticket-invoice.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/class-order-status.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pdf-actions.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-pos-script.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-login-screen.php';
@@ -45,6 +46,7 @@ final class Plugin {
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-admin-bar.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-cashier-roles.php';
 		new Order_Integration();
+		new Order_Status();
 		new Catalog_Integration();
 		new Brand_Report();
 		new POS_Script();

@@ -104,7 +104,7 @@ final class Ticket_Invoice {
 			// Verifactu's F3 only sends a Spanish tax ID: it has no country or document type for a foreign buyer
 			// (pending in VFWoo). Better to stop here than to send the AEAT a badly formed invoice.
 			if ( '' !== $identity['country'] && 'ES' !== $identity['country'] ) {
-				return $this->failure( __( 'Verifactu todavía no emite la factura completa a clientes de otro país. Elige un cliente de España.', 'vfwoo-webkul-pos-bridge' ) );
+				return $this->failure( __( 'Verifactu todavía no hace facturas a clientes de otro país. Elige un cliente de España.', 'vfwoo-webkul-pos-bridge' ) );
 			}
 			$emitter = Capabilities::f3_emitter();
 			if ( null === $emitter ) {
@@ -120,19 +120,19 @@ final class Ticket_Invoice {
 					)
 				);
 			} catch ( \Throwable $e ) {
-				return $this->failure( __( 'No se ha podido emitir la factura completa.', 'vfwoo-webkul-pos-bridge' ) );
+				return $this->failure( __( 'No se ha podido hacer la factura.', 'vfwoo-webkul-pos-bridge' ) );
 			}
 
 			if ( empty( $result['success'] ) ) {
 				$message = $result['error'] ?? $result['error_message'] ?? '';
-				return $this->failure( '' !== (string) $message ? (string) $message : __( 'VFWoo no ha podido emitir la factura completa.', 'vfwoo-webkul-pos-bridge' ) );
+				return $this->failure( '' !== (string) $message ? (string) $message : __( 'VFWoo no ha podido hacer la factura.', 'vfwoo-webkul-pos-bridge' ) );
 			}
 			// The add-on already wrote the tax ID and the name on the order; the address is not part of its registry.
 			$this->write_customer( $order, $customer_id, $identity, false );
-			$message = __( 'Factura completa enviada a Verifactu.', 'vfwoo-webkul-pos-bridge' );
+			$message = __( 'Factura enviada a Verifactu.', 'vfwoo-webkul-pos-bridge' );
 		} else {
 			$this->write_customer( $order, $customer_id, $identity, true );
-			$message = __( 'Factura completa guardada con los datos del cliente.', 'vfwoo-webkul-pos-bridge' );
+			$message = __( 'Factura guardada con los datos del cliente.', 'vfwoo-webkul-pos-bridge' );
 		}
 
 		$order = wc_get_order( $order_id );
@@ -187,7 +187,7 @@ final class Ticket_Invoice {
 			$order->add_order_note(
 				sprintf(
 					/* translators: 1: previous customer data of the order, 2: new customer data. */
-					__( 'Factura completa desde el POS. Antes: %1$s. Ahora: %2$s.', 'vfwoo-webkul-pos-bridge' ),
+					__( 'Ticket convertido en factura desde el POS. Antes: %1$s. Ahora: %2$s.', 'vfwoo-webkul-pos-bridge' ),
 					'' !== $before ? $before : __( 'sin cliente', 'vfwoo-webkul-pos-bridge' ),
 					trim( ( '' !== $identity['company'] ? $identity['company'] : $identity['name'] ) . ' ' . $nif )
 				)
@@ -219,6 +219,8 @@ final class Ticket_Invoice {
 	 *   the number; route «verifactu» issues the F3 that replaces an accepted F2.
 	 * - pending: the F2 is registered but not accepted yet.
 	 * - registered: the invoice is already registered with its customer (F1 or F3) and cannot change without a rectification.
+	 * - refunded: the order has a refund (and its credit note): the customer cannot change.
+	 * - cancelled: the order was cancelled: nothing to change.
 	 * - noinvoice / none: nothing to convert.
 	 *
 	 * @return array{state:string,route?:string,invoice?:object}
@@ -226,6 +228,19 @@ final class Ticket_Invoice {
 	private function state( int $order_id ): array {
 		$order = $order_id ? wc_get_order( $order_id ) : false;
 		if ( ! $order || '' === (string) $order->get_meta( '_wk_wc_pos_outlet', true ) || ! Capabilities::invoices() ) {
+			return array( 'state' => 'none' );
+		}
+
+		// A cancelled order has no invoice to change; a refunded one (all or part of it) already has its credit
+		// note, so its customer can no longer change. Failed and draft orders were never a sale.
+		$status = $order->get_status();
+		if ( 'cancelled' === $status ) {
+			return array( 'state' => 'cancelled' );
+		}
+		if ( 'refunded' === $status || (float) $order->get_total_refunded() > 0 ) {
+			return array( 'state' => 'refunded' );
+		}
+		if ( in_array( $status, array( 'failed', 'trash', 'draft', 'checkout-draft' ), true ) ) {
 			return array( 'state' => 'none' );
 		}
 
@@ -263,11 +278,13 @@ final class Ticket_Invoice {
 
 	private function state_message( string $state ): string {
 		$messages = array(
-			'pending'    => __( 'La factura simplificada aún no está confirmada. Espera a que se confirme.', 'vfwoo-webkul-pos-bridge' ),
+			'pending'    => __( 'El ticket aún no está confirmado. Espera a que se confirme.', 'vfwoo-webkul-pos-bridge' ),
 			'registered' => __( 'Esta factura ya está registrada en Verifactu a nombre de un cliente. Para cambiarla hay que rectificarla desde VFWoo.', 'vfwoo-webkul-pos-bridge' ),
+			'refunded'   => __( 'Este pedido está reembolsado (total o parcialmente): no se puede cambiar la factura. La rectificativa se imprime desde el pedido.', 'vfwoo-webkul-pos-bridge' ),
+			'cancelled'  => __( 'Este pedido está cancelado: no se puede cambiar la factura.', 'vfwoo-webkul-pos-bridge' ),
 			'noinvoice'  => __( 'El pedido aún no tiene factura. Espera unos segundos y vuelve a intentarlo.', 'vfwoo-webkul-pos-bridge' ),
 		);
-		return $messages[ $state ] ?? __( 'Este pedido no admite factura completa desde el POS.', 'vfwoo-webkul-pos-bridge' );
+		return $messages[ $state ] ?? __( 'Este pedido no admite hacer factura desde el POS.', 'vfwoo-webkul-pos-bridge' );
 	}
 
 	private function failure( string $message ): array {

@@ -1,6 +1,6 @@
 # VFWoo Webkul POS Bridge: qué añade y qué hace
 
-Referencia funcional del plugin, versión **0.1.4** más los cambios de la rama de desarrollo **0.1.4.2**: detección por capacidad del core y de Verifactu (con su módulo activado), factura completa desde el ticket con o sin Verifactu, y país del cliente.
+Referencia funcional del plugin, versión **2.0.0**. Esta versión mayor cambia el modo de trabajar con las facturas: el bridge **detecta por capacidad** el core de VFWoo y el complemento Verifactu (con su módulo activado), permite **hacer factura a un ticket ya entregado con o sin Verifactu**, añade el **país del cliente**, el **cambio de estado Completado / Anular / Devolver** y la **impresión de la rectificativa**.
 
 ## Resumen
 
@@ -10,14 +10,14 @@ El **POS Bridge** se instala junto al POS de Webkul (*Point of Sale for WooComme
 |---|---|
 | **Necesita** | WooCommerce y el POS de Webkul |
 | **Opcional** | Un plugin de facturas (VFWoo Invoices, el core) y, encima, el complemento Verifactu. El bridge no depende de ninguno: cada función se enciende cuando existe lo que necesita |
-| **No hace** | Emitir facturas ni asignar numeración (lo hace el plugin de facturas), hablar con la Agencia Tributaria (lo hace Verifactu), tocar precios, stock ni cobros de Webkul, ni modificar archivos de Webkul o VFWoo |
+| **No hace** | Emitir facturas ni asignar numeración (lo hace el plugin de facturas), hablar con la Agencia Tributaria (lo hace Verifactu), tocar precios, stock ni cobros de Webkul, **devolver un solo producto** (Webkul no lo trae), ni modificar archivos de Webkul o VFWoo |
 | **Plantillas de Webkul** | No las instala ni cambia las guardadas. Solo si activas la plantilla propia, el ticket se imprime con la del bridge; las de Webkul quedan intactas |
 
 ## Índice
 
 | Bloque | Funciones |
 |---|---|
-| [1. Facturas y ticket](#1-facturas-y-ticket-según-lo-instalado) *(según lo instalado)* | Ticket fiscal · Plantilla de ticket propia · Cliente con NIF · Venta con límite · Factura completa (F3) · PDF de la factura |
+| [1. Facturas y ticket](#1-facturas-y-ticket-según-lo-instalado) *(según lo instalado)* | Ticket fiscal · Plantilla de ticket propia · Cliente con NIF y país · Venta con límite · Cambiar factura · Estado del pedido, devolución y rectificativa · Imprimir factura y correo |
 | [2. Catálogo y marcas](#2-catálogo-y-marcas) | Marcas en la barra · Filtros del catálogo · Ventas por marca · Aviso de cambios en el catálogo |
 | [3. Uso diario](#3-uso-diario-en-la-caja-y-en-el-escritorio) | Accesos de la cabecera · Botón POS-CAJA · Cajeros gestores · Pantalla de acceso |
 | [4. Administración del plugin](#4-administración-del-plugin) | Avisos del admin · Pantalla de ajustes · Actualizaciones |
@@ -29,8 +29,8 @@ El **POS Bridge** se instala junto al POS de Webkul (*Point of Sale for WooComme
 
 Este bloque se apoya en el plugin de facturas. Cada función se enciende cuando existe lo que necesita:
 
-- **Con el core de facturas (VFWoo Invoices):** número y fecha de factura en el ticket, plantilla de ticket propia, «Factura PDF», PDF en el correo y NIF del cliente con comprobación de formato.
-- **Solo con Verifactu:** QR, leyenda legal y tipo de factura, NIF obligatorio, límite de venta, comprobación contra el censo de la AEAT y factura completa (F3).
+- **Con el core de facturas (VFWoo Invoices):** número y fecha de factura en el ticket, plantilla de ticket propia, «Imprimir factura», PDF en el correo y NIF del cliente con comprobación de formato.
+- **Solo con Verifactu:** QR, leyenda legal y tipo de factura, NIF obligatorio, límite de venta, comprobación contra el censo de la AEAT y factura (F3).
 - **Sin ninguno:** el ticket sale como lo imprime Webkul y el POS no muestra comprobaciones de venta.
 
 ### 1.1 Ticket fiscal
@@ -62,8 +62,10 @@ Casilla en **POS → Settings → VFWoo Bridge → Ticket**, **desactivada por d
 
 - El formulario de cliente del POS lleva el campo **DNI/NIE/CIF**: **obligatorio solo con Verifactu**; sin él es opcional (y si se deja vacío se borra el NIF que el cliente tuviera).
 - Se valida el **formato** siempre que se escriba un NIF. **Solo con Verifactu** se comprueba además, para NIF españoles, el **nombre contra el censo de la AEAT**; si el censo no responde, el cliente se guarda como **«sin verificar»** y se avisa. Sin Verifactu no hay censo y no se avisa de nada.
-- El NIF se guarda en el usuario y se **copia al pedido**, para que VFWoo emita factura completa. Sin NIF, el pedido sale como simplificado.
+- El NIF se guarda en el usuario y se **copia al pedido**, para que VFWoo emita factura. Sin NIF, el pedido sale como ticket.
 - El **cliente por defecto** («Cliente mostrador») no lleva NIF y nunca se copia al pedido.
+- **País** (España por defecto) y casilla **«No comprobar el documento»**: con España se comprueba el DNI/NIE/CIF; con otro país la casilla sale marcada y se acepta lo que se escriba (por ejemplo un pasaporte). Se puede marcar o desmarcar a mano. Un documento extranjero no genera el aviso de «sin verificar».
+- **Empresa / razón social** y **domicilio** (domicilio, código postal y población) se pueden indicar al crear el cliente; Webkul pide además un **email**.
 - Compatible con WP Armour Extended: se omite su antispam solo al guardar un cliente desde el POS.
 
 ### 1.4 Venta con límite *(solo con Verifactu)*
@@ -71,35 +73,57 @@ Casilla en **POS → Settings → VFWoo Bridge → Ticket**, **desactivada por d
 Antes de cobrar, el bridge comprueba si la venta necesita un cliente con NIF:
 
 - El límite del POS es **fijo: 3.000 €** (el máximo, como con «Sector autorizado» activado). Una venta igual o superior a esa cifra sin cliente con NIF **no avanza**: ni desde el botón *Pay* ni desde el botón final de pago.
-- No lee el límite ni el interruptor de simplificadas del plugin de facturas: es una regla del POS.
-- Cliente por defecto, o sin NIF por debajo del límite: se vende como simplificada. Con NIF sin verificar, solo avisa.
-- Sin Verifactu no hay simplificada que limitar: no se bloquea ninguna venta.
+- No lee el límite ni el interruptor de facturas simplificadas del plugin de facturas: es una regla del POS.
+- Cliente por defecto, o sin NIF por debajo del límite: se vende como ticket. Con NIF sin verificar, solo avisa.
+- Sin Verifactu no hay ticket (factura simplificada) que limitar: no se bloquea ninguna venta.
 - **Atención:** el tipo de factura que emite Verifactu para una venta sin NIF entre 400 € y 3.000 € depende de sus propios ajustes; «Sector autorizado» debe estar activado ahí para que coincidan.
 
-### 1.5 Factura completa desde el ticket *(core de facturas; con Verifactu se registra como F3)*
+### 1.5 Factura desde el ticket *(core de facturas; con Verifactu se registra como F3)*
 
 Para quien ya se llevó el ticket y después pide factura, a su nombre o al de una empresa:
 
-- Botón **«Factura completa»** junto a «Imprimir Invoice» en **Pedidos**, en cualquier pedido del POS.
+- Botón **«Cambiar factura»** junto a «Imprimir Invoice» en **Pedidos**, en cualquier pedido del POS.
 - Se **busca o crea el cliente** con los servicios del POS (nombre, empresa / razón social, DNI/NIE/CIF, domicilio, código postal, población, teléfono y email). Nunca el cliente por defecto.
-- **Sin Verifactu:** el ticket **pasa a ser la factura completa con el mismo número**. Los datos del cliente se escriben en el pedido y el PDF, el correo y el ticket salen con ellos. El NIF es opcional. **Si hubo un error, se puede cambiar de cliente.** Una nota del pedido guarda los datos anteriores.
-- **Con Verifactu enviando a la AEAT:** con la simplificada ya confirmada se emite la **F3 que la sustituye** (el ticket original se conserva); el NIF es obligatorio. Una factura ya registrada con cliente (F1 o F3) **no se cambia sin rectificarla**, y si la simplificada aún no está confirmada, hay que esperar.
+- **Sin Verifactu:** el ticket **pasa a ser la factura con el mismo número**. Los datos del cliente se escriben en el pedido y el PDF, el correo y el ticket salen con ellos. El NIF es opcional. **Si hubo un error, se puede cambiar de cliente.** Una nota del pedido guarda los datos anteriores.
+- **Con Verifactu enviando a la AEAT:** con el ticket ya confirmado se emite la **F3 que la sustituye** (el ticket original se conserva); el NIF es obligatorio. Una factura ya registrada con cliente (F1 o F3) **no se cambia sin rectificarla**, y si la simplificada aún no está confirmada, hay que esperar.
 - Una empresa se guarda como razón social (y su contacto, si lo hay). El ticket de un pedido convertido imprime los datos del cliente elegido y no los del cliente por defecto.
-- **País del cliente** (España por defecto) y casilla **«No comprobar el documento»**: con España se comprueba el DNI/NIE/CIF y, con Verifactu, el censo de la AEAT; con otro país la casilla sale marcada y no se comprueba nada (un pasaporte o un documento extranjero entran tal cual). **Con Verifactu, la factura completa a un cliente de otro país no está disponible todavía** (la F3 de Verifactu solo envía un NIF español).
+- **Clientes de otro país:** sin Verifactu se puede hacer la factura a cualquier país. **Con Verifactu, la factura a un cliente de otro país no está disponible todavía** (la F3 de Verifactu solo envía un NIF español, sin país ni tipo de documento): el POS lo avisa y no envía nada a la AEAT.
+- **En pedidos reembolsados (total o parcialmente) y cancelados, el botón avisa y no deja cambiar nada**; tampoco en los fallidos o en borrador.
 - **Verifactu solo cuenta si su módulo está activado** en VFWoo (Módulos): con el plugin activo pero el módulo apagado no hay QR, NIF obligatorio, límite de venta ni F3.
 
-### 1.6 PDF de la factura en el POS *(core de facturas)*
+### 1.6 Estado del pedido, devolución y rectificativa *(estados: siempre; rectificativa: core de facturas)*
 
-**Botón «Factura PDF»**, bajo «Factura completa» en el detalle del pedido:
+**Cambiar el estado desde el POS.** En el detalle del pedido, el desplegable **Pedido Estado** ofrece solo tres opciones:
+
+| Opción | Estado de WooCommerce | Qué pasa |
+|---|---|---|
+| **Completado** | Completado | Como siempre |
+| **Anular** | Cancelado | Cancela el pedido. Con Verifactu, anula su factura en la AEAT. Sin Verifactu, el core **no marca** la factura como anulada |
+| **Devolver** | Reembolsado | **Devolución total**: WooCommerce crea el reembolso por todo el importe, el total pasa a 0 y VFWoo crea la rectificativa. **El dinero lo devuelve la tienda** |
+
+- Los demás estados (Pendiente de pago, Procesando, En espera, Fallido y Borrador) se **ocultan**; la lista de pedidos conserva los nombres de siempre. El **estado actual** del pedido se ve siempre con su nombre y, si no es uno de los tres, sin poder elegirse. Safari no oculta opciones: ahí salen en gris.
+- Al elegir **Anular** o **Devolver**, la pregunta de confirmación explica qué ocurre (con Verifactu, que la anulación se envía a la AEAT).
+- **El servidor rechaza cualquier otro estado**: una llamada a mano a la API de Webkul tampoco puede ponerlo.
+- Webkul **no devuelve un solo producto** desde la caja: la devolución parcial se hace en el escritorio de WooCommerce (**Reembolsar**).
+
+**Imprimir la rectificativa.** Si el pedido tiene reembolsos, bajo «Imprimir factura» sale un botón **«Imprimir rectificativa»** por cada uno (con varios, «Imprimir rectificativa 1», «2»…):
+
+- Imprime el PDF de la rectificativa de VFWoo con el mismo diálogo de imprimir, sin salir del POS.
+- Sin Verifactu, VFWoo crea la rectificativa **la primera vez que se imprime** (o se adjunta a un correo). Con Verifactu la emite él.
+- Probado por el usuario: el cambio a Reembolsado crea el reembolso y la rectificativa; **imprimirla desde el POS está pendiente de probar**.
+
+### 1.7 Imprimir factura y correo con PDF *(core de facturas)*
+
+**Botón «Imprimir factura»**, bajo «Cambiar factura» en el detalle del pedido (y, si el pedido tiene reembolsos, un botón **«Imprimir rectificativa»** por cada uno, con el PDF de la rectificativa de VFWoo):
 
 - Abre el **diálogo de imprimir del navegador** con el PDF de VFWoo (A4) **sin salir del POS**, igual que Webkul imprime el ticket. Si el navegador no lo permite, abre el PDF en una **pestaña nueva**.
-- Mientras VFWoo genera el PDF, el botón muestra **«Preparando PDF…»** con un indicador de carga y no admite una segunda pulsación.
+- Mientras VFWoo genera el PDF, el botón muestra **«Preparando factura…»** con un indicador de carga y no admite una segunda pulsación.
 - Sale cuando el pedido **ya tiene número de factura** y el usuario **puede abrir pedidos en el admin**.
 - El ticket de la térmica no cambia: es un botón aparte.
 
 **PDF adjunto al correo del POS.** El botón «Send order email» de Webkul manda el correo de WooCommerce del estado del pedido. VFWoo, por su cuenta, no adjunta el PDF en el canal VERI\*FACTU y en el canal local lo adjunta una sola vez por pedido, así que un reenvío salía sin él. El bridge lo adjunta **siempre que se pulsa el botón**:
 
-- Solo al **cliente** (no al admin ni en correos de reembolso), y solo si la factura **tiene número y se puede imprimir**.
+- Solo al **cliente** (no al admin, ni en correos de reembolso, ni en pedidos cancelados o fallidos), y solo si la factura **tiene número y se puede imprimir**.
 - Sin duplicarlo si VFWoo ya lo había añadido.
 - Casilla en **POS → Settings → VFWoo Bridge → Correo del pedido**, **activada por defecto**.
 - El cliente necesita un **email**; el «Cliente mostrador» normalmente no lo tiene.
@@ -164,7 +188,7 @@ Un botón en la **barra de administrador** que lleva a la caja, en la misma pest
 
 ### 3.3 Cajeros gestores
 
-Interruptor (**desactivado por defecto**) que añade el rol **«Gestor de tienda»** a los cajeros que se creen desde Webkul. Con él, los accesos de la cabecera y el botón «Factura PDF» funcionan para ese cajero. **Solo afecta a los cajeros creados después de activarlo.**
+Interruptor (**desactivado por defecto**) que añade el rol **«Gestor de tienda»** a los cajeros que se creen desde Webkul. Con él, los accesos de la cabecera y el botón «Imprimir factura» funcionan para ese cajero. **Solo afecta a los cajeros creados después de activarlo.**
 
 ### 3.4 Pantalla de acceso del POS
 
@@ -214,7 +238,10 @@ Todo lo de este documento lo añade el bridge: ni Webkul ni el plugin de factura
 | PDF de la factura (imprimir y correo) | No | Sí (core de facturas) |
 | NIF del cliente con comprobación de formato | No | Sí (core de facturas; opcional) |
 | NIF obligatorio, límite de venta y censo de la AEAT | No | Sí (Verifactu) |
-| Factura completa posterior desde el ticket | No | Sí (con Verifactu, como F3) |
+| Factura a un ticket ya entregado («Cambiar factura») | No | Sí (core de facturas; con Verifactu, como F3) |
+| País del cliente y «No comprobar el documento» | No | Sí |
+| Cambio de estado solo a Completado, Anular y Devolver | No (todos los estados) | Sí |
+| «Imprimir rectificativa» | No | Sí (core de facturas) |
 | Marcas, filtros y ventas por marca | No | Sí |
 | Aviso de cambios en el catálogo | No | Sí |
 | Accesos de la cabecera y botón POS-CAJA | No | Sí |
@@ -226,8 +253,9 @@ Todo lo de este documento lo añade el bridge: ni Webkul ni el plugin de factura
 |---|---|
 | Ventas, cobro, descuentos, cupones | Comprobación de cliente con NIF antes de cobrar |
 | Ticket y plantillas de factura | Número de factura, QR y etiquetas fiscales; plantilla propia opcional con los datos de VFWoo |
-| Pedidos, devoluciones y reimpresión | Botón de factura completa |
-| «Imprimir Invoice» (el ticket) | «Factura PDF» (A4, con el PDF de VFWoo) |
+| Pedidos, devoluciones y reimpresión | Botones «Cambiar factura», «Imprimir factura» e «Imprimir rectificativa» |
+| Desplegable de estado con todos los estados | Solo Completado, Anular y Devolver, con confirmación y regla en el servidor |
+| «Imprimir Invoice» (el ticket) | «Imprimir factura» (A4, con el PDF de VFWoo) |
 | «Send order email» (correo nativo de WooCommerce) | PDF de la factura adjunto, siempre |
 | Categorías y atributos como filtros | Marcas y otras clasificaciones como filtros |
 | Informes de pedidos, clientes y stock | Ventas por marca |
@@ -239,29 +267,47 @@ Todo lo de este documento lo añade el bridge: ni Webkul ni el plugin de factura
 
 - Tras instalar una versión con marcas o clientes nuevos, hacer **Resync → Products** (y de clientes) en cada caja.
 - Si un cliente antiguo no tiene NIF, se le pide al editarlo en el POS.
-- Para que una caja use un cambio del bridge (plantilla propia, botón «Factura PDF»), basta **recargarla** (Ctrl+F5); no hace falta Resync.
+- Para que una caja use un cambio del bridge (plantilla propia, botón «Imprimir factura»), basta **recargarla** (Ctrl+F5); no hace falta Resync.
+- **Al pasar a la 2.0.0:** recarga cada caja con Ctrl+F5 (no hace falta Resync). El bridge funciona con el VFWoo de un solo plugin, con el core y con el core más Verifactu. Si cambias al core, haz antes una **copia de seguridad**, desactiva el VFWoo antiguo (no pueden estar activos a la vez), activa «VFWoo Invoices» y, si lo usas, «VFWoo Verifactu» **con su módulo activado** en VFWoo → Módulos.
+- Las rutas `f3-status` e `issue-f3` ya no existen: ahora son `full-invoice-status` y `full-invoice-issue`.
 
 ### 5.4 Limitaciones conocidas
 
 **Facturas y ticket**
 
 - La comprobación de cliente antes de cobrar funciona **en la pantalla del POS**. Una venta hecha con un atajo de teclado o sin conexión y enviada después **no pasa por esa comprobación**: pendiente una red de seguridad en el servidor.
-- Las **rectificativas** (devolución total o parcial de simplificada, completa y F3) se hacen en WooCommerce y las genera VFWoo; está **pendiente verificarlas en sandbox**.
+- Las **rectificativas** (devolución total o parcial de un ticket, una factura y una F3) las genera VFWoo; con Verifactu está **pendiente verificarlas en sandbox**. Sin Verifactu se crean al imprimirlas por primera vez.
 - Si se colocan las etiquetas `${vfwoo_*}` en una plantilla de ticket, **desactivar el bridge sin quitarlas antes** deja el ticket sin imprimir.
 - Con el core solo, el ticket muestra el número de factura solo si el core ya la creó al cobrar (depende del estado de expedición configurado en el plugin de facturas).
 - Sin Verifactu no hay límite de venta ni NIF obligatorio.
-- **Factura completa sin Verifactu:** conserva el número del ticket y cambia los datos del cliente del pedido, así que el PDF original (a nombre del mostrador) deja de existir tal cual; solo queda la nota del pedido con los datos anteriores. Si la factura completa debe poder referirse al ticket, hay que confirmarlo con la gestoría.
+- **Factura sin Verifactu:** conserva el número del ticket y cambia los datos del cliente del pedido, así que el PDF original (a nombre del mostrador) deja de existir tal cual; solo queda la nota del pedido con los datos anteriores. Si la factura debe poder referirse al ticket, hay que confirmarlo con la gestoría.
 - El límite del POS (3.000 €) es fijo y no sigue los ajustes del plugin de facturas.
+
+**Estados, devoluciones y cancelados**
+
+- Desde el POS solo se devuelve **el pedido entero**. La devolución de un solo producto no existe en la caja (Webkul no la trae; su readme habla de un «Return POS» aparte): se hace en WooCommerce.
+- **El dinero de una devolución no se devuelve solo**: lo hace la tienda. No está comprobado cómo apunta Webkul esa devolución en la caja de efectivo del cajero.
+- **Anular con el core solo:** el core de VFWoo no marca como anulada la factura de un pedido cancelado y su PDF sale como una factura normal. Con Verifactu, la factura se anula y el PDF sale marcado. Está en el roadmap para VFWoo.
+- El desplegable se ordena en el navegador: ocultar opciones depende del navegador (Safari las deja en gris).
+
+**Venta sin conexión (Webkul)**
+
+- **Con inventario centralizado** (el stock compartido con la tienda online) **la caja no cobra sin conexión**: avisa «Cannot process orders with centralized inventory at offline mode». Solo funciona con **Master Stock** (stock propio del POS). No está comprobado cómo se reparte el stock entre la caja y la web en ese modo.
+- **El service worker de Webkul no se registra** en esta versión (7.1.1): el POS lo pide en `<web>/assets/service-worker.js`, que da 404 (el archivo está en la carpeta del plugin). Resultado: la caja **no arranca sin conexión**; solo sigue funcionando si ya estaba abierta. Pendiente de consultar a Webkul (`_dev/temp/informe-soporte-webkul-service-worker.md`).
+- Sin conexión no se pueden aplicar cupones ni añadir, editar o borrar clientes (Webkul), ni sincronizar hasta que vuelva la red.
+- **El ticket sin conexión saldría sin número de factura ni QR** (el pedido no existe en WooCommerce hasta sincronizar); no probado. Con Verifactu, consulta con tu gestor antes de entregar un ticket así.
+- La regla de 3.000 € sí se evalúa en el navegador, pero el cliente con NIF no se puede crear sin conexión: debe existir antes.
 
 **PDF de la factura**
 
-- «Factura PDF» **tarda unos segundos**, porque VFWoo genera el PDF de cero cada vez. La causa exacta está sin medir.
+- «Imprimir factura» **tarda unos segundos**, porque VFWoo genera el PDF de cero cada vez. La causa exacta está sin medir.
 - La **impresión directa** depende del navegador: Chrome y Edge suelen aceptarla; Firefox y Safari pueden fallar, y en ese caso se abre en una pestaña nueva. La ventana de imprimir siempre la abre el navegador (no se imprime en silencio).
-- El correo de reembolso sale **sin PDF** adjunto por el bridge.
+- Los correos de **reembolso** y los de pedidos **cancelados o fallidos** salen **sin PDF** adjunto por el bridge.
 - Con una **F3 que sustituye a una F2**, el PDF del pedido es el que VFWoo da como factura más reciente; no está comprobado qué documento sale en cada caso.
 - El PDF adjunto y el botón usan piezas internas del plugin de facturas (su motor de PDF y su ayudante de facturas). Si una versión futura las cambia, el bridge no adjunta ni imprime el PDF y el resto del correo sale como siempre.
 
-### 5.5 Rutas internas (solo lectura salvo la factura completa)
+### 5.5 Rutas internas
 
-- `admin-post.php?action=vfwoo_webkul_pdf`: redirige al PDF de VFWoo con el nonce de la sesión; pide permiso para abrir pedidos.
-- `vfwoo-webkul/v1/`: `catalog-version` (versión del catálogo), `brand-report` (ventas por marca), `f3-status` e `issue-f3` (factura completa posterior).
+- `admin-post.php?action=vfwoo_webkul_pdf`: redirige al PDF de VFWoo con el nonce de la sesión; pide permiso para abrir pedidos. Con `refund_id` redirige a la **rectificativa** de ese reembolso (`credit_note`), solo si es de ese pedido.
+- `vfwoo-webkul/v1/`: `catalog-version` (versión del catálogo), `brand-report` (ventas por marca), `full-invoice-status` y `full-invoice-issue` (hacer factura a un ticket ya entregado; con Verifactu, F3).
+- Filtro sobre `pos/v1/update-order-status` (Webkul): solo admite `completed`, `cancelled` y `refunded` (o el mismo estado del pedido).

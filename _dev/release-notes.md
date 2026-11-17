@@ -1,5 +1,13 @@
 # Release notes
 
+## 2.0.0 — release
+
+- Versión mayor (2026-11-17): consolida las entradas de desarrollo 0.1.4.1 a 0.1.4.2 y los cambios posteriores. Detalle en `CHANGELOG.md` y `docs/funcionalidades-pos-bridge.md`.
+- **Qué cambia:** el bridge detecta por capacidad el core de VFWoo y Verifactu (con su módulo activado); «Cambiar factura» hace factura a un ticket ya entregado con o sin Verifactu (persona o empresa, con país); cambio de estado del pedido solo a Completado / Anular / Devolver (con regla en el servidor); «Imprimir rectificativa»; vocabulario de la caja «ticket» y «factura».
+- **Por qué 2.0.0:** cambia el modo de trabajar con las facturas (dependencia, botones, rutas internas, límite fijo de 3.000 € y NIF obligatorio solo con Verifactu).
+- **Notas de actualización:** recargar cada caja con Ctrl+F5 (sin Resync). Quien pase del VFWoo antiguo al core: copia, desactivar el antiguo, activar «VFWoo Invoices» y «VFWoo Verifactu» con su módulo activado.
+- **Riesgos aceptados al publicar** (el usuario decidió publicar antes de las pruebas): factura desde el ticket con Verifactu enviando a la AEAT, impresión de la rectificativa desde el POS, cambio de estado en Safari y venta sin conexión, sin probar; «mismo número» sin Verifactu por confirmar con la gestoría; el core solo no marca como anulada la factura de un pedido cancelado; venta sin conexión limitada por Webkul (inventario centralizado y service worker que no se registra en la 7.1.1).
+
 ## 0.1.2 — release
 
 - **Publicada el 2026-09-20:** https://github.com/22MW/VFWoo-WCPOS-Bridge/releases/tag/pos-v0.1.2 (ZIP `vfwoo-webkul-pos-bridge.zip`, 25 archivos, verificado tras descargarlo y probado el actualizador contra las releases reales).

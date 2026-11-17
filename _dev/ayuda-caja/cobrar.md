@@ -18,8 +18,8 @@ Con el carrito listo, pulsa **Pagar** para pasar a la pantalla de cobro.
 
 ## Antes de cobrar
 
-- **Cliente.** Si no eliges ninguno, la venta se hace al cliente por defecto y sale un ticket simplificado.
-- Si la venta llega al **límite de la factura simplificada** y no hay un cliente con DNI/NIE/CIF, la caja **no te deja cobrar** y te pide elegir uno. → [Venta grande: elegir un cliente](venta-con-limite.md)
+- **Cliente.** Si no eliges ninguno, la venta se hace al cliente por defecto y sale un ticket.
+- Si la venta llega al **límite del ticket** y no hay un cliente con DNI/NIE/CIF, la caja **no te deja cobrar** y te pide elegir uno. → [Venta grande: elegir un cliente](venta-con-limite.md)
 - Si el cliente quiere **factura con sus datos**, elígelo antes de cobrar, con su DNI/NIE/CIF. → [Clientes con DNI/NIE/CIF](cliente-con-nif.md)
 
 ## Después de cobrar

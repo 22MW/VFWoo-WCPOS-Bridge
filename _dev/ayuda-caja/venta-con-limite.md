@@ -7,7 +7,7 @@ categoria: Lo que añade DEFACWOO
 
 # Venta grande: elegir un cliente
 
-Un **ticket simplificado** solo vale **por debajo de un importe límite**. A partir de ahí, la ley exige una **factura completa**, con los datos del cliente.
+Un **ticket** solo vale **por debajo de un importe límite**. A partir de ahí, la ley exige una **factura**, con los datos del cliente.
 
 > **Esta comprobación existe solo con VeriFacWoo activado.** Sin él, la caja no bloquea ninguna venta por su importe.
 
@@ -15,7 +15,7 @@ Un **ticket simplificado** solo vale **por debajo de un importe límite**. A par
 
 Si la venta **llega a 3.000 €** y no hay un cliente con DNI/NIE/CIF, la caja **no te deja cobrar** y te avisa:
 
-> «La venta (importe) alcanza el límite de la factura simplificada (límite). Elige un cliente con NIF.»
+> «La venta (importe) alcanza el límite del ticket (límite). Elige un cliente con NIF.»
 
 El aviso se puede cerrar con la **×** y desaparece solo a los 8 segundos. Así se evita emitir una factura que la Agencia Tributaria podría rechazar.
 

@@ -7,11 +7,11 @@ categoria: Lo que añade DEFACWOO
 
 # Clientes con DNI/NIE/CIF
 
-Para emitir una **factura completa** hace falta el cliente con sus datos. Al **crear un cliente desde la caja** puedes indicar su **DNI / NIE / CIF**.
+Para emitir una **factura** hace falta el cliente con sus datos. Al **crear un cliente desde la caja** puedes indicar su **DNI / NIE / CIF**.
 
 ## ¿Es obligatorio?
 
-- **Con VeriFacWoo:** sí. La Agencia Tributaria exige el documento en las facturas completas.
+- **Con VeriFacWoo:** sí. La Agencia Tributaria exige el documento en las facturas.
 - **Sin VeriFacWoo:** **es opcional.** Si lo dejas vacío, el cliente se guarda sin documento.
 
 ## Qué se comprueba
@@ -39,8 +39,8 @@ Lo más cómodo es completar el documento **al editarlo en la caja**. → [Clien
 ## Empresas y otros países
 
 - **Empresa:** escribe su razón social en **Empresa / razón social** y su CIF.
-- **Otro país:** elige el país. Con VeriFacWoo, la factura completa a un cliente de otro país **todavía no está disponible**.
+- **Otro país:** elige el país. Con VeriFacWoo, la factura a un cliente de otro país **todavía no está disponible**.
 
 ## Datos que se guardan
 
-El documento, la empresa, el domicilio y el país se guardan en la ficha del cliente y se copian al pedido al hacer la factura completa.
+El documento, la empresa, el domicilio y el país se guardan en la ficha del cliente y se copian al pedido al hacer la factura.

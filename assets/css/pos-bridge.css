@@ -490,7 +490,7 @@ iframe.vfwoo-pdf-frame {
 	border: 0;
 }
 
-/* «Factura PDF» button while VFWoo builds the PDF. Colours follow the button text, so it fits the light and dark POS themes. */
+/* «Imprimir factura» button while VFWoo builds the PDF. Colours follow the button text, so it fits the light and dark POS themes. */
 .pos-order-invoice.vfwoo-pdf button:disabled {
 	opacity: 0.75;
 	cursor: wait;

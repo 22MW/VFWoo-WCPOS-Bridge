@@ -31,7 +31,7 @@ Esta carpeta es la copia de la documentación de ayuda de la caja DEFACWOO. Cada
 
 ## De dónde sale lo que dicen
 
-- **Lo que añade DEFACWOO** (accesos de la cabecera, ticket con número de factura, NIF del cliente, factura completa posterior, marcas, aviso de catálogo): escrito con el plugin delante.
+- **Lo que añade DEFACWOO** (accesos de la cabecera, ticket con número de factura, NIF del cliente, factura de un ticket ya entregado, marcas, aviso de catálogo): escrito con el plugin delante.
 - **Lo nativo del POS de Webkul** (pantalla de venta, cobrar, cierres, informes, impresión…): escrito a partir de los textos y ajustes del propio plugin, **sin verlo en pantalla**. La caja está traducida a medias y algunos botones salen en inglés (por ejemplo *Resync* o *Hold Cart*): las páginas los dejan tal cual aparecen.
 
 Las páginas no llevan capturas de pantalla.
@@ -41,7 +41,7 @@ Las páginas no llevan capturas de pantalla.
 - **Cobrar:** el nombre exacto del botón de pago, cómo se pide el efectivo recibido y el cambio, y cómo se ve el pago dividido.
 - **Ventas aparcadas:** que una venta aparcada no descuenta stock y cómo se abre la lista.
 - **Pedidos y devoluciones:** dónde está el botón de enviar el recibo y cómo se registra un cambio.
-- **Sin conexión:** que con la app de la caja se puede seguir vendiendo sin internet y sincronizar al volver (lo indica el responsable, vale para cualquier tipo de stock). Falta confirmar en pantalla: qué no se puede hacer sin conexión (cupones, clientes) y el botón *Sincronizar pedidos sin conexión*.
+- **Sin conexión:** comprobado que con **inventario centralizado la caja no cobra sin conexión** (aviso de Webkul) y que el service worker del POS no se registra en esta versión (la caja no arranca sin red). Lo demás (cupones y clientes no disponibles, ticket sin número, sincronización) viene del código y **falta confirmarlo en pantalla** con una venta de prueba en modo sin conexión con Master Stock.
 - **Factura en PDF por correo** (página *Ticket con número de factura y QR*): se ha escrito a partir de la descripción del plugin de facturación (adjunta el PDF a los correos de WooCommerce y permite verlo y descargarlo desde el pedido). No se ha visto que una venta de la caja envíe ese correo al cliente; depende de que la tienda envíe correos de las ventas de la caja.
 - **Atajos de teclado:** la lista de teclas (la página solo remite al panel de la caja).
 - **Tarjeta:** que la caja no maneja el datáfono.
@@ -52,7 +52,7 @@ Las páginas no llevan capturas de pantalla.
 
 ## Notas
 
-- Las páginas de facturas (ticket, NIF, factura completa) dependen del plugin de facturación VFWoo. Si una tienda no lo tiene, esas funciones no aparecen.
+- Las páginas de facturas (ticket, NIF, factura) dependen del plugin de facturación VFWoo. Si una tienda no lo tiene, esas funciones no aparecen.
 - **El código QR solo existe con el módulo VeriFacWoo (VeriFactu) activado.** Sin él, el ticket y la factura salen sin QR, el NIF del cliente es opcional y no hay límite de venta. Las páginas lo dicen donde lo mencionan.
-- Las páginas no dan asesoramiento fiscal. El límite de la factura simplificada y el tipo de documento que corresponde a cada venta se consultan con el gestor.
+- Las páginas no dan asesoramiento fiscal. El límite del ticket y el tipo de documento que corresponde a cada venta se consultan con el gestor.
 - Contacto que usan las páginas: soporte@verifacwoo.com.
