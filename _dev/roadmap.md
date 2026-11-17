@@ -76,7 +76,7 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 
 - Ver D-026. Probado con simuladores en cuatro escenarios (core solo, core + Verifactu, VFWoo antiguo, sin plugin).
 - **Pendiente de probar en `pos.local`** al activar el core y el complemento (con el VFWoo antiguo desactivado): que el POS carga, que el ticket sale con número de factura al cobrar (el core crea la factura en el estado de expedición que se configure), el QR con Verifactu, la regla de 3.000 € y el NIF opcional/obligatorio.
-- **Hecho en código (D-027, sin commit): «Factura completa» desde el ticket con o sin Verifactu.** Ruta local (mismo número, datos del cliente en el pedido) y ruta Verifactu (F3). Pendiente de probar en `pos.local`: crear cliente con empresa y domicilio, convertir un ticket sin cliente, cambiar de cliente, PDF y correo con los datos nuevos, ticket reimpreso como factura completa, y con Verifactu enviando: F2 aceptada → F3, F1/F3 registradas → mensaje, y que el PDF de la F3 saque el cliente y el domicilio.
+- **Hecho en código (D-027, subido a la rama dev en la 0.1.4.2): «Factura completa» desde el ticket con o sin Verifactu.** Ruta local (mismo número, datos del cliente en el pedido) y ruta Verifactu (F3). Pendiente de probar en `pos.local`: crear cliente con empresa y domicilio, convertir un ticket sin cliente, cambiar de cliente, PDF y correo con los datos nuevos, ticket reimpreso como factura completa, y con Verifactu enviando: F2 aceptada → F3, F1/F3 registradas → mensaje, y que el PDF de la F3 saque el cliente y el domicilio.
 - **Pendiente de confirmar con la gestoría:** que una factura completa con el mismo número que el ticket (sin Verifactu) sirva, o si debe llevar número nuevo y referirse al ticket (requeriría que el core de VFWoo emita una segunda factura por pedido).
 - Pendiente: avisar a VFWoo de que, tras cambiar el cliente en una factura local, el PDF se regenera a nombre del nuevo (no se conserva el anterior).
 - **Cambios que hacen falta en VFWoo / Verifactu (no sabemos cuándo estarán; de momento el bridge se protege):**
@@ -139,7 +139,7 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 - Publicada `pos-v0.1.1` (`proceso-release.md`). Pendiente: comprobar en un sitio de staging, instalado desde el ZIP, que la siguiente release aparece en Actualizaciones y se instala.
 - Publicadas `pos-v0.1.1` y `pos-v0.1.2` (Marcas en la barra de categorías y estilos del POS). El desarrollo sigue en `0.1.2.1`.
 - Pendiente: comprobar en un sitio de staging, instalado desde el ZIP, que la actualización aparece y se instala (solo verificada con las releases reales en simulación).
-- Publicadas también `pos-v0.1.3` (login configurable, VFWoo opcional) y **`pos-v0.1.4` (2026-11-17)**. El desarrollo sigue en `0.1.4.1`. Pendiente: actualizar `pos.vfwoo.online` a la 0.1.4 (hoy tiene la dev 0.1.3.5) con `validar-deploy` y `desplegar`.
+- Publicadas también `pos-v0.1.3` (login configurable, VFWoo opcional) y **`pos-v0.1.4` (2026-11-17)**. El desarrollo sigue en `0.1.4.2` (rama dev subida). Pendiente: actualizar `pos.vfwoo.online` a la 0.1.4 (hoy tiene la dev 0.1.3.5) con `validar-deploy` y `desplegar`.
 - Recomendación: repositorio propio para este plugin.
 
 ## Fase futura: informes

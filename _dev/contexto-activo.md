@@ -29,13 +29,13 @@
 
 ## Pendiente
 
-- **Adaptación al core + Verifactu de VFWoo (D-026):** hecha en código (dev 0.1.4.1), **sin commit**. Orden para probarla en `pos.local`: copia de seguridad → desactivar el `vfwoo` antiguo → activar «VFWoo Invoices» y después «VFWoo Verifactu». Detalle y pendientes en `roadmap.md`.
+- **Adaptación al core + Verifactu de VFWoo (D-026):** hecha en código y **subida a la rama dev en la 0.1.4.2** (`ff87986`). Orden para probarla en `pos.local`: copia de seguridad → desactivar el `vfwoo` antiguo → activar «VFWoo Invoices» y después «VFWoo Verifactu». Detalle y pendientes en `roadmap.md`.
 
-- **«Factura completa» desde el ticket, con o sin Verifactu (D-027):** hecha en código, **sin commit**, probada con simulador (38 casos). Pendiente de probar en `pos.local` (crear cliente con empresa y domicilio, convertir, cambiar de cliente, PDF y correo, ticket reimpreso, y con Verifactu enviando F2→F3). Confirmar con la gestoría el «mismo número». Añadidos: país (España por defecto) + casilla «No comprobar el documento», y Verifactu solo cuenta con su módulo activado; lo pendiente de VFWoo está en `roadmap.md`.
+- **«Factura completa» desde el ticket, con o sin Verifactu (D-027):** hecha en código y **subida a la rama dev en la 0.1.4.2** (`ff87986`), probada con simulador (43 casos); el usuario la está probando en `pos.local`. Pendiente de probar en `pos.local` (crear cliente con empresa y domicilio, convertir, cambiar de cliente, PDF y correo, ticket reimpreso, y con Verifactu enviando F2→F3). Confirmar con la gestoría el «mismo número». Añadidos: país (España por defecto) + casilla «No comprobar el documento», y Verifactu solo cuenta con su módulo activado; lo pendiente de VFWoo está en `roadmap.md`.
 
 - **QA real pendiente de lo publicado en 0.1.4** (detalle en `roadmap.md`): correo con PDF desde «Send order email», botón «Factura PDF» (diálogo de imprimir, fallback a pestaña), plantilla de ticket propia con F1, reimpresión, F3 y rollo térmico, y el NIF mostrado (`seller_nif`). El PDF tarda unos segundos: causa sin medir.
 
-- **Plantilla de ticket propia (D-024):** **sin commit**. Confirmado en local: F2 impresa con la plantilla y logo al 50 % del ancho (con `!important`, por el `fitCss` de Webkul). Falta probar F1 con cliente, reimpresión, F3, con y sin QR y rollo real. Verificar que el NIF mostrado es el de `seller_nif`.
+- **Plantilla de ticket propia (D-024):** publicada en la 0.1.4. Confirmado en local: F2 impresa con la plantilla y logo al 50 % del ancho (con `!important`, por el `fitCss` de Webkul). Falta probar F1 con cliente, reimpresión, F3, con y sin QR y rollo real. Verificar que el NIF mostrado es el de `seller_nif`.
 
 - **Esperando a VFWoo:** el usuario aplicará el filtro `vfwoo_simplified_limit` en su workspace (prompt en `temp/prompt-vfwoo-filtro-limite.md`) y avisará con la versión. Hasta entonces no se toca el límite en el bridge. Plan en `temp/plan-limite-pos.md`.
 
