@@ -1,5 +1,7 @@
 # Contexto activo
 
+> **ANTES DE TOCAR CUALQUIER PANTALLA DEL POS: leer `_dev/estilos-pos.md` y `_dev/CLAUDE.md`.** Se reutiliza siempre el sistema de diseño de Webkul (clases, **ids**, variables) copiando su pantalla modelo, sin preguntar; cero CSS de aspecto; si hace falta algo nuevo, avisar, crearlo una vez en `core.js` (`ui`) y reutilizarlo; comprobar con números contra el modelo.
+
 ## Plugin objetivo
 
 `vfwoo-webkul-pos-bridge` (última release estable 0.1.3, rama `dev-vfwoo-webkul-pos-bridge`, Webkul POS 7.1.1)
@@ -24,9 +26,11 @@
 
 - **Fases 0 a 4 hechas y subidas a la rama dev (versión dev 2.0.0.2).** Detalle en D-030 y D-031; ayuda en `ayuda-caja/gestor-de-productos.md`.
 - **Estilos:** la pantalla «Productos» ya usa el HTML y las clases del POS (ver `estilos-pos.md`, referencia obligatoria; D-020 ampliada). Barra superior: pestaña «Productos», buscador, «Nuevo producto» y «Editar en WordPress».
-- **Pendiente, esperando «hazlo»:** (1) edición en **panel lateral** como el detalle de Pedidos, en vez de la ventana; (2) **fotos** en ese panel; (3) mover los componentes compartidos (ventana, paginación, preloader, interruptor, campos) a `core.js` (`window.vfwooBridge.ui`); (4) rehacer **«Marcas»** (y revisar «Cambiar factura» y el aviso) con esos componentes; (5) categorías, etiquetas y marcas existentes en el panel (`temp/plan-productos-fotos-y-taxonomias.md`).
+- **Subido a la rama dev (versión dev 2.0.0.3):** panel lateral, fotos, clasificación, componentes compartidos (`core.js` `ui` + `ui.css`), «Marcas» rehecha como la pantalla Informe (D-032, D-034, D-035) y la documentación de construcción (`estilos-pos.md`, `_dev/CLAUDE.md`). Archivos: `core.js`, `ui.css`, `modules/products.{js,css}`, `class-products-module.php`, `class-pos-script.php`, `pos-bridge.js`, `pos-bridge.css`, docs.
+- **Regla D-033 (2026-11-19):** el formulario del panel copia «Editar cliente» de Webkul (`ui.formShell`); todo con sus clases y variables, para que siga los ajustes de Apariencia (colores, modo, plantillas). Falta comprobar con otro color primario y en tema oscuro.
+- **Pendiente:** «Cambiar factura» (ventana) y el aviso de catálogo con los componentes del POS; fotos de variaciones.
 - **Sin probar:** cajero sin modo gestor (no debe ver la pestaña); vendedor con WCFM; Master Stock; Safari y tablet; tema oscuro con el diseño nuevo.
-- **Datos de prueba en `pos.local`:** el producto «ZZ prueba borrar» (id 39223) está en la papelera; la opción `vfwoo_webkul_modules` guardada con `products` activo.
+- **Datos de prueba en `pos.local` (borrar a mano):** productos «ZZ prueba borrar» (39223) y «ZZ prueba fotos borrar» (39225) en la papelera, y **9 imágenes `prueba-c0392b/27ae60/2980b9`** en la biblioteca (ids 39226-39234; WPML las triplica): el POS no puede borrar adjuntos, hay que hacerlo desde Medios; la opción `vfwoo_webkul_modules` guardada con `products` activo.
 - **Ruta del POS en local:** `http://pos.local/pos` (`_pos_endpoint_name` sin definir). La caja guarda el JS/CSS en caché: tras un cambio, `fetch(url, {cache:'reload'})` y recargar.
 
 ## Release

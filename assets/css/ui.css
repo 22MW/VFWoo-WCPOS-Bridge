@@ -1,0 +1,109 @@
+/* Layout-only helpers shared by the bridge screens. The look (colours, borders, buttons, inputs, rows,
+   pagination, switch, preloader) always comes from the POS classes: see _dev/estilos-pos.md. */
+
+.vfwoo-note {
+	margin: 4px 0 10px;
+	color: var(--text-color-light);
+	font-size: 12px;
+}
+
+/* The POS switch is drawn as a boxed form row: inside a list cell it is only the switch. */
+.vfwoo-screen-page .pos-form-switch-field {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+
+/* The POS removes the native look of checkboxes outside its forms: same fix the POS uses in its modals. */
+.vfwoo-screen-page input[type="checkbox"] {
+	-webkit-appearance: checkbox;
+	appearance: auto;
+	width: 18px;
+	height: 18px;
+	margin: 0;
+	accent-color: var(--primary-accent);
+	cursor: pointer;
+}
+
+/* The detail column is #order-main-summary: the POS gives it the surface, radius, margin and height. Here it only
+   becomes a column: title on top, the body scrolls, the buttons stay in view. */
+.vfwoo-screen-page .vfwoo-detail {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+.vfwoo-screen-page .vfwoo-detail .pos-sale-summary {
+	flex: 1 1 0;
+	min-height: 0;
+	height: auto;
+	overflow: auto;
+}
+
+.vfwoo-screen-page .vfwoo-detail-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	padding: 12px 15px;
+}
+
+.vfwoo-screen-page .vfwoo-detail-actions:empty {
+	display: none;
+}
+
+.vfwoo-screen-page .vfwoo-detail-actions button {
+	flex: 1 1 120px;
+	min-width: 0;
+}
+
+/* A section of a form, separated by a thin line. */
+.vfwoo-section {
+	margin-top: 14px;
+	padding-top: 14px;
+	border-top: 1px solid var(--secondary);
+}
+
+/* An on/off option: text and switch on one line. */
+.vfwoo-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	grid-column: 1 / -1;
+}
+
+/* The POS customer form wrapper is sized for a whole screen (own height and scroll): in the detail column the
+   body is what scrolls. */
+.vfwoo-screen-page .vfwoo-detail .pos-customers {
+	height: auto;
+	min-height: 0;
+	overflow: visible;
+	padding: 0;
+}
+
+/* No horizontal scroll at any width: the two columns may shrink below their content, the pager wraps. */
+.vfwoo-screen-page.pos-order #pos-order-tab {
+	grid-template-columns: minmax(0, 2.8fr) minmax(0, 1.2fr);
+}
+
+.vfwoo-screen-page.pos-order #order-main-summary {
+	width: auto;
+	min-width: 0;
+}
+
+.vfwoo-screen-page .pos-order-list {
+	overflow-x: hidden;
+}
+
+.vfwoo-screen-page .wkpos-paginition-wrapper {
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.vfwoo-screen-page .pos-order-list .dropdownlist-order {
+	overflow-x: hidden;
+}
+
+.pos-order .pos-order-list .dropdownlist-order .wkwcpos-order-data {
+	gap: 8px;
+}

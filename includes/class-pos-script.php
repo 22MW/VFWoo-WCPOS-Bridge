@@ -23,6 +23,7 @@ final class POS_Script {
 	public function allow_style( $styles ): array {
 		$styles   = is_array( $styles ) ? $styles : array();
 		$styles[] = 'vfwoo-webkul-pos-bridge';
+		$styles[] = 'vfwoo-webkul-pos-bridge-ui';
 		$styles[] = 'dashicons';
 		return $styles;
 	}
@@ -66,6 +67,9 @@ final class POS_Script {
 				'from'      => __( 'Desde', 'vfwoo-webkul-pos-bridge' ),
 				'to'        => __( 'Hasta', 'vfwoo-webkul-pos-bridge' ),
 				'apply'     => __( 'Ver', 'vfwoo-webkul-pos-bridge' ),
+				'filter'    => __( 'Filtrar', 'vfwoo-webkul-pos-bridge' ),
+				'period'    => __( 'Periodo', 'vfwoo-webkul-pos-bridge' ),
+				'custom'    => __( 'Personalizado', 'vfwoo-webkul-pos-bridge' ),
 				'allBrands' => __( 'Todas las marcas', 'vfwoo-webkul-pos-bridge' ),
 				'brand'     => __( 'Marca / producto', 'vfwoo-webkul-pos-bridge' ),
 				'units'     => __( 'Unidades', 'vfwoo-webkul-pos-bridge' ),
@@ -170,6 +174,12 @@ final class POS_Script {
 			'before'
 		);
 		wp_enqueue_style( 'dashicons' );
+		wp_enqueue_style(
+			'vfwoo-webkul-pos-bridge-ui',
+			VFWOO_WEBKUL_URL . 'assets/css/ui.css',
+			array(),
+			VFWOO_WEBKUL_VERSION
+		);
 		wp_enqueue_style(
 			'vfwoo-webkul-pos-bridge',
 			VFWOO_WEBKUL_URL . 'assets/css/pos-bridge.css',

@@ -172,10 +172,11 @@ Plan en `temp/plan-modulo-productos.md`; decisiones D-030 y D-031.
 - [x] **Fase 2 — Edición básica:** simples y variaciones existentes (sin fotos).
 - [x] **Fase 3 — Permisos:** servidor (`edit_products`, `edit_post`, `publish_products`, autor si no puede editar ajenos). Probado con usuarios simulados; **sin probar con un vendedor real**.
 - [x] **Fase 4 — Mejoras:** incompletos, acciones masivas, alta rápida por código de barras.
-- [ ] **Edición en panel lateral** (como el detalle de Pedidos) en vez de la ventana emergente; las clases de formulario del POS solo existen dentro de una ventana, hay que meter el formulario en esa estructura.
-- [ ] **Componentes compartidos en `core.js`** (`window.vfwooBridge.ui`): ventana, paginación, preloader, interruptor, campo, fila de lista.
-- [ ] **Rehacer «Marcas»** (y revisar «Cambiar factura» y el aviso de catálogo) con `estilos-pos.md`.
-- [ ] **Fotos** en el panel (subida con la sesión del POS, `FormData` + `authkey`; la cámara de la tablet con `capture`). Aplazadas por decisión del usuario.
+- [x] **Edición en panel lateral** (como el detalle de Pedidos): hecha, probada en `pos.local`.
+- [x] **Componentes compartidos en `core.js`** (`window.vfwooBridge.ui`) y `ui.css`: hechos (pantalla, detalle, lista, paginación, preloader, interruptor, campos).
+- [x] **«Marcas» rehecha** con los componentes del POS. [ ] Pendiente: «Cambiar factura» (ventana) y el aviso de catálogo.
+- [x] **Fotos** en el panel (principal y galería; subida con la sesión del POS; quitar solo desvincula) y **clasificación** con términos existentes: hechas, probadas.
+- [ ] (antes) fotos en el panel (subida con la sesión del POS, `FormData` + `authkey`; la cámara de la tablet con `capture`). Aplazadas por decisión del usuario.
 - [ ] Probar con **otro usuario cajero con modo gestor** y con un usuario **sin** modo gestor (no debe ver la pestaña).
 - [ ] Probar con **Master Stock** (hoy el popup deja el stock bloqueado) y con **WCFM** (vendedor: solo sus productos).
 - [ ] Ajuste de stock rápido con nota (idea aparcada).

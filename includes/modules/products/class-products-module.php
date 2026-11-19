@@ -75,6 +75,8 @@ final class Products_Module {
 			'bulkUrl'       => esc_url_raw( rest_url( 'vfwoo-webkul/v1/products/bulk' ) ),
 			'createUrl'     => esc_url_raw( rest_url( 'vfwoo-webkul/v1/products/create' ) ),
 			'canCreate'     => current_user_can( 'publish_products' ),
+			'imageUrl'      => esc_url_raw( rest_url( 'vfwoo-webkul/v1/products/image' ) ),
+			'canUpload'     => current_user_can( 'upload_files' ),
 			'allUrl'        => admin_url( 'edit.php?post_type=product' ),
 			'categories'    => $categories,
 			'brands'        => self::brands(),
@@ -118,6 +120,21 @@ final class Products_Module {
 				'inStock'     => __( 'En stock', 'vfwoo-webkul-pos-bridge' ),
 				'backorder'   => __( 'Bajo pedido', 'vfwoo-webkul-pos-bridge' ),
 				'edit'        => __( 'Editar', 'vfwoo-webkul-pos-bridge' ),
+				'selectPrompt' => __( 'Selecciona un producto de la lista para editarlo aquí.', 'vfwoo-webkul-pos-bridge' ),
+				'photos'      => __( 'Fotos', 'vfwoo-webkul-pos-bridge' ),
+				'mainPhoto'   => __( 'Foto principal', 'vfwoo-webkul-pos-bridge' ),
+				'gallery'     => __( 'Galería', 'vfwoo-webkul-pos-bridge' ),
+				'changePhoto' => __( 'Cambiar foto', 'vfwoo-webkul-pos-bridge' ),
+				'addPhoto'    => __( 'Añadir foto', 'vfwoo-webkul-pos-bridge' ),
+				'removePhoto' => __( 'Quitar', 'vfwoo-webkul-pos-bridge' ),
+				'makeMain'    => __( 'Hacer principal', 'vfwoo-webkul-pos-bridge' ),
+				'noPhoto'     => __( 'Sin foto', 'vfwoo-webkul-pos-bridge' ),
+				'uploading'   => __( 'Subiendo…', 'vfwoo-webkul-pos-bridge' ),
+				'photoError'  => __( 'No se ha podido guardar la foto.', 'vfwoo-webkul-pos-bridge' ),
+				'photoNote'   => __( 'Quitar una foto solo la desvincula del producto: no se borra de la biblioteca.', 'vfwoo-webkul-pos-bridge' ),
+				'classification' => __( 'Clasificación', 'vfwoo-webkul-pos-bridge' ),
+				'classNote'   => __( 'Solo se pueden marcar las que ya existen; aquí no se crea ninguna.', 'vfwoo-webkul-pos-bridge' ),
+				'filterTerms' => __( 'Filtrar…', 'vfwoo-webkul-pos-bridge' ),
 				'incAll'      => __( 'Incompletos', 'vfwoo-webkul-pos-bridge' ),
 				'brandAll'    => __( 'Marcas', 'vfwoo-webkul-pos-bridge' ),
 				'saleAll'     => __( 'Ofertas: todas', 'vfwoo-webkul-pos-bridge' ),
@@ -214,6 +231,7 @@ final class Products_Module {
 			'/products/update'     => 'handle_update',
 			'/products/bulk'       => 'handle_bulk',
 			'/products/create'     => 'handle_create',
+			'/products/image'      => 'handle_image',
 		) as $route => $method ) {
 			register_rest_route(
 				'vfwoo-webkul/v1',
@@ -605,12 +623,14 @@ final class Products_Module {
 		);
 	}
 
-	private function editable_payload( \WC_Product $product ): array {
+	private function editable_payload( \WC_Product $product, int $user_id = 0 ): array {
 		$data = $this->fields( $product ) + array(
 			'name'           => $product->get_name( 'edit' ),
 			'status'         => $product->get_status( 'edit' ),
 			'type'           => $product->get_type(),
 			'editable'       => $this->editable_type( $product ),
+			'images'         => $this->images( $product ),
+			'terms'          => $this->terms_payload( $product, $user_id ),
 			'stockEditable'  => $this->stock_is_editable(),
 			'editUrl'        => admin_url( 'post.php?post=' . $product->get_id() . '&action=edit' ),
 			'variations'     => array(),
@@ -630,6 +650,86 @@ final class Products_Module {
 		return $data;
 	}
 
+
+	/**
+	 * Main photo and gallery of a product, as small image urls.
+	 *
+	 * @return array{main:?array{id:int,url:string},gallery:array<int,array{id:int,url:string}>}
+	 */
+	private function images( \WC_Product $product ): array {
+		$one     = static function ( int $id ): array {
+			return array(
+				'id'  => $id,
+				'url' => (string) wp_get_attachment_image_url( $id, 'medium' ),
+			);
+		};
+		$main    = (int) $product->get_image_id( 'edit' );
+		$gallery = array_map( 'absint', $product->get_gallery_image_ids( 'edit' ) );
+		return array(
+			'main'    => $main ? $one( $main ) : null,
+			'gallery' => array_map( $one, $gallery ),
+		);
+	}
+
+	/**
+	 * Taxonomies the popup can classify a product with. Only existing terms are ever assigned.
+	 *
+	 * @return string[]
+	 */
+	private function term_taxonomies(): array {
+		$taxonomies = array( 'product_cat', 'product_tag' );
+		if ( taxonomy_exists( 'product_brand' ) ) {
+			$taxonomies[] = 'product_brand';
+		}
+		return $taxonomies;
+	}
+
+	/**
+	 * Existing terms of each taxonomy (children after their parent) and the ones the product has.
+	 */
+	private function terms_payload( \WC_Product $product, int $user_id ): array {
+		$out = array();
+		foreach ( $this->term_taxonomies() as $taxonomy ) {
+			$object = get_taxonomy( $taxonomy );
+			$terms  = get_terms(
+				array(
+					'taxonomy'   => $taxonomy,
+					'hide_empty' => false,
+				)
+			);
+			if ( ! $object || ! is_array( $terms ) ) {
+				continue;
+			}
+
+			$children = array();
+			foreach ( $terms as $term ) {
+				$children[ (int) $term->parent ][] = $term;
+			}
+			$list = array();
+			$walk = static function ( int $parent, int $depth ) use ( &$walk, &$children, &$list ): void {
+				foreach ( $children[ $parent ] ?? array() as $term ) {
+					$list[] = array(
+						'id'    => (int) $term->term_id,
+						'name'  => $term->name,
+						'depth' => $depth,
+					);
+					$walk( (int) $term->term_id, $depth + 1 );
+				}
+			};
+			$walk( 0, 0 );
+
+			$selected = wp_get_object_terms( $product->get_id(), $taxonomy, array( 'fields' => 'ids' ) );
+			$out[]    = array(
+				'taxonomy'  => $taxonomy,
+				'label'     => $object->labels->name,
+				'terms'     => $list,
+				'selected'  => is_array( $selected ) ? array_map( 'intval', $selected ) : array(),
+				'canAssign' => $user_id ? user_can( $user_id, $object->cap->assign_terms ) : false,
+			);
+		}
+		return $out;
+	}
+
 	public function handle_get( \WP_REST_Request $request ) {
 		$context = $this->context( $request );
 		if ( isset( $context['success'] ) ) {
@@ -647,7 +747,7 @@ final class Products_Module {
 
 		return array(
 			'success' => true,
-			'data'    => $this->editable_payload( $product ),
+			'data'    => $this->editable_payload( $product, $context['user_id'] ),
 		);
 	}
 
@@ -791,6 +891,26 @@ final class Products_Module {
 
 			$this->apply_fields( $product, $input, ! $product->is_type( 'variable' ), $stock );
 
+			// Classification: only ids of terms that already exist in that taxonomy, and only where the user may assign.
+			$term_changes = array();
+			$posted_terms = isset( $input['terms'] ) && is_array( $input['terms'] ) ? $input['terms'] : array();
+			foreach ( $this->term_taxonomies() as $taxonomy ) {
+				$object = get_taxonomy( $taxonomy );
+				if ( ! $object || ! isset( $posted_terms[ $taxonomy ] ) || ! is_array( $posted_terms[ $taxonomy ] ) ) {
+					continue;
+				}
+				if ( ! user_can( $context['user_id'], $object->cap->assign_terms ) ) {
+					continue;
+				}
+				$ids = array_values( array_unique( array_map( 'absint', $posted_terms[ $taxonomy ] ) ) );
+				foreach ( $ids as $term_id ) {
+					if ( ! $term_id || ! term_exists( $term_id, $taxonomy ) ) {
+						throw new \Exception( esc_html__( 'Una clasificación elegida no existe.', 'vfwoo-webkul-pos-bridge' ) );
+					}
+				}
+				$term_changes[ $taxonomy ] = $ids;
+			}
+
 			// Only variations that already belong to this product; none is created.
 			$changes = array();
 			if ( $product->is_type( 'variable' ) && isset( $input['variations'] ) && is_array( $input['variations'] ) ) {
@@ -820,6 +940,9 @@ final class Products_Module {
 			if ( $changes ) {
 				\WC_Product_Variable::sync( $id );
 			}
+			foreach ( $term_changes as $taxonomy => $ids ) {
+				wp_set_object_terms( $id, $ids, $taxonomy ); // Integer ids: WordPress cannot create a term from them.
+			}
 		} catch ( \Exception $e ) {
 			return $this->error( 400, $e->getMessage() );
 		}
@@ -829,9 +952,105 @@ final class Products_Module {
 
 		return array(
 			'success' => true,
-			'data'    => $this->editable_payload( $fresh ),
+			'data'    => $this->editable_payload( $fresh, $context['user_id'] ),
 			'row'     => $this->row( $id, $context['outlet_id'] ),
 		);
+	}
+
+	/**
+	 * Photos of a product: add the main one or one to the gallery, make one the main, or unlink one.
+	 * Unlinking never deletes the file from the media library.
+	 */
+	public function handle_image( \WP_REST_Request $request ) {
+		$context = $this->context( $request );
+		if ( isset( $context['success'] ) ) {
+			return $context;
+		}
+
+		$id      = absint( $request->get_param( 'product_id' ) );
+		$op      = $this->choice( $request->get_param( 'op' ), array( 'add_main', 'add_gallery', 'remove', 'make_main' ) );
+		$product = $id && 'product' === get_post_type( $id ) ? wc_get_product( $id ) : null;
+		if ( ! $product || ! $op ) {
+			return $this->error( 400, __( 'Petición no válida.', 'vfwoo-webkul-pos-bridge' ) );
+		}
+		if ( ! user_can( $context['user_id'], 'edit_post', $id ) ) {
+			return $this->error( 403, __( 'No puedes editar este producto.', 'vfwoo-webkul-pos-bridge' ) );
+		}
+
+		$main    = (int) $product->get_image_id( 'edit' );
+		$gallery = array_map( 'absint', $product->get_gallery_image_ids( 'edit' ) );
+
+		if ( 0 === strpos( $op, 'add_' ) ) {
+			if ( ! user_can( $context['user_id'], 'upload_files' ) ) {
+				return $this->error( 403, __( 'Tu usuario no puede subir archivos.', 'vfwoo-webkul-pos-bridge' ) );
+			}
+			$attachment = $this->upload_image( $request, $id, $context['user_id'] );
+			if ( is_string( $attachment ) ) {
+				return $this->error( 400, $attachment );
+			}
+			if ( 'add_main' === $op ) {
+				$main = $attachment;
+			} else {
+				$gallery[] = $attachment;
+			}
+		} else {
+			$image_id = absint( $request->get_param( 'image_id' ) );
+			if ( 'remove' === $op ) {
+				if ( $image_id === $main ) {
+					$main = 0;
+				}
+				$gallery = array_values( array_diff( $gallery, array( $image_id ) ) );
+			} elseif ( in_array( $image_id, $gallery, true ) ) { // make_main: the old main goes to the gallery.
+				$gallery = array_values( array_diff( $gallery, array( $image_id ) ) );
+				if ( $main ) {
+					$gallery[] = $main;
+				}
+				$main = $image_id;
+			}
+		}
+
+		$product->set_image_id( $main );
+		$product->set_gallery_image_ids( $gallery );
+		$product->save();
+
+		return array(
+			'success' => true,
+			'data'    => $this->images( wc_get_product( $id ) ),
+		);
+	}
+
+	/**
+	 * Stores the uploaded file in the media library, attached to the product. Returns the attachment id, or a message.
+	 *
+	 * @return int|string
+	 */
+	private function upload_image( \WP_REST_Request $request, int $product_id, int $user_id ) {
+		$files = $request->get_file_params();
+		$file  = isset( $files['file'] ) && is_array( $files['file'] ) ? $files['file'] : array();
+		if ( empty( $file['tmp_name'] ) || ! empty( $file['error'] ) ) {
+			return __( 'No ha llegado ninguna foto.', 'vfwoo-webkul-pos-bridge' );
+		}
+		if ( (int) $file['size'] > wp_max_upload_size() ) {
+			return __( 'La foto es demasiado grande para este servidor.', 'vfwoo-webkul-pos-bridge' );
+		}
+		$check = wp_check_filetype_and_ext( $file['tmp_name'], (string) $file['name'] );
+		if ( empty( $check['type'] ) || ! in_array( $check['type'], array( 'image/jpeg', 'image/png', 'image/gif', 'image/webp' ), true ) ) {
+			return __( 'Solo se admiten fotos JPG, PNG, GIF o WebP.', 'vfwoo-webkul-pos-bridge' );
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+
+		$previous = get_current_user_id();
+		wp_set_current_user( $user_id ); // The attachment's author is the current user.
+		$attachment = media_handle_upload( 'file', $product_id );
+		wp_set_current_user( $previous );
+
+		if ( is_wp_error( $attachment ) ) {
+			return $attachment->get_error_message();
+		}
+		return (int) $attachment;
 	}
 
 	/**

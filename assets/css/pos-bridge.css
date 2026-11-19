@@ -25,49 +25,7 @@
 	cursor: pointer;
 }
 
-/* POS theme first: colours come from the POS variables (--primary, --secondary, --text-color,
-   --text-color-light, --primary-accent, --fixed), which change with its light and dark modes.
-   Primary actions use the POS class `primary`; nothing here hard-codes a colour except the warning notice. */
-
-.vfwoo-brands-page {
-	width: 100%;
-	max-height: 100vh;
-	overflow: auto;
-	padding: 20px 24px;
-	box-sizing: border-box;
-	color: var(--text-color);
-	font-size: 15px;
-}
-
-.vfwoo-brands-header {
-	display: flex;
-	align-items: center;
-	gap: 16px;
-}
-
-.vfwoo-brands-header h2 {
-	margin: 0;
-	font-size: 22px;
-	color: var(--text-color);
-}
-
-.vfwoo-brands-toolbar,
-.vfwoo-brands-filter {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 8px;
-	margin: 14px 0;
-}
-
-.vfwoo-brands-toolbar label {
-	display: flex;
-	align-items: center;
-	gap: 6px;
-	color: var(--text-color);
-}
-
-.vfwoo-brands-page button:not(.primary),
+/* Buttons of the "complete invoice" window (to be rebuilt with the POS components). */
 .vfwoo-full-overlay button:not(.primary):not(.vfwoo-full-x) {
 	padding: 8px 14px;
 	border: 1px solid var(--text-color-light);
@@ -77,70 +35,11 @@
 	cursor: pointer;
 }
 
-.vfwoo-brands-page button.primary,
 .vfwoo-full-overlay button.primary {
 	padding: 8px 14px;
 	border: 0;
 	border-radius: 6px;
 	cursor: pointer;
-}
-
-.vfwoo-brands-table {
-	width: 100%;
-	border-collapse: collapse;
-	border-top: 3px solid var(--primary-accent);
-	border-bottom: 3px solid var(--primary-accent);
-	color: var(--text-color);
-}
-
-.vfwoo-brands-table th {
-	color: var(--primary-accent);
-	font-weight: 600;
-	letter-spacing: 0.5px;
-}
-
-.vfwoo-brands-table th,
-.vfwoo-brands-table td {
-	padding: 10px 12px;
-	text-align: right;
-}
-
-.vfwoo-brands-table th:first-child,
-.vfwoo-brands-table td:first-child {
-	text-align: left;
-}
-
-.vfwoo-brands-table tbody tr:nth-child(odd) {
-	background: var(--secondary);
-}
-
-.vfwoo-brands-brand {
-	font-weight: 600;
-	cursor: pointer;
-}
-
-.vfwoo-brands-brand:hover,
-.vfwoo-brands-page .vfwoo-brands-table tbody tr:hover {
-	box-shadow: inset 0 0 0 1px var(--primary-accent);
-}
-
-.vfwoo-brands-product td:first-child {
-	padding-left: 32px;
-}
-
-.vfwoo-brands-total {
-	font-weight: 700;
-	border-top: 1px solid var(--text-color-light);
-}
-
-.vfwoo-brands-note {
-	margin-top: 14px;
-	font-size: 12px;
-	color: var(--text-color-light);
-}
-
-.vfwoo-brands-status {
-	color: var(--text-color);
 }
 
 /* Complete invoice dialog: --fixed is the opaque surface of each theme (black / white). */

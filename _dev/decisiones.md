@@ -182,3 +182,26 @@ Opción `vfwoo_webkul_filter_taxonomies`. Lista de taxonomías registradas para 
 - **SKU y GTIN solo se validan si cambian:** WooCommerce rechaza cualquier guardado de un producto cuyo SKU ya está repetido (por ejemplo, las traducciones WPML que comparten SKU); solo se llama a `set_sku` / `set_global_unique_id` si el valor cambió.
 - **El producto antiguo «Productos» de la cabecera** lo quita el módulo con el filtro `vfwoo_webkul_shortcuts` (nuevo, en `Admin_Shortcuts::items()`); con el módulo desactivado vuelve.
 - **Fuera de v1:** fotos, categorías, marcas, descripciones, productos agrupados o externos, stock con Master Stock, ajuste de stock con nota.
+
+## D-032 — Panel lateral, fotos, clasificación y componentes compartidos
+- **Edición en panel lateral** (pedido del usuario, 2026-11-19): al pulsar un producto se edita a la derecha, con la estructura del detalle de Pedidos (`ui.detail()`); la ventana emergente desaparece. «Nuevo producto» usa el mismo panel y, al crear, abre el producto creado.
+- **Fotos** (`POST /products/image`, multipart con `FormData` y la sesión del POS): `add_main`, `add_gallery`, `make_main`, `remove`. Exige `edit_post` del producto y `upload_files`; solo JPG, PNG, GIF y WebP (`wp_check_filetype_and_ext`) y límite de `wp_max_upload_size()`; el autor del adjunto es el cajero (`wp_set_current_user` durante la petición); el navegador reduce la foto a 1600 px y JPEG antes de subirla. **Quitar solo desvincula**: nunca borra de la biblioteca. Las fotos de variaciones quedan fuera.
+- **Clasificación**: categorías, etiquetas y marcas (si existe `product_brand`) con **ids de términos que ya existen** (`term_exists`; se guardan con `wp_set_object_terms` y ids enteros, así WordPress no puede crear ninguno) y solo si el usuario tiene `assign_terms` de esa taxonomía.
+- **Componentes compartidos** en `core.js` (`window.vfwooBridge.ui`) + `ui.css`: ver `estilos-pos.md` §13. La rejilla de dos columnas del POS cuelga del **id `pos-order-tab`**.
+- **Paginación solo abajo** (pedido del usuario): el total y «página X de N» van en la misma línea que los números.
+- **«Marcas»** rehecha con estos componentes y sin botón «Volver».
+
+## D-033 — Regla de oro: usar el sistema de diseño de Webkul, mínimo código y preparado para updates
+- **Decisión del usuario (2026-11-19):** el bridge no inventa formularios, botones, desplegables, tablas, ventanas ni estilos. Usa **las clases, el HTML y las variables de color de Webkul** (el administrador elige colores, modo claro/oscuro y plantillas en *Ajustes › Apariencia* y todo debe adaptarse). **No** se usan los componentes de WordPress (`wp.components`): no siguen esos ajustes. Referencia: `estilos-pos.md` §0.
+- **Modelos:** formulario → Clientes «Editar cliente»; lista con detalle → Pedidos; resumen → Pedidos o Informe.
+- **Preparado para updates:** el acoplamiento a las clases de Webkul vive en `core.js` y en `estilos-pos.md`; si algo falta, la pantalla se ve peor pero nunca rompe la caja; lista de comprobación tras cada update (incluye cambiar el color primario y comprobar que las pantallas lo siguen).
+- **Estado:** el editor lateral de D-032 **no gustó** (feo y poco práctico, no copiaba ninguna pantalla de Webkul); se rehace copiando «Editar cliente». El servidor de fotos y clasificación (D-032) se mantiene.
+
+## D-034 — Forma de construir pantallas: reutilizar sin preguntar, avisar y crear componentes una sola vez
+- **Decisión del usuario (2026-11-19), tras varias discusiones:** todo lo que el bridge pinte en el POS **reutiliza lo que ya hay de Webkul sin preguntar** (clases, HTML, **ids**, variables), copiando la pantalla modelo entera. Si hace falta algo que Webkul no tiene: **avisar**, crearlo **una sola vez** como componente en `core.js` (`ui`), documentarlo y reutilizarlo en todas las pantallas. No se cambia un diseño aprobado sin avisar.
+- **Dónde está:** `_dev/estilos-pos.md` (las 8 reglas, el procedimiento, cómo crear un componente, los errores ya cometidos, el inventario de piezas de Webkul y de `core.js`), `_dev/CLAUDE.md` (resumen que se carga al trabajar en el plugin), aviso al inicio de `contexto-activo.md` y la memoria de usuario.
+- **Lecciones clave:** los ids dan estilo (`#order-main-summary`, `#pos-order-tab`); copiar «parecido» no vale; los formularios de pantalla copian «Editar cliente» y no las clases de las ventanas; comprobar con valores calculados contra el modelo y sin scroll horizontal.
+
+## D-035 — «Marcas» como la pantalla Informe de Webkul
+- Pedido del usuario (2026-11-19, con capturas de Informes): el resumen de marcas copia el modelo **Informe** (`wkreport-*`: filtros con etiqueta, botón «Filtrar», tarjetas de totales y tabla de informe), no una lista de Pedidos. Para ello se crean, una sola vez, los componentes `ui.report`, `ui.reportField`, `ui.reportButton`, `ui.reportCards` y `ui.reportTable` en `core.js` (regla 5 de `estilos-pos.md`).
+- Cambio de comportamiento: el filtro de marca pasa de botones (multiselección) a un desplegable de una marca; se pide con «Filtrar», como en Informe.

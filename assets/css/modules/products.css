@@ -1,15 +1,15 @@
 /* Module "Productos". The screen is built with the POS own markup and classes (see _dev/estilos-pos.md), so
-   buttons, inputs, selects, rows, pagination, modal and preloader come from the POS. Only what the POS does not
-   provide is here: how the list columns are shared, a few flex rows and the grid of fields in the popups. */
+   buttons, inputs, selects, rows, pagination, switches and preloader come from the POS, and the shared layout
+   helpers are in ui.css. Only layout specific to this screen is here: rows of controls, column widths, photos. */
 
 /* The tab bar holds the title tab and, next to it, the search and the buttons. */
-.vfwoo-products-page .pos-tabs {
+.vfwoo-screen-page .pos-tabs {
 	display: flex;
 	align-items: center;
 	gap: 16px;
 }
 
-.vfwoo-products-page .pos-tabs .vfwoo-products-top {
+.vfwoo-screen-page .pos-tabs .vfwoo-products-top {
 	flex: 1 1 auto;
 	flex-wrap: nowrap;
 	margin: 0;
@@ -32,10 +32,10 @@
 	min-width: 120px;
 }
 
-/* Filters share the whole line; below 120px each one moves to the next line. */
+/* Filters share the whole line; below 110px each one moves to the next line. */
 .vfwoo-products-toolbar .vfwoo-products-select {
-	flex: 1 1 120px;
-	min-width: 120px;
+	flex: 1 1 110px;
+	min-width: 110px;
 	width: auto;
 }
 
@@ -46,17 +46,18 @@
 	padding-top: 0;
 }
 
-/* Column widths: the POS gives every column 15%, this list has eight. */
+/* Column widths: the POS gives every column 15%, this list has seven. */
 .pos-order .pos-order-list .dropdownlist-order .wkwcpos-order-data > span.vfwoo-col-check {
-	flex: 0 0 3%;
+	flex: 0 0 4%;
 }
 
 .pos-order .pos-order-list .dropdownlist-order .wkwcpos-order-data > span.vfwoo-col-photo {
-	flex: 0 0 5%;
+	flex: 0 0 7%;
 }
 
 .pos-order .pos-order-list .dropdownlist-order .wkwcpos-order-data > span.vfwoo-col-name {
-	flex: 0 0 30%;
+	flex: 1 1 0;
+	min-width: 0;
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: center;
@@ -64,26 +65,21 @@
 }
 
 .pos-order .pos-order-list .dropdownlist-order .wkwcpos-order-data > span.vfwoo-col-price {
-	flex: 0 0 11%;
+	flex: 0 0 13%;
 }
 
 .pos-order .pos-order-list .dropdownlist-order .wkwcpos-order-data > span.vfwoo-col-stock {
-	flex: 0 0 8%;
-}
-
-.pos-order .pos-order-list .dropdownlist-order .wkwcpos-order-data > span.vfwoo-col-switch {
 	flex: 0 0 9%;
 }
 
-.pos-order .pos-order-list .dropdownlist-order .wkwcpos-order-data > span.vfwoo-col-actions {
-	flex: 0 0 8%;
+.pos-order .pos-order-list .dropdownlist-order .wkwcpos-order-data > span.vfwoo-col-switch {
+	flex: 0 0 11%;
 }
 
 .vfwoo-col-photo img {
 	width: 40px;
 	height: 40px;
 	object-fit: cover;
-	border-radius: 6px;
 }
 
 .vfwoo-col-name small {
@@ -92,53 +88,40 @@
 	font-size: 12px;
 }
 
-/* The POS switch is drawn as a boxed form row: inside a table cell it is only the switch. */
-.vfwoo-products-page .pos-form-switch-field {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	background: none;
+/* Side panel: photos and the buttons of the classification. */
+.vfwoo-photos {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
 }
 
-/* Checkboxes as the POS draws them in its modals (native look with the accent colour). */
-.vfwoo-products-page input[type="checkbox"],
-.vfwoo-products-modal input[type="checkbox"] {
-	-webkit-appearance: checkbox;
-	appearance: auto;
-	width: 18px;
-	height: 18px;
-	margin: 0;
-	accent-color: var(--primary-accent);
-	cursor: pointer;
+.vfwoo-photo {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	width: 80px;
 }
 
-/* Popups: width and a grid for the fields. */
-.vfwoo-products-modal {
-	width: min(760px, 94vw);
-	max-height: 92vh;
-	overflow: auto;
+.vfwoo-photo img {
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
 }
 
-.vfwoo-form-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-	gap: 14px;
-	margin-bottom: 14px;
+.vfwoo-photo-actions,
+.vfwoo-photo-add {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
 
-.vfwoo-form-grid .pos-form-checkbox-field {
-	grid-column: 1 / -1;
+.vfwoo-photo-add {
+	justify-content: center;
 }
 
-.vfwoo-note {
-	margin: 4px 0 10px;
-	color: var(--text-color-light);
-	font-size: 12px;
-}
-
-.vfwoo-variation {
-	margin: 10px 0;
-	padding: 12px;
-	border: 1px solid var(--secondary);
-	border-radius: 8px;
+.vfwoo-chips {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
 }

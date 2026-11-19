@@ -10,7 +10,6 @@
 	var escapeHtml = core.escapeHtml;
 	var escapeAttribute = core.escapeAttribute;
 	var node = core.node;
-	var posUrl = core.posUrl;
 	var posPost = core.posPost;
 
 	function renderFiscalBlock( html, order ) {
@@ -236,46 +235,7 @@
 		);
 	}
 
-	// ---- "Marcas" screen: sales summary by brand (vanilla DOM, independent of Webkul's React copy) ----
-	var BRANDS_PATH = '/marcas';
-
-	function addBrandsMenu( menus ) {
-		var element = window.wp && window.wp.element;
-		if ( ! element || ! config || ! config.brands || ! Array.isArray( menus ) ) {
-			return menus;
-		}
-		var icon = element.createElement(
-			'svg',
-			{ viewBox: '0 0 24 24', width: 22, height: 22, fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' },
-			element.createElement( 'path', { d: 'M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z' } ),
-			element.createElement( 'circle', { cx: 7.5, cy: 7.5, r: 1.2 } )
-		);
-		menus.push( { to: posUrl() + BRANDS_PATH, classname: 'wkwcpos-menu-list', icon: icon, icon_classname: '', text: config.brands.menu } );
-		return menus;
-	}
-
-	// Webkul builds its routes from this list and draws each page inside its own layout (menu included).
-	function BrandsScreen( props ) {
-		var element = window.wp.element;
-		return element.createElement( 'div', {
-			className: 'vfwoo-brands-page',
-			ref: function ( node ) {
-				if ( node && ! node.getAttribute( 'data-ready' ) ) {
-					node.setAttribute( 'data-ready', '1' );
-					buildBrandsPage( node, { props: props } );
-				}
-			}
-		} );
-	}
-
-	function addBrandsRoute( pages ) {
-		if ( ! Array.isArray( pages ) || ! window.wp || ! window.wp.element || ! window.apif_script ) {
-			return pages;
-		}
-		pages.push( { name: 'Brands', path: '/' + window.apif_script.pos_path + BRANDS_PATH, component: BrandsScreen } );
-		return pages;
-	}
-
+	// ---- "Marcas" screen: sales summary by brand, built with the shared POS components of core.js (window.vfwooBridge.ui) ----
 	function pad( number ) {
 		return ( number < 10 ? '0' : '' ) + number;
 	}
@@ -299,8 +259,11 @@
 		return { start: ymd( start ), end: ymd( end ) };
 	}
 
-	function buildBrandsPage( root, component ) {
+	// "Marcas" is built like the POS Informe screen (core.js ui.report): filters, total cards and a report table.
+	function buildBrandsPage( root ) {
+		var ui = core.ui;
 		var labels = config.brands;
+		var loader = ui.loader( labels.loading );
 		var money = function ( value, currency ) {
 			try {
 				return new Intl.NumberFormat( document.documentElement.lang || 'es-ES', { style: 'currency', currency: currency || 'EUR' } ).format( value );
@@ -309,203 +272,155 @@
 			}
 		};
 		var range = presetRange( 'today' );
-		var selected = null; // null = every brand
 		var data = null;
+		var brandFilter = '';
 
-		var header = node( 'div', 'vfwoo-brands-header' );
-		var back = node( 'button', 'vfwoo-brands-back', '← ' + labels.back );
-		back.type = 'button';
-		back.addEventListener( 'click', function () {
-			if ( component && component.props && typeof component.props.navigate === 'function' ) {
-				component.props.navigate( posUrl() + '/' );
-			} else {
-				window.location.assign( posUrl() + '/' );
+		var report = ui.report( root, labels.title );
+
+		// Period (fills the dates), the dates and the brand.
+		var period = ui.select( [ [ 'today', labels.today ], [ 'yesterday', labels.yesterday ], [ 'week', labels.week ], [ 'month', labels.month ], [ 'custom', labels.custom ] ], 'today' );
+		var fromInput = ui.input( 'date', range.start );
+		var toInput = ui.input( 'date', range.end );
+		period.addEventListener( 'change', function () {
+			if ( period.value !== 'custom' ) {
+				var preset = presetRange( period.value );
+				fromInput.value = preset.start;
+				toInput.value = preset.end;
 			}
 		} );
-		header.appendChild( back );
-		header.appendChild( node( 'h2', '', labels.title ) );
-
-		var toolbar = node( 'div', 'vfwoo-brands-toolbar' );
-		[ 'today', 'yesterday', 'week', 'month' ].forEach( function ( name ) {
-			var button = node( 'button', 'vfwoo-brands-preset', labels[ name ] );
-			button.type = 'button';
-			button.addEventListener( 'click', function () {
-				range = presetRange( name );
-				fromInput.value = range.start;
-				toInput.value = range.end;
-				load();
+		[ fromInput, toInput ].forEach( function ( input ) {
+			input.addEventListener( 'change', function () {
+				period.value = 'custom';
 			} );
-			toolbar.appendChild( button );
 		} );
-		var fromInput = node( 'input' );
-		fromInput.type = 'date';
-		fromInput.value = range.start;
-		var toInput = node( 'input' );
-		toInput.type = 'date';
-		toInput.value = range.end;
-		var apply = node( 'button', 'vfwoo-brands-apply primary', labels.apply );
-		apply.type = 'button';
+		var brandSelect = ui.select( [ [ '', labels.allBrands ] ], '' );
+		brandSelect.addEventListener( 'change', function () {
+			brandFilter = brandSelect.value;
+			draw();
+		} );
+		report.fields.appendChild( ui.reportField( labels.period, period ) );
+		report.fields.appendChild( ui.reportField( labels.from, fromInput ) );
+		report.fields.appendChild( ui.reportField( labels.to, toInput ) );
+		report.fields.appendChild( ui.reportField( labels.menu, brandSelect ) );
+		var apply = ui.reportButton( labels.filter );
 		apply.addEventListener( 'click', function () {
 			range = { start: fromInput.value, end: toInput.value };
 			load();
 		} );
-		var fromLabel = node( 'label', '', labels.from + ' ' );
-		fromLabel.appendChild( fromInput );
-		var toLabel = node( 'label', '', labels.to + ' ' );
-		toLabel.appendChild( toInput );
-		toolbar.appendChild( fromLabel );
-		toolbar.appendChild( toLabel );
-		toolbar.appendChild( apply );
+		report.footer.appendChild( apply );
 
-		var filter = node( 'div', 'vfwoo-brands-filter' );
-		var status = node( 'p', 'vfwoo-brands-status' );
-		var results = node( 'div', 'vfwoo-brands-results' );
-		var note = node( 'p', 'vfwoo-brands-note', labels.note );
+		var content = node( 'div' );
+		report.container.appendChild( content );
 
-		[ header, toolbar, filter, status, results, note ].forEach( function ( part ) {
-			root.appendChild( part );
-		} );
-
-		function drawFilter() {
-			filter.textContent = '';
-			if ( ! data || ! data.brands.length ) {
-				return;
-			}
-			var all = node( 'button', 'vfwoo-brands-chip' + ( selected === null ? ' is-active primary' : '' ), labels.allBrands );
-			all.type = 'button';
-			all.addEventListener( 'click', function () {
-				selected = null;
-				draw();
+		function fillBrands() {
+			brandSelect.textContent = '';
+			[ [ '', labels.allBrands ] ].concat( data ? data.brands.map( function ( brand ) {
+				return [ brand.name, brand.name ];
+			} ) : [] ).forEach( function ( option ) {
+				var item = node( 'option', '', option[ 1 ] );
+				item.value = option[ 0 ];
+				brandSelect.appendChild( item );
 			} );
-			filter.appendChild( all );
-			data.brands.forEach( function ( brand ) {
-				var active = selected !== null && selected.indexOf( brand.name ) !== -1;
-				var chip = node( 'button', 'vfwoo-brands-chip' + ( active ? ' is-active primary' : '' ), brand.name );
-				chip.type = 'button';
-				chip.addEventListener( 'click', function () {
-					var current = selected === null ? [] : selected.slice();
-					var position = current.indexOf( brand.name );
-					if ( position === -1 ) {
-						current.push( brand.name );
-					} else {
-						current.splice( position, 1 );
-					}
-					selected = current.length ? current : null;
-					draw();
-				} );
-				filter.appendChild( chip );
-			} );
-		}
-
-		function cells( row, name, className, currency ) {
-			var tr = node( 'tr', className );
-			tr.appendChild( node( 'td', 'vfwoo-brands-name', name ) );
-			[ row.units, money( row.net, currency ), money( row.gross, currency ), row.orders, money( row.refund, currency ) ].forEach( function ( value ) {
-				tr.appendChild( node( 'td', 'vfwoo-brands-number', String( value ) ) );
-			} );
-			return tr;
+			brandSelect.value = brandFilter;
 		}
 
 		function draw() {
-			drawFilter();
-			results.textContent = '';
+			content.textContent = '';
 			if ( ! data ) {
 				return;
 			}
 			var brands = data.brands.filter( function ( brand ) {
-				return selected === null || selected.indexOf( brand.name ) !== -1;
+				return ! brandFilter || brand.name === brandFilter;
 			} );
 			if ( ! brands.length ) {
-				status.textContent = labels.empty;
+				content.appendChild( ui.noResult( labels.empty ) );
 				return;
 			}
-			status.textContent = '';
-
-			var table = node( 'table', 'vfwoo-brands-table' );
-			var head = node( 'tr' );
-			[ labels.brand, labels.units, labels.net, labels.gross, labels.orders, labels.refunds ].forEach( function ( title ) {
-				head.appendChild( node( 'th', '', title ) );
-			} );
-			table.appendChild( node( 'thead' ) ).appendChild( head );
-			var body = node( 'tbody' );
 			var total = { units: 0, net: 0, gross: 0, refund: 0, orders: 0 };
-
 			brands.forEach( function ( brand ) {
-				var products = [];
-				var line = cells( brand, '▸ ' + brand.name, 'vfwoo-brands-brand', data.currency );
-				line.addEventListener( 'click', function () {
-					var open = line.classList.toggle( 'is-open' );
-					line.firstChild.textContent = ( open ? '▾ ' : '▸ ' ) + brand.name;
-					products.forEach( function ( product ) {
-						product.hidden = ! open;
+				[ 'units', 'net', 'gross', 'refund', 'orders' ].forEach( function ( key ) {
+					total[ key ] += brand[ key ];
+				} );
+			} );
+			content.appendChild( ui.reportCards( [
+				[ labels.units, total.units ],
+				[ labels.net, money( total.net, data.currency ) ],
+				[ labels.gross, money( total.gross, data.currency ) ],
+				[ labels.orders, total.orders ],
+				[ labels.refunds, money( total.refund, data.currency ) ]
+			] ) );
+
+			var table = ui.reportTable( labels.title, [ labels.brand, labels.units, labels.net, labels.gross, labels.orders, labels.refunds ] );
+			function row( item, name, bold ) {
+				var tr = node( 'tr' );
+				var first = node( 'td' );
+				first.appendChild( bold ? node( 'strong', '', name ) : document.createTextNode( name ) );
+				tr.appendChild( first );
+				[ item.units, money( item.net, data.currency ), money( item.gross, data.currency ), item.orders, money( item.refund, data.currency ) ].forEach( function ( value ) {
+					tr.appendChild( node( 'td', '', String( value ) ) );
+				} );
+				return tr;
+			}
+			brands.forEach( function ( brand ) {
+				var children = [];
+				var tr = row( brand, '▸ ' + brand.name, true );
+				var title = tr.querySelector( 'strong' );
+				tr.addEventListener( 'click', function () {
+					var open = title.textContent.charAt( 0 ) === '▸';
+					title.textContent = ( open ? '▾ ' : '▸ ' ) + brand.name;
+					children.forEach( function ( child ) {
+						child.hidden = ! open;
 					} );
 				} );
-				body.appendChild( line );
+				table.body.appendChild( tr );
 				brand.products.forEach( function ( product ) {
-					var child = cells( product, product.name, 'vfwoo-brands-product', data.currency );
+					var child = row( product, product.name, false );
 					child.hidden = true;
-					products.push( child );
-					body.appendChild( child );
+					children.push( child );
+					table.body.appendChild( child );
 				} );
-				total.units += brand.units;
-				total.net += brand.net;
-				total.gross += brand.gross;
-				total.refund += brand.refund;
-				total.orders += brand.orders;
 			} );
-
-			body.appendChild( cells( total, labels.total, 'vfwoo-brands-total', data.currency ) );
-			table.appendChild( body );
-			results.appendChild( table );
-		}
-
-		function request( retry ) {
-			var session = ( window.localStorage && window.localStorage.getItem( 'WKWCPOS_API_SESSION_ID' ) ) || '';
-			var logged = window.apif_script && window.apif_script.logged_in ? window.apif_script.logged_in.user_id : 0;
-			return window.fetch( config.brandReportUrl, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json', Accept: 'application/json', authkey: session },
-				body: JSON.stringify( { logged_in_user_id: logged, start_date: range.start, end_date: range.end } )
-			} )
-				.then( function ( response ) {
-					return response.json();
-				} )
-				.then( function ( result ) {
-					if ( result && result.success === false && result.status === 401 && result.session_id && retry ) {
-						window.localStorage.setItem( 'WKWCPOS_API_SESSION_ID', result.session_id );
-						return request( false );
-					}
-					return result;
-				} );
+			table.body.appendChild( row( total, labels.total, true ) );
+			content.appendChild( table.element );
+			content.appendChild( ui.note( labels.note ) );
 		}
 
 		function load() {
-			status.textContent = labels.loading;
-			results.textContent = '';
-			request( true )
+			loader.show();
+			content.textContent = '';
+			core.posPost( config.brandReportUrl, { start_date: range.start, end_date: range.end } )
 				.then( function ( result ) {
+					loader.hide();
 					if ( ! result || ! result.success ) {
 						data = null;
-						drawFilter();
-						status.textContent = result && result.message ? result.message : labels.error;
+						content.appendChild( ui.noResult( result && result.message ? result.message : labels.error ) );
 						return;
 					}
 					data = result.data;
-					selected = null;
+					brandFilter = '';
+					fillBrands();
 					draw();
 				} )
 				.catch( function () {
+					loader.hide();
 					data = null;
-					drawFilter();
-					status.textContent = labels.error;
+					content.appendChild( ui.noResult( labels.error ) );
 				} );
 		}
 
 		load();
 	}
 
-	hooks.addFilter( 'wkwcpos_menus_list', 'vfwoo-webkul-pos-bridge', addBrandsMenu );
-	hooks.addFilter( 'wkwcpos_pages_list', 'vfwoo-webkul-pos-bridge', addBrandsRoute );
+	if ( config && config.brands ) {
+		core.addScreen( {
+			id: 'brands',
+			path: '/marcas',
+			title: config.brands.menu,
+			// A tag: label shape and its hole.
+			iconPaths: [ 'M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z', 'M6.3 7.5a1.2 1.2 0 1 0 2.4 0a1.2 1.2 0 1 0 -2.4 0' ],
+			build: buildBrandsPage
+		} );
+	}
 
 	// ---- Sale checks: a simplified invoice (F2) is not valid from the limit on, so a customer with a tax ID is needed ----
 	function formatMoney( value ) {
