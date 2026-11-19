@@ -11,7 +11,7 @@ En la cabecera de la caja, antes de los iconos de siempre, hay unos **accesos di
 
 | Icono | Qué abre |
 |---|---|
-| **Productos** | Todos los productos, añadir uno nuevo, categorías, atributos y etiquetas |
+| **Productos** | Solo si el módulo «Productos» está desactivado: todos los productos, añadir uno nuevo, categorías, atributos y etiquetas. Con el módulo activado, este acceso se sustituye por la pestaña **Productos** del menú de la caja (ver [Gestor de productos](gestor-de-productos.md)) |
 | **Informes de ventas** | Los informes clásicos de WooCommerce: ventas, pedidos y clientes por periodo |
 | **Análisis** | El panel de análisis de WooCommerce: ingresos, pedidos y productos más vendidos |
 | **Tienda online** | La tienda pública, la que ven tus clientes, **en una pestaña nueva** |

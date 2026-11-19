@@ -264,6 +264,11 @@ final class Admin {
 				<p class="description"><?php esc_html_e( 'Con él, los accesos a Panel, Productos, Informes y Análisis del POS funcionan para ese cajero. Solo afecta a los cajeros que se creen después de activarlo; los que ya existen no cambian. El rol «Gestor de tienda» da acceso amplio a WooCommerce: actívalo solo si quieres que los cajeros gestionen la tienda.', 'vfwoo-webkul-pos-bridge' ); ?></p>
 				<?php submit_button( __( 'Guardar cajeros', 'vfwoo-webkul-pos-bridge' ) ); ?>
 			</form>
+			<?php
+			if ( empty( $missing ) ) {
+				Module_Registry::render_admin_section();
+			}
+			?>
 			<h2><?php esc_html_e( 'Avisos del admin', 'vfwoo-webkul-pos-bridge' ); ?></h2>
 			<p><?php esc_html_e( 'En el editor de plantillas de factura de Webkul no se muestran avisos del admin, para que no se guarden dentro del ticket. Esto no se puede desactivar.', 'vfwoo-webkul-pos-bridge' ); ?></p>
 			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">

@@ -28,10 +28,18 @@ final class POS_Script {
 	}
 
 	public function enqueue(): void {
+		// Shared pieces (window.vfwooBridge): pos-bridge.js and every module script load after it.
+		wp_enqueue_script(
+			Module_Registry::CORE_HANDLE,
+			VFWOO_WEBKUL_URL . 'assets/js/core.js',
+			array( 'wp-hooks', 'wp-element', 'wk-wc-pos-script' ),
+			VFWOO_WEBKUL_VERSION,
+			false
+		);
 		wp_enqueue_script(
 			'vfwoo-webkul-pos-bridge',
 			VFWOO_WEBKUL_URL . 'assets/js/pos-bridge.js',
-			array( 'wp-hooks', 'wp-element', 'wk-wc-pos-script' ),
+			array( Module_Registry::CORE_HANDLE ),
 			VFWOO_WEBKUL_VERSION,
 			false
 		);
@@ -157,7 +165,7 @@ final class POS_Script {
 		}
 
 		wp_add_inline_script(
-			'vfwoo-webkul-pos-bridge',
+			Module_Registry::CORE_HANDLE,
 			'window.vfwooWebkulBridge = ' . wp_json_encode( $config ) . ';',
 			'before'
 		);

@@ -177,11 +177,11 @@ return array(
 
 | Fase | Qué se hace |
 |---|---|
-| 0. Base | Crear el registro de módulos y `core.js`, sin cambiar el comportamiento. Probarlo. |
-| 1. Lista | Pantalla de productos con listado, filtros e interruptores de tienda y caja. |
-| 2. Edición | Popup de edición básica (simples y variaciones existentes). Fotos al final o después. |
-| 3. Permisos | Solo cajeros con modo de gestor de tienda editan; se comprueba en el servidor. |
-| 4. Mejoras | Alta rápida por código de barras, incompletos, acciones masivas. |
+| 0. Base | **Hecha en código (2026-11-19), sin commit.** Registro de módulos y `core.js`; `pos-bridge.js` usa sus ayudantes. Probado: sintaxis, filtros y `addScreen` con ganchos simulados, registro PHP con módulos falsos. **Falta** abrir la caja con sesión y comprobar que todo sigue igual (login a cargo del usuario). Detalle en `decisiones.md` D-030. |
+| 1. Lista | **Hecha.** Pantalla de productos con listado, filtros e interruptores de tienda y caja. |
+| 2. Edición | **Hecha sin fotos.** Popup de edición básica (simples y variaciones existentes). Fotos aplazadas. |
+| 3. Permisos | **Hecha.** Se comprueba en el servidor; sin probar con un vendedor real. |
+| 4. Mejoras | **Hecha** (alta rápida, incompletos, masivas). Queda el ajuste de stock con nota. |
 
 ## Riesgos
 

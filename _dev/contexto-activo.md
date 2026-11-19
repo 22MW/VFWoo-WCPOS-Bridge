@@ -20,6 +20,15 @@
 - **Preguntas y comprobaciones:** cuando el usuario pregunta, pide «mira si se puede» o «comprueba», se **investiga y se entrega un plan**; no se aplica ningún cambio hasta que diga «hazlo» (o equivalente). Regla de la sesión del 2026-09-20.
 - **Release:** con `_dev/deploy-release.sh`; token en `_dev/.env`; el actualizador no se activa en copias con `.git`. Ver `proceso-release.md` y D-019.
 
+## Tarea activa: módulos del bridge y módulo «Productos»
+
+- **Fases 0 a 4 hechas y subidas a la rama dev (versión dev 2.0.0.2).** Detalle en D-030 y D-031; ayuda en `ayuda-caja/gestor-de-productos.md`.
+- **Estilos:** la pantalla «Productos» ya usa el HTML y las clases del POS (ver `estilos-pos.md`, referencia obligatoria; D-020 ampliada). Barra superior: pestaña «Productos», buscador, «Nuevo producto» y «Editar en WordPress».
+- **Pendiente, esperando «hazlo»:** (1) edición en **panel lateral** como el detalle de Pedidos, en vez de la ventana; (2) **fotos** en ese panel; (3) mover los componentes compartidos (ventana, paginación, preloader, interruptor, campos) a `core.js` (`window.vfwooBridge.ui`); (4) rehacer **«Marcas»** (y revisar «Cambiar factura» y el aviso) con esos componentes; (5) categorías, etiquetas y marcas existentes en el panel (`temp/plan-productos-fotos-y-taxonomias.md`).
+- **Sin probar:** cajero sin modo gestor (no debe ver la pestaña); vendedor con WCFM; Master Stock; Safari y tablet; tema oscuro con el diseño nuevo.
+- **Datos de prueba en `pos.local`:** el producto «ZZ prueba borrar» (id 39223) está en la papelera; la opción `vfwoo_webkul_modules` guardada con `products` activo.
+- **Ruta del POS en local:** `http://pos.local/pos` (`_pos_endpoint_name` sin definir). La caja guarda el JS/CSS en caché: tras un cambio, `fetch(url, {cache:'reload'})` y recargar.
+
 ## Release
 
 - **Publicada `pos-v2.0.0` (2026-11-17)**, versión mayor: detección por capacidad del core y Verifactu (con su módulo activado), «Cambiar factura» (ticket → factura con o sin Verifactu, con país y empresa), estado del pedido Completado / Anular / Devolver con regla en el servidor, «Imprimir rectificativa» y vocabulario «ticket» y «factura». Commit `47ac75e`; ZIP en `https://github.com/22MW/VFWoo-WCPOS-Bridge/releases/download/pos-v2.0.0/vfwoo-webkul-pos-bridge.zip`. Detalle en `CHANGELOG.md`, `release-notes.md` y `docs/funcionalidades-pos-bridge.md`. El desarrollo continúa desde `2.0.0.1`.

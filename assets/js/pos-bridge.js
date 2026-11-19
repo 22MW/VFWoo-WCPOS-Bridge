@@ -1,9 +1,17 @@
 ( function ( hooks ) {
 	'use strict';
 
-	if ( ! hooks || ! hooks.addFilter ) {
+	var core = window.vfwooBridge;
+	if ( ! hooks || ! hooks.addFilter || ! core ) {
 		return;
 	}
+
+	// Shared pieces live in core.js.
+	var escapeHtml = core.escapeHtml;
+	var escapeAttribute = core.escapeAttribute;
+	var node = core.node;
+	var posUrl = core.posUrl;
+	var posPost = core.posPost;
 
 	function renderFiscalBlock( html, order ) {
 		var fiscal = order && order.vfwoo_webkul_bridge ? order.vfwoo_webkul_bridge.fiscal : null;
@@ -27,16 +35,6 @@
 			block += '<p style="font-size:10px;">' + escapeHtml( fiscal.legal_legend ) + '</p>';
 		}
 		return html + literalSafe( block + '</div>' );
-	}
-
-	function escapeHtml( value ) {
-		return String( value ).replace( /[&<>'"]/g, function ( character ) {
-			return { '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' }[ character ];
-		} );
-	}
-
-	function escapeAttribute( value ) {
-		return escapeHtml( value );
 	}
 
 	// Webkul evaluates the ticket HTML as a template literal: inserted text must not contain \, ` or ${.
@@ -241,10 +239,6 @@
 	// ---- "Marcas" screen: sales summary by brand (vanilla DOM, independent of Webkul's React copy) ----
 	var BRANDS_PATH = '/marcas';
 
-	function posUrl() {
-		return ( window.wkwcpos_variables && window.wkwcpos_variables.POS_URL ) || '/pos';
-	}
-
 	function addBrandsMenu( menus ) {
 		var element = window.wp && window.wp.element;
 		if ( ! element || ! config || ! config.brands || ! Array.isArray( menus ) ) {
@@ -303,17 +297,6 @@
 			start.setDate( 1 );
 		}
 		return { start: ymd( start ), end: ymd( end ) };
-	}
-
-	function node( tag, className, text ) {
-		var created = document.createElement( tag );
-		if ( className ) {
-			created.className = className;
-		}
-		if ( text !== undefined ) {
-			created.textContent = text;
-		}
-		return created;
 	}
 
 	function buildBrandsPage( root, component ) {
@@ -601,26 +584,6 @@
 	} );
 
 	// ---- Complete invoice from a ticket, from the order detail (Verifactu registers it as F3 when it must) ----
-	function posPost( url, payload, retry ) {
-		var session = ( window.localStorage && window.localStorage.getItem( 'WKWCPOS_API_SESSION_ID' ) ) || '';
-		payload.logged_in_user_id = window.apif_script && window.apif_script.logged_in ? window.apif_script.logged_in.user_id : 0;
-		return window.fetch( url, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json', Accept: 'application/json', authkey: session },
-			body: JSON.stringify( payload )
-		} )
-			.then( function ( response ) {
-				return response.json();
-			} )
-			.then( function ( result ) {
-				if ( result && result.success === false && result.status === 401 && result.session_id && retry !== false ) {
-					window.localStorage.setItem( 'WKWCPOS_API_SESSION_ID', result.session_id );
-					return posPost( url, payload, false );
-				}
-				return result;
-			} );
-	}
-
 	function openFullInvoiceDialog( order ) {
 		var labels = config.fullInvoice;
 		var orderId = order.order_id || order.id;
@@ -1083,6 +1046,10 @@
 	function tidyStatusSelect( select ) {
 		var settings = config && config.orderStatus;
 		if ( ! settings || ! select ) {
+			return;
+		}
+		// Only the order status dropdown: the mousedown listener below calls this for any select in the POS.
+		if ( ! select.querySelector( 'option[value="wc-completed"]' ) ) {
 			return;
 		}
 		var allowed = ( settings.allowed || [] ).map( function ( status ) {

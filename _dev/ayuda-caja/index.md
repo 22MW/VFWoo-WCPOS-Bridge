@@ -69,6 +69,7 @@ Si es tu primera vez, empieza por **[Primeros pasos con la caja](primeros-pasos.
 - [Clientes con DNI/NIE/CIF](cliente-con-nif.md)
 - [Venta grande: elegir un cliente](venta-con-limite.md)
 - [Convertir un ticket en factura](convertir-ticket-en-factura.md)
+- [Gestor de productos en la caja](gestor-de-productos.md)
 - [Marcas en la caja](marcas-en-la-caja.md)
 - [Ventas por marca](ventas-por-marca.md)
 - [Aviso de cambios en el catálogo](aviso-de-catalogo.md)

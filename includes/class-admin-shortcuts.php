@@ -92,6 +92,12 @@ final class Admin_Shortcuts {
 			'url'         => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' ),
 		);
 
-		return $items;
+		/**
+		 * Lets a module replace or add shortcuts (the "Productos" module replaces the products one).
+		 *
+		 * @param array $items Shortcuts for the current user.
+		 */
+		$filtered = apply_filters( 'vfwoo_webkul_shortcuts', $items );
+		return is_array( $filtered ) ? $filtered : $items;
 	}
 }

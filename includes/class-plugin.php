@@ -22,6 +22,7 @@ final class Plugin {
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-catalog-integration.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-invoice-variables.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-own-template.php';
+		require_once VFWOO_WEBKUL_PATH . 'includes/core/class-module-registry.php';
 		require_once VFWOO_WEBKUL_PATH . 'includes/class-admin.php';
 		new Admin();
 		new Invoice_Variables();
@@ -54,6 +55,7 @@ final class Plugin {
 		new Admin_Notices();
 		new Admin_Bar();
 		new Cashier_Roles();
+		Module_Registry::register_hooks();
 
 		// The invoicing plugins load their classes during plugins_loaded, so what they offer is asked on init.
 		add_action( 'init', array( __CLASS__, 'register_invoice_modules' ), 1 );

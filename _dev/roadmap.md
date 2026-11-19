@@ -163,6 +163,25 @@ Orden de ejecución recomendado: 1 → 4 → 5 → 3 → 6.
 - Reutilizar el mismo mecanismo para cualquier taxonomía pública de productos.
 - Mantener la lógica en el bridge, sin modificar Webkul, WooCommerce ni VFWoo.
 
+## Módulos del bridge y módulo «Productos» (hecho y subido a dev 2.0.0.2; probado en `pos.local`)
+
+Plan en `temp/plan-modulo-productos.md`; decisiones D-030 y D-031.
+
+- [x] **Fase 0 — Base de módulos:** registro de módulos, `core.js`, bloque «Módulos» en el admin. Probada con la caja real.
+- [x] **Fase 1 — Lista:** pantalla «Productos» con filtros e interruptores tienda / caja; sustituye al acceso de la cabecera.
+- [x] **Fase 2 — Edición básica:** simples y variaciones existentes (sin fotos).
+- [x] **Fase 3 — Permisos:** servidor (`edit_products`, `edit_post`, `publish_products`, autor si no puede editar ajenos). Probado con usuarios simulados; **sin probar con un vendedor real**.
+- [x] **Fase 4 — Mejoras:** incompletos, acciones masivas, alta rápida por código de barras.
+- [ ] **Edición en panel lateral** (como el detalle de Pedidos) en vez de la ventana emergente; las clases de formulario del POS solo existen dentro de una ventana, hay que meter el formulario en esa estructura.
+- [ ] **Componentes compartidos en `core.js`** (`window.vfwooBridge.ui`): ventana, paginación, preloader, interruptor, campo, fila de lista.
+- [ ] **Rehacer «Marcas»** (y revisar «Cambiar factura» y el aviso de catálogo) con `estilos-pos.md`.
+- [ ] **Fotos** en el panel (subida con la sesión del POS, `FormData` + `authkey`; la cámara de la tablet con `capture`). Aplazadas por decisión del usuario.
+- [ ] Probar con **otro usuario cajero con modo gestor** y con un usuario **sin** modo gestor (no debe ver la pestaña).
+- [ ] Probar con **Master Stock** (hoy el popup deja el stock bloqueado) y con **WCFM** (vendedor: solo sus productos).
+- [ ] Ajuste de stock rápido con nota (idea aparcada).
+- [ ] Migrar «Marcas», login, atajos y facturas a módulos, de uno en uno, cuando se toquen.
+- Otros planes aparcados: `temp/plan-cashlogy.md` (máquina de efectivo) y `temp/plan-marketplace-vendedores.md` (una caja por vendedor).
+
 ## Restricciones
 
 - No crear pedidos ni emitir facturas durante las pruebas.

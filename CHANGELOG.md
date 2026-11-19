@@ -4,6 +4,18 @@ Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semánti
 
 ## [Sin publicar]
 
+### Añadido
+
+- **Módulo «Productos» en la caja.** Nueva pestaña **Productos** en el menú del POS, con el diseño de la caja (tema claro y oscuro), solo para cajeros con el modo de gestor de tienda (`edit_products`; quien no puede editar productos ajenos ve solo los suyos). Lista paginada con foto, SKU, código de barras, precio y stock; buscador por nombre, SKU o código de barras; orden por nombre, precio, stock, más recientes o más vendidos; filtros por tienda, caja, stock, categoría, marca, ofertas e incompletos (sin foto, precio, SKU, código de barras o SKU repetido); interruptores **En la tienda** (visibilidad del catálogo) y **En la caja** (con el helper de Webkul); acciones masivas (hasta 100 productos); popup de edición básica de productos simples y variables (solo variaciones ya existentes: nombre, estado, precios, oferta con fechas, SKU, GTIN y stock con stock centralizado); **alta rápida** de un producto simple (también al escanear un código que no existe). No crea categorías, etiquetas, marcas ni variaciones. Sustituye al acceso «Productos» de la cabecera. Se puede desactivar desde el nuevo bloque **Módulos** de la página del bridge. Las fotos quedan para una versión posterior.
+
+### Corregido
+
+- **Desplegables del POS vacíos.** El ajuste del desplegable de estado del pedido se aplicaba a cualquier desplegable que se pulsara en el POS y le ocultaba todas las opciones que no fueran Completado, Anular y Devolver. Ahora solo se aplica al desplegable de estado del pedido.
+
+### Cambiado
+
+- **Base de módulos.** Nuevo registro de módulos (`includes/core/class-module-registry.php`) y `assets/js/core.js` con los ayudantes compartidos de la caja (`window.vfwooBridge`). Sin módulos instalados no cambia nada visible: es la base para añadir funciones nuevas (el módulo «Productos», el primero) sin ampliar `pos-bridge.js`.
+
 ## [2.0.0] - 2026-11-17
 
 Versión mayor. El bridge deja de depender de un plugin de VFWoo en concreto y detecta por capacidad lo que hay instalado; permite hacer factura a un ticket ya entregado con o sin Verifactu; añade el país del cliente, el cambio de estado del pedido Completado / Anular / Devolver y la impresión de la rectificativa. Cambia el vocabulario de la caja a «ticket» y «factura».
