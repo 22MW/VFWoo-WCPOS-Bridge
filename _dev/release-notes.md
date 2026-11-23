@@ -7,7 +7,7 @@
 - **Probado con Woo Point of Sale 7.4.1** (instalada en local; el usuario confirmó que todo funciona, incluida la venta sin conexión).
 - **Notas de actualización:** recargar cada caja con Ctrl+F5. La traducción **no va en el ZIP**: copiar a mano `wc_pos-es_ES.mo` y el `.json` con hash a `wp-content/languages/plugins/` de cada sitio (instrucciones en `_dev/traducciones/woo-point-of-sale/es_ES/README.md`).
 - **Riesgos aceptados al publicar:** sobreventa posible en la venta sin conexión; recargar la caja sin conexión falla (service worker de Webkul); sin probar: cajero sin modo gestor, vendedor con WCFM, Master Stock, Safari y tablet, tema oscuro con el diseño nuevo.
-- **Publicación:** pendiente de registrar aquí la URL y el commit tras ejecutar `deploy-release.sh`.
+- **Publicada el 2026-11-23:** https://github.com/22MW/VFWoo-WCPOS-Bridge/releases/tag/pos-v2.1.0 (ZIP `vfwoo-webkul-pos-bridge.zip`, 49 archivos, 112 KB, contenido verificado; commit `737cae1`, rama `pos-release` en `ffb26c5`).
 
 ## 2.0.0 — release
 

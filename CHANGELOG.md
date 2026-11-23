@@ -2,6 +2,10 @@
 
 Este proyecto sigue el formato de Keep a Changelog y utiliza versionado semántico.
 
+## [Sin publicar]
+
+Desarrollo desde la 2.1.0 (versión dev 2.1.0.1). Sin cambios todavía.
+
 ## [2.1.0] - 2026-11-23
 
 Versión menor. Consolida las entradas de desarrollo 2.0.0.1 a 2.0.0.6: el módulo «Productos» y la base de módulos, las pantallas con los estilos del propio POS, la venta sin conexión con inventario centralizado y la traducción al castellano de Woo Point of Sale 7.4.1.
