@@ -183,6 +183,21 @@ Plan en `temp/plan-modulo-productos.md`; decisiones D-030 y D-031.
 - [ ] Migrar «Marcas», login, atajos y facturas a módulos, de uno en uno, cuando se toquen.
 - Otros planes aparcados: `temp/plan-cashlogy.md` (máquina de efectivo) y `temp/plan-marketplace-vendedores.md` (una caja por vendedor).
 
+## Stock en la caja (planificado, esperando «hazlo»)
+
+Plan en `temp/plan-stock.md`. Pedido por un cliente: ver, filtrar y descargar estadísticas de stock.
+
+- [ ] Botón **«Stock»** en el menú de la caja (junto a «Marcas»), con el aspecto de la pantalla Informe: tarjetas de totales, filtros, tabla y **«Descargar CSV»**. Se hace como módulo nuevo (`modules/stock`).
+- [ ] **Historial** del stock (foto diaria con cron; WooCommerce no lo guarda): el usuario lo quiere (2026-11-20).
+- [ ] Más adelante: rotación (ventas de los últimos N días contra stock).
+- [ ] **Stock web y stock tienda** (Master Stock de Webkul): mostrar y editar los dos en «Productos» y «Stock». Antes, **probar Master Stock en una copia**; en este modo el POS vende sin conexión. Ver `temp/plan-stock.md`.
+
+## Subir y bajar productos con CSV (aparcado, no se hace ahora)
+
+Decisión del usuario (2026-11-19): se deja en el roadmap y se olvida por el momento. Ideas ya estudiadas, por si se retoma:
+- WooCommerce trae exportar/importar CSV (con «actualizar existentes»), pero sin marcas, sin vista previa y creando productos si no coinciden.
+- Opción propia dentro de «Productos»: descargar CSV con los filtros de la lista y subir CSV con **vista previa**, solo **actualizando lo que ya existe** (por ID o SKU), sin crear productos, categorías ni marcas, con la misma validación y permisos que el editor. Sin fotos (a mano en el panel, o importador de WooCommerce con URLs si son muchas).
+
 ## Restricciones
 
 - No crear pedidos ni emitir facturas durante las pruebas.

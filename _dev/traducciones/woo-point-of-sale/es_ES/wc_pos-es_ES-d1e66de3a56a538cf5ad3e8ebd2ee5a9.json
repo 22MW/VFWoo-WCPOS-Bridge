@@ -1,0 +1,4981 @@
+{
+  "domain": "messages",
+  "locale_data": {
+    "messages": {
+      "": {
+        "domain": "messages",
+        "plural_forms": "nplurals=2; plural=(n != 1);",
+        "lang": "es"
+      },
+      " are": [
+        " son"
+      ],
+      " Email : ": [
+        " Correo electrónico : "
+      ],
+      " for": [
+        " para"
+      ],
+      " Greeting(s) deleted Successfully": [
+        " Greeting(s) eliminado correctamente"
+      ],
+      " Greeting(s) status updated Successfully": [
+        " Greeting(s) status actualizado correctamente"
+      ],
+      " is": [
+        " es"
+      ],
+      " No offline order to Sync": [
+        " No offline order a sincronizar"
+      ],
+      " once after changing the POS Endpoint. ": [
+        " once después de changing el POS Endpoint. "
+      ],
+      " out of stock now, please remove them from cart.": [
+        " out de stock now, por favor remove them desde cart."
+      ],
+      " outlet(s) deleted successfully.": [
+        " outlet(s) eliminado correctamente."
+      ],
+      " outlet(s) updated successfully.": [
+        " outlet(s) actualizado correctamente."
+      ],
+      " Payment Gateway Created Successfully": [
+        " Pago Gateway Created correctamente"
+      ],
+      " Payment Gateway Updated Successfully ": [
+        " Pago Gateway Updated correctamente "
+      ],
+      " Pos payment already exists from this slug.": [
+        " Pos payment ya existe desde este slug."
+      ],
+      " update the Envato plugins directly": [
+        " update el Envato plugins directly"
+      ],
+      " user(s) activated successfully.": [
+        " user(s) activated correctamente."
+      ],
+      " user(s) deactivated successfully.": [
+        " user(s) deactivated correctamente."
+      ],
+      " user(s) deleted successfully.": [
+        " user(s) eliminado correctamente."
+      ],
+      "#": [
+        "#"
+      ],
+      "%1$d out of %2$d plugins meta has been updated.": [
+        "%1$d out de %2$d plugins meta has been actualizado."
+      ],
+      "%1$d out of %2$d plugins' meta have been updated.": [
+        "%1$d out de %2$d plugins' meta have been actualizado."
+      ],
+      "%1$s (%2$s), \r\n Cash (%3$s)": [
+        "%1$s (%2$s), \r\n Efectivo (%3$s)"
+      ],
+      "%1$sImportant:%2$s All active modules must be activated with valid purchase codes. If any module remains unactivated, customers %s will be unable to complete the checkout process, %s and a mandatory activation notice %s will be displayed in the website footer.%s": [
+        "%1$sImportant:%2$s Todos activo modules must be activated con válido purchase codes. If cualquier module remains unactivated, customers %s será be unable a complete el checkout process, %s y a mandatory activation notice %s será be displayed en el website footer.%s"
+      ],
+      "%product-name% could not be added to the cart": [
+        "%product-name% could not be added a el cart"
+      ],
+      "%s outlet imported": [
+        "%s outlet imported",
+        "%s outlet imported"
+      ],
+      "%s outlet updated": [
+        "%s outlet actualizado",
+        "%s outlet actualizado"
+      ],
+      "%s outlet was skipped": [
+        "%s outlet era skipped",
+        "%s outlet era skipped"
+      ],
+      "&#8211; You&lsquo;re almost ready to start selling :)": [
+        "&#8211; Tú&lsquo;re almost ready a start selling :)"
+      ],
+      "(if any of key which is required is not checked kindly do some changes in settings and save again the server settings.)": [
+        "(if cualquier de key which es obligatorio es not checked kindly do some changes en settings y save again el server settings.)"
+      ],
+      "(Max 3 decimal places)": [
+        "(Máximo 3 decimales)"
+      ],
+      "(Per Product)": [
+        "(Per Producto)"
+      ],
+      "<b><span class=\"dashicons dashicons-lock\"></span>Webkul Module License Activation Required: </b>One or more active %1$s Webkul's modules %2$s are missing valid purchase codes. Please contact <b>Administrator</b> to the complete the activation.<br/><span class=\"dashicons dashicons-editor-help\"></span>Need assistance? Contact us at <b>%3$s support@webkul.com %4$s</b>": [
+        "<b><span class=\"dashicons dashicons-lock\"></span>Webkul Module License Activation Obligatorio: </b>One o más activo %1$s Webkul's modules %2$s son missing válido purchase codes. Por favor contact <b>Administrator</b> a el complete el activation.<br/><span class=\"dashicons dashicons-editor-help\"></span>Need assistance? Contact us at <b>%3$s support@webkul.com %4$s</b>"
+      ],
+      "<div class=\"notice notice-error\"><p><b><span class=\"dashicons dashicons-lock\"></span>Webkul Module License Activation Required: </b>One or more active %1$s Webkul's modules %2$s are missing valid purchase codes. To ensure full functionality and support, please complete the license activation process here on the %3$s license page. %4$s</p><p><span class=\"dashicons dashicons-editor-help\"></span>Need assistance? Contact us at <b>%5$s support@webkul.com %6$s</b></p></div>": [
+        "<div class=\"notice notice-error\"><p><b><span class=\"dashicons dashicons-lock\"></span>Webkul Module License Activation Obligatorio: </b>One o más activo %1$s Webkul's modules %2$s son missing válido purchase codes. To ensure full functionality y support, por favor complete el license activation process here en el %3$s license page. %4$s</p><p><span class=\"dashicons dashicons-editor-help\"></span>Need assistance? Contact us at <b>%5$s support@webkul.com %6$s</b></p></div>"
+      ],
+      "A few of these products are currently out of stock.": [
+        "A few de these products son currently out de stock."
+      ],
+      "A outlet with this ID already exists.": [
+        "A outlet con este ID ya existe."
+      ],
+      "A outlet with this name already exists.": [
+        "A outlet con este name ya existe."
+      ],
+      "A Product of": [
+        "Un producto de"
+      ],
+      "a. View and search Envato sites": [
+        "a. Ver y search Envato sites"
+      ],
+      "A3 Page": [
+        "Página A3"
+      ],
+      "A4 Page": [
+        "Página A4"
+      ],
+      "A5 Page": [
+        "Página A5"
+      ],
+      "A6 Page": [
+        "Página A6"
+      ],
+      "Above form fields are not correct": [
+        "Above form fields son not correct"
+      ],
+      "Account created successfully": [
+        "Account creado correctamente"
+      ],
+      "Account has been updated successfully": [
+        "Account has been actualizado correctamente"
+      ],
+      "Account Settings": [
+        "Ajustes de la cuenta"
+      ],
+      "Action": [
+        "Acción"
+      ],
+      "Actions": [
+        "Acciones"
+      ],
+      "Activate": [
+        "Activar"
+      ],
+      "Active": [
+        "Activo"
+      ],
+      "Actual Cash": [
+        "Efectivo real"
+      ],
+      "Actual Cash in Drawer": [
+        "Actual Efectivo en Drawer"
+      ],
+      "Actual Cash in Drawer:": [
+        "Actual Efectivo en Drawer:"
+      ],
+      "Actual Closing": [
+        "Cierre real"
+      ],
+      "Add": [
+        "Añadir"
+      ],
+      "Add atleast one product to checkout": [
+        "Añadir atleast one product a checkout"
+      ],
+      "Add Custom Tone": [
+        "Añadir sonido personalizado"
+      ],
+      "Add Customer": [
+        "Añadir cliente"
+      ],
+      "Add Filters": [
+        "Añadir filtros"
+      ],
+      "Add GTIN/UPC/EAN/ISBN": [
+        "Añadir GTIN/UPC/EAN/ISBN"
+      ],
+      "Add Invoice Template": [
+        "Añadir Invoice Template"
+      ],
+      "Add More Prices": [
+        "Añadir More Prices"
+      ],
+      "Add New": [
+        "Añadir nuevo"
+      ],
+      "Add New Custom Product": [
+        "Añadir Nuevo Custom Producto"
+      ],
+      "Add New Customer": [
+        "Añadir nuevo cliente"
+      ],
+      "Add New Product": [
+        "Añadir Nuevo Producto"
+      ],
+      "Add optional closing comments...": [
+        "Añadir optional closing comments..."
+      ],
+      "Add order note here": [
+        "Añadir order note here"
+      ],
+      "Add Outlet": [
+        "Añadir Punto de venta"
+      ],
+      "Add outlet for POS user": [
+        "Añadir outlet para POS user"
+      ],
+      "Add payment method": [
+        "Añadir método de pago"
+      ],
+      "Add POS Greeting Template": [
+        "Añadir POS Greeting Template"
+      ],
+      "Add POS USER": [
+        "Añadir POS USER"
+      ],
+      "Add to cart": [
+        "Añadir al carrito"
+      ],
+      "Additional content": [
+        "Contenido adicional"
+      ],
+      "Additional Payment Option": [
+        "Additional Pago Option"
+      ],
+      "Addons Server Added": [
+        "Addons Server Added"
+      ],
+      "Addons Server Paths Including": [
+        "Addons Server Paths Including"
+      ],
+      "Address": [
+        "Dirección"
+      ],
+      "Address 1": [
+        "Dirección 1"
+      ],
+      "Address 2": [
+        "Dirección 2"
+      ],
+      "Address1": [
+        "Dirección 1"
+      ],
+      "Address2": [
+        "Dirección 2"
+      ],
+      "Advanced Filters": [
+        "Filtros avanzados"
+      ],
+      "After enabling this, you will receive an email when the drawer is closed.": [
+        "After enabling este, tú será receive an email when el drawer es closed."
+      ],
+      "All": [
+        "Todos"
+      ],
+      "All Cashiers": [
+        "Todos Cashiers"
+      ],
+      "All Fields are required.": [
+        "Todos Campos son obligatorio."
+      ],
+      "All Method": [
+        "Todos Method"
+      ],
+      "All orders are synced": [
+        "Todos orders son sincronizado"
+      ],
+      "All Outlet": [
+        "Todos Punto de venta"
+      ],
+      "All Products": [
+        "Todos Productos"
+      ],
+      "All Products Imported Succesfully.": [
+        "Todos Productos Imported Succesfully."
+      ],
+      "Alternatively, enter the path to a CSV file on your server:": [
+        "Alternatively, enter el path a a CSV archivo en tu server:"
+      ],
+      "Always Visible": [
+        "Siempre visible"
+      ],
+      "Amount": [
+        "Importe"
+      ],
+      "Amount cannot be empty and must be greater than 0.": [
+        "Importe no se puede be vacío y must be greater than 0."
+      ],
+      "Amount you want to increase after roundoff": [
+        "Importe tú want a increase después de roundoff"
+      ],
+      "Amount you want to increase after roundoff in POS payment custom Option.": [
+        "Importe tú want a increase después de roundoff en POS payment custom Option."
+      ],
+      "An error occurred while saving.": [
+        "Se produjo un error al guardar."
+      ],
+      "An unknown API error occurred.": [
+        "An unknown API error occurred."
+      ],
+      "An valid API token is required.": [
+        "An válido API token es obligatorio."
+      ],
+      "and": [
+        "y"
+      ],
+      "API Configuration": [
+        "API Configuration"
+      ],
+      "API URL": [
+        "API URL"
+      ],
+      "App connected successfully.": [
+        "App connected correctamente."
+      ],
+      "App Connection Password": [
+        "App Connection Contraseña"
+      ],
+      "App connection password cannot be empty.": [
+        "App connection password no se puede be vacío."
+      ],
+      "App connection password is not set by the amdin. Contact your admin to setup the app connection password.": [
+        "App connection password es not set by el amdin. Contact tu admin a setup el app connection password."
+      ],
+      "App Icon (144x144)": [
+        "App Icon (144x144)"
+      ],
+      "App Icon (196x196)": [
+        "App Icon (196x196)"
+      ],
+      "App Icon (48x48)": [
+        "App Icon (48x48)"
+      ],
+      "App Icon (96x96)": [
+        "App Icon (96x96)"
+      ],
+      "Appearance": [
+        "Apariencia"
+      ],
+      "Apply": [
+        "Aplicar"
+      ],
+      "Apply Coupon": [
+        "Aplicar cupón"
+      ],
+      "Apply Discount": [
+        "Aplicar descuento"
+      ],
+      "Apply discount to sale": [
+        "Apply discount a sale"
+      ],
+      "Apply Tones": [
+        "Aplicar sonidos"
+      ],
+      "Applying Coupon": [
+        "Aplicando cupón"
+      ],
+      "Applying...": [
+        "Aplicando..."
+      ],
+      "Approved": [
+        "Aprobado"
+      ],
+      "Are you sure for order status change?": [
+        "Are tú sure para order status change?"
+      ],
+      "Are you sure for reset all pos data?": [
+        "Are tú sure para reset todos pos datos?"
+      ],
+      "Are you sure you want to delete customer?": [
+        "Are tú sure tú want a delete customer?"
+      ],
+      "Are you sure you want to logout?": [
+        "Are tú sure tú want a logout?"
+      ],
+      "Area Chart": [
+        "Gráfico de áreas"
+      ],
+      "Assign all product to pos": [
+        "Assign todos product a pos"
+      ],
+      "Assign Bulk Mass": [
+        "Asignar en masa"
+      ],
+      "Assign POS Stock": [
+        "Asignar stock del TPV"
+      ],
+      "Assigned POS Quantity": [
+        "Assigned POS Cantidad"
+      ],
+      "Assigned POS Stock": [
+        "Stock asignado al TPV"
+      ],
+      "Attributes": [
+        "Atributos"
+      ],
+      "Audio settings has been updated successfully": [
+        "Audio settings has been actualizado correctamente"
+      ],
+      "Authentication successful.": [
+        "Autenticación correcta."
+      ],
+      "Auto Drawer close": [
+        "Cierre automático de caja"
+      ],
+      "Auto drawer close on selected time.": [
+        "Auto drawer close en selected time."
+      ],
+      "Auto drawer closed by system.": [
+        "Caja cerrada automáticamente por el sistema."
+      ],
+      "Auto drawer opened": [
+        "Caja abierta automáticamente"
+      ],
+      "Auto Sync Offline Orders": [
+        "Sincronizar automáticamente los pedidos sin conexión"
+      ],
+      "Available placeholders: %s": [
+        "Disponible placeholders: %s"
+      ],
+      "Available Product Stock": [
+        "Disponible Producto Stock"
+      ],
+      "Available Stock": [
+        "Disponible Stock"
+      ],
+      "Average Order": [
+        "Average Pedido"
+      ],
+      "b. Download your purchased items": [
+        "b. Descargar tu purchased items"
+      ],
+      "Back": [
+        "Atrás"
+      ],
+      "Background Color": [
+        "Color de fondo"
+      ],
+      "Balance due:": [
+        "Balance due:"
+      ],
+      "Bar Chart": [
+        "Gráfico de barras"
+      ],
+      "Barcode": [
+        "Código de barras"
+      ],
+      "barcode": [
+        "código de barras"
+      ],
+      "Barcode By": [
+        "Barcode By"
+      ],
+      "Barcode demo text": [
+        "Barcode demo text"
+      ],
+      "Barcode generated by ID successfully.": [
+        "Barcode generated by ID correctamente."
+      ],
+      "Barcode generated by SKU successfully.": [
+        "Barcode generated by SKU correctamente."
+      ],
+      "Barcode is Empty": [
+        "Barcode es Vacío"
+      ],
+      "Barcode Print preview will appear in this page format": [
+        "Barcode Imprimir preview será appear en este page format"
+      ],
+      "Barcode Scan": [
+        "Escanear código de barras"
+      ],
+      "Barcode Settings": [
+        "Ajustes del código de barras"
+      ],
+      "Barcode text size will change the title text & custom text size": [
+        "Barcode text size será change el title text & custom text size"
+      ],
+      "Barcode text will display in top or bottom.": [
+        "Barcode text será display en top o bottom."
+      ],
+      "Barcode(By ID & SKU)": [
+        "Barcode(By ID & SKU)"
+      ],
+      "Before you can upload your import file, you will need to fix the following error:": [
+        "Before tú puede upload tu import archivo, tú será need a fix el following error:"
+      ],
+      "Begin Wizard": [
+        "Iniciar asistente"
+      ],
+      "Beige, black-brown, & tan": [
+        "Beige, black-brown, & tan"
+      ],
+      "Best regards,\nThe {site_name} Team": [
+        "Best regards,\nEl {site_name} Team"
+      ],
+      "Billing Email": [
+        "Billing Correo electrónico"
+      ],
+      "Border Bottom Color": [
+        "Border Bottom Color"
+      ],
+      "Border Bottom Width (px)": [
+        "Border Bottom Width (px)"
+      ],
+      "Border Left Color": [
+        "Border Left Color"
+      ],
+      "Border Left Width (px)": [
+        "Border Left Width (px)"
+      ],
+      "Border Right Color": [
+        "Border Right Color"
+      ],
+      "Border Right Width (px)": [
+        "Border Right Width (px)"
+      ],
+      "Border Style (px)": [
+        "Border Style (px)"
+      ],
+      "Border Top Color": [
+        "Border Top Color"
+      ],
+      "Border Top Width (px)": [
+        "Border Top Width (px)"
+      ],
+      "Both passwords are not same": [
+        "Las contraseñas no coinciden"
+      ],
+      "Bottom": [
+        "Abajo"
+      ],
+      "Brand Link for footer section": [
+        "Brand Link para footer section"
+      ],
+      "Brand name for footer section": [
+        "Brand name para footer section"
+      ],
+      "Bulk Assign": [
+        "Asignación masiva"
+      ],
+      "Bulk messages sent successfully!": [
+        "Bulk messages sent correctamente!"
+      ],
+      "By enabling this feature opening amount drawer popup will show to input the opening amout otherwise it set the opening amount is zero (0).": [
+        "By enabling este feature opening amount drawer popup será show a input el opening amout otherwise it set el opening amount es zero (0)."
+      ],
+      "By enabling this feature, all new created products will be enabled by default in all outlets": [
+        "By enabling este feature, todos nuevo creado products será be enabled by predeterminado en todos outlets"
+      ],
+      "By enabling this feature, all the zero price products will show on the pos.": [
+        "By enabling este feature, todos el zero price products será show en el pos."
+      ],
+      "By enabling this feature, product if having weight, will be sold according to its weight in outlets.": [
+        "By enabling este feature, product if having weight, será be sold according a its weight en outlets."
+      ],
+      "By enabling this feature, the woocommerce order will sync on the pos outlets.": [
+        "By enabling este feature, el woocommerce order será sync en el pos outlets."
+      ],
+      "By ID": [
+        "By ID"
+      ],
+      "By SKU": [
+        "By SKU"
+      ],
+      "C": [
+        "C"
+      ],
+      "c. List purchases you've made": [
+        "c. List purchases tú've made"
+      ],
+      "Calculating Shipping Cost": [
+        "Calculando coste de envío"
+      ],
+      "can not update, getenv is disable in php.ini": [
+        "no se puede update, getenv es disable en php.ini"
+      ],
+      "can not update, putenv is disable in php.ini": [
+        "no se puede update, putenv es disable en php.ini"
+      ],
+      "Cancel": [
+        "Cancelar"
+      ],
+      "Cancelled": [
+        "Cancelado"
+      ],
+      "Cannot add, edit, delete customer in offline mode": [
+        "No se puede añadir, editar ni eliminar clientes sin conexión"
+      ],
+      "Cannot process orders with centralized inventory at offline mode.": [
+        "Cannot process orders con centralized inventory at offline mode."
+      ],
+      "Cannot update account in offline mode": [
+        "No se puede actualizar la cuenta sin conexión"
+      ],
+      "Card Amount": [
+        "Card Importe"
+      ],
+      "Card Payment": [
+        "Pago con tarjeta"
+      ],
+      "Card View": [
+        "Card Ver"
+      ],
+      "Cart": [
+        "Carrito"
+      ],
+      "Cart & Pay Page Product Image Display": [
+        "Cart & Pay Page Producto Image Display"
+      ],
+      "Cart has been added succesfully.": [
+        "Cart has been added succesfully."
+      ],
+      "Cart has been deleted succesfully.": [
+        "Cart has been eliminado succesfully."
+      ],
+      "Cart Section": [
+        "Cart Section"
+      ],
+      "Cart Total Section Display": [
+        "Cart Total Section Display"
+      ],
+      "Cash": [
+        "Efectivo"
+      ],
+      "cash": [
+        "efectivo"
+      ],
+      "Cash Amount": [
+        "Efectivo Importe"
+      ],
+      "Cash balance": [
+        "Efectivo balance"
+      ],
+      "Cash Payment": [
+        "Pago en efectivo"
+      ],
+      "Cash Sale": [
+        "Efectivo Sale"
+      ],
+      "Cashier": [
+        "Cashier"
+      ],
+      "Cashier/POS user name": [
+        "Cashier/POS user name"
+      ],
+      "Category UI": [
+        "Interfaz de categorías"
+      ],
+      "Center": [
+        "Centro"
+      ],
+      "Centralized Stock Inventory": [
+        "Inventario de stock centralizado"
+      ],
+      "Certificate Key": [
+        "Certificate Key"
+      ],
+      "Change": [
+        "Change"
+      ],
+      "Change Customer": [
+        "Change Cliente"
+      ],
+      "Change to:": [
+        "Change a:"
+      ],
+      "Channel": [
+        "Channel"
+      ],
+      "Charts": [
+        "Gráficos"
+      ],
+      "Check Older Drawer List": [
+        "Check Older Drawer List"
+      ],
+      "Checking Stock!": [
+        "Checking Stock!"
+      ],
+      "Checkout our": [
+        "Checkout our"
+      ],
+      "Cherry red & Bubblegum pink": [
+        "Cherry red & Bubblegum pink"
+      ],
+      "Choose a CSV file from your computer:": [
+        "Elige a CSV archivo desde tu computer:"
+      ],
+      "Choose Option": [
+        "Elegir opción"
+      ],
+      "Choose Template": [
+        "Elige Template"
+      ],
+      "Choose which format of email to send.": [
+        "Elige which format de email a send."
+      ],
+      "Circle": [
+        "Circle"
+      ],
+      "City": [
+        "Ciudad"
+      ],
+      "Clear All": [
+        "Borrar todo"
+      ],
+      "Clear Cart": [
+        "Clear Cart"
+      ],
+      "Click Here for POS": [
+        "Click Here para POS"
+      ],
+      "Click the \"Save Changes\" button.": [
+        "Click el \"Guardar Changes\" button."
+      ],
+      "clicking this link": [
+        "clicking este link"
+      ],
+      "Close": [
+        "Cerrar"
+      ],
+      "Close Counter": [
+        "Cerrar Counter"
+      ],
+      "Close Date": [
+        "Cerrar Fecha"
+      ],
+      "Close Drawer": [
+        "Cerrar Drawer"
+      ],
+      "Close Reciept": [
+        "Cerrar Reciept"
+      ],
+      "Closed At": [
+        "Cerrado At"
+      ],
+      "Closing Amount": [
+        "Importe de cierre"
+      ],
+      "Closing Drawer Detail": [
+        "Cierre Drawer Detail"
+      ],
+      "Closing Drawer Report": [
+        "Informe de cierre de caja"
+      ],
+      "Closing drawer...": [
+        "Cierre drawer..."
+      ],
+      "Closing Note": [
+        "Nota de cierre"
+      ],
+      "Closing Notes:": [
+        "Cierre Notes:"
+      ],
+      "Closing Time": [
+        "Hora de cierre"
+      ],
+      "Code": [
+        "Code"
+      ],
+      "Codecanyon": [
+        "Codecanyon"
+      ],
+      "Collapse Screen": [
+        "Collapse Screen"
+      ],
+      "Collapsed": [
+        "Collapsed"
+      ],
+      "Color": [
+        "Color"
+      ],
+      "Color Schemes": [
+        "Color Schemes"
+      ],
+      "Column mapping": [
+        "Mapeo de columnas"
+      ],
+      "Column name": [
+        "Column name"
+      ],
+      "Community support": [
+        "Soporte de la comunidad"
+      ],
+      "Company": [
+        "Company"
+      ],
+      "Completed": [
+        "Completado"
+      ],
+      "Confirm Password": [
+        "Confirm Contraseña"
+      ],
+      "Confirm password cannot be empty": [
+        "Confirm password no se puede be vacío"
+      ],
+      "Confirm Payment": [
+        "Confirm Pago"
+      ],
+      "Confirmation": [
+        "Confirmation"
+      ],
+      "Connected.": [
+        "Connected."
+      ],
+      "Content of Greetings is empty!": [
+        "Content de Greetings es vacío!"
+      ],
+      "Continue": [
+        "Continuar"
+      ],
+      "Copy the token into the box below.": [
+        "Copy el token into el box below."
+      ],
+      "Coral, Spiced apple & Antique white": [
+        "Coral, Spiced apple & Antique white"
+      ],
+      "Could not load categories": [
+        "Could not load categories"
+      ],
+      "Could not load customers": [
+        "Could not load customers"
+      ],
+      "Could not load orders": [
+        "Could not load orders"
+      ],
+      "Could not load products": [
+        "Could not load products"
+      ],
+      "Could not load products products": [
+        "Could not load products products"
+      ],
+      "Counted Drawer Amount": [
+        "Counted Drawer Importe"
+      ],
+      "Country": [
+        "País"
+      ],
+      "Country Code is not present": [
+        "País Code es not present"
+      ],
+      "Coupon": [
+        "Cupón"
+      ],
+      "Coupon Amount": [
+        "Coupon Importe"
+      ],
+      "Coupon applied successfully": [
+        "Coupon applied correctamente"
+      ],
+      "Coupon cannot be applied on offline mode": [
+        "Coupon no se puede be applied en offline mode"
+      ],
+      "Coupon Code": [
+        "Código de cupón"
+      ],
+      "Coupon removed successfully": [
+        "Coupon removed correctamente"
+      ],
+      "Coupon requires internet connection": [
+        "Coupon requires internet connection"
+      ],
+      "Coupon Type": [
+        "Coupon Tipo"
+      ],
+      "Coupon validation error: %s": [
+        "Coupon validation error: %s"
+      ],
+      "Coupons": [
+        "Coupons"
+      ],
+      "Create a outlet": [
+        "Create a outlet"
+      ],
+      "Create some outlets": [
+        "Crear puntos de venta"
+      ],
+      "Create Transaction": [
+        "Crear transacción"
+      ],
+      "Created At": [
+        "Created At"
+      ],
+      "Creating New Customer": [
+        "Creating Nuevo Cliente"
+      ],
+      "Credit": [
+        "Credit"
+      ],
+      "Cron Type": [
+        "Cron Tipo"
+      ],
+      "CSV Delimiter": [
+        "CSV Delimiter"
+      ],
+      "Currency Not available": [
+        "Currency Not disponible"
+      ],
+      "Current Opening Drawer Id": [
+        "Actual Apertura Drawer Id"
+      ],
+      "Custom CSS": [
+        "Custom CSS"
+      ],
+      "Custom CSS & JS": [
+        "Custom CSS & JS"
+      ],
+      "Custom JS": [
+        "Custom JS"
+      ],
+      "Custom Product": [
+        "Custom Producto"
+      ],
+      "customer": [
+        "customer"
+      ],
+      "Customer": [
+        "Cliente"
+      ],
+      "Customer Address": [
+        "Dirección del cliente"
+      ],
+      "Customer billing email is not valid": [
+        "Cliente billing email es not válido"
+      ],
+      "Customer city is not valid": [
+        "Cliente city es not válido"
+      ],
+      "Customer created successfully.!": [
+        "Cliente creado correctamente.!"
+      ],
+      "Customer Details": [
+        "Datos del cliente"
+      ],
+      "Customer Email": [
+        "Cliente Correo electrónico"
+      ],
+      "Customer email cannot be empty": [
+        "Cliente email no se puede be vacío"
+      ],
+      "Customer email is mandatory": [
+        "El correo electrónico del cliente es obligatorio"
+      ],
+      "Customer email is mandatory ": [
+        "Cliente email es mandatory "
+      ],
+      "Customer email is not valid": [
+        "Cliente email es not válido"
+      ],
+      "Customer email is not valid ": [
+        "Cliente email es not válido "
+      ],
+      "Customer First Name": [
+        "Cliente First Nombre"
+      ],
+      "Customer first name is mandatory.": [
+        "Cliente first name es mandatory."
+      ],
+      "Customer has been added successfully": [
+        "Cliente has been added correctamente"
+      ],
+      "Customer has been deleted successfully.": [
+        "Cliente has been eliminado correctamente."
+      ],
+      "Customer has been updated successfully": [
+        "Cliente has been actualizado correctamente"
+      ],
+      "Customer Last Name": [
+        "Cliente Last Nombre"
+      ],
+      "Customer last Name is mandatory.": [
+        "Cliente last Nombre es mandatory."
+      ],
+      "Customer Name": [
+        "Cliente Nombre"
+      ],
+      "Customer Name & Email is Required": [
+        "Cliente Nombre & Correo electrónico es Obligatorio"
+      ],
+      "Customer name cannot be empty": [
+        "Cliente name no se puede be vacío"
+      ],
+      "Customer not Found by requested ID.": [
+        "Cliente not Found by requested ID."
+      ],
+      "Customer password is mandatory.": [
+        "Cliente password es mandatory."
+      ],
+      "Customer Phone": [
+        "Cliente Teléfono"
+      ],
+      "Customer phone cannot be empty": [
+        "Cliente phone no se puede be vacío"
+      ],
+      "Customer Phone Number": [
+        "Teléfono del cliente"
+      ],
+      "Customer Phone number is mandatory.": [
+        "Cliente Teléfono number es mandatory."
+      ],
+      "Customer pincode is not valid": [
+        "Cliente pincode es not válido"
+      ],
+      "Customer Search": [
+        "Cliente Buscar"
+      ],
+      "Customer Section": [
+        "Cliente Section"
+      ],
+      "Customer updated successfully.!": [
+        "Cliente actualizado correctamente.!"
+      ],
+      "customer_id is required.": [
+        "customer_id es obligatorio."
+      ],
+      "Customers": [
+        "Clientes"
+      ],
+      "Customers are not found!": [
+        "Clientes son not found!"
+      ],
+      "Daily Closure Confirmation: {outlet_name} Outlet - Drawer Report for {date}": [
+        "Daily Closure Confirmation: {outlet_name} Punto de venta - Drawer Informe para {date}"
+      ],
+      "Daily Outlet Closure Confirmation & Drawer Report": [
+        "Daily Punto de venta Closure Confirmation & Drawer Informe"
+      ],
+      "Dark Mode": [
+        "Dark Mode"
+      ],
+      "Dashed": [
+        "Dashed"
+      ],
+      "Data not found": [
+        "Datos not found"
+      ],
+      "Data provided in the fields are either empty or invalid.": [
+        "Datos provided en el fields son either vacío o invalid."
+      ],
+      "Data to update is required.": [
+        "Datos a update es obligatorio."
+      ],
+      "Data verified successfully.": [
+        "Datos verified correctamente."
+      ],
+      "Database table not created yet.": [
+        "Database table not creado yet."
+      ],
+      "Date": [
+        "Fecha"
+      ],
+      "Date Added": [
+        "Fecha Added"
+      ],
+      "Date Created": [
+        "Fecha Created"
+      ],
+      "Date Range": [
+        "Fecha Range"
+      ],
+      "Deactivate": [
+        "Deactivate"
+      ],
+      "Deactive": [
+        "Inactivo"
+      ],
+      "Debit": [
+        "Debit"
+      ],
+      "default": [
+        "predeterminado"
+      ],
+      "Default": [
+        "Predeterminado"
+      ],
+      "Default Customer": [
+        "Predeterminado Cliente"
+      ],
+      "Default Customer for POS Created Successfully!": [
+        "Predeterminado Cliente para POS Created correctamente!"
+      ],
+      "Default Customer for POS Updated Successfully!": [
+        "Predeterminado Cliente para POS Updated correctamente!"
+      ],
+      "Default Price": [
+        "Precio predeterminado"
+      ],
+      "Default Product Status for Outlet": [
+        "Estado predeterminado del producto en el punto de venta"
+      ],
+      "Delete": [
+        "Eliminar"
+      ],
+      "Delete Customer": [
+        "Eliminar Cliente"
+      ],
+      "Deleting Customer": [
+        "Deleting Cliente"
+      ],
+      "Deleting customers...": [
+        "Deleting customers..."
+      ],
+      "Description": [
+        "Descripción"
+      ],
+      "Description about POS payment Gateway.": [
+        "Descripción about POS payment Gateway."
+      ],
+      "Difference": [
+        "Diferencia"
+      ],
+      "Disable": [
+        "Desactivar"
+      ],
+      "Disable Greeting": [
+        "Disable Greeting"
+      ],
+      "Disabled": [
+        "Disabled"
+      ],
+      "Discount": [
+        "Descuento"
+      ],
+      "Discount amount should be less than or equal to": [
+        "Descuento amount should be menos than o equal a"
+      ],
+      "Discount cannot be applied due to invalid total amount": [
+        "Descuento no se puede be applied due a invalid total amount"
+      ],
+      "Discount Type": [
+        "Tipo de descuento"
+      ],
+      "Discount Value": [
+        "Valor del descuento"
+      ],
+      "Discounts": [
+        "Descuentos"
+      ],
+      "Display country list.": [
+        "Display country list."
+      ],
+      "Display Stock": [
+        "Mostrar stock"
+      ],
+      "Display Title": [
+        "Mostrar título"
+      ],
+      "Do not import": [
+        "Do not import"
+      ],
+      "Do you want to send this order via mail to: ": [
+        "Do tú want a send este order via mail a: "
+      ],
+      "Docs": [
+        "Documentación"
+      ],
+      "Done!": [
+        "¡Hecho!"
+      ],
+      "Dotted": [
+        "Dotted"
+      ],
+      "Double": [
+        "Double"
+      ],
+      "Download XLS": [
+        "Descargar XLS"
+      ],
+      "Drawer": [
+        "Caja"
+      ],
+      "Drawer Account Summary": [
+        "Drawer Account Summary"
+      ],
+      "Drawer Auto Close time": [
+        "Drawer Auto Cerrar time"
+      ],
+      "Drawer Close Email": [
+        "Correo de cierre de caja"
+      ],
+      "Drawer Close Type": [
+        "Drawer Cerrar Tipo"
+      ],
+      "Drawer Closed additional content.": [
+        "Drawer Cerrado additional content."
+      ],
+      "Drawer closed successfully.": [
+        "Drawer closed correctamente."
+      ],
+      "Drawer Closed Successfully.": [
+        "Drawer Cerrado correctamente."
+      ],
+      "Drawer Closed via": [
+        "Drawer Cerrado via"
+      ],
+      "Drawer data retrieved successfully.": [
+        "Drawer datos retrieved correctamente."
+      ],
+      "DRAWER DETAILS": [
+        "DETALLES DE LA CAJA"
+      ],
+      "Drawer Email Sent Successfully": [
+        "Drawer Correo electrónico Sent correctamente"
+      ],
+      "Drawer is already opened for today.": [
+        "Drawer es already opened para today."
+      ],
+      "Drawer List": [
+        "Drawer List"
+      ],
+      "Drawer Managed By": [
+        "Drawer Managed By"
+      ],
+      "Drawer Note": [
+        "Drawer Note"
+      ],
+      "Drawer Per Page": [
+        "Drawer Per Page"
+      ],
+      "Drawer Report": [
+        "Drawer Informe"
+      ],
+      "Drawer Reports": [
+        "Drawer Informes"
+      ],
+      "Drawer Reports History": [
+        "Historial de informes de caja"
+      ],
+      "Drawer session not found.": [
+        "Drawer session not found."
+      ],
+      "Drawer transaction created successfully.": [
+        "Drawer transaction creado correctamente."
+      ],
+      "Drawer transaction fetched successfully.": [
+        "Drawer transaction fetched correctamente."
+      ],
+      "Drawer Transaction ID": [
+        "ID de transacción de caja"
+      ],
+      "Drawer transactions fetched successfully.": [
+        "Drawer transactions fetched correctamente."
+      ],
+      "Drawer Transactions List": [
+        "Drawer Transactions List"
+      ],
+      "Drawer Transactions Per Page": [
+        "Drawer Transactions Per Page"
+      ],
+      "Drawer updated successfully.": [
+        "Drawer actualizado correctamente."
+      ],
+      "Drawer will auto close on that time.": [
+        "Drawer será auto close en ese time."
+      ],
+      "Dropdown Lisiting": [
+        "Dropdown Lisiting"
+      ],
+      "Duplicate GTIN entries are not allowed in the same form.": [
+        "Duplicate GTIN entries son no permitido en el same form."
+      ],
+      "Duplicate GTIN: The GTIN %1$s is already assigned to another product (%2$s).": [
+        "Duplicate GTIN: El GTIN %1$s es already assigned a another product (%2$s)."
+      ],
+      "Duplicate GTIN: The GTIN is already assigned to another product.": [
+        "Duplicate GTIN: El GTIN es already assigned a another product."
+      ],
+      "Edit": [
+        "Editar"
+      ],
+      "Edit Customer": [
+        "Editar cliente"
+      ],
+      "Edit GTIN/UPC/EAN/ISBN": [
+        "Editar GTIN/UPC/EAN/ISBN"
+      ],
+      "Edit Invoice Template": [
+        "Editar Invoice Template"
+      ],
+      "Edit Outlet": [
+        "Editar Punto de venta"
+      ],
+      "Edit payment method": [
+        "Editar método de pago"
+      ],
+      "Edit POS USER": [
+        "Editar POS USER"
+      ],
+      "Editor": [
+        "Editor"
+      ],
+      "Element": [
+        "Element"
+      ],
+      "Element Properties": [
+        "Element Properties"
+      ],
+      "Email": [
+        "Correo electrónico"
+      ],
+      "Email already exists": [
+        "Correo electrónico ya existe"
+      ],
+      "Email heading": [
+        "Correo electrónico heading"
+      ],
+      "Email request failed!": [
+        "Correo electrónico request failed!"
+      ],
+      "Email Send Successfully.": [
+        "Correo electrónico Send correctamente."
+      ],
+      "Email type": [
+        "Correo electrónico type"
+      ],
+      "Enable": [
+        "Activar"
+      ],
+      "Enable All Products": [
+        "Enable Todos Productos"
+      ],
+      "Enable Greeting": [
+        "Enable Greeting"
+      ],
+      "Enable Keyboard Shortcuts": [
+        "Activar atajos de teclado"
+      ],
+      "Enable keyboard shortcuts for managing Entire pos via keyaboard": [
+        "Enable keyboard shortcuts para managing Entire pos via keyaboard"
+      ],
+      "Enable Mails at POS end": [
+        "Enable Mails at POS end"
+      ],
+      "Enable Multi Pricing": [
+        "Activar precios múltiples"
+      ],
+      "Enable or disable audio tones on the POS end for this outlet. Overrides global setting.": [
+        "Enable o disable audio tones en el POS end para este outlet. Overrides global setting."
+      ],
+      "Enable or disable audio tones on the POS end.": [
+        "Enable o disable audio tones en el POS end."
+      ],
+      "Enable or Disable the product image on the cart and pay page.": [
+        "Enable o Disable el product image en el cart y pay page."
+      ],
+      "Enable POS Logo to POS screen header": [
+        "Mostrar el logotipo del TPV en la cabecera"
+      ],
+      "Enable this email notification": [
+        "Enable este email notification"
+      ],
+      "Enable to show multi pricing fields in admin products and multi price selection in POS.": [
+        "Enable a show multi pricing fields en admin products y multi price selection en POS."
+      ],
+      "Enable tones on pos end": [
+        "Activar sonidos en el TPV"
+      ],
+      "Enable Unit Price Feature": [
+        "Activar precio por unidad"
+      ],
+      "Enable zero price products": [
+        "Activar productos sin precio"
+      ],
+      "Enable/Disable": [
+        "Enable/Disable"
+      ],
+      "Enabled": [
+        "Enabled"
+      ],
+      "Endpoint": [
+        "Endpoint"
+      ],
+      "Endpoints": [
+        "Endpoints"
+      ],
+      "English": [
+        "English"
+      ],
+      "Ensure the following permissions are enabled:": [
+        "Ensure el following permissions son enabled:"
+      ],
+      "Enter a valid price.": [
+        "Introduce a válido price."
+      ],
+      "Enter a valid transaction amount.": [
+        "Introduce a válido transaction amount."
+      ],
+      "Enter actual cash amount": [
+        "Introduce actual cash amount"
+      ],
+      "Enter at least 3 letters": [
+        "Introduce at least 3 letters"
+      ],
+      "Enter comments or notes": [
+        "Introduce comments o notes"
+      ],
+      "Enter coupon amount": [
+        "Introduce coupon amount"
+      ],
+      "Enter Coupon Code": [
+        "Introduce Coupon Code"
+      ],
+      "Enter in-hand cash amount": [
+        "Introduce en-hand cash amount"
+      ],
+      "Enter invoice name": [
+        "Introduce invoice name"
+      ],
+      "Enter Invoice Name.": [
+        "Introduce Invoice Nombre."
+      ],
+      "Enter master stock": [
+        "Introduce master stock"
+      ],
+      "Enter opening amount for cash drawer.": [
+        "Introduce opening amount para cash drawer."
+      ],
+      "Enter order amount": [
+        "Introduce order amount"
+      ],
+      "Enter Order Note": [
+        "Introduce Pedido Note"
+      ],
+      "Enter POS Outlet City.": [
+        "Introduce POS Punto de venta Ciudad."
+      ],
+      "Enter POS Outlet Name.": [
+        "Introduce POS Punto de venta Nombre."
+      ],
+      "Enter POS Postcode.": [
+        "Introduce POS Postcode."
+      ],
+      "Enter POS User ID": [
+        "Introduce POS Usuario ID"
+      ],
+      "Enter product amount": [
+        "Introduce product amount"
+      ],
+      "Enter Product Barcode": [
+        "Introduce Producto Barcode"
+      ],
+      "Enter Quantity ": [
+        "Introduce Cantidad "
+      ],
+      "Enter refund amount": [
+        "Introduce refund amount"
+      ],
+      "Enter tax amount": [
+        "Introduce tax amount"
+      ],
+      "Enter the number of barcode slips": [
+        "Introduce el number de barcode slips"
+      ],
+      "Enter the quantity that you want to assign to each outlet": [
+        "Introduce el quantity ese tú want a assign a each outlet"
+      ],
+      "Enter User Name.": [
+        "Introduce Usuario Nombre."
+      ],
+      "Enter User's Outlet's Order ID": [
+        "Introduce Usuario's Punto de venta's Pedido ID"
+      ],
+      "Enter valid discount amount.": [
+        "Introduce válido discount amount."
+      ],
+      "Enter weight in": [
+        "Introduce weight en"
+      ],
+      "Enter your domain/ip without http or www prefix.": [
+        "Introduce tu domain/ip sin http o www prefix."
+      ],
+      "Enter your order id prefix, e.g. #POS_470 Here 470 is order id and POS_ is prefix": [
+        "Introduce tu order id prefix, e.g. #POS_470 Here 470 es order id y POS_ es prefix"
+      ],
+      "Entered amount cannot be paid": [
+        "Entered amount no se puede be paid"
+      ],
+      "Env Variables Require Keys Included:": [
+        "Env Variables Require Keys Included:"
+      ],
+      "Envato Token": [
+        "Envato Token"
+      ],
+      "Envato Token Settings": [
+        "Envato Token Settings"
+      ],
+      "Epson TM-T88V Thermal Page": [
+        "Epson TM-T88V Thermal Page"
+      ],
+      "Equal": [
+        "Equal"
+      ],
+      "Error": [
+        "Error"
+      ],
+      "Error occurred while removing Coupon. Please try again": [
+        "Error occurred while removing Coupon. Por favor try again"
+      ],
+      "Error:": [
+        "Error:"
+      ],
+      "Every %d minutes": [
+        "Every %d minutes"
+      ],
+      "Exchange Order Id": [
+        "Exchange Pedido Id"
+      ],
+      "Exchange Order ID": [
+        "Exchange Pedido ID"
+      ],
+      "Exclude": [
+        "Exclude"
+      ],
+      "Existing outlets that match by ID will be updated. Outlets that do not exist will be skipped.": [
+        "Existing outlets ese match by ID será be actualizado. Outlets ese do not exist será be skipped."
+      ],
+      "Exit": [
+        "Exit"
+      ],
+      "Expand Screen": [
+        "Expand Screen"
+      ],
+      "Expand the cart total section by default or collapse it.": [
+        "Expand el cart total section by predeterminado o collapse it."
+      ],
+      "Expanded": [
+        "Expanded"
+      ],
+      "Expected Amount": [
+        "Importe esperado"
+      ],
+      "Expected Amount in Drawer": [
+        "Expected Importe en Drawer"
+      ],
+      "Expected Cash": [
+        "Efectivo esperado"
+      ],
+      "Expected Cash:": [
+        "Expected Efectivo:"
+      ],
+      "Extend Support": [
+        "Extend Support"
+      ],
+      "Extensions": [
+        "Extensiones"
+      ],
+      "Extra Data": [
+        "Extra Datos"
+      ],
+      "Failed": [
+        "Fallido"
+      ],
+      "Failed to create drawer transaction.": [
+        "Failed a create drawer transaction."
+      ],
+      "Failed to create opening drawer.": [
+        "Failed a create opening drawer."
+      ],
+      "Failed to import %s outlet": [
+        "Failed a import %s outlet",
+        "Failed a import %s outlet"
+      ],
+      "Failed to save report in the database.": [
+        "Failed a save report en el database."
+      ],
+      "Failed to update drawer.": [
+        "Failed a update drawer."
+      ],
+      "Failed to update GTIN/UPC/EAN/ISBN.": [
+        "Failed a update GTIN/UPC/EAN/ISBN."
+      ],
+      "False Port detected": [
+        "False Port detected"
+      ],
+      "Featured": [
+        "Featured"
+      ],
+      "Fee": [
+        "Fee"
+      ],
+      "Fields are required": [
+        "Campos son obligatorio"
+      ],
+      "Fields cannot be empty": [
+        "Campos no se puede be vacío"
+      ],
+      "File info added!": [
+        "Archivo info added!"
+      ],
+      "File is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your php.ini or by post_max_size being defined as smaller than upload_max_filesize in php.ini.": [
+        "Archivo es vacío. Por favor upload something más substantial. Este error could also be caused by uploads being disabled en tu php.ini o by post_max_size being defined as smaller than upload_max_filesize en php.ini."
+      ],
+      "File not uploaded!": [
+        "Archivo not uploaded!"
+      ],
+      "File path should be a valid path of the file!": [
+        "Archivo path should be a válido path de el archivo!"
+      ],
+      "File type not supported!": [
+        "Archivo type not supported!"
+      ],
+      "Fill all the required options to continue adding this product to the cart": [
+        "Fill todos el obligatorio options a continue adding este product a el cart"
+      ],
+      "Fill the product's options": [
+        "Fill el product's options"
+      ],
+      "Filter": [
+        "Filtrar"
+      ],
+      "Filter By": [
+        "Filter By"
+      ],
+      "Filter By Outlet": [
+        "Filter By Punto de venta"
+      ],
+      "Filters": [
+        "Filters"
+      ],
+      "First add product in cart": [
+        "First add product en cart"
+      ],
+      "First name": [
+        "First name"
+      ],
+      "First Name": [
+        "Nombre"
+      ],
+      "First name is not valid": [
+        "First name es not válido"
+      ],
+      "First open the drawer before make any transactions.": [
+        "First open el drawer before make cualquier transactions."
+      ],
+      "Fixed": [
+        "Fijo"
+      ],
+      "Follow the steps below to create a new token.": [
+        "Follow el steps below a create a nuevo token."
+      ],
+      "Font Size (px)": [
+        "Tamaño de fuente (px)"
+      ],
+      "Font Weight": [
+        "Grosor de fuente"
+      ],
+      "For Changing Payment Method": [
+        "For Changing Pago Method"
+      ],
+      "For example, If you have 100 stock of product P1 in your store, You have 2 outlet O1 and O2 and you enter 50 product to assign stock in each outlet, after assigning master stock value will be 100 of product P1, POS stock value of product P1 will be 50 for Outlet O1 and POS stock of product P1 will be 50 for Outlet O2. ": [
+        "For example, If tú have 100 stock de product P1 en tu store, Tú have 2 outlet O1 y O2 y tú enter 50 product a assign stock en each outlet, después de assigning master stock value será be 100 de product P1, POS stock value de product P1 será be 50 para Punto de venta O1 y POS stock de product P1 será be 50 para Punto de venta O2. "
+      ],
+      "For Selecting First value of Payment": [
+        "For Selecting First value de Pago"
+      ],
+      "for WooCommerce": [
+        "para WooCommerce"
+      ],
+      "Forbidden.": [
+        "Forbidden."
+      ],
+      "Forest green, Moss green & Nyanza": [
+        "Forest green, Moss green & Nyanza"
+      ],
+      "Forest green, Mustard & sage": [
+        "Forest green, Mustard & sage"
+      ],
+      "Full Screen": [
+        "Full Screen"
+      ],
+      "Function is disabled in php.ini file, Kindly enable the function first in php.ini to use the Node server functionality in Point of sale.": [
+        "Function es disabled en php.ini archivo, Kindly enable el function first en php.ini a use el Node server functionality en Point de sale."
+      ],
+      "General": [
+        "General"
+      ],
+      "General Configurations": [
+        "Configuración general"
+      ],
+      "General Settings": [
+        "Ajustes generales"
+      ],
+      "Generate an Envato API Personal Token by %s.": [
+        "Generate an Envato API Personal Token by %s."
+      ],
+      "Generate Barcode by ID": [
+        "Generate Barcode by ID"
+      ],
+      "Generate Barcode by SKU": [
+        "Generate Barcode by SKU"
+      ],
+      "Generate Drawer Report": [
+        "Generate Drawer Informe"
+      ],
+      "Generate Invoice": [
+        "Generate Invoice"
+      ],
+      "Generate New Password": [
+        "Generate Nuevo Contraseña"
+      ],
+      "Generate Reciept": [
+        "Generate Reciept"
+      ],
+      "Grand Total": [
+        "Grand Total"
+      ],
+      "Greater Than": [
+        "Greater Than"
+      ],
+      "Greeting Created Successfully!": [
+        "Greeting Created correctamente!"
+      ],
+      "Greeting Status": [
+        "Greeting Estado"
+      ],
+      "Greeting Updated Successfully!": [
+        "Greeting Updated correctamente!"
+      ],
+      "Grid View": [
+        "Vista de cuadrícula"
+      ],
+      "Grid View Listing": [
+        "Grid Ver Listing"
+      ],
+      "Grid With Currency Listing": [
+        "Grid With Currency Listing"
+      ],
+      "Groove": [
+        "Groove"
+      ],
+      "Group Message": [
+        "Group Message"
+      ],
+      "GTIN data is empty or invalid.": [
+        "GTIN datos es vacío o invalid."
+      ],
+      "GTIN values updated successfully.": [
+        "GTIN values actualizado correctamente."
+      ],
+      "GTIN/UPC/EAN/ISBN updated successfully.": [
+        "GTIN/UPC/EAN/ISBN actualizado correctamente."
+      ],
+      "Have a nice day": [
+        "Que tengas un buen día"
+      ],
+      "HAVE AN EXISTING POS?": [
+        "HAVE AN EXISTING POS?"
+      ],
+      "Header Section": [
+        "Header Section"
+      ],
+      "Heading 1": [
+        "Heading 1"
+      ],
+      "Heading 2": [
+        "Heading 2"
+      ],
+      "Heading 3": [
+        "Heading 3"
+      ],
+      "Heading 4": [
+        "Heading 4"
+      ],
+      "Heading 5": [
+        "Heading 5"
+      ],
+      "Heading 6": [
+        "Heading 6"
+      ],
+      "Heading of Greeting is empty!": [
+        "Heading de Greeting es vacío!"
+      ],
+      "Headings": [
+        "Headings"
+      ],
+      "Height": [
+        "Height"
+      ],
+      "Height (px)": [
+        "Alto (px)"
+      ],
+      "Hello": [
+        "Hello"
+      ],
+      "Hide advanced options": [
+        "Hide advanced options"
+      ],
+      "Hide Details": [
+        "Ocultar detalles"
+      ],
+      "Hold": [
+        "Hold"
+      ],
+      "Hold Cart": [
+        "Hold Cart"
+      ],
+      "Hold Cart Note": [
+        "Hold Cart Note"
+      ],
+      "Hold Carts": [
+        "Hold Carts"
+      ],
+      "Hold Order": [
+        "Hold Pedido"
+      ],
+      "Hold Sale": [
+        "Retener venta"
+      ],
+      "Home": [
+        "Home"
+      ],
+      "Horizontal Ruler": [
+        "Regla horizontal"
+      ],
+      "HTTPS": [
+        "HTTPS"
+      ],
+      "https://codecanyon.net/item/wordpress-woocommerce-pos-system-point-of-sale/21254976": [
+        "https://codecanyon.net/item/wordpress-woocommerce-pos-system-point-of-sale/21254976"
+      ],
+      "https://webkul.com": [
+        "https://webkul.com"
+      ],
+      "ID": [
+        "ID"
+      ],
+      "ID %d": [
+        "ID %d"
+      ],
+      "If this feature enabled then posuser get the option to print the invoice on the POS otherwise posuser will not able to print the invoice.": [
+        "If este feature enabled then posuser get el option a print el invoice en el POS otherwise posuser será not able a print el invoice."
+      ],
+      "If you disable this option then customers and admin will not receive any mails after placing an order at POS end.": [
+        "If tú disable este option then customers y admin será not receive cualquier mails después de placing an order at POS end."
+      ],
+      "If you disable this option then POS screen will show only web username.": [
+        "If tú disable este option then POS screen será show solo web username."
+      ],
+      "If you enable this feature, then order receipt will automatically send to client.": [
+        "If tú enable este feature, then order receipt será automatically send a client."
+      ],
+      "If you enable this feature, then send order receipt button will appear on each order in POS.": [
+        "If tú enable este feature, then send order receipt button será appear en each order en POS."
+      ],
+      "If you enable this feature, then you can send message to client in POS customers section.": [
+        "If tú enable este feature, then tú puede send message a client en POS customers section."
+      ],
+      "If you enable this feature, then you can send message to multiple clients.": [
+        "If tú enable este feature, then tú puede send message a multiple clients."
+      ],
+      "If you like <strong>Point of sale</strong> from <strong><a href=\"https://webkul.com/\" target=\"_blank\" class=\"wc-rating-link\" data-rated=\"Thanks :)\">Webkul</a></strong> please leave us a <a href=\"https://codecanyon.net/item/wordpress-woocommerce-pos-system-point-of-sale/21254976\" target=\"_blank\" class=\"wc-rating-link\" data-rated=\"Thanks :)\">★★★★★</a> rating. A huge thanks in advance!": [
+        "If tú like <strong>Point de sale</strong> desde <strong><a href=\"https://webkul.com/\" target=\"_blank\" class=\"wc-rating-link\" datos-rated=\"Thanks :)\">Webkul</a></strong> por favor leave us a <a href=\"https://codecanyon.net/item/wordpress-woocommerce-pos-system-point-de-sale/21254976\" target=\"_blank\" class=\"wc-rating-link\" datos-rated=\"Thanks :)\">★★★★★</a> rating. A huge thanks en advance!"
+      ],
+      "If you need to access the setup wizard again, please click on the button below.": [
+        "If tú need a access el setup wizard again, por favor click en el button below."
+      ],
+      "If you still not able to access the POS page contact your admin to flush the permalink once.": [
+        "If tú still not able a access el POS page contact tu admin a flush el permalink once."
+      ],
+      "If your site has ssl installed then enable it.": [
+        "If tu site has ssl installed then enable it."
+      ],
+      "Illuminating Emerald, Middle green & white": [
+        "Illuminating Emerald, Middle green & white"
+      ],
+      "Image": [
+        "Imagen"
+      ],
+      "Import": [
+        "Importar"
+      ],
+      "Import complete!": [
+        "Import complete!"
+      ],
+      "Import Outlets": [
+        "Import Outlets"
+      ],
+      "Import outlets": [
+        "Importar puntos de venta"
+      ],
+      "Import outlets from a CSV file": [
+        "Import outlets desde a CSV archivo"
+      ],
+      "Important": [
+        "Important"
+      ],
+      "Importing": [
+        "Importing"
+      ],
+      "In stock": [
+        "En stock"
+      ],
+      "in stock": [
+        "en stock"
+      ],
+      "Include": [
+        "Incluir"
+      ],
+      "Input a valid telephone number": [
+        "Input a válido telephone number"
+      ],
+      "Insufficient Data For Creating Order.": [
+        "Insufficient Datos For Creating Pedido."
+      ],
+      "Insufficient privileges to import products.": [
+        "Insufficient privileges a import products."
+      ],
+      "Invalid app connection password.": [
+        "No válido app connection password."
+      ],
+      "Invalid Coupon": [
+        "No válido Coupon"
+      ],
+      "Invalid Coupon Code": [
+        "No válido Coupon Code"
+      ],
+      "Invalid coupon code": [
+        "No válido coupon code"
+      ],
+      "Invalid coupon ID": [
+        "No válido coupon ID"
+      ],
+      "Invalid Drawer ID.": [
+        "No válido Drawer ID."
+      ],
+      "Invalid drawer transactions data": [
+        "No válido drawer transactions datos"
+      ],
+      "Invalid file data!": [
+        "No válido archivo datos!"
+      ],
+      "Invalid file type. The importer supports CSV and TXT file formats.": [
+        "No válido archivo type. El importer supports CSV y TXT archivo formats."
+      ],
+      "Invalid GTIN/UPC/EAN/ISBN and it can only contain numbers, hyphens (-), and an optional X at the end.": [
+        "No válido GTIN/UPC/EAN/ISBN y it puede solo contain numbers, hyphens (-), y an optional X at el end."
+      ],
+      "Invalid GTIN/UPC/EAN/ISBN format.": [
+        "No válido GTIN/UPC/EAN/ISBN format."
+      ],
+      "Invalid logged user id.": [
+        "No válido logged user id."
+      ],
+      "Invalid or empty token.": [
+        "No válido o vacío token."
+      ],
+      "Invalid payment option selection.": [
+        "No válido payment option selection."
+      ],
+      "Invalid Percentage value, must be less than or equal to 100": [
+        "No válido Percentage value, must be menos than o equal a 100"
+      ],
+      "Invalid Report ID.": [
+        "No válido Informe ID."
+      ],
+      "Invalid report ID.": [
+        "No válido report ID."
+      ],
+      "Invalid request data.": [
+        "No válido request datos."
+      ],
+      "Invalid request.": [
+        "Solicitud no válida."
+      ],
+      "Invalid request: logged_in_user_id is required": [
+        "No válido request: logged_in_user_id es obligatorio"
+      ],
+      "Invalid token.": [
+        "No válido token."
+      ],
+      "Invalid transaction type.": [
+        "No válido transaction type."
+      ],
+      "Invalid username and password.": [
+        "No válido username y password."
+      ],
+      "Invalid username or password.": [
+        "Nombre de usuario o contraseña no válidos."
+      ],
+      "Invoice deleted successfully": [
+        "Invoice eliminado correctamente"
+      ],
+      "Invoice has been created successfully.": [
+        "Invoice has been creado correctamente."
+      ],
+      "Invoice has been saved successfully.": [
+        "Invoice has been saved correctamente."
+      ],
+      "Invoice has been updated successfully.": [
+        "Invoice has been actualizado correctamente."
+      ],
+      "Invoice Logo": [
+        "Logotipo de factura"
+      ],
+      "Invoice page size": [
+        "Invoice page size"
+      ],
+      "Invoice Printer": [
+        "Invoice Printer"
+      ],
+      "Invoice Printer Section": [
+        "Invoice Printer Section"
+      ],
+      "Invoice Template": [
+        "Invoice Template"
+      ],
+      "Invoice Templates": [
+        "Plantillas de factura"
+      ],
+      "Invoice Upload button is moved to %s": [
+        "Invoice Upload button es moved a %s"
+      ],
+      "It looks like you are logged in as %s but you were not redirected to the POS page. Please click the link below to access the POS page.": [
+        "It looks like tú son logged en as %s but tú were not redirected a el POS page. Por favor click el link below a access el POS page."
+      ],
+      "Japanese Indigo & white": [
+        "Japanese Indigo & white"
+      ],
+      "KeyBoard Shortcuts": [
+        "KeyBoard Shortcuts"
+      ],
+      "Keyboard Shortcuts": [
+        "Keyboard Shortcuts"
+      ],
+      "Keypad Tone": [
+        "Keypad Tone"
+      ],
+      "Keypad Tone 1": [
+        "Keypad Tone 1"
+      ],
+      "Keypad Tone 2": [
+        "Keypad Tone 2"
+      ],
+      "Kindly Provide Content for Greeting": [
+        "Kindly Provide Content para Greeting"
+      ],
+      "Kindly Provide heading for Greeting": [
+        "Kindly Provide heading para Greeting"
+      ],
+      "Kindly save the ": [
+        "Kindly save el "
+      ],
+      "Label": [
+        "Label"
+      ],
+      "Landscape": [
+        "Horizontal"
+      ],
+      "Last name": [
+        "Last name"
+      ],
+      "Last Name": [
+        "Apellidos"
+      ],
+      "Last name is not valid": [
+        "Last name es not válido"
+      ],
+      "Last order": [
+        "Last order"
+      ],
+      "Later": [
+        "Más tarde"
+      ],
+      "Left": [
+        "Izquierda"
+      ],
+      "Less than": [
+        "Less than"
+      ],
+      "Let's go!": [
+        "Let's go!"
+      ],
+      "Liability": [
+        "Liability"
+      ],
+      "License": [
+        "Licencia"
+      ],
+      "License Activation Required! Please reach out to your Administrator to complete the License setup": [
+        "License Activation Obligatorio! Por favor reach out a tu Administrator a complete el License setup"
+      ],
+      "License renew key updated.": [
+        "License renew key actualizado."
+      ],
+      "License support updated.": [
+        "License support actualizado."
+      ],
+      "Light Mode": [
+        "Light Mode"
+      ],
+      "Line Chart": [
+        "Gráfico de líneas"
+      ],
+      "Line Height (px)": [
+        "Line Height (px)"
+      ],
+      "Link": [
+        "Enlace"
+      ],
+      "Link previous orders": [
+        "Link previous orders"
+      ],
+      "List View": [
+        "List Ver"
+      ],
+      "Listing Category": [
+        "Listing Category"
+      ],
+      "Load WooCommerce Orders": [
+        "Cargar pedidos de WooCommerce"
+      ],
+      "Loading Categories": [
+        "Cargando Categories"
+      ],
+      "Loading Countries": [
+        "Cargando Countries"
+      ],
+      "Loading Currencies": [
+        "Cargando Currencies"
+      ],
+      "Loading Customers": [
+        "Cargando Clientes"
+      ],
+      "Loading Orders": [
+        "Cargando Pedidos"
+      ],
+      "Loading orders": [
+        "Cargando orders"
+      ],
+      "Loading Products": [
+        "Cargando Productos"
+      ],
+      "Loading reports...": [
+        "Cargando informes..."
+      ],
+      "Loading sales": [
+        "Cargando sales"
+      ],
+      "Loading States": [
+        "Cargando States"
+      ],
+      "Loading Tax": [
+        "Cargando Impuesto"
+      ],
+      "Loading...": [
+        "Cargando..."
+      ],
+      "Location": [
+        "Location"
+      ],
+      "Login": [
+        "Iniciar sesión"
+      ],
+      "LOGIN TO YOUR ACCOUNT": [
+        "INICIA SESIÓN EN TU CUENTA"
+      ],
+      "Logout": [
+        "Logout"
+      ],
+      "Lost Password?": [
+        "Lost Contraseña?"
+      ],
+      "Low stock": [
+        "Low stock"
+      ],
+      "Loyalty Used": [
+        "Loyalty Used"
+      ],
+      "Main content": [
+        "Main content"
+      ],
+      "Manage Outlet": [
+        "Manage Punto de venta"
+      ],
+      "Manage Products": [
+        "Manage Productos"
+      ],
+      "Map CSV fields to outlets": [
+        "Map CSV fields a outlets"
+      ],
+      "Map to field": [
+        "Map a campo"
+      ],
+      "Margin Bottom (px)": [
+        "Margen inferior (px)"
+      ],
+      "Margin Left (px)": [
+        "Margen izquierdo (px)"
+      ],
+      "Margin Right (px)": [
+        "Margen derecho (px)"
+      ],
+      "Margin Top (px)": [
+        "Margen superior (px)"
+      ],
+      "Master Product Stock": [
+        "Master Producto Stock"
+      ],
+      "Master Stock": [
+        "Master Stock"
+      ],
+      "Master Stock Inventory": [
+        "Master Stock Inventory"
+      ],
+      "Max stock reached": [
+        "Se ha alcanzado el stock máximo"
+      ],
+      "Maximum 10 digits allowed. Press Back or Clear to modify the amount.": [
+        "Maximum 10 digits allowed. Press Back o Clear a modify el amount."
+      ],
+      "Maximum size: %s": [
+        "Maximum size: %s"
+      ],
+      "Media Settings": [
+        "Media Settings"
+      ],
+      "Menu order": [
+        "Orden del menú"
+      ],
+      "Menu Section": [
+        "Menu Section"
+      ],
+      "Message Sent": [
+        "Message Sent"
+      ],
+      "Messages successfully sent!": [
+        "Messages correctamente sent!"
+      ],
+      "Method": [
+        "Método"
+      ],
+      "Missing parameters.": [
+        "Missing parameters."
+      ],
+      "Missing params product_id, outlet_id, stock.": [
+        "Missing params product_id, outlet_id, stock."
+      ],
+      "Modified At": [
+        "Modified At"
+      ],
+      "Modify Weight": [
+        "Modify Weight"
+      ],
+      "Module License": [
+        "Module License"
+      ],
+      "Module List": [
+        "Module List"
+      ],
+      "Modules List": [
+        "Modules List"
+      ],
+      "Money spent": [
+        "Money spent"
+      ],
+      "More information about ": [
+        "More information about "
+      ],
+      "Multi pricing is disabled.": [
+        "Multi pricing es disabled."
+      ],
+      "N/A": [
+        "N/D"
+      ],
+      "Name": [
+        "Nombre"
+      ],
+      "Name (Last, First)": [
+        "Nombre (Last, First)"
+      ],
+      "Name already exists": [
+        "Nombre ya existe"
+      ],
+      "Name the token eg “WooCommerce Store”.": [
+        "Nombre el token eg “WooCommerce Store”."
+      ],
+      "Net Order": [
+        "Net Pedido"
+      ],
+      "Net Product Sale": [
+        "Net Producto Sale"
+      ],
+      "Net Sale": [
+        "Net Sale"
+      ],
+      "Net Total": [
+        "Net Total"
+      ],
+      "New order created": [
+        "Nuevo order creado"
+      ],
+      "New Password": [
+        "Nuevo Contraseña"
+      ],
+      "New password cannot be empty": [
+        "Nuevo password no se puede be vacío"
+      ],
+      "New style": [
+        "Nuevo style"
+      ],
+      "Next": [
+        "Siguiente"
+      ],
+      "NEXT STEP": [
+        "NEXT STEP"
+      ],
+      "No active drawer session.": [
+        "No activo drawer session."
+      ],
+      "No attributes found": [
+        "No se encontraron atributos"
+      ],
+      "No Barcode Image By ID": [
+        "No Barcode Image By ID"
+      ],
+      "No Barcode Image By SKU": [
+        "No Barcode Image By SKU"
+      ],
+      "No customer found!": [
+        "No customer found!"
+      ],
+      "No customer selected": [
+        "No se ha seleccionado ningún cliente"
+      ],
+      "No customers found.": [
+        "No customers found."
+      ],
+      "No data found for print": [
+        "No se encontraron datos para print"
+      ],
+      "No drawer list found.": [
+        "No drawer list found."
+      ],
+      "No hold orders found!": [
+        "No hold orders found!"
+      ],
+      "No low in stock products found.": [
+        "No low en stock products found."
+      ],
+      "No manager exist by that email.": [
+        "No manager exist by ese email."
+      ],
+      "No mapped Outlet Found.": [
+        "No mapped Punto de venta Found."
+      ],
+      "No matching outlet exists to update.": [
+        "No matching outlet exists a update."
+      ],
+      "No modules fetched.": [
+        "No modules fetched."
+      ],
+      "No note": [
+        "No note"
+      ],
+      "No options found": [
+        "No se encontraron opciones"
+      ],
+      "No Orders Available": [
+        "No Pedidos Disponible"
+      ],
+      "No orders available": [
+        "No orders disponible"
+      ],
+      "No orders found!": [
+        "No orders found!"
+      ],
+      "No out of stock products found.": [
+        "No out de stock products found."
+      ],
+      "No outlet assigned to this POS user.": [
+        "No outlet assigned a este POS user."
+      ],
+      "No products found": [
+        "No products found"
+      ],
+      "No products found in this category": [
+        "No products found en este category"
+      ],
+      "No products found.": [
+        "No products found."
+      ],
+      "No records found for download.": [
+        "No se encontraron registros para download."
+      ],
+      "No records found.": [
+        "No se encontraron registros."
+      ],
+      "No remarks.": [
+        "No remarks."
+      ],
+      "No Reports found": [
+        "No se encontraron informes"
+      ],
+      "No reports found.": [
+        "No reports found."
+      ],
+      "No stock available.": [
+        "No stock disponible."
+      ],
+      "No Such Outlet found.": [
+        "No Such Punto de venta found."
+      ],
+      "No Transactions found": [
+        "No se encontraron transacciones"
+      ],
+      "No transactions found.": [
+        "No transactions found."
+      ],
+      "Node Port": [
+        "Node Port"
+      ],
+      "Node Server": [
+        "Node Server"
+      ],
+      "Node Server ( Domain / IP ) Address*": [
+        "Node Server ( Domain / IP ) Dirección*"
+      ],
+      "Node Server Configuration": [
+        "Node Server Configuration"
+      ],
+      "Node Server PORT*": [
+        "Node Server PORT*"
+      ],
+      "Node server retry timeout.": [
+        "Node server retry timeout."
+      ],
+      "Node Server SSL Keys ( If Https )": [
+        "Node Server SSL Keys ( If Https )"
+      ],
+      "Node Server Timeout*": [
+        "Node Server Timeout*"
+      ],
+      "Node server will start on this port.": [
+        "Node server será start en este port."
+      ],
+      "Node.js start command is empty!": [
+        "Node.js start command es vacío!"
+      ],
+      "Nonce did not verified.": [
+        "Nonce did not verified."
+      ],
+      "Nonce is not Verified": [
+        "Nonce es not Verified"
+      ],
+      "Nonce not verified": [
+        "Nonce not verified"
+      ],
+      "Nonce Not Verified": [
+        "Nonce Not Verified"
+      ],
+      "None": [
+        "Ninguno"
+      ],
+      "Not a Valid Invoice.": [
+        "Not a Valid Invoice."
+      ],
+      "Not a Valid Payment Method.": [
+        "Not a Valid Pago Method."
+      ],
+      "Not a valid phone number": [
+        "Not a válido phone number"
+      ],
+      "Not a Valid POS User . ": [
+        "Not a Valid POS Usuario . "
+      ],
+      "Not able to Create customer. Please try again.": [
+        "Not able a Create customer. Por favor try again."
+      ],
+      "Not able to Delete customer. Please try again.": [
+        "Not able a Eliminar customer. Por favor try again."
+      ],
+      "Not Assigned": [
+        "Not Assigned"
+      ],
+      "Note": [
+        "Nota"
+      ],
+      "Note ": [
+        "Note "
+      ],
+      "Note : Keyboard Shortcut is currently disabled from Admin": [
+        "Note : Keyboard Shortcut es currently disabled desde Admin"
+      ],
+      "Notes": [
+        "Notas"
+      ],
+      "Notice": [
+        "Aviso"
+      ],
+      "Offline": [
+        "Offline"
+      ],
+      "Offline ID ": [
+        "Offline ID "
+      ],
+      "Offline Order": [
+        "Offline Pedido"
+      ],
+      "Offline Order Sync": [
+        "Offline Pedido sincronizar"
+      ],
+      "Offline Orders": [
+        "Offline Pedidos"
+      ],
+      "Offline orders will sync automatically when you will create any order online": [
+        "Offline orders será sync automatically when tú será create cualquier order online"
+      ],
+      "Ok": [
+        "Ok"
+      ],
+      "Okay": [
+        "Okay"
+      ],
+      "Old and new both order status are same.": [
+        "Anterior y nuevo both order status son same."
+      ],
+      "Old password cannot be empty": [
+        "Anterior password no se puede be vacío"
+      ],
+      "Old Password is wrong.": [
+        "Anterior Contraseña es wrong."
+      ],
+      "Old style": [
+        "Anterior style"
+      ],
+      "On Hold": [
+        "En espera"
+      ],
+      "On Sale": [
+        "En oferta"
+      ],
+      "Online": [
+        "Online"
+      ],
+      "Only audio files are allowed.": [
+        "Only audio files son allowed."
+      ],
+      "Only letters": [
+        "Only letters"
+      ],
+      "Only Numbers allowed": [
+        "Only Numbers allowed"
+      ],
+      "Opened At": [
+        "Abierto At"
+      ],
+      "Opened drawer retrieved successfully.": [
+        "Abierto drawer retrieved correctamente."
+      ],
+      "Opening Amount": [
+        "Importe inicial"
+      ],
+      "Opening Amount Drawer Status": [
+        "Apertura Importe Drawer Estado"
+      ],
+      "Opening Drawer Amount": [
+        "Apertura Drawer Importe"
+      ],
+      "Opening drawer created successfully.": [
+        "Apertura drawer creado correctamente."
+      ],
+      "Opening Drawer ID": [
+        "ID de apertura de caja"
+      ],
+      "Opening Drawer Note": [
+        "Apertura Drawer Note"
+      ],
+      "Opening Note": [
+        "Nota de apertura"
+      ],
+      "Opening Time": [
+        "Hora de apertura"
+      ],
+      "Options Per Page": [
+        "Options Per Page"
+      ],
+      "Order": [
+        "Pedido"
+      ],
+      "Order & Stock Configurations": [
+        "Configuración de pedidos y stock"
+      ],
+      "Order Almost Prepared": [
+        "Pedido Almost Prepared"
+      ],
+      "Order By Status": [
+        "Pedido By Estado"
+      ],
+      "Order Cashier Note": [
+        "Pedido Cashier Note"
+      ],
+      "Order Cashpay Amount": [
+        "Pedido Cashpay Importe"
+      ],
+      "Order Change": [
+        "Pedido Change"
+      ],
+      "Order Coupon Amount": [
+        "Pedido Coupon Importe"
+      ],
+      "Order Coupon Name": [
+        "Pedido Coupon Nombre"
+      ],
+      "Order Date": [
+        "Fecha del pedido"
+      ],
+      "Order Discount": [
+        "Pedido Descuento"
+      ],
+      "Order Fee Amount": [
+        "Pedido Fee Importe"
+      ],
+      "Order Fee Title": [
+        "Pedido Fee Título"
+      ],
+      "Order History": [
+        "Historial de pedidos"
+      ],
+      "Order History not found!": [
+        "Pedido History not found!"
+      ],
+      "Order ID": [
+        "ID del pedido"
+      ],
+      "Order id": [
+        "Pedido id"
+      ],
+      "Order Id": [
+        "Pedido Id"
+      ],
+      "Order Id Prefix": [
+        "Pedido Id Prefix"
+      ],
+      "Order is Empty": [
+        "Pedido es Vacío"
+      ],
+      "Order Note": [
+        "Pedido Note"
+      ],
+      "order note empty": [
+        "order note vacío"
+      ],
+      "Order Other Pay Amount": [
+        "Pedido Other Pay Importe"
+      ],
+      "Order Other Payment title": [
+        "Pedido Other Pago title"
+      ],
+      "Order Print": [
+        "Pedido Imprimir"
+      ],
+      "Order Receipt Sent": [
+        "Pedido Receipt Sent"
+      ],
+      "Order receipt sent successfully!": [
+        "Pedido receipt sent correctamente!"
+      ],
+      "Order Search": [
+        "Pedido Buscar"
+      ],
+      "Order Section (Online / Offline)": [
+        "Pedido Section (Online / Offline)"
+      ],
+      "Order Status": [
+        "Pedido Estado"
+      ],
+      "Order status change permission": [
+        "Permiso para cambiar el estado del pedido"
+      ],
+      "Order status changed to %s": [
+        "Pedido status changed a %s"
+      ],
+      "order status update request faild!": [
+        "order status update request faild!"
+      ],
+      "order status updated successfully.": [
+        "order status actualizado correctamente."
+      ],
+      "order status updating...": [
+        "order status updating..."
+      ],
+      "Order Subtotal": [
+        "Pedido Subtotal"
+      ],
+      "Order Summary": [
+        "Pedido Summary"
+      ],
+      "Order Tax Amount": [
+        "Pedido Impuesto Importe"
+      ],
+      "Order Tax Title": [
+        "Pedido Impuesto Título"
+      ],
+      "Order Tone 1": [
+        "Pedido Tone 1"
+      ],
+      "Order Tone 2": [
+        "Pedido Tone 2"
+      ],
+      "Order Total": [
+        "Pedido Total"
+      ],
+      "Order Transaction Id": [
+        "Pedido Transaction Id"
+      ],
+      "Orders": [
+        "Pedidos"
+      ],
+      "Orders ( Deprecate Soon )": [
+        "Pedidos ( Deprecate Soon )"
+      ],
+      "Orders per page": [
+        "Pedidos per page"
+      ],
+      "OS Default Mode": [
+        "OS Predeterminado Mode"
+      ],
+      "Other Payments": [
+        "Other Payments"
+      ],
+      "Other Settings": [
+        "Other Settings"
+      ],
+      "Out of stock": [
+        "Agotado"
+      ],
+      "Out of Stock Product Tone": [
+        "Sonido de producto agotado"
+      ],
+      "Outlet": [
+        "Punto de venta"
+      ],
+      "Outlet Address": [
+        "Dirección del punto de venta"
+      ],
+      "Outlet address is missing": [
+        "Punto de venta address es missing"
+      ],
+      "Outlet Assign All Products": [
+        "Punto de venta Assign Todos Productos"
+      ],
+      "Outlet Assign Quantity": [
+        "Punto de venta Assign Cantidad"
+      ],
+      "Outlet Audio Tones": [
+        "Punto de venta Audio Tones"
+      ],
+      "Outlet City": [
+        "Ciudad del punto de venta"
+      ],
+      "Outlet Close drawer content.": [
+        "Punto de venta Cerrar drawer content."
+      ],
+      "Outlet Country": [
+        "País del punto de venta"
+      ],
+      "Outlet Country is Missing": [
+        "Punto de venta País es Missing"
+      ],
+      "Outlet created successfully": [
+        "Punto de venta creado correctamente"
+      ],
+      "Outlet ID": [
+        "Punto de venta ID"
+      ],
+      "Outlet is not assigned!": [
+        "Punto de venta es not assigned!"
+      ],
+      "Outlet List": [
+        "Punto de venta List"
+      ],
+      "Outlet Name": [
+        "Nombre del punto de venta"
+      ],
+      "Outlet name is empty": [
+        "Punto de venta name es vacío"
+      ],
+      "Outlet Postcode": [
+        "Código postal del punto de venta"
+      ],
+      "Outlet product Per Page": [
+        "Punto de venta product Per Page"
+      ],
+      "Outlet Products Processing": [
+        "Punto de venta Productos Processing"
+      ],
+      "Outlet Report ": [
+        "Punto de venta Informe "
+      ],
+      "Outlet State": [
+        "Provincia del punto de venta"
+      ],
+      "Outlet Status": [
+        "Punto de venta Estado"
+      ],
+      "Outlet status is mandatory": [
+        "Punto de venta status es mandatory"
+      ],
+      "Outlet Template": [
+        "Punto de venta Template"
+      ],
+      "Outlet updated successfully": [
+        "Punto de venta actualizado correctamente"
+      ],
+      "Outlets": [
+        "Puntos de venta"
+      ],
+      "Outlets per page": [
+        "Outlets per page"
+      ],
+      "Overview": [
+        "Resumen"
+      ],
+      "Padding Bottom (px)": [
+        "Padding Bottom (px)"
+      ],
+      "Padding Left (px)": [
+        "Padding Left (px)"
+      ],
+      "Padding Right (px)": [
+        "Padding Right (px)"
+      ],
+      "Padding Top (px)": [
+        "Padding Top (px)"
+      ],
+      "Paid": [
+        "Paid"
+      ],
+      "Paragraph": [
+        "Párrafo"
+      ],
+      "Parameter country_code not set. Pass a valid country code.": [
+        "Parameter country_code not set. Pass a válido country code."
+      ],
+      "Parent": [
+        "Parent"
+      ],
+      "Parent Product GTIN, UPC, EAN, or ISBN": [
+        "Parent Producto GTIN, UPC, EAN, o ISBN"
+      ],
+      "Parent SKU": [
+        "SKU principal"
+      ],
+      "Partial Refunded": [
+        "Reembolsado parcialmente"
+      ],
+      "Password": [
+        "Contraseña"
+      ],
+      "Password field can not be empty": [
+        "Contraseña campo no se puede be vacío"
+      ],
+      "Pay": [
+        "Pay"
+      ],
+      "PAY": [
+        "PAY"
+      ],
+      "Pay By Cash": [
+        "Pay By Efectivo"
+      ],
+      "Pay By Other": [
+        "Pay By Other"
+      ],
+      "Pay Section": [
+        "Pay Section"
+      ],
+      "Payable Amount": [
+        "Importe a pagar"
+      ],
+      "Payment": [
+        "Pago"
+      ],
+      "Payment Description": [
+        "Descripción del método de pago"
+      ],
+      "Payment Detail": [
+        "Pago Detail"
+      ],
+      "Payment Method": [
+        "Método de pago"
+      ],
+      "Payment method cannot be empty.": [
+        "Pago method no se puede be vacío."
+      ],
+      "Payment Method deleted successfully": [
+        "Pago Method eliminado correctamente"
+      ],
+      "Payment Method Listing": [
+        "Pago Method Listing"
+      ],
+      "Payment Method(s)": [
+        "Método(s) de pago"
+      ],
+      "Payment Method(s) deleted successfully": [
+        "Pago Method(s) eliminado correctamente"
+      ],
+      "Payment Method(s) updated successfully": [
+        "Pago Method(s) actualizado correctamente"
+      ],
+      "Payment Methods": [
+        "Métodos de pago"
+      ],
+      "Payment Mode": [
+        "Pago Mode"
+      ],
+      "Payment Name": [
+        "Nombre del método de pago"
+      ],
+      "Payment Slug": [
+        "Pago Slug"
+      ],
+      "PAYMENT SUMMARY": [
+        "RESUMEN DE PAGOS"
+      ],
+      "Payment Transaction Id": [
+        "Pago Transaction Id"
+      ],
+      "Payment Transaction ID ": [
+        "Pago Transaction ID "
+      ],
+      "Payments": [
+        "Payments"
+      ],
+      "Pending": [
+        "Pendiente"
+      ],
+      "Percent": [
+        "Porcentaje"
+      ],
+      "Permalink": [
+        "Permalink"
+      ],
+      "Phone": [
+        "Teléfono"
+      ],
+      "Phone number already exists": [
+        "Teléfono number ya existe"
+      ],
+      "Pin": [
+        "Pin"
+      ],
+      "Pin Icon Visibility": [
+        "Pin Icon Visibility"
+      ],
+      "Pincode": [
+        "Pincode"
+      ],
+      "pinned successfully": [
+        "pinned correctamente"
+      ],
+      "Please  provide valid details": [
+        "Por favor  provide válido details"
+      ],
+      "Please add products to the cart first!": [
+        "Por favor add products a el cart first!"
+      ],
+      "Please add the Envato token below to %s from the Plugin's page. It saves the effort of manually downloading the plugin from CodeCanyon and uploading it to the WordPress Plugin update page.": [
+        "Por favor add el Envato token below a %s desde el Plugin's page. It saves el effort de manually downloading el plugin desde CodeCanyon y uploading it a el WordPress Plugin update page."
+      ],
+      "Please click to Sync the extended support.": [
+        "Por favor click a sincronizar el extended support."
+      ],
+      "Please connect to internet for view this section!": [
+        "Por favor connect a internet para view este section!"
+      ],
+      "Please do not keep any field empty.": [
+        "Por favor do not keep cualquier campo vacío."
+      ],
+      "Please do not keep coupon code field empty.": [
+        "Por favor do not keep coupon code campo vacío."
+      ],
+      "Please enable shell_exec or exec function in your PHP configuration.": [
+        "Por favor enable shell_exec o exec function en tu PHP configuration."
+      ],
+      "Please enter & confirm new password.": [
+        "Por favor enter & confirm nuevo password."
+      ],
+      "Please enter a valid phone number": [
+        "Por favor enter a válido phone number"
+      ],
+      "Please enter a valid phone number(Only number allowed).": [
+        "Por favor enter a válido phone number(Only number allowed)."
+      ],
+      "Please enter a valid Price": [
+        "Por favor enter a válido Precio"
+      ],
+      "Please enter a valid Quantity": [
+        "Por favor enter a válido Cantidad"
+      ],
+      "Please enter a valid weight.": [
+        "Por favor enter a válido weight."
+      ],
+      "Please enter tendered amount same as total amount.": [
+        "Por favor enter tendered amount same as total amount."
+      ],
+      "Please enter valid opening cash amount.": [
+        "Por favor enter válido opening cash amount."
+      ],
+      "Please fill up all the required fields": [
+        "Por favor fill up todos el obligatorio fields"
+      ],
+      "Please fill up all the required fields ": [
+        "Por favor fill up todos el obligatorio fields "
+      ],
+      "Please input a valid email address": [
+        "Por favor input a válido email address"
+      ],
+      "Please install Node.js on your server or contact your hosting provider!": [
+        "Por favor install Node.js en tu server o contact tu hosting provider!"
+      ],
+      "Please note all the stock management for variations will be saved on focus and blur.": [
+        "Por favor note todos el stock management para variations será be saved en focus y blur."
+      ],
+      "Please provide all parameters.": [
+        "Por favor provide todos parameters."
+      ],
+      "Please provide data": [
+        "Por favor provide datos"
+      ],
+      "Please provide tone name and url.": [
+        "Por favor provide tone name y url."
+      ],
+      "Please provide valid Auth Key.": [
+        "Proporciona una clave de autenticación válida."
+      ],
+      "Please provide valid Order data.": [
+        "Por favor provide válido Pedido datos."
+      ],
+      "Please select customer for this order": [
+        "Por favor select customer para este order"
+      ],
+      "Please upload or provide the link to a valid CSV file.": [
+        "Por favor upload o provide el link a a válido CSV archivo."
+      ],
+      "Please wait for %s minutes to sync the extended support.": [
+        "Por favor wait para %s minutes a sync el extended support."
+      ],
+      "Please wait, loading variations...": [
+        "Espera, cargando variaciones..."
+      ],
+      "Please wait...": [
+        "Espera, por favor..."
+      ],
+      "Plugin": [
+        "Plugin"
+      ],
+      "Plugin name is missing.": [
+        "Plugin name es missing."
+      ],
+      "Point of Sale": [
+        "Point de Sale"
+      ],
+      "Point Of Sale Onboarding": [
+        "Point Of Sale Onboarding"
+      ],
+      "Point of sale Server Debug": [
+        "Point de sale Server Debug"
+      ],
+      "Point Of Sale Server Debug": [
+        "Point Of Sale Server Debug"
+      ],
+      "Point of sale Setup wizard": [
+        "Point de sale Setup wizard"
+      ],
+      "Point Of Sale System": [
+        "Point Of Sale System"
+      ],
+      "Portrait": [
+        "Vertical"
+      ],
+      "POS": [
+        "POS"
+      ],
+      "POS Agent": [
+        "POS Agent"
+      ],
+      "POS Audio Configurations": [
+        "Configuración de audio del TPV"
+      ],
+      "POS Cashier": [
+        "POS Cashier"
+      ],
+      "POS Cron Configurations": [
+        "Configuración de cron del TPV"
+      ],
+      "POS CRON Every 15 Minutes": [
+        "POS CRON Every 15 Minutes"
+      ],
+      "POS Currency": [
+        "POS Currency"
+      ],
+      "POS Discount": [
+        "POS Descuento"
+      ],
+      "POS Drawer List": [
+        "POS Drawer List"
+      ],
+      "POS Endpoint": [
+        "POS Endpoint"
+      ],
+      "POS Enter the master stock for product.": [
+        "POS Introduce el master stock para product."
+      ],
+      "POS Enter the master stock for variation.": [
+        "POS Introduce el master stock para variation."
+      ],
+      "POS Fee": [
+        "POS Fee"
+      ],
+      "POS Greeting Template List": [
+        "POS Greeting Template List"
+      ],
+      "POS Greeting Templates List": [
+        "POS Greeting Templates List"
+      ],
+      "POS Heading Login": [
+        "POS Heading Login"
+      ],
+      "POS Invoice Option": [
+        "POS Invoice Option"
+      ],
+      "POS List Outlets": [
+        "POS List Outlets"
+      ],
+      "POS manager can change order status.": [
+        "POS manager puede change order status."
+      ],
+      "Pos manager created successfully": [
+        "Pos manager creado correctamente"
+      ],
+      "Pos manager email cannot be empty": [
+        "Pos manager email no se puede be vacío"
+      ],
+      "Pos manager email is already in use.": [
+        "Pos manager email es already en use."
+      ],
+      "Pos manager email is empty ": [
+        "Pos manager email es vacío "
+      ],
+      "Pos manager email is mandatory ": [
+        "Pos manager email es mandatory "
+      ],
+      "Pos manager email is not valid": [
+        "Pos manager email es not válido"
+      ],
+      "Pos manager email is not valid ": [
+        "Pos manager email es not válido "
+      ],
+      "Pos manager first name is mandatory.": [
+        "Pos manager first name es mandatory."
+      ],
+      "POS manager ID is Required": [
+        "El ID del responsable del TPV es obligatorio"
+      ],
+      "Pos manager last Name is mandatory.": [
+        "Pos manager last Nombre es mandatory."
+      ],
+      "Pos manager password is mandatory.": [
+        "Pos manager password es mandatory."
+      ],
+      "Pos manager status is mandatory ": [
+        "Pos manager status es mandatory "
+      ],
+      "Pos manager telephone number is mandatory ": [
+        "Pos manager telephone number es mandatory "
+      ],
+      "Pos manager telephone number is not valid.": [
+        "Pos manager telephone number es not válido."
+      ],
+      "POS Mass Assign": [
+        "POS Mass Assign"
+      ],
+      "POS Master Stock": [
+        "POS Master Stock"
+      ],
+      "POS Mobile App": [
+        "POS Mobile App"
+      ],
+      "POS Order List": [
+        "POS Pedido List"
+      ],
+      "POS Orders": [
+        "POS Pedidos"
+      ],
+      "POS Outlet": [
+        "POS Punto de venta"
+      ],
+      "POS Outlet Address.": [
+        "POS Punto de venta Dirección."
+      ],
+      "POS Outlet Assign default quantity.": [
+        "POS Punto de venta Assign predeterminado quantity."
+      ],
+      "POS Outlet Product List": [
+        "POS Punto de venta Producto List"
+      ],
+      "POS Panel Configurations": [
+        "Configuración del panel del TPV"
+      ],
+      "Pos payment description is empty ": [
+        "Pos payment description es vacío "
+      ],
+      "POS Payment Gateway Name.": [
+        "POS Pago Gateway Nombre."
+      ],
+      "POS payment Gateway Slug.": [
+        "POS payment Gateway Slug."
+      ],
+      "POS Payment List": [
+        "POS Pago List"
+      ],
+      "Pos payment name is empty ": [
+        "Pos payment name es vacío "
+      ],
+      "Pos payment slug is empty ": [
+        "Pos payment slug es vacío "
+      ],
+      "POS Payment(s) List": [
+        "POS Pago(s) List"
+      ],
+      "POS Product Image View": [
+        "POS Producto Image Ver"
+      ],
+      "POS Product List": [
+        "POS Producto List"
+      ],
+      "POS Products": [
+        "POS Productos"
+      ],
+      "POS Reports": [
+        "POS Informes"
+      ],
+      "POS Setup Wizard": [
+        "POS Setup Wizard"
+      ],
+      "POS setup wizard data inserted": [
+        "POS setup wizard datos inserted"
+      ],
+      "POS setup wizard data updated": [
+        "POS setup wizard datos actualizado"
+      ],
+      "POS Status": [
+        "POS Estado"
+      ],
+      "POS Stock for product updated": [
+        "POS Stock para product actualizado"
+      ],
+      "POS Stock is not available": [
+        "POS Stock es no disponible"
+      ],
+      "POS Stock is unavailable": [
+        "POS Stock es unavailable"
+      ],
+      "POS System": [
+        "Sistema TPV"
+      ],
+      "POS Theme Colors": [
+        "POS Theme Colors"
+      ],
+      "POS Theme Mode": [
+        "POS Theme Mode"
+      ],
+      "POS UI Modes": [
+        "POS UI Modes"
+      ],
+      "POS User Email Address.": [
+        "POS Usuario Correo electrónico Dirección."
+      ],
+      "POS User First Name.": [
+        "POS Usuario First Nombre."
+      ],
+      "POS User Last Name.": [
+        "POS Usuario Last Nombre."
+      ],
+      "POS User List": [
+        "POS Usuario List"
+      ],
+      "POS User list": [
+        "POS Usuario list"
+      ],
+      "POS User Password Auto Generated.": [
+        "POS Usuario Contraseña Auto Generated."
+      ],
+      "POS User Telephone Number.": [
+        "POS Usuario Telephone Number."
+      ],
+      "POS User's email": [
+        "POS Usuario's email"
+      ],
+      "POS User's phone number": [
+        "POS Usuario's phone number"
+      ],
+      "POS Variation Master Stock": [
+        "POS Variation Master Stock"
+      ],
+      "Postcode": [
+        "Código postal"
+      ],
+      "Pre-defined Variables": [
+        "Variables predefinidas"
+      ],
+      "Preparing Order": [
+        "Preparing Pedido"
+      ],
+      "Previous": [
+        "Previous"
+      ],
+      "Previous opened drawers retrieved successfully.": [
+        "Previous opened drawers retrieved correctamente."
+      ],
+      "Previous Password": [
+        "Previous Contraseña"
+      ],
+      "Price": [
+        "Precio"
+      ],
+      "Price ": [
+        "Precio "
+      ],
+      "Price removed successfully.": [
+        "Precio removed correctamente."
+      ],
+      "Primary Color": [
+        "Primary Color"
+      ],
+      "Primary Light Color": [
+        "Primary Light Color"
+      ],
+      "Print": [
+        "Imprimir"
+      ],
+      "Print Barcode": [
+        "Imprimir Barcode"
+      ],
+      "Print Closing Report": [
+        "Imprimir Cierre Informe"
+      ],
+      "Print closing report": [
+        "Imprimir closing report"
+      ],
+      "Print Drawer Report": [
+        "Imprimir informe de caja"
+      ],
+      "Print Drawer Reports": [
+        "Imprimir informes de caja"
+      ],
+      "Print DrawerReports Per Page": [
+        "Imprimir DrawerReports Per Page"
+      ],
+      "Print Invoice": [
+        "Imprimir Invoice"
+      ],
+      "Print Preview": [
+        "Vista previa de impresión"
+      ],
+      "Print Time": [
+        "Imprimir Hora"
+      ],
+      "Printing Time": [
+        "Printing Hora"
+      ],
+      "Private Key": [
+        "Private Key"
+      ],
+      "Proceed": [
+        "Continuar"
+      ],
+      "Processing": [
+        "Procesando"
+      ],
+      "Processing Invoice": [
+        "Processing Invoice"
+      ],
+      "Processing Order": [
+        "Processing Pedido"
+      ],
+      "Processing...": [
+        "Procesando..."
+      ],
+      "Product": [
+        "Producto"
+      ],
+      "product": [
+        "product"
+      ],
+      "Product Amount": [
+        "Importe del producto"
+      ],
+      "Product Discount": [
+        "Producto Descuento"
+      ],
+      "product do not contain SKU.": [
+        "product do not contain SKU."
+      ],
+      "Product id can not be empty.": [
+        "Producto id no se puede be vacío."
+      ],
+      "Product Name": [
+        "Nombre del producto"
+      ],
+      "Product name length must be more 3": [
+        "Producto name length must be más 3"
+      ],
+      "Product Price": [
+        "Producto Precio"
+      ],
+      "Product Quantity": [
+        "Producto Cantidad"
+      ],
+      "Product Sync successfully": [
+        "Producto sincronizar correctamente"
+      ],
+      "Product Title": [
+        "Título del producto"
+      ],
+      "Product title will show or hide by this setting.": [
+        "Producto title será show o hide by este setting."
+      ],
+      "Product Tone": [
+        "Producto Tone"
+      ],
+      "Product Variations View": [
+        "Producto Variations Ver"
+      ],
+      "Product Weight:": [
+        "Producto Weight:"
+      ],
+      "Products": [
+        "Productos"
+      ],
+      "Products are synced and": [
+        "Productos son sincronizado y"
+      ],
+      "Products Enabled": [
+        "Productos Enabled"
+      ],
+      "products loaded": [
+        "products loaded"
+      ],
+      "Products per page": [
+        "Productos per page"
+      ],
+      "profile image": [
+        "profile image"
+      ],
+      "Profile Updated Successfully.": [
+        "Profile Updated correctamente."
+      ],
+      "Provide a valid drawer ID.": [
+        "Provide a válido drawer ID."
+      ],
+      "Provide a valid drawer id.": [
+        "Provide a válido drawer id."
+      ],
+      "Provide a valid transaction id.": [
+        "Provide a válido transaction id."
+      ],
+      "Provide a valid user id.": [
+        "Provide a válido user id."
+      ],
+      "Provide a valid user ID.": [
+        "Provide a válido user ID."
+      ],
+      "Purchase Code": [
+        "Purchase Code"
+      ],
+      "Purchase Code is not Correct": [
+        "Purchase Code es not Correct"
+      ],
+      "Purchase Code Saved": [
+        "Purchase Code Saved"
+      ],
+      "Purchase From": [
+        "Purchase From"
+      ],
+      "Quantity": [
+        "Cantidad"
+      ],
+      "Quantity For Low Stock Warning": [
+        "Cantidad para el aviso de stock bajo"
+      ],
+      "Raspberry, American purple & Pink lace": [
+        "Raspberry, American purple & Pink lace"
+      ],
+      "Ready": [
+        "Ready"
+      ],
+      "Ready to Go": [
+        "Listo para empezar"
+      ],
+      "Reason for failure": [
+        "Reason para failure"
+      ],
+      "Refresh": [
+        "Refresh"
+      ],
+      "Refresh stats": [
+        "Refresh stats"
+      ],
+      "Refreshed stats for %s": [
+        "Refreshed stats para %s"
+      ],
+      "Refund": [
+        "Reembolso"
+      ],
+      "Refund Amount": [
+        "Refund Importe"
+      ],
+      "Refund Id": [
+        "Refund Id"
+      ],
+      "Refund ID": [
+        "Refund ID"
+      ],
+      "Refunded": [
+        "Reembolsado"
+      ],
+      "Refunded Amount": [
+        "Importe reembolsado"
+      ],
+      "Regular price": [
+        "Regular price"
+      ],
+      "Reloading data": [
+        "Reloading datos"
+      ],
+      "Remark": [
+        "Remark"
+      ],
+      "Remarks": [
+        "Remarks"
+      ],
+      "Remove": [
+        "Eliminar"
+      ],
+      "Remove Cart": [
+        "Eliminar Cart"
+      ],
+      "Remove filter": [
+        "Quitar filtro"
+      ],
+      "Remove Payment": [
+        "Eliminar Pago"
+      ],
+      "Remove Product": [
+        "Eliminar Producto"
+      ],
+      "Renew key is missing.": [
+        "Renew key es missing."
+      ],
+      "Report": [
+        "Informe"
+      ],
+      "Report ID": [
+        "Informe ID"
+      ],
+      "Report No": [
+        "Informe No"
+      ],
+      "Report not found.": [
+        "Informe not found."
+      ],
+      "Reports": [
+        "Informes"
+      ],
+      "Reprint": [
+        "Volver a imprimir"
+      ],
+      "Required": [
+        "Obligatorio"
+      ],
+      "Reset": [
+        "Restablecer"
+      ],
+      "Reset Cart": [
+        "Reset Cart"
+      ],
+      "Reset Confirmation": [
+        "Reset Confirmation"
+      ],
+      "Reset Default": [
+        "Restablecer valores predeterminados"
+      ],
+      "Reset to Default": [
+        "Reset a Predeterminado"
+      ],
+      "Reset to defaults": [
+        "Restablecer valores predeterminados"
+      ],
+      "Resync": [
+        "Resync"
+      ],
+      "Retail, Wholesale, etc.": [
+        "Retail, Wholesale, etc."
+      ],
+      "RETURN TO POS": [
+        "VOLVER AL TPV"
+      ],
+      "Revenue": [
+        "Ingresos"
+      ],
+      "Review": [
+        "Reseña"
+      ],
+      "Review Settings": [
+        "Revisar ajustes"
+      ],
+      "Review the product": [
+        "Review el product"
+      ],
+      "Ridge": [
+        "Ridge"
+      ],
+      "Right": [
+        "Derecha"
+      ],
+      "Rounded": [
+        "Rounded"
+      ],
+      "Row not found.": [
+        "Row not found."
+      ],
+      "Royal blue & Alice blue": [
+        "Royal blue & Alice blue"
+      ],
+      "Run the importer": [
+        "Run el importer"
+      ],
+      "Run the Setup Wizard": [
+        "Ejecutar el asistente de configuración"
+      ],
+      "Sale price": [
+        "Sale price"
+      ],
+      "Sale Summary": [
+        "Sale Summary"
+      ],
+      "Sample File": [
+        "Sample Archivo"
+      ],
+      "Sample Product": [
+        "Producto de ejemplo"
+      ],
+      "Sample:": [
+        "Sample:"
+      ],
+      "Save": [
+        "Guardar"
+      ],
+      "Save and Print": [
+        "Guardar y Imprimir"
+      ],
+      "Save Changes": [
+        "Guardar Changes"
+      ],
+      "Save Configuration": [
+        "Guardar configuración"
+      ],
+      "Save Configurations": [
+        "Guardar configuración"
+      ],
+      "Save Customer": [
+        "Guardar Cliente"
+      ],
+      "Save Greetings Template": [
+        "Guardar Greetings Template"
+      ],
+      "Save Outlet": [
+        "Guardar Punto de venta"
+      ],
+      "Save Payment": [
+        "Guardar método de pago"
+      ],
+      "Save Settings": [
+        "Guardar Settings"
+      ],
+      "Save Tone": [
+        "Guardar sonido"
+      ],
+      "Save User": [
+        "Guardar Usuario"
+      ],
+      "Saving GTIN/UPC/EAN/ISBN...": [
+        "Saving GTIN/UPC/EAN/ISBN..."
+      ],
+      "Saving template...": [
+        "Guardando plantilla..."
+      ],
+      "Scan Barcode": [
+        "Scan Barcode"
+      ],
+      "Scarlet, light olive, & light teal": [
+        "Scarlet, light olive, & light teal"
+      ],
+      "Search": [
+        "Buscar"
+      ],
+      "Search any customer data": [
+        "Buscar cualquier customer datos"
+      ],
+      "Search any drawer data": [
+        "Buscar cualquier drawer datos"
+      ],
+      "Search attributes...": [
+        "Buscar atributos..."
+      ],
+      "Search by Invoice Name": [
+        "Buscar by Invoice Nombre"
+      ],
+      "Search by order id": [
+        "Buscar by order id"
+      ],
+      "Search by Outlet Name": [
+        "Buscar by Punto de venta Nombre"
+      ],
+      "Search by Payment Name": [
+        "Buscar by Pago Nombre"
+      ],
+      "Search by Product Name": [
+        "Buscar by Producto Nombre"
+      ],
+      "Search by User Name": [
+        "Buscar by Usuario Nombre"
+      ],
+      "Search customer by name, email and billing phone": [
+        "Buscar customer by name, email y billing phone"
+      ],
+      "Search customers": [
+        "Buscar customers"
+      ],
+      "Search Drawers": [
+        "Buscar Drawers"
+      ],
+      "Search offline order by id": [
+        "Buscar offline order by id"
+      ],
+      "Search order by id, customer": [
+        "Buscar order by id, customer"
+      ],
+      "Search Payment": [
+        "Buscar método de pago"
+      ],
+      "Search product": [
+        "Buscar producto"
+      ],
+      "Search Reports": [
+        "Buscar Informes"
+      ],
+      "Search Template": [
+        "Buscar Template"
+      ],
+      "Search Users": [
+        "Buscar usuarios"
+      ],
+      "Searching Products": [
+        "Searching Productos"
+      ],
+      "Searching...": [
+        "Buscando..."
+      ],
+      "Secondary Color": [
+        "Secondary Color"
+      ],
+      "Security check faild": [
+        "Security check faild"
+      ],
+      "See changelog for all versions": [
+        "See changelog para todos versions"
+      ],
+      "See the complete blog": [
+        "See el complete blog"
+      ],
+      "Select a cashier below and click the print button to generate and print their closing report.": [
+        "Selecciona a cashier below y click el print button a generate y print their closing report."
+      ],
+      "Select a cashier...": [
+        "Selecciona a cashier..."
+      ],
+      "Select a category from the list below": [
+        "Selecciona a category desde el list below"
+      ],
+      "Select a valid payment option.": [
+        "Selecciona a válido payment option."
+      ],
+      "Select Additional Payment Option here for outlets.": [
+        "Selecciona Additional Pago Option here para outlets."
+      ],
+      "Select any Country": [
+        "Selecciona cualquier País"
+      ],
+      "Select Currency": [
+        "Selecciona Currency"
+      ],
+      "Select Date Range": [
+        "Seleccionar intervalo de fechas"
+      ],
+      "Select Default Printer Type": [
+        "Selecciona Predeterminado Printer Tipo"
+      ],
+      "Select element first in the invoice to add new element next to it.": [
+        "Selecciona element first en el invoice a add nuevo element next a it."
+      ],
+      "Select End Date": [
+        "Selecciona End Fecha"
+      ],
+      "Select fields from your CSV file to map against outlets fields, or to ignore during import.": [
+        "Selecciona fields desde tu CSV archivo a map against outlets fields, o a ignore during import."
+      ],
+      "Select Inventory Type": [
+        "Selecciona Inventory Tipo"
+      ],
+      "Select Invoice Page size": [
+        "Selecciona Invoice Page size"
+      ],
+      "Select invoice template": [
+        "Selecciona invoice template"
+      ],
+      "Select Invoice Template": [
+        "Selecciona Invoice Template"
+      ],
+      "Select invoice template for the current outlet.": [
+        "Selecciona invoice template para el current outlet."
+      ],
+      "Select Language": [
+        "Selecciona Language"
+      ],
+      "Select Outlet": [
+        "Selecciona Punto de venta"
+      ],
+      "Select Outlet for the pos user.": [
+        "Selecciona Punto de venta para el pos user."
+      ],
+      "Select Price For": [
+        "Seleccionar precio para"
+      ],
+      "Select Start Date": [
+        "Selecciona Start Fecha"
+      ],
+      "Select Status": [
+        "Selecciona Estado"
+      ],
+      "Select Status for the pos outlet.": [
+        "Selecciona Estado para el pos outlet."
+      ],
+      "Select Status for the pos payment.": [
+        "Selecciona Estado para el pos payment."
+      ],
+      "Select Status for the pos user.": [
+        "Selecciona Estado para el pos user."
+      ],
+      "Select style for variation popup on POS end.": [
+        "Selecciona style para variation popup en POS end."
+      ],
+      "Select Template": [
+        "Selecciona Template"
+      ],
+      "Select the customer first.": [
+        "Selecciona el customer first."
+      ],
+      "Select The POS Product Image View As per your requirement": [
+        "Selecciona El POS Producto Image Ver As per tu requirement"
+      ],
+      "Select Tone Audio": [
+        "Seleccionar audio del sonido"
+      ],
+      "Select User": [
+        "Selecciona Usuario"
+      ],
+      "Select Variation from the list below": [
+        "Selecciona Variation desde el list below"
+      ],
+      "Send Automatic Order receipt to client": [
+        "Send Automatic Pedido receipt a client"
+      ],
+      "Send Message": [
+        "Send Message"
+      ],
+      "Send message to multiple clients": [
+        "Send message a multiple clients"
+      ],
+      "Send order email": [
+        "Send order email"
+      ],
+      "Send Order receipt to client": [
+        "Send Pedido receipt a client"
+      ],
+      "Send Whatsapp message to client": [
+        "Send Whatsapp message a client"
+      ],
+      "Sending failed": [
+        "Sending failed"
+      ],
+      "Sending order email...": [
+        "Sending order email..."
+      ],
+      "Server connection refused!": [
+        "Server connection refused!"
+      ],
+      "Server Cron (Recommended)": [
+        "Cron del servidor (recomendado)"
+      ],
+      "Server cron commands:": [
+        "Server cron commands:"
+      ],
+      "Server cron needs to configure by the server and wp cron no needs any configurations, but the wp cron works only when the page loads.": [
+        "Server cron needs a configure by el server y wp cron no needs cualquier configurations, but el wp cron works solo when el page loads."
+      ],
+      "Server HTTPS status*": [
+        "Server HTTPS status*"
+      ],
+      "Set Opening Drawer Amount": [
+        "Set Apertura Drawer Importe"
+      ],
+      "Set Pos Default Customer": [
+        "Set Pos Predeterminado Cliente"
+      ],
+      "Set POS Endpoint as per your requirement.": [
+        "Set POS Endpoint as per tu requirement."
+      ],
+      "Set variation stock": [
+        "Set variation stock"
+      ],
+      "Setting": [
+        "Setting"
+      ],
+      "Setting has been updated successfully": [
+        "Setting has been actualizado correctamente"
+      ],
+      "Settings": [
+        "Ajustes"
+      ],
+      "Settings updated.": [
+        "Ajustes actualizados."
+      ],
+      "Setup wizard": [
+        "Setup wizard"
+      ],
+      "Shipping": [
+        "Shipping"
+      ],
+      "Short Name": [
+        "Short Nombre"
+      ],
+      "Shortage": [
+        "Shortage"
+      ],
+      "Show a submit button when an item in cart list is expanded.": [
+        "Show a submit button when an item en cart list es expanded."
+      ],
+      "Show advanced options": [
+        "Show advanced options"
+      ],
+      "Show Details": [
+        "Mostrar detalles"
+      ],
+      "Show on Hover": [
+        "Show en Hover"
+      ],
+      "Site URL": [
+        "Site URL"
+      ],
+      "Skip": [
+        "Skip"
+      ],
+      "Skip setup": [
+        "Omitir configuración"
+      ],
+      "skipped": [
+        "skipped"
+      ],
+      "SKU": [
+        "SKU"
+      ],
+      "Solid": [
+        "Continuo"
+      ],
+      "Something Went Wrong": [
+        "Algo salió mal"
+      ],
+      "Something Went Wrong on Request Cycle": [
+        "Something Went Wrong en Request Cycle"
+      ],
+      "Something went wrong please try again later.": [
+        "Something went wrong por favor try again later."
+      ],
+      "Something went wrong!": [
+        "Something went wrong!"
+      ],
+      "Something went wrong.": [
+        "Algo salió mal."
+      ],
+      "Sorry! Product not found.": [
+        "Sorry! Producto not found."
+      ],
+      "Sorry, your nonce did not verify.": [
+        "Sorry, tu nonce did not verify."
+      ],
+      "SPACE": [
+        "ESPACIO"
+      ],
+      "Split Payment": [
+        "Split Pago"
+      ],
+      "Square": [
+        "Square"
+      ],
+      "SSL cert keys.": [
+        "SSL cert keys."
+      ],
+      "SSL Certificate Keys": [
+        "SSL Certificate Keys"
+      ],
+      "SSL Private keys": [
+        "SSL Private keys"
+      ],
+      "SSL private keys.": [
+        "SSL private keys."
+      ],
+      "Start Server": [
+        "Start Server"
+      ],
+      "Start/Stop Server": [
+        "Start/Stop Server"
+      ],
+      "Starting": [
+        "Iniciando"
+      ],
+      "Starting Cash": [
+        "Efectivo inicial"
+      ],
+      "State": [
+        "Provincia"
+      ],
+      "Status": [
+        "Estado"
+      ],
+      "Stock": [
+        "Stock"
+      ],
+      "Stock status": [
+        "Stock status"
+      ],
+      "Stop Server": [
+        "Stop Server"
+      ],
+      "Stopping": [
+        "Deteniendo"
+      ],
+      "Store": [
+        "Store"
+      ],
+      "Sub Total": [
+        "Sub Total"
+      ],
+      "Subject": [
+        "Subject"
+      ],
+      "Submit": [
+        "Enviar"
+      ],
+      "Submit Button on Item Expand": [
+        "Submit Button en Item Expand"
+      ],
+      "Subtotal": [
+        "Subtotal"
+      ],
+      "Success": [
+        "Correcto"
+      ],
+      "Successful Closure of {outlet_name} Outlet - {date} Drawer Report": [
+        "Successful Closure de {outlet_name} Punto de venta - {date} Drawer Informe"
+      ],
+      "Support & Services": [
+        "Support & Services"
+      ],
+      "Support Till": [
+        "Support Till"
+      ],
+      "Support until date is missing.": [
+        "Support until date es missing."
+      ],
+      "Sync Offline Orders": [
+        "sincronizar Offline Pedidos"
+      ],
+      "Sync Orders": [
+        "sincronizar Pedidos"
+      ],
+      "Sync Support": [
+        "sincronizar Support"
+      ],
+      "Sync Variable Product": [
+        "sincronizar Variable Producto"
+      ],
+      "Sync. all offline orders": [
+        "sincronizar. todos offline orders"
+      ],
+      "Syncing Offline Order(s)": [
+        "Syncing Offline Pedido(s)"
+      ],
+      "Table View": [
+        "Vista de tabla"
+      ],
+      "Take Fee": [
+        "Añadir comisión"
+      ],
+      "Tax": [
+        "Impuesto"
+      ],
+      "Tax Amount": [
+        "Impuesto Importe"
+      ],
+      "Tax Rate": [
+        "Impuesto Rate"
+      ],
+      "Tax Total": [
+        "Impuesto Total"
+      ],
+      "Taxes": [
+        "Impuestos"
+      ],
+      "Tel": [
+        "Tel"
+      ],
+      "Tel No": [
+        "Tel No"
+      ],
+      "Telephone": [
+        "Teléfono"
+      ],
+      "Template heading is already exist!": [
+        "Template heading es already exist!"
+      ],
+      "Templates": [
+        "Templates"
+      ],
+      "Tendered": [
+        "Tendered"
+      ],
+      "Test API Connection": [
+        "Test API Connection"
+      ],
+      "Text Align": [
+        "Alineación del texto"
+      ],
+      "Text Position": [
+        "Posición del texto"
+      ],
+      "Text Size": [
+        "Tamaño del texto"
+      ],
+      "Thankyou for shopping with us.": [
+        "Thankyou para shopping con us."
+      ],
+      "The cart has been successfully deleted": [
+        "El cart has been correctamente eliminado"
+      ],
+      "The cart is empty": [
+        "El cart es vacío"
+      ],
+      "The current cart has been successfully deleted": [
+        "El current cart has been correctamente eliminado"
+      ],
+      "The current cart is put on hold and a new cart successfully added": [
+        "El current cart es put en hold y a nuevo cart correctamente added"
+      ],
+      "The file attempting to be loaded at %s does not exist or is not secure.": [
+        "El archivo attempting a be loaded at %s does not exist o es not secure."
+      ],
+      "The file attempting to be loaded does not exist or is outside of the plugin directory.": [
+        "El archivo attempting a be loaded does not exist o es outside de el plugin directory."
+      ],
+      "The file does not exist, please try again.": [
+        "El archivo does not exist, por favor try again."
+      ],
+      "The file is empty or using a different encoding than UTF-8, please try again with a new file.": [
+        "El archivo es vacío o using a different encoding than UTF-8, por favor try again con a nuevo archivo."
+      ],
+      "The order has been successfully placed": [
+        "El order has been correctamente placed"
+      ],
+      "The Orders option is deprecated and will be removed in upcoming versions of the plugin.": [
+        "El Pedidos option es deprecated y será be removed en upcoming versions de el plugin."
+      ],
+      "The page you are looking for doesn’t exist or have secretly escaped; head back to home and make a fresh move again.": [
+        "El page tú son looking para doesn’t exist o have secretly escaped; head back a home y make a fresh move again."
+      ],
+      "The quantity for %product-name% is not available": [
+        "El quantity para %product-name% es no disponible"
+      ],
+      "The Regular price and Sale price fields above are your default prices.": [
+        "El Regular price y Sale price fields above son tu predeterminado prices."
+      ],
+      "Theme Color": [
+        "Theme Color"
+      ],
+      "Ther must some required fields": [
+        "Ther must some obligatorio fields"
+      ],
+      "There are offline orders present, kindly sync them first!": [
+        "There son offline orders present, kindly sync them first!"
+      ],
+      "There are products in your current cart, kindly process them first.": [
+        "There son products en tu current cart, kindly process them first."
+      ],
+      "There Must be some error or nothing to update!": [
+        "There Must be some error o nothing a update!"
+      ],
+      "Thermal Roll Height (mm)": [
+        "Alto del rollo térmico (mm)"
+      ],
+      "Thermal Roll Width (mm)": [
+        "Ancho del rollo térmico (mm)"
+      ],
+      "These tones are used as default for outlet users when user-specific tone is not saved.": [
+        "These tones son used as predeterminado para outlet users when user-specific tone es not saved."
+      ],
+      "This coupon is already applied.": [
+        "Este coupon es already applied."
+      ],
+      "This coupon is not applicable for product in cart.": [
+        "Este coupon es not applicable para product en cart."
+      ],
+      "This email is a notification to inform the recipient that their specified outlet, has been successfully closed for the day. It includes a summary of the drawer report for the specified date, providing essential details about the days transactions.": [
+        "Este email es a notification a inform el recipient ese their specified outlet, has been correctamente closed para el day. It includes a summary de el drawer report para el specified date, providing essential details about el days transactions."
+      ],
+      "This field is validated": [
+        "Este campo es validated"
+      ],
+      "This is a inventory type which you want for your system.": [
+        "Este es a inventory type which tú want para tu system."
+      ],
+      "This is a Printer type which you want for your system.": [
+        "Este es a Printer type which tú want para tu system."
+      ],
+      "This is an automatic generated report by system": [
+        "Este es an automatic generated report by system"
+      ],
+      "This is not a valid POS user.": [
+        "Este es not a válido POS user."
+      ],
+      "This is your ": [
+        "Este es tu "
+      ],
+      "this POS Order does not belongs to the select POS user.": [
+        "este POS Pedido does not belongs a el select POS user."
+      ],
+      "This process will generate an order depending upon the status Online or Offline. Do you still wanna do it.?": [
+        "Este process será generate an order depending upon el status Online o Offline. Do tú still wanna do it.?"
+      ],
+      "This product is having low stock.": [
+        "Este product es having low stock."
+      ],
+      "This product is not supported by pos.": [
+        "Este product es not supported by pos."
+      ],
+      "This product is on discount.": [
+        "Este product es en discount."
+      ],
+      "This tool allows you to import (or merge) outlet data to your POS from a CSV file.": [
+        "Este tool allows tú a import (o merge) outlet datos a tu POS desde a CSV archivo."
+      ],
+      "This will be the background color for POS Progressive Web App.": [
+        "Este será be el background color para POS Progressive Web App."
+      ],
+      "This will be the barcode background color.": [
+        "Este será be el barcode background color."
+      ],
+      "This will be the brand name link on login page in footer section.": [
+        "Este será be el brand name link en login page en footer section."
+      ],
+      "This will be the brand name on login page in footer section.": [
+        "Este será be el brand name en login page en footer section."
+      ],
+      "This will be the default password for the customers that will be added from the POS panel.": [
+        "Este será be el predeterminado password para el customers ese será be added desde el POS panel."
+      ],
+      "This will be the maximum quantity for products to show the low stock warnings.": [
+        "Este será be el maximum quantity para products a show el low stock warnings."
+      ],
+      "This will be the name for POS Progressive Web App.": [
+        "Este será be el name para POS Progressive Web App."
+      ],
+      "This will be the password for the connection to the API. This can be anything just used to connect our POS mobile app. Make sure to set it blank after use of it.": [
+        "Este será be el password para el connection a el API. Este puede be anything just used a connect our POS mobile app. Make sure a set it blank después de use de it."
+      ],
+      "This will be the POS primary color.": [
+        "Este será be el POS primary color."
+      ],
+      "This will be the POS primary light color.": [
+        "Este será be el POS primary light color."
+      ],
+      "This will be the POS secondary color.": [
+        "Este será be el POS secondary color."
+      ],
+      "This will be the primary heading on the login page.": [
+        "Este será be el primary heading en el login page."
+      ],
+      "This will be the short name for POS Progressive Web App.": [
+        "Este será be el short name para POS Progressive Web App."
+      ],
+      "This will be the theme color for POS Progressive Web App.": [
+        "Este será be el theme color para POS Progressive Web App."
+      ],
+      "This will change the card payment methods listing in checkout page.": [
+        "Este será change el card payment methods listing en checkout page."
+      ],
+      "This will change the categories listing Mode.": [
+        "Este será change el categories listing Mode."
+      ],
+      "This will incrase the barcode width.": [
+        "Este será incrase el barcode width."
+      ],
+      "Time": [
+        "Hora"
+      ],
+      "Title": [
+        "Título"
+      ],
+      "to learn more about.": [
+        "a learn más about."
+      ],
+      "Today Cash": [
+        "Hoy Efectivo"
+      ],
+      "Today Cash Sale": [
+        "Hoy Efectivo Sale"
+      ],
+      "Today Other Payment Sale": [
+        "Hoy Other Pago Sale"
+      ],
+      "Today Sale": [
+        "Hoy Sale"
+      ],
+      "Today Transactions": [
+        "Hoy Transactions"
+      ],
+      "Today's sale": [
+        "Ventas de hoy"
+      ],
+      "Today's Transactions": [
+        "Hoy's Transactions"
+      ],
+      "Token and transient value deleted": [
+        "Token y transient value eliminado"
+      ],
+      "Token created successfully!": [
+        "Token creado correctamente!"
+      ],
+      "Token have additional permissions.": [
+        "Token have additional permissions."
+      ],
+      "Token have some required permission missing.": [
+        "Token have some obligatorio permission missing."
+      ],
+      "Token is missing.": [
+        "Token es missing."
+      ],
+      "Tone 1": [
+        "Tone 1"
+      ],
+      "Tone 2": [
+        "Tone 2"
+      ],
+      "Tone added successfully.": [
+        "Tone added correctamente."
+      ],
+      "Tone Name": [
+        "Tone Nombre"
+      ],
+      "Tone name and audio file/URL are required.": [
+        "Tone name y audio archivo/URL son obligatorio."
+      ],
+      "Tone URL": [
+        "Tone URL"
+      ],
+      "Tones on pos end": [
+        "Tones en pos end"
+      ],
+      "Top": [
+        "Arriba"
+      ],
+      "Total": [
+        "Total"
+      ],
+      "Total Change": [
+        "Total Change"
+      ],
+      "Total Coupon Amount": [
+        "Total Coupon Importe"
+      ],
+      "Total Coupon Amount By Coupon Code": [
+        "Total Coupon Importe By Coupon Code"
+      ],
+      "Total Coupon Applied": [
+        "Total Coupon Applied"
+      ],
+      "Total Number Of Orders": [
+        "Total Number Of Pedidos"
+      ],
+      "Total Number Of Products": [
+        "Total Number Of Productos"
+      ],
+      "Total Order": [
+        "Total Pedido"
+      ],
+      "Total pos discount": [
+        "Total pos discount"
+      ],
+      "Total Price": [
+        "Total Precio"
+      ],
+      "Total Product Sale": [
+        "Total Producto Sale"
+      ],
+      "Total Product Tax": [
+        "Total Producto Impuesto"
+      ],
+      "Total Products": [
+        "Total Productos"
+      ],
+      "Total Products Sold": [
+        "Total Productos Sold"
+      ],
+      "Total Quantity": [
+        "Total Cantidad"
+      ],
+      "Total Refund": [
+        "Total Refund"
+      ],
+      "Total Sale": [
+        "Total Sale"
+      ],
+      "Total Sales": [
+        "Total Sales"
+      ],
+      "Total Shipping Amount": [
+        "Total Shipping Importe"
+      ],
+      "Total Shipping Tax": [
+        "Total Shipping Impuesto"
+      ],
+      "Total Shipping Tax Amount": [
+        "Total Shipping Impuesto Importe"
+      ],
+      "Total Stock": [
+        "Total Stock"
+      ],
+      "Total Tax": [
+        "Total Impuesto"
+      ],
+      "Total Tax Amount": [
+        "Total Impuesto Importe"
+      ],
+      "Total Unit Sold": [
+        "Total Unit Sold"
+      ],
+      "Transaction Amount": [
+        "Importe de la transacción"
+      ],
+      "Transaction amount cannot be empty.": [
+        "Transaction amount no se puede be vacío."
+      ],
+      "Transaction amount must be greater than 0.": [
+        "Transaction amount must be greater than 0."
+      ],
+      "Transaction For": [
+        "Motivo de la transacción"
+      ],
+      "Transaction For is required and it can be like order, refund, emi, manual etc.": [
+        "Transaction For es obligatorio y it puede be like order, refund, emi, manual etc."
+      ],
+      "Transaction ID": [
+        "ID de transacción"
+      ],
+      "Transaction Note": [
+        "Nota de la transacción"
+      ],
+      "Transaction Payment": [
+        "Pago de la transacción"
+      ],
+      "Transaction payment method cannot be empty.": [
+        "Transaction payment method no se puede be vacío."
+      ],
+      "Transaction Type": [
+        "Tipo de transacción"
+      ],
+      "Transaction type can not be empty and must be a valid transaction type ( \"credit\", \"debit\" )": [
+        "Transaction type no se puede be vacío y must be a válido transaction type ( \"credit\", \"debit\" )"
+      ],
+      "Transaction Type is required and it can be credit or debit.": [
+        "Transaction Tipo es obligatorio y it puede be credit o debit."
+      ],
+      "Transactions": [
+        "Transactions"
+      ],
+      "Transactions ( Recommended )": [
+        "Transactions ( Recommended )"
+      ],
+      "Transfer existing outlets to your new store — just import a CSV file.": [
+        "Transfer existente outlets a tu nuevo store — just import a CSV archivo."
+      ],
+      "Transient value saved": [
+        "Transient value saved"
+      ],
+      "Twilio Account SID": [
+        "Twilio Account SID"
+      ],
+      "Twilio Auth Token": [
+        "Twilio Auth Token"
+      ],
+      "Twilio WhatsApp Number": [
+        "Twilio WhatsApp Number"
+      ],
+      "Type": [
+        "Tipo"
+      ],
+      "Type can be open, closed, or later only.": [
+        "Tipo puede be open, closed, o later solo."
+      ],
+      "Type can not be empty.": [
+        "Tipo no se puede be vacío."
+      ],
+      "Unable to close drawer please try again later.": [
+        "No se puede close drawer por favor try again later."
+      ],
+      "Unable to close the drawer.": [
+        "No se puede close el drawer."
+      ],
+      "Unable to create drawer transaction": [
+        "No se puede create drawer transaction"
+      ],
+      "Unable to create open drawer please try again.": [
+        "No se puede create open drawer por favor try again."
+      ],
+      "Unable to get uploaded file URL.": [
+        "No se puede get uploaded archivo URL."
+      ],
+      "Unauthorized request.": [
+        "Unauthorized request."
+      ],
+      "Unit Price": [
+        "Unit Precio"
+      ],
+      "Unit(s)": [
+        "Unit(s)"
+      ],
+      "Unknown": [
+        "Desconocido"
+      ],
+      "Unknown operation.": [
+        "Unknown operation."
+      ],
+      "Unpin": [
+        "Unpin"
+      ],
+      "unpinned successfully": [
+        "unpinned correctamente"
+      ],
+      "Update Account": [
+        "Actualizar Account"
+      ],
+      "Update Customer": [
+        "Actualizar cliente"
+      ],
+      "Update existing outlets": [
+        "Actualizar existente outlets"
+      ],
+      "Update Greetings Template": [
+        "Actualizar Greetings Template"
+      ],
+      "Update Outlet": [
+        "Actualizar Punto de venta"
+      ],
+      "Update Payment": [
+        "Actualizar método de pago"
+      ],
+      "Update User": [
+        "Actualizar Usuario"
+      ],
+      "Updated At": [
+        "Updated At"
+      ],
+      "Updating account": [
+        "Updating account"
+      ],
+      "Updating Existing Customer": [
+        "Updating Existing Cliente"
+      ],
+      "Updating Manager details": [
+        "Updating Manager details"
+      ],
+      "Upload a custom audio file to use as a tone in your POS.": [
+        "Upload a custom audio archivo a use as a tone en tu POS."
+      ],
+      "Upload a new file": [
+        "Upload a nuevo archivo"
+      ],
+      "Upload CSV file": [
+        "Upload CSV archivo"
+      ],
+      "Upload File": [
+        "Upload Archivo"
+      ],
+      "Upload Icon": [
+        "Subir icono"
+      ],
+      "Upload profile image": [
+        "Upload profile image"
+      ],
+      "USD": [
+        "USD"
+      ],
+      "Use Global Setting": [
+        "Use Global Setting"
+      ],
+      "Use previous column mapping preferences?": [
+        "Use previous column mapping preferences?"
+      ],
+      "Use this tone": [
+        "Usar este sonido"
+      ],
+      "User already exists from this email address": [
+        "Usuario ya existe desde este email address"
+      ],
+      "User Created Successfully": [
+        "Usuario Created correctamente"
+      ],
+      "User deleted successfully": [
+        "Usuario eliminado correctamente"
+      ],
+      "User do not exists": [
+        "Usuario do not exists"
+      ],
+      "User Guide": [
+        "Guía de usuario"
+      ],
+      "User ID is required to create drawer transaction.": [
+        "Usuario ID es obligatorio a create drawer transaction."
+      ],
+      "User in action: %s: ": [
+        "Usuario en action: %s: "
+      ],
+      "User is not assigned to any outlet.": [
+        "Usuario es not assigned a cualquier outlet."
+      ],
+      "User logged out sucessfully.": [
+        "Usuario logged out sucessfully."
+      ],
+      "User login sucessfully.": [
+        "Usuario login sucessfully."
+      ],
+      "User Name": [
+        "Usuario Nombre"
+      ],
+      "User Profile Image": [
+        "Usuario Profile Image"
+      ],
+      "Username": [
+        "Nombre de usuario"
+      ],
+      "UserName": [
+        "UserName"
+      ],
+      "Username and password can not be empty.": [
+        "Username y password no se puede be vacío."
+      ],
+      "Username can not be empty": [
+        "Username no se puede be vacío"
+      ],
+      "Username does not allow Special Characters.": [
+        "Username does not allow Special Characters."
+      ],
+      "Username is already in use, Please try different USERNAME.": [
+        "Username es already en use, Por favor try different USERNAME."
+      ],
+      "username is mandatory": [
+        "username es mandatory"
+      ],
+      "Username is required.": [
+        "Username es obligatorio."
+      ],
+      "Username length should be Greater then 5 and Less then 20.": [
+        "Username length should be Greater then 5 y Less then 20."
+      ],
+      "Username or email address": [
+        "Nombre de usuario o correo electrónico"
+      ],
+      "Users": [
+        "Usuarios"
+      ],
+      "Users Per Page": [
+        "Usuarios Per Page"
+      ],
+      "Variance Cash": [
+        "Diferencia de efectivo"
+      ],
+      "Variance Cash:": [
+        "Variance Efectivo:"
+      ],
+      "Variation": [
+        "Variation"
+      ],
+      "Variation stock": [
+        "Variation stock"
+      ],
+      "Variations": [
+        "Variations"
+      ],
+      "variations": [
+        "variations"
+      ],
+      "Version": [
+        "Version"
+      ],
+      "version - %1$0.1f - %2$s": [
+        "version - %1$0.1f - %2$s"
+      ],
+      "Video": [
+        "Video"
+      ],
+      "View": [
+        "Ver"
+      ],
+      "View Details": [
+        "Ver Details"
+      ],
+      "View outlets": [
+        "Ver outlets"
+      ],
+      "View settings": [
+        "Ver ajustes"
+      ],
+      "View WooCommerce Point Of Sale documentation": [
+        "Ver WooCommerce Point Of Sale documentation"
+      ],
+      "Visit Dashboard": [
+        "Visitar escritorio"
+      ],
+      "Visit POS": [
+        "Visitar TPV"
+      ],
+      "Visit Webkul community forums": [
+        "Visit Webkul community forums"
+      ],
+      "Want to Change the Customer?": [
+        "Want a Change el Cliente?"
+      ],
+      "Warning!": [
+        "¡Aviso!"
+      ],
+      "Warning: Coupon is either invalid, expired or reached its usage limit!": [
+        "Aviso: Coupon es either invalid, expired o reached its usage limit!"
+      ],
+      "Weak password, Do you want to continue?": [
+        "Weak password, Do tú want a continue?"
+      ],
+      "Web App Settings": [
+        "Ajustes de la aplicación web"
+      ],
+      "Web APP Settings": [
+        "Web APP Settings"
+      ],
+      "Webkul": [
+        "Webkul"
+      ],
+      "Webkul Point of Sale": [
+        "Webkul Point de Sale"
+      ],
+      "Webkul Store": [
+        "Webkul Store"
+      ],
+      "Welcome": [
+        "Welcome"
+      ],
+      "Welcome to WooCommerce Point of Sale": [
+        "Bienvenido a WooCommerce TPV"
+      ],
+      "Welcome! you are now new customer On our POS SYSTEM": [
+        "Welcome! tú son now nuevo customer On our POS SYSTEM"
+      ],
+      "Welcome! you are now new pos user.\n\n Your username: %1$s \n\n Your Password: %2$s \n\n Login Link: %3$s": [
+        "Welcome! tú son now nuevo pos user.\n\n Tu username: %1$s \n\n Tu Contraseña: %2$s \n\n Login Link: %3$s"
+      ],
+      "WhatsApp Greeting Content": [
+        "WhatsApp Greeting Content"
+      ],
+      "WhatsApp Greeting Heading": [
+        "WhatsApp Greeting Heading"
+      ],
+      "WhatsApp Greetings": [
+        "WhatsApp Greetings"
+      ],
+      "Whatsapp Message": [
+        "Whatsapp Message"
+      ],
+      "Whatsapp Order Receipt": [
+        "Whatsapp Pedido Receipt"
+      ],
+      "Width": [
+        "Width"
+      ],
+      "Width (%)": [
+        "Width (%)"
+      ],
+      "Width (px)": [
+        "Ancho (px)"
+      ],
+      "WooCommerce": [
+        "WooCommerce"
+      ],
+      "WooCommerce Default Prices": [
+        "WooCommerce Predeterminado Prices"
+      ],
+      "WooCommerce Point of Sale": [
+        "WooCommerce Point de Sale"
+      ],
+      "WooCommerce Point of Sale &rsaquo; Setup Wizard": [
+        "WooCommerce Point de Sale &rsaquo; Setup Wizard"
+      ],
+      "WooCommerce Point of Sale is enabled but not effective. It requires <a href=\"https://wordpress.org/plugins/woocommerce/\" target=\"_blank\">WooCommerce Plugin</a> in order to work.": [
+        "WooCommerce Point de Sale es enabled but not effective. It requires <a href=\"https://wordpress.org/plugins/woocommerce/\" target=\"_blank\">WooCommerce Plugin</a> en order a work."
+      ],
+      "WooCommerce Point of Sale is enabled but not effective. It requires Modules in order to work.": [
+        "WooCommerce Point de Sale es enabled but not effective. It requires Modules en order a work."
+      ],
+      "WooCommerce Point of sale module will create offline and online stock management for the products and orders.": [
+        "WooCommerce Point de sale module será create offline y online stock management para el products y orders."
+      ],
+      "WooCommerce POS": [
+        "WooCommerce POS"
+      ],
+      "WooCommerce Pos Send Receipt Greetings Via Whatsapp depends on the latest version of %s plugin in order to work!": [
+        "WooCommerce Pos Send Receipt Greetings Via Whatsapp depends en el latest version de %s plugin en order a work!"
+      ],
+      "WooCommerce Pos Send Receipt Greetings Via Whatsapp depends on the TWILIO SDK, kindly run command composer install inside plugin root directory": [
+        "WooCommerce Pos Send Receipt Greetings Via Whatsapp depends en el TWILIO SDK, kindly run command composer install inside plugin root directory"
+      ],
+      "WP Cron": [
+        "WP Cron"
+      ],
+      "WP Cron Note:": [
+        "WP Cron Note:"
+      ],
+      "WP Cron relies on page visits, unlike real cron jobs with set schedules. This can miss the tasks on specific time period. Use server cron job to ensure scheduled tasks run on time.": [
+        "WP Cron relies en page visits, unlike real cron jobs con set schedules. Este puede miss el tasks en specific time period. Use server cron job a ensure scheduled tasks run en time."
+      ],
+      "Wrong Port Inserted": [
+        "Wrong Port Inserted"
+      ],
+      "You are About to enter offline mode": [
+        "Tú son About a enter offline mode"
+      ],
+      "YOU ARE LOST IN THE": [
+        "TE HAS PERDIDO EN EL"
+      ],
+      "You are not allowed to add tones.": [
+        "Tú son no permitido a add tones."
+      ],
+      "You are not allowed to edit this product.": [
+        "Tú son no permitido a edit este product."
+      ],
+      "You are not authorized to access this resource.": [
+        "No tienes autorización para acceder a este recurso."
+      ],
+      "You are not authorized to create transactions.": [
+        "Tú son not authorized a create transactions."
+      ],
+      "You are not authorized to login.": [
+        "Tú son not authorized a login."
+      ],
+      "You are not authorized. Kindly remove the custom script and add the license key.": [
+        "Tú son not authorized. Kindly remove el custom script y add el license key."
+      ],
+      "You are offline": [
+        "Tú son offline"
+      ],
+      "You are offline. Cannot update GTIN/UPC.": [
+        "Tú son offline. Cannot update GTIN/UPC."
+      ],
+      "You are online": [
+        "Tú son online"
+      ],
+      "YOU CAN ALSO:": [
+        "YOU CAN ALSO:"
+      ],
+      "You can enter only 2 decimal places. Press Back or Clear to modify the amount.": [
+        "Tú puede enter solo 2 decimal places. Press Back o Clear a modify el amount."
+      ],
+      "You can get your Twilio account number from your %1$stwilio console%2$s.": [
+        "Tú puede get tu Twilio account number desde tu %1$stwilio console%2$s."
+      ],
+      "You can get your Twilio account SID from your %1$stwilio console%2$s.": [
+        "Tú puede get tu Twilio account SID desde tu %1$stwilio console%2$s."
+      ],
+      "You can get your Twilio Auth Token from your %1$stwilio console%2$s.": [
+        "Tú puede get tu Twilio Auth Token desde tu %1$stwilio console%2$s."
+      ],
+      "You can not add a new customer as you are offline right now": [
+        "Tú no se puede add a nuevo customer as tú son offline right now"
+      ],
+      "You can not add more filters.": [
+        "Tú no se puede add más filters."
+      ],
+      "You can not enter online mode as you are disconnected": [
+        "Tú no se puede enter online mode as tú son disconnected"
+      ],
+      "You can not pin/unpin product in offline mode.": [
+        "Tú no se puede pin/unpin product en offline mode."
+      ],
+      "You can not put empty cart on hold!": [
+        "Tú no se puede put vacío cart en hold!"
+      ],
+      "You can not synchronize orders as you are offline right now": [
+        "Tú no se puede synchronize orders as tú son offline right now"
+      ],
+      "You have entered a wrong password.": [
+        "Tú have entered a wrong password."
+      ],
+      "You have selected another cart for checkout": [
+        "Tú have selected another cart para checkout"
+      ],
+      "You have successfully entered online mode": [
+        "Tú have correctamente entered online mode"
+      ],
+      "You have successfully selected a customer for checkout": [
+        "Tú have correctamente selected a customer para checkout"
+      ],
+      "You have successfully selected guest for checkout": [
+        "Tú have correctamente selected guest para checkout"
+      ],
+      "You mail main content.": [
+        "Tú mail main content."
+      ],
+      "You will be redirected to %s store, please login and extend the support.": [
+        "Tú será be redirected a %s store, por favor login y extend el support."
+      ],
+      "You're ready to add outlet to your store.": [
+        "Tú're ready a add outlet a tu store."
+      ],
+      "You're ready to start selling": [
+        "Tú're ready a start selling"
+      ],
+      "Your are not allowed to access this resource.": [
+        "Tu son no permitido a access este resource."
+      ],
+      "Your browser does not support JavaScript!": [
+        "Tu browser does not support JavaScript!"
+      ],
+      "Your drawer session is not opened": [
+        "Tu drawer session es not opened"
+      ],
+      "Your Node.js version is too low. Please upgrade to version 14 or higher!": [
+        "Tu Node.js version es too low. Por favor upgrade a version 14 o higher!"
+      ],
+      "Your outlets are now being imported...": [
+        "Tu outlets son now being imported..."
+      ],
+      "Your Password:": [
+        "Tu Contraseña:"
+      ],
+      "— No change —": [
+        "— No change —"
+      ]
+    }
+  }
+}
