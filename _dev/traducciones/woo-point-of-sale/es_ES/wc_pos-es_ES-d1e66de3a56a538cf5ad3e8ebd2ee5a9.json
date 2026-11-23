@@ -685,7 +685,7 @@
         "Provide a válido user id."
       ],
       "User is not assigned to any outlet.": [
-        "Usuario es not assigned a cualquier outlet."
+        "El usuario no está asignado a ningún punto de venta."
       ],
       "Failed to create opening drawer.": [
         "Failed a create opening drawer."
@@ -775,7 +775,7 @@
         "App connected correctamente."
       ],
       "Offline": [
-        "Offline"
+        "Sin conexión"
       ],
       "Old Password is wrong.": [
         "Anterior Contraseña es wrong."
@@ -1184,7 +1184,7 @@
         "Node.js start command es vacío!"
       ],
       "Server connection refused!": [
-        "Server connection refused!"
+        "Conexión con el servidor rechazada."
       ],
       "Please install Node.js on your server or contact your hosting provider!": [
         "Por favor install Node.js en tu server o contact tu hosting provider!"
@@ -1220,7 +1220,7 @@
         "False Port detected"
       ],
       "Master Stock": [
-        "Master Stock"
+        "Stock maestro"
       ],
       "— No change —": [
         "— No change —"
@@ -1229,13 +1229,13 @@
         "Change a:"
       ],
       "Enter master stock": [
-        "Introduce master stock"
+        "Introduce el stock maestro"
       ],
       "POS Variation Master Stock": [
-        "POS Variation Master Stock"
+        "Stock maestro de la variación en el TPV"
       ],
       "POS Enter the master stock for variation.": [
-        "POS Introduce el master stock para variation."
+        "Introduce el stock maestro de la variación en el TPV."
       ],
       "WooCommerce Default Prices": [
         "WooCommerce Predeterminado Prices"
@@ -1262,10 +1262,10 @@
         "Añadir More Prices"
       ],
       "POS Master Stock": [
-        "POS Master Stock"
+        "Stock maestro del TPV"
       ],
       "POS Enter the master stock for product.": [
-        "POS Introduce el master stock para product."
+        "Introduce el stock maestro del producto en el TPV."
       ],
       "Multi pricing is disabled.": [
         "Multi pricing es disabled."
@@ -1397,7 +1397,7 @@
         "Selecciona Inventory Tipo"
       ],
       "Master Stock Inventory": [
-        "Master Stock Inventory"
+        "Inventario de stock maestro"
       ],
       "Centralized Stock Inventory": [
         "Inventario de stock centralizado"
@@ -2414,13 +2414,13 @@
         "No products found"
       ],
       "You have successfully entered online mode": [
-        "Tú have correctamente entered online mode"
+        "Has entrado correctamente en el modo con conexión"
       ],
       "You can not enter online mode as you are disconnected": [
-        "Tú no se puede enter online mode as tú son disconnected"
+        "No puedes entrar en el modo con conexión porque estás desconectado"
       ],
       "You are About to enter offline mode": [
-        "Tú son About a enter offline mode"
+        "Vas a entrar en el modo sin conexión"
       ],
       "No products found in this category": [
         "No products found en este category"
@@ -2438,7 +2438,7 @@
         "Tú have correctamente selected a customer para checkout"
       ],
       "You can not add a new customer as you are offline right now": [
-        "Tú no se puede add a nuevo customer as tú son offline right now"
+        "No puedes añadir un cliente nuevo porque ahora estás sin conexión"
       ],
       "You have successfully selected guest for checkout": [
         "Tú have correctamente selected guest para checkout"
@@ -2456,13 +2456,13 @@
         "Sincronizar todos los pedidos sin conexión"
       ],
       "Syncing Offline Order(s)": [
-        "Syncing Offline Pedido(s)"
+        "Sincronizando pedidos sin conexión"
       ],
       "All orders are synced": [
         "Todos los pedidos están sincronizados"
       ],
       "Sync Offline Orders": [
-        "Sincronizar Offline Pedidos"
+        "Sincronizar pedidos sin conexión"
       ],
       "No Orders Available": [
         "No Pedidos Disponible"
@@ -2522,10 +2522,10 @@
         "Introduce Producto Barcode"
       ],
       "Online": [
-        "Online"
+        "Con conexión"
       ],
       "Coupon cannot be applied on offline mode": [
-        "Coupon no se puede be applied en offline mode"
+        "No se puede aplicar un cupón sin conexión"
       ],
       "Coupon removed successfully": [
         "Coupon removed correctamente"
@@ -2684,7 +2684,7 @@
         "Retener venta"
       ],
       "Offline Orders": [
-        "Offline Pedidos"
+        "Pedidos sin conexión"
       ],
       "Customer Name": [
         "Cliente Nombre"
@@ -2963,7 +2963,7 @@
         "En espera"
       ],
       "Offline Order": [
-        "Offline Pedido"
+        "Pedido sin conexión"
       ],
       "Pay Section": [
         "Pay Section"
@@ -2987,7 +2987,7 @@
         "Cliente Buscar"
       ],
       "Order Section (Online / Offline)": [
-        "Pedido Section (Online / Offline)"
+        "Sección de pedidos (con conexión / sin conexión)"
       ],
       "Order Search": [
         "Pedido Buscar"
@@ -2996,7 +2996,7 @@
         "Pedido Imprimir"
       ],
       "Offline Order Sync": [
-        "Offline Pedido sincronizar"
+        "Sincronización de pedidos sin conexión"
       ],
       "Paid": [
         "Pagado"
@@ -3014,10 +3014,10 @@
         "Hold Carts"
       ],
       "You are offline": [
-        "Tú son offline"
+        "Estás sin conexión"
       ],
       "You are online": [
-        "Tú son online"
+        "Estás con conexión"
       ],
       "Dark Mode": [
         "Dark Mode"
@@ -3047,7 +3047,7 @@
         "Unpin"
       ],
       "You can not pin/unpin product in offline mode.": [
-        "Tú no se puede pin/unpin product en offline mode."
+        "No puedes fijar ni desfijar productos sin conexión."
       ],
       "Enter a valid price.": [
         "Introduce a válido price."
@@ -3098,7 +3098,7 @@
         "Agotado"
       ],
       "Please connect to internet for view this section!": [
-        "Por favor connect a internet para view este section!"
+        "Conéctate a internet para ver esta sección."
       ],
       "order status updated successfully.": [
         "Estado del pedido actualizado correctamente."
@@ -3191,7 +3191,7 @@
         "Extend Support"
       ],
       "Please wait for %s minutes to sync the extended support.": [
-        "Por favor wait para %s minutes a sync el extended support."
+        "Espera %s minutos para sincronizar el soporte ampliado."
       ],
       "Please click to Sync the extended support.": [
         "Por favor click a sincronizar el extended support."
@@ -3665,7 +3665,7 @@
         "Node Server"
       ],
       "POS Mass Assign": [
-        "POS Mass Assign"
+        "Asignación masiva del TPV"
       ],
       "POS Drawer List": [
         "Lista de cajas del TPV"
@@ -3998,7 +3998,7 @@
         "Disponible Stock"
       ],
       "Important": [
-        "Important"
+        "Importante"
       ],
       "Please note all the stock management for variations will be saved on focus and blur.": [
         "Por favor note todos el stock management para variations será be saved en focus y blur."
@@ -4688,19 +4688,19 @@
         "POS Punto de venta Assign predeterminado quantity."
       ],
       "Bulk Assign": [
-        "Asignación masiva"
-      ],
-      "Assign Bulk Mass": [
         "Asignar en masa"
       ],
+      "Assign Bulk Mass": [
+        "Asignar stock en masa"
+      ],
       "Enter Quantity ": [
-        "Introduce Cantidad "
+        "Introduce la cantidad "
       ],
       "Enter the quantity that you want to assign to each outlet": [
-        "Introduce el quantity ese tú want a assign a each outlet"
+        "Introduce la cantidad que quieres asignar a cada punto de venta"
       ],
       "For example, If you have 100 stock of product P1 in your store, You have 2 outlet O1 and O2 and you enter 50 product to assign stock in each outlet, after assigning master stock value will be 100 of product P1, POS stock value of product P1 will be 50 for Outlet O1 and POS stock of product P1 will be 50 for Outlet O2. ": [
-        "For example, If tú have 100 stock de product P1 en tu store, Tú have 2 outlet O1 y O2 y tú enter 50 product a assign stock en each outlet, después de assigning master stock value será be 100 de product P1, POS stock value de product P1 será be 50 para Punto de venta O1 y POS stock de product P1 será be 50 para Punto de venta O2. "
+        "Por ejemplo: si tienes 100 unidades de stock del producto P1 en tu tienda, tienes 2 puntos de venta (O1 y O2) e introduces 50 para asignar stock a cada uno, después de asignar el stock maestro seguirá siendo 100 del producto P1, el stock del TPV del producto P1 será 50 para el punto de venta O1 y 50 para el punto de venta O2. "
       ],
       "Node Port": [
         "Node Port"
@@ -5426,7 +5426,7 @@
         "Espera, cargando variaciones..."
       ],
       "You are offline. Cannot update GTIN/UPC.": [
-        "Tú son offline. Cannot update GTIN/UPC."
+        "Estás sin conexión. No se puede actualizar el GTIN/UPC."
       ],
       "Parent Product GTIN, UPC, EAN, or ISBN": [
         "Parent Producto GTIN, UPC, EAN, o ISBN"
@@ -5447,7 +5447,7 @@
         "Se ha alcanzado el stock máximo"
       ],
       "Offline ID ": [
-        "Offline ID "
+        "ID sin conexión "
       ],
       "Extra Data": [
         "Extra Datos"
@@ -5456,7 +5456,7 @@
         "A few de these products son currently out de stock."
       ],
       "Coupon requires internet connection": [
-        "Coupon requires internet connection"
+        "El cupón requiere conexión a internet"
       ],
       "Apply Discount": [
         "Aplicar descuento"

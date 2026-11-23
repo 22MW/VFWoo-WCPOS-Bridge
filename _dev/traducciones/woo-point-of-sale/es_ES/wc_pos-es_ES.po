@@ -953,7 +953,7 @@ msgstr "Provide a válido user id."
 #: api/includes/drawer/class-wkwcpos-api-manage-drawer.php:212
 #: api/includes/drawer/class-wkwcpos-api-manage-drawer.php:300
 msgid "User is not assigned to any outlet."
-msgstr "Usuario es not assigned a cualquier outlet."
+msgstr "El usuario no está asignado a ningún punto de venta."
 
 #: api/includes/drawer/class-wkwcpos-api-manage-drawer.php:242
 msgid "Failed to create opening drawer."
@@ -1093,7 +1093,7 @@ msgstr "App connected correctamente."
 #: assets/dist/server/index.js:2 assets/dist/editor/index.js:2
 #: assets/dist/bulkAssignment/index.js:2
 msgid "Offline"
-msgstr "Offline"
+msgstr "Sin conexión"
 
 #: api/includes/misc/class-wkwcpos-api-update-manager.php:172
 #: includes/wc-pos-defaults.php:334
@@ -1885,7 +1885,7 @@ msgstr "Node.js start command es vacío!"
 
 #: helper/server/class-wc-pos-server-helper.php:274
 msgid "Server connection refused!"
-msgstr "Server connection refused!"
+msgstr "Conexión con el servidor rechazada."
 
 #: helper/server/class-wc-pos-server-helper.php:284
 msgid "Please install Node.js on your server or contact your hosting provider!"
@@ -1947,7 +1947,7 @@ msgstr "False Port detected"
 #: templates/admin/reports/class-wc-report-stock.php:288
 #: templates/admin/reports/class-wc-report-stock.php:301
 msgid "Master Stock"
-msgstr "Master Stock"
+msgstr "Stock maestro"
 
 #: includes/admin/class-wc-pos-function-handler.php:1385
 msgid "— No change —"
@@ -1959,15 +1959,15 @@ msgstr "Change a:"
 
 #: includes/admin/class-wc-pos-function-handler.php:1396
 msgid "Enter master stock"
-msgstr "Introduce master stock"
+msgstr "Introduce el stock maestro"
 
 #: includes/admin/class-wc-pos-function-handler.php:1430
 msgid "POS Variation Master Stock"
-msgstr "POS Variation Master Stock"
+msgstr "Stock maestro de la variación en el TPV"
 
 #: includes/admin/class-wc-pos-function-handler.php:1432
 msgid "POS Enter the master stock for variation."
-msgstr "POS Introduce el master stock para variation."
+msgstr "Introduce el stock maestro de la variación en el TPV."
 
 #: includes/admin/class-wc-pos-function-handler.php:1474
 #: includes/admin/class-wc-pos-function-handler.php:1653
@@ -2027,11 +2027,11 @@ msgstr "Añadir More Prices"
 
 #: includes/admin/class-wc-pos-function-handler.php:1603
 msgid "POS Master Stock"
-msgstr "POS Master Stock"
+msgstr "Stock maestro del TPV"
 
 #: includes/admin/class-wc-pos-function-handler.php:1605
 msgid "POS Enter the master stock for product."
-msgstr "POS Introduce el master stock para product."
+msgstr "Introduce el stock maestro del producto en el TPV."
 
 #: includes/admin/class-wc-pos-function-handler.php:1742
 msgid "Multi pricing is disabled."
@@ -2292,7 +2292,7 @@ msgstr "Selecciona Inventory Tipo"
 #: includes/admin/class-wkwcpos-setup-wizard.php:67
 #: templates/admin/settings/class-wc-pos-general-settings.php:239
 msgid "Master Stock Inventory"
-msgstr "Master Stock Inventory"
+msgstr "Inventario de stock maestro"
 
 #: includes/admin/class-wkwcpos-setup-wizard.php:68
 #: templates/admin/settings/class-wc-pos-general-settings.php:238
@@ -4023,15 +4023,15 @@ msgstr "No products found"
 
 #: includes/wc-pos-defaults.php:336
 msgid "You have successfully entered online mode"
-msgstr "Tú have correctamente entered online mode"
+msgstr "Has entrado correctamente en el modo con conexión"
 
 #: includes/wc-pos-defaults.php:337
 msgid "You can not enter online mode as you are disconnected"
-msgstr "Tú no se puede enter online mode as tú son disconnected"
+msgstr "No puedes entrar en el modo con conexión porque estás desconectado"
 
 #: includes/wc-pos-defaults.php:338
 msgid "You are About to enter offline mode"
-msgstr "Tú son About a enter offline mode"
+msgstr "Vas a entrar en el modo sin conexión"
 
 #: includes/wc-pos-defaults.php:339
 msgid "No products found in this category"
@@ -4055,7 +4055,7 @@ msgstr "Tú have correctamente selected a customer para checkout"
 
 #: includes/wc-pos-defaults.php:344
 msgid "You can not add a new customer as you are offline right now"
-msgstr "Tú no se puede add a nuevo customer as tú son offline right now"
+msgstr "No puedes añadir un cliente nuevo porque ahora estás sin conexión"
 
 #: includes/wc-pos-defaults.php:345
 msgid "You have successfully selected guest for checkout"
@@ -4079,7 +4079,7 @@ msgstr "Sincronizar todos los pedidos sin conexión"
 
 #: includes/wc-pos-defaults.php:350
 msgid "Syncing Offline Order(s)"
-msgstr "Syncing Offline Pedido(s)"
+msgstr "Sincronizando pedidos sin conexión"
 
 #: includes/wc-pos-defaults.php:351
 msgid "All orders are synced"
@@ -4087,7 +4087,7 @@ msgstr "Todos los pedidos están sincronizados"
 
 #: includes/wc-pos-defaults.php:352
 msgid "Sync Offline Orders"
-msgstr "Sincronizar Offline Pedidos"
+msgstr "Sincronizar pedidos sin conexión"
 
 #: includes/wc-pos-defaults.php:353
 msgid "No Orders Available"
@@ -4176,11 +4176,11 @@ msgstr "Introduce Producto Barcode"
 
 #: includes/wc-pos-defaults.php:376
 msgid "Online"
-msgstr "Online"
+msgstr "Con conexión"
 
 #: includes/wc-pos-defaults.php:377
 msgid "Coupon cannot be applied on offline mode"
-msgstr "Coupon no se puede be applied en offline mode"
+msgstr "No se puede aplicar un cupón sin conexión"
 
 #: includes/wc-pos-defaults.php:378
 msgid "Coupon removed successfully"
@@ -4434,7 +4434,7 @@ msgstr "Retener venta"
 
 #: includes/wc-pos-defaults.php:441
 msgid "Offline Orders"
-msgstr "Offline Pedidos"
+msgstr "Pedidos sin conexión"
 
 #: includes/wc-pos-defaults.php:442
 #: modules/woocommerce-pos-greetings-text-via-whatsapp/includes/front/class-wkpossrgw-front-functions.php:46
@@ -4857,7 +4857,7 @@ msgstr "En espera"
 
 #: includes/wc-pos-defaults.php:546
 msgid "Offline Order"
-msgstr "Offline Pedido"
+msgstr "Pedido sin conexión"
 
 #: includes/wc-pos-defaults.php:547
 msgid "Pay Section"
@@ -4889,7 +4889,7 @@ msgstr "Cliente Buscar"
 
 #: includes/wc-pos-defaults.php:554
 msgid "Order Section (Online / Offline)"
-msgstr "Pedido Section (Online / Offline)"
+msgstr "Sección de pedidos (con conexión / sin conexión)"
 
 #: includes/wc-pos-defaults.php:555
 msgid "Order Search"
@@ -4901,7 +4901,7 @@ msgstr "Pedido Imprimir"
 
 #: includes/wc-pos-defaults.php:557
 msgid "Offline Order Sync"
-msgstr "Offline Pedido sincronizar"
+msgstr "Sincronización de pedidos sin conexión"
 
 #: includes/wc-pos-defaults.php:558 assets/dist/app/index.js:2
 #: assets/dist/invoice/index.js:2 assets/dist/setupWizard/index.js:2
@@ -4932,11 +4932,11 @@ msgstr "Hold Carts"
 
 #: includes/wc-pos-defaults.php:566
 msgid "You are offline"
-msgstr "Tú son offline"
+msgstr "Estás sin conexión"
 
 #: includes/wc-pos-defaults.php:567
 msgid "You are online"
-msgstr "Tú son online"
+msgstr "Estás con conexión"
 
 #: includes/wc-pos-defaults.php:568
 #: templates/admin/settings/class-wc-pos-appearance.php:74
@@ -4978,7 +4978,7 @@ msgstr "Unpin"
 
 #: includes/wc-pos-defaults.php:577
 msgid "You can not pin/unpin product in offline mode."
-msgstr "Tú no se puede pin/unpin product en offline mode."
+msgstr "No puedes fijar ni desfijar productos sin conexión."
 
 #: includes/wc-pos-defaults.php:578
 msgid "Enter a valid price."
@@ -5060,7 +5060,7 @@ msgstr "Agotado"
 
 #: includes/wc-pos-defaults.php:594
 msgid "Please connect to internet for view this section!"
-msgstr "Por favor connect a internet para view este section!"
+msgstr "Conéctate a internet para ver esta sección."
 
 #: includes/wc-pos-defaults.php:595
 msgid "order status updated successfully."
@@ -5195,7 +5195,7 @@ msgstr "Extend Support"
 #. translators: %s: Minutes remaining.
 #: modules/wk-plugin-updates/helper/admin/class-wkwc-pcc-license-table.php:165
 msgid "Please wait for %s minutes to sync the extended support."
-msgstr "Por favor wait para %s minutes a sync el extended support."
+msgstr "Espera %s minutos para sincronizar el soporte ampliado."
 
 #: modules/wk-plugin-updates/helper/admin/class-wkwc-pcc-license-table.php:165
 msgid "Please click to Sync the extended support."
@@ -5990,7 +5990,7 @@ msgstr "Node Server"
 
 #: templates/admin/class-wc-pos-settings-template.php:67
 msgid "POS Mass Assign"
-msgstr "POS Mass Assign"
+msgstr "Asignación masiva del TPV"
 
 #: templates/admin/drawer/class-wc-pos-drawer-list.php:54
 #: templates/admin/drawer/class-wc-pos-drawer-list.php:55
@@ -6622,7 +6622,7 @@ msgstr "Disponible Stock"
 #: templates/admin/outlet/class-wc-pos-outlet-product-list.php:344
 #: templates/admin/settings/class-wc-pos-mass-assign-product-master-stock-settings.php:61
 msgid "Important"
-msgstr "Important"
+msgstr "Importante"
 
 #: templates/admin/outlet/class-wc-pos-outlet-product-list.php:344
 msgid ""
@@ -7698,19 +7698,19 @@ msgstr "POS Punto de venta Assign predeterminado quantity."
 #: templates/admin/settings/class-wc-pos-mass-assign-outlet-products.php:67
 #: templates/admin/settings/class-wc-pos-mass-assign-product-master-stock-settings.php:81
 msgid "Bulk Assign"
-msgstr "Asignación masiva"
+msgstr "Asignar en masa"
 
 #: templates/admin/settings/class-wc-pos-mass-assign-product-master-stock-settings.php:41
 msgid "Assign Bulk Mass"
-msgstr "Asignar en masa"
+msgstr "Asignar stock en masa"
 
 #: templates/admin/settings/class-wc-pos-mass-assign-product-master-stock-settings.php:50
 msgid "Enter Quantity "
-msgstr "Introduce Cantidad "
+msgstr "Introduce la cantidad "
 
 #: templates/admin/settings/class-wc-pos-mass-assign-product-master-stock-settings.php:52
 msgid "Enter the quantity that you want to assign to each outlet"
-msgstr "Introduce el quantity ese tú want a assign a each outlet"
+msgstr "Introduce la cantidad que quieres asignar a cada punto de venta"
 
 #: templates/admin/settings/class-wc-pos-mass-assign-product-master-stock-settings.php:64
 msgid ""
@@ -7719,12 +7719,7 @@ msgid ""
 "after assigning master stock value will be 100 of product P1, POS stock "
 "value of product P1 will be 50 for Outlet O1 and POS stock of product P1 "
 "will be 50 for Outlet O2. "
-msgstr ""
-"For example, If tú have 100 stock de product P1 en tu store, Tú have 2 "
-"outlet O1 y O2 y tú enter 50 product a assign stock en each outlet, después "
-"de assigning master stock value será be 100 de product P1, POS stock value "
-"de product P1 será be 50 para Punto de venta O1 y POS stock de product P1 "
-"será be 50 para Punto de venta O2. "
+msgstr "Por ejemplo: si tienes 100 unidades de stock del producto P1 en tu tienda, tienes 2 puntos de venta (O1 y O2) e introduces 50 para asignar stock a cada uno, después de asignar el stock maestro seguirá siendo 100 del producto P1, el stock del TPV del producto P1 será 50 para el punto de venta O1 y 50 para el punto de venta O2. "
 
 #: templates/admin/settings/class-wc-pos-node-server.php:42
 msgid "Node Port"
@@ -9651,7 +9646,7 @@ msgstr "Espera, cargando variaciones..."
 #: assets/dist/pluginPos/index.js:2 assets/dist/server/index.js:2
 #: assets/dist/editor/index.js:2 assets/dist/bulkAssignment/index.js:2
 msgid "You are offline. Cannot update GTIN/UPC."
-msgstr "Tú son offline. Cannot update GTIN/UPC."
+msgstr "Estás sin conexión. No se puede actualizar el GTIN/UPC."
 
 #: assets/dist/app/index.js:2 assets/dist/invoice/index.js:2
 #: assets/dist/setupWizard/index.js:2 assets/dist/adminForms/index.js:2
@@ -9725,7 +9720,7 @@ msgstr "Se ha alcanzado el stock máximo"
 #: assets/dist/pluginPos/index.js:2 assets/dist/server/index.js:2
 #: assets/dist/editor/index.js:2 assets/dist/bulkAssignment/index.js:2
 msgid "Offline ID "
-msgstr "Offline ID "
+msgstr "ID sin conexión "
 
 #: assets/dist/app/index.js:2 assets/dist/invoice/index.js:2
 #: assets/dist/setupWizard/index.js:2 assets/dist/adminForms/index.js:2
@@ -9755,7 +9750,7 @@ msgstr "A few de these products son currently out de stock."
 #: assets/dist/pluginPos/index.js:2 assets/dist/server/index.js:2
 #: assets/dist/editor/index.js:2 assets/dist/bulkAssignment/index.js:2
 msgid "Coupon requires internet connection"
-msgstr "Coupon requires internet connection"
+msgstr "El cupón requiere conexión a internet"
 
 #: assets/dist/app/index.js:2 assets/dist/invoice/index.js:2
 #: assets/dist/setupWizard/index.js:2 assets/dist/adminForms/index.js:2

@@ -3,7 +3,7 @@ Contributors: verifacwoo
 Tags: woocommerce, pos, verifactu, receipts, webkul
 Requires at least: 6.2
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,7 @@ habitual de impresión. El bridge no instala un catálogo paralelo de plantillas
 * Plantilla de ticket propia (opcional): logo, razón social, NIF, dirección, teléfono, email y pie salen de VFWoo, con número de factura, QR y datos del cliente en facturas. Logo al 50 % del ancho del ticket.
 * «Imprimir factura» en el detalle del pedido del POS (imprime el PDF de VFWoo sin salir del POS) y PDF adjunto al correo del botón «Send order email».
 * Pestaña «Productos» en el POS (módulo que se puede desactivar): lista con filtros y orden, interruptores «En la tienda» y «En la caja», acciones masivas, edición básica y alta rápida por código de barras, para cajeros con el modo de gestor de tienda; sustituye al acceso «Productos» de la cabecera.
+* Venta sin conexión con inventario centralizado: con un solo stock (el de WooCommerce) la caja cobra sin conexión con el stock que tiene guardado y el pedido se sincroniza después; con conexión se mantiene la comprobación de Webkul.
 * Accesos en la cabecera del POS a Productos, Informes, Análisis y la tienda online, con un cuadro explicativo al pasar el ratón; botón «POS-CAJA» en la barra de administrador; rol de gestor opcional para los cajeros nuevos.
 * Pantalla de login del POS configurable: titular, pie, ocultar la versión de Webkul y modo demo con usuario y contraseña rellenados.
 * VFWoo es opcional: el bridge detecta lo que hay instalado (el core de facturas y, con su módulo activado, Verifactu) y enciende cada función solo si existe lo que necesita; el resto sigue funcionando.
@@ -41,5 +42,5 @@ habitual de impresión. El bridge no instala un catálogo paralelo de plantillas
 == Notas ==
 
 Desde el POS se devuelve el pedido entero («Devolver»); la devolución de un solo producto se hace en WooCommerce. VFWoo genera la rectificativa.
-La venta sin conexión depende de Webkul: con inventario centralizado no cobra sin conexión.
+Venta sin conexión: con inventario centralizado el bridge deja cobrar sin conexión con el stock guardado en la caja, que debe estar ya abierta; si otra caja o la web venden lo mismo mientras tanto, se puede vender de más. Recargar la caja sin conexión no funciona (limitación de Webkul).
 Antes de usarlo en una tienda real, prueba el flujo en staging con el modo Sandbox de VFWoo.

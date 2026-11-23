@@ -19,7 +19,7 @@ El **POS Bridge** se instala junto al POS de Webkul (*Point of Sale for WooComme
 |---|---|
 | [1. Facturas y ticket](#1-facturas-y-ticket-según-lo-instalado) *(según lo instalado)* | Ticket fiscal · Plantilla de ticket propia · Cliente con NIF y país · Venta con límite · Cambiar factura · Estado del pedido, devolución y rectificativa · Imprimir factura y correo |
 | [2. Catálogo y marcas](#2-catálogo-y-marcas) | Marcas en la barra · Filtros del catálogo · Ventas por marca · Aviso de cambios en el catálogo |
-| [3. Uso diario](#3-uso-diario-en-la-caja-y-en-el-escritorio) | Accesos de la cabecera · Botón POS-CAJA · Cajeros gestores · Pantalla de acceso |
+| [3. Uso diario](#3-uso-diario-en-la-caja-y-en-el-escritorio) | Accesos de la cabecera · Botón POS-CAJA · Cajeros gestores · Pantalla de acceso · Venta sin conexión |
 | [4. Administración del plugin](#4-administración-del-plugin) | Avisos del admin · Pantalla de ajustes · Actualizaciones |
 | [5. Referencia](#5-referencia) | Con y sin el bridge · Webkul y bridge · Tras actualizar · Limitaciones · Rutas |
 
@@ -194,6 +194,15 @@ Interruptor (**desactivado por defecto**) que añade el rol **«Gestor de tienda
 
 Cambia la pantalla de login sin tocar Webkul: **titular propio**, **texto del pie** en lugar de «Un producto de Webkul», opción de **ocultar la línea de versión** y **modo demo** que rellena usuario y contraseña (visibles para cualquiera: solo para cajas de demostración). Con todo vacío, no cambia nada.
 
+### 3.5 Venta sin conexión con inventario centralizado
+
+Con **un solo stock** (el de WooCommerce, «Centralized Stock Inventory» en POS › Ajustes › General), Webkul bloqueaba el cobro sin conexión porque valida el carrito contra el servidor antes de cobrar. El bridge **mantiene esa comprobación con conexión y la salta sin ella**: la caja vende con el stock que ya tiene guardado y el pedido se sincroniza después con «Sincronizar pedidos sin conexión»; WooCommerce resta el stock al llegar. No toca Webkul (D-036).
+
+- **Condición:** la caja ya abierta cuando se cae internet. Recargarla sin conexión falla: el service worker de Webkul 7.4.1 no cubre su ruta.
+- **Riesgo:** si otra caja o la web venden lo mismo mientras tanto, se puede vender más de lo que queda.
+- **Con Master Stock** (stock repartido por punto de venta) el bridge no cambia nada: Webkul ya permite vender sin conexión.
+- En local, probar siempre por `https://` (por `http://` el navegador no permite service workers).
+
 ---
 
 ## 4. Administración del plugin
@@ -282,6 +291,12 @@ Todo lo de este documento lo añade el bridge: ni Webkul ni el plugin de factura
 - Sin Verifactu no hay límite de venta ni NIF obligatorio.
 - **Factura sin Verifactu:** conserva el número del ticket y cambia los datos del cliente del pedido, así que el PDF original (a nombre del mostrador) deja de existir tal cual; solo queda la nota del pedido con los datos anteriores. Si la factura debe poder referirse al ticket, hay que confirmarlo con la gestoría.
 - El límite del POS (3.000 €) es fijo y no sigue los ajustes del plugin de facturas.
+
+**Venta sin conexión (ver 3.5)**
+
+- Sin conexión siguen bloqueados por Webkul: crear clientes, aplicar cupones, fijar productos y recargar la caja.
+- Tras actualizar Webkul hay que repetir la prueba: el bridge depende de la bandera `apif_script.wk_pos_validate_product_at_pay`; si la renombran vuelve el bloqueo (falla seguro).
+- La traducción al castellano de Webkul (`_dev/traducciones/`) hay que copiarla a mano a `wp-content/languages/plugins/` en cada sitio.
 
 **Estados, devoluciones y cancelados**
 

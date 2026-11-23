@@ -198,6 +198,14 @@ Decisión del usuario (2026-11-19): se deja en el roadmap y se olvida por el mom
 - WooCommerce trae exportar/importar CSV (con «actualizar existentes»), pero sin marcas, sin vista previa y creando productos si no coinciden.
 - Opción propia dentro de «Productos»: descargar CSV con los filtros de la lista y subir CSV con **vista previa**, solo **actualizando lo que ya existe** (por ID o SKU), sin crear productos, categorías ni marcas, con la misma validación y permisos que el editor. Sin fotos (a mano en el panel, o importador de WooCommerce con URLs si son muchas).
 
+## Venta sin conexión (D-036)
+
+- [x] Con inventario centralizado, saltar la validación de Webkul solo sin red (`pos-bridge.js`; publicada en la 2.1.0).
+- [x] Venta real sin conexión y su sincronización, probadas en local por el usuario (2026-11-23).
+- [ ] Repetir la prueba tras cada actualización de Webkul (la bandera `wk_pos_validate_product_at_pay` puede cambiar).
+- [ ] Opcional, proyecto grande: que la caja arranque sin red al recargar (service worker propio con alcance en `/pos` que guarde la página). El de Webkul 7.4.1 no lo cubre.
+- [ ] Probar en una copia el modo Master Stock (stock por punto de venta) solo si algún cliente lo necesita.
+
 ## Restricciones
 
 - No crear pedidos ni emitir facturas durante las pruebas.

@@ -1425,6 +1425,28 @@
 		return element.createElement( element.Fragment, null, output || null, items );
 	}
 
+	// Centralized inventory (D-036): Webkul refuses to sell offline because it validates the cart against the server
+	// before paying. We keep that check online and skip it offline, so the till sells from its local stock copy and
+	// the order syncs later. Not centralized, or Webkul renamed the flag: nothing to do.
+	function allowOfflineSales() {
+		var script = window.apif_script;
+		if ( ! script || ! script.wk_pos_validate_product_at_pay ) {
+			return;
+		}
+		try {
+			Object.defineProperty( script, 'wk_pos_validate_product_at_pay', {
+				configurable: true,
+				get: function () {
+					return window.navigator.onLine ? 1 : 0;
+				}
+			} );
+		} catch ( error ) {
+			// Webkul keeps its own behaviour.
+		}
+	}
+
+	allowOfflineSales();
+
 	hooks.addFilter( 'wkwcpos_modify_load_category_products', 'vfwoo-webkul-pos-bridge', filterBrandProducts );
 
 	hooks.addFilter( 'wkwc_add_custom_field_in_form_after_email', 'vfwoo-webkul-pos-bridge', renderNifField );
